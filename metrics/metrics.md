@@ -30,6 +30,8 @@ Connectivity is most commonly measured using a connectivity matrix.
 - From the core can I describe how to construct the other metrics?
 - Create a table showing the % that used what metrics, perhaps the 10 most popular?
 
+This paper suggests going with the most common metrics used for consistency. Graph theory provides some interesting metrics, yet it probably still isn't used enough (though we have nothing against it)
+
 ### Most common metrics
 
 + Dispersal kernel, 71.2%
@@ -45,17 +47,18 @@ Connectivity is most commonly measured using a connectivity matrix.
     + Source-sink indicies, 32.0%
 + Graph theory, 10.2%
 
-
 ###Common metrics Table
 This the new
 Table 1 The five metrics that are required to make comparative analysis on studies using biophysical connectivity models
-Connectivity metrics
+
 Dispersal metrics
-Local Retention
-Spread
-Self-recruitmentTransport success
-Distance travelledK
- 
++ Spread
++ Distance travelled
+
+Connectivity metrics
++ Self-recruitment
++ Local Retention
++ Transport success
 
 ##Reproducibility
 Biophysical models are complex systems, often requiring parameterisation of greater than 50 variables into the study.
@@ -81,6 +84,7 @@ The main point is that we need to start publishing quantitative metrics of both 
 Our chosen metrics are suggestions only and, realistically, we need a community driven approach-such as a workshop-to ensure we come up with agreed common measures. We hope this paper can begin the discussion.
 
 ##Acknowledgements
+[Who do we acknowledge]
 
 ##References
 
