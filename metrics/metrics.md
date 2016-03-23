@@ -12,12 +12,15 @@ Last review was in 8 years ago {Miller:2007iu}, in a fast changing field.
 Initial aim was to perform a meta-analysis and see how variables of connectivity, e.g. self-recruitment, varied across these studies using biophysical models.
 
 ##Research design
-We conducted a search for marine biology papers in the last 6 years (2010-2015) that used a biophysical model in their methods. The start date of 2010 was chosen arbitrarily, to limit the search to a manageable amount of papers-this was not an exhaustive search. The online search engines, ISI Web of Knowledge and SCOPUS, were queried with the keywords connectivity, model* and marine. The search returned 59 papers that fit within the scope of our study, consisting of 248 authors and published in 31 unique journals. The full list of references used is provided in the supplementary material [provide reference]. The topics of these journals were varied, with themes such as ecology, oceanography and genetics.
+We conducted a search for marine biology papers, looking at connectivity, in the last 6 year period (2010-2015) that used a biophysical model in their methods. The start date of 2010 was chosen arbitrarily, to limit the search to a manageable amount of papers-note this was not an exhaustive search. The online search engines, ISI Web of Knowledge and SCOPUS, were queried with the keywords connectivity, model* and marine. The search returned 59 papers that fit within the scope of our study, consisting of 248 authors and published in 31 unique journals. The full list of references is available at [provide reference to .csv at github perhaps or in supplementary material?]. The topics of these journals were varied, with themes such as ecology, oceanography and genetics.
+
 *Do I want to provide a summary of impact factors? Show how they are connectivity models are being published in high impact journals, i.e. They are taken seriously*
 
-##Common Metrics
-We found excess of 30 different metrics of connectivity & dispersal amongst the studies, creating the issue of how to compare across studies. These various metrics consisted of newly created metrics to different variations of the same measure, e.g. mean or median distance travelled.
-Another point of confusion in comparing studies is that people have different definitions of both self-recruitment and local-retention, including using different terminology which appear to be interchangeable between papers. {Burgess:2014cf}  stated the definitions clearly and succinctly, local retention is the fraction of offspring produced by a population that also recruits into that population; and self-recruitment is the fraction of recruitment to a site comprised of individuals born in that site.
+##Connectivity Metrics
+In 59 papers, we found over 30 different parameters used to describe the resulting patterns of connectivity & dispersal. This became a problem when we wanted to compare our model against other similar studies, a useful tool for evaluating the robustness & accuracy of your study. In a field where there are so many metrics, which ones should be reported? The two biggest issues were 1) that people created their own metric, which no one else used and 2) that people used one variations of a parameters, e.g. mean, median or upper quartile. The most common metrics ([Table 1]) used were
+
+ These various metrics consisted of newly created metrics to different variations of the same measure, e.g. mean or median distance travelled.
+Another point of confusion in comparing studies is that there is confusion of the definitions of self-recruitment and local-retention within the papers in the dataset. {Burgess:2014cf} stated the definitions clearly and succinctly, local retention is the fraction of offspring produced by a population that also recruits into that population; and self-recruitment is the fraction of recruitment to a site comprised of individuals born in that site.
 Idea is to propose a suite of metrics that should be published in all studies.
 Connectivity metrics.
 Transport Success
@@ -32,20 +35,24 @@ Connectivity is most commonly measured using a connectivity matrix.
 
 This paper suggests going with the most common metrics used for consistency. Graph theory provides some interesting metrics, yet it probably still isn't used enough (though we have nothing against it)
 
-### Most common metrics
+ 
+[*Table 1:* Those most common metrics published in the connectivity studies and the parameters reported per metric used.][Table 1]
+| Encompassing metric |        Parameter        |  Reported |
+| ------------------- | ----------------------- | --------- |
+| Dispersal kernel    |                         | **71.2%** |
+|                     | Mean distance           | 57.1%     |
+|                     | Maximum distance        | 33.3%     |
+|                     | Median distance         | 11.9%     |
+|                     | Upper quartile distance | 11.9%     |
+|                     | Minimum distance        | 4.8%      |
+| Connectivity matrix |                         | **84.6%** |
+|                     | Self-recruitment        | 70.0%     |
+|                     | Local retention         | 62.0%     |
+|                     | Transport success       | 42.0%     |
+|                     | Source-sink indices     | 32.0%     |
+| Graph theory        |                         | **10.2%** |
 
-+ Dispersal kernel, 71.2%
-    + Mean distance, 57.1%
-    + Max distance, 33.3%
-    + Median distance, 11.9%
-    + Upper quartile distance, 11.9%
-    + Minimum distance, 4.8%
-+ Connectivity matrix, 84.6%
-    + Self-recruitment, 70.0%
-    + Local retention, 62.0%
-    + Transport success, 42.0%
-    + Source-sink indicies, 32.0%
-+ Graph theory, 10.2%
+
 
 ###Common metrics Table
 This the new
@@ -63,7 +70,7 @@ Connectivity metrics
 ##Reproducibility
 Biophysical models are complex systems, often requiring parameterisation of greater than 50 variables into the study.
 Reproducibility has been a key theme in science in recent times and while it is hard for repeatable science in empirical ecology, it is fundamentally achievable in ecological modelling. (reference the psychology paper). Reproducibility allows us to exert confidence in our results and therefore gives more confidence to the reader in our drawn conclusions.
-The costs for open science and reproducibility of biophysical connectivity studies are neligible, with many online sources available to us (e.g. GitHub for source code, Dryad for digital repositories). More journals are also providing mechanisms for online storage of data.
+The costs for open science and reproducibility of biophysical connectivity studies are negligible, with many online sources available to us (e.g. GitHub for source code, Dryad for digital repositories). More journals are also providing mechanisms for online storage of data.
 Reproducibility is the end goal for science publications
 How different inputs can effect the output.
 - What does this mean again?
@@ -98,7 +105,7 @@ Provide a link to the list of papers used (or should I just provide a link to a 
 + Spatial scale
 + Dates run
 + Timestep used
-+ Diffusion values
++ Diffusion value
 
 
 
