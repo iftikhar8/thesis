@@ -35,6 +35,7 @@ Connectivity is most commonly measured using a connectivity matrix.
 
 This paper suggests going with the most common metrics used for consistency. Graph theory provides some interesting metrics, yet it probably still isn't used enough (though we have nothing against it)
 
+<<<<<<< HEAD
  
 [*Table 1:* Those most common metrics published in the connectivity studies and the parameters reported per metric used.][T1]
 |        Metric       |        Parameter        |  Reported |
@@ -69,8 +70,22 @@ Dispersal kernel, Spread Distance,
  travelled
 
 Connectivity metrics, Self-recruitment
-+ Local Retention
-+ Transport success
+=======
+### Most common metrics
+
++ Dispersal kernel, 71.2%
+    + Mean distance, 57.1%
+    + Max distance, 33.3%
+    + Median distance, 11.9%
+    + Upper quartile distance, 11.9%
+    + Minimum distance, 4.8%
++ Connectivity matrix, 84.6%
+    + Self-recruitment, 70.0%
+    + Local retention, 62.0%
+    + Transport success, 42.0%
+    + Source-sink indicies, 32.0%
++ Graph theory, 10.2%
+
 
 ##Reproducibility
 Biophysical models are complex systems, often requiring parameterisation of greater than 50 variables into the study.
@@ -78,8 +93,21 @@ Reproducibility has been a key theme in science in recent times and while it is 
 The costs for open science and reproducibility of biophysical connectivity studies are negligible, with many online sources available to us (e.g. GitHub for source code, Dryad for digital repositories). More journals are also providing mechanisms for online storage of data.
 Reproducibility is the end goal for science publications
 How different inputs can effect the output.
-- What does this mean again?
-- 
+
+
+### Why reproducible research
+Reproducibility, a buzzword often synonymous with open science, is an important facet of assessing the scientific merit of a published paper. 
+
+### Barriers and cost
+While reproducibility can be difficult to achieve in large empirical studies due to experimental variance {OpenScienceCollaboration:2015cn}, the same challenges do not exist in computational modelling {Peng:2011et}. Ideally the  model configurations (both physical and biological), all source code and the generated output data should be made available along with the publication. 
+
+The cost of reproducible research is trivial, many free online repositories exist for both source code and generated data; GitHub (http://github.com) and Dryad (http://datadryad.org) are two popular examples. Several journals are also making reproducibility a requirement and providing mechanisms for online storage of data (reference journal).
+
+### Reproducibility in connectivity studies
+I'm not going to go into what is required for reproducible research, others had done summarised it better than I ever could {Sandve:2013gh}. Instead I want researchers using biophysical models for connectivity studies to embrace reproducible research and to think about how they could do more in the context of their own publications.
+
+Biophysical models are inherently complex, combining both biological and physical models has an additive effect on the number of parameters as there is little overlap.  However, it is impossible to reproduce a biophysical connectivity study without all of these parameters.
+
 Physical models parameters required. [List parameters in a table]
 Biological model parameters required. [List parameters in a table]
 
@@ -104,14 +132,14 @@ Our chosen metrics are suggestions only and, realistically, we need a community 
 Provide a link to the list of papers used (or should I just provide a link to a github repository?)
 
 ###Reproducibility
+Do I want to explain the type of values? 
 
 ####Physical parameters
 + Oceanographic models used (including sub-models, bathymetry & tidal models)
 + Spatial scale
 + Dates run
 + Timestep used
-+ Diffusion value
-
++ Diffusion method / values
 
 
 ####Biological parameters
