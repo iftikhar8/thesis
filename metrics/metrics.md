@@ -12,15 +12,15 @@ Last review was in 8 years ago {Miller:2007iu}, in a fast changing field.
 Initial aim was to perform a meta-analysis and see how variables of connectivity, e.g. self-recruitment, varied across these studies using biophysical models.
 
 ##Research design
-We conducted a search for marine biology papers, looking at connectivity, in the last 6 year period (2010-2015) that used a biophysical model in their methods. The start date of 2010 was chosen arbitrarily, to limit the search to a manageable amount of papers-note this was not an exhaustive search. The online search engines, ISI Web of Knowledge and SCOPUS, were queried with the keywords connectivity, model* and marine. The search returned 59 papers that fit within the scope of our study, consisting of 248 authors and published in 31 unique journals. The full list of references is available at [provide reference to .csv at github perhaps or in supplementary material?]. The topics of these journals were varied, with themes such as ecology, oceanography and genetics.
+We conducted a search for marine biology papers, looking at connectivity, in the last 6 year period (2010-2015) that used a biophysical model in their methods. The start date of 2010 was chosen arbitrarily, to limit the search to a manageable amount of papers-note this was not an exhaustive search. The online search engines, ISI Web of Knowledge and SCOPUS, were queried with the keywords connectivity, model* and marine. The search returned 59 papers that fit within the scope of our study, consisting of 248 authors and published in 31 unique journals. The full list of references is available at [provide reference to .csv at github perhaps or in supplementary material?]. The papers were published in journals with a diverse range of themes (e.g. ecology, oceanography, and genetics).
 
 *Do I want to provide a summary of impact factors? Show how they are connectivity models are being published in high impact journals, i.e. They are taken seriously*
 
-##Connectivity Metrics
-In 59 papers, we found over 30 different parameters used to describe the resulting patterns of connectivity & dispersal. This became a problem when we wanted to compare our model against other similar studies, a useful tool for evaluating the robustness & accuracy of your study. In a field where there are so many metrics, which ones should be reported? The two biggest issues were 1) that people created their own metric, which no one else used and 2) that people used one variations of a parameters, e.g. mean, median or upper quartile. The most common metrics ([Table 1]) used were
+##Connectivity metrics & their parameters
+In 59 papers, we found over 30 different parameters used to describe the resulting patterns of connectivity & dispersal. This became a problem when we wanted to compare our model against other similar studies, a useful tool for evaluating the robustness & accuracy of your study. In a field where there are so many metrics, which ones should be reported? The two biggest issues were that people created their own unique metric, and that people used reported a single parameter of a metric, e.g. mean, median, or upper quartile. The most common parameters used related to distance the particles travelled and measures of self-recruitment, local-retention and settlement success ([Table 1][T1]). Although this isn't as clear cut as it may seem, as there is confusion about the definitions of self-recruitment and local retention-often used interchangeably-amongst the studies. To clarify, {Burgess:2014cf} stated the definitions clearly and succinctly, local retention is the fraction of offspring produced by a population that also recruits into that population; and self-recruitment is the fraction of recruitment to a site comprised of individuals born in that site.
 
- These various metrics consisted of newly created metrics to different variations of the same measure, e.g. mean or median distance travelled.
-Another point of confusion in comparing studies is that there is confusion of the definitions of self-recruitment and local-retention within the papers in the dataset. {Burgess:2014cf} stated the definitions clearly and succinctly, local retention is the fraction of offspring produced by a population that also recruits into that population; and self-recruitment is the fraction of recruitment to a site comprised of individuals born in that site.
+### Heat maps
+
 Idea is to propose a suite of metrics that should be published in all studies.
 Connectivity metrics.
 Transport Success
@@ -36,8 +36,8 @@ Connectivity is most commonly measured using a connectivity matrix.
 This paper suggests going with the most common metrics used for consistency. Graph theory provides some interesting metrics, yet it probably still isn't used enough (though we have nothing against it)
 
  
-[*Table 1:* Those most common metrics published in the connectivity studies and the parameters reported per metric used.][Table 1]
-| Encompassing metric |        Parameter        |  Reported |
+[*Table 1:* Those most common metrics published in the connectivity studies and the parameters reported per metric used.][T1]
+|        Metric       |        Parameter        |  Reported |
 | ------------------- | ----------------------- | --------- |
 | Dispersal kernel    |                         | **71.2%** |
 |                     | Mean distance           | 57.1%     |
@@ -48,22 +48,27 @@ This paper suggests going with the most common metrics used for consistency. Gra
 | Connectivity matrix |                         | **84.6%** |
 |                     | Self-recruitment        | 70.0%     |
 |                     | Local retention         | 62.0%     |
-|                     | Transport success       | 42.0%     |
+|                     | Settlement success      | 42.0%     |
 |                     | Source-sink indices     | 32.0%     |
 | Graph theory        |                         | **10.2%** |
 
 
 
-###Common metrics Table
-This the new
-Table 1 The five metrics that are required to make comparative analysis on studies using biophysical connectivity models
 
-Dispersal metrics
-+ Spread
-+ Distance travelled
+[*Table 2:* The five parameter metrics that are required to make comparative analysis on studies using biophysical connectivity models][T2]
+|        Metric       |     Parameter      |
+| ------------------- | ------------------ |
+| Dispersal kernel    | Spread             |
+|                     | Distance           |
+| Connectivity matrix | Self-recruitment   |
+|                     | Local retention    |
+|                     | Settlement success |
 
-Connectivity metrics
-+ Self-recruitment
+
+Dispersal kernel, Spread Distance,
+ travelled
+
+Connectivity metrics, Self-recruitment
 + Local Retention
 + Transport success
 
