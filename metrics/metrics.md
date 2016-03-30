@@ -68,24 +68,17 @@ Reproducibility, a buzzword often synonymous with open science, is an important 
 ### Barriers and cost
 While reproducibility can be difficult to achieve in large empirical studies due to experimental variance {OpenScienceCollaboration:2015cn}, the same challenges do not exist in computational modelling {Peng:2011et}. Ideally the  model configurations (both physical and biological), all source code and the generated output data should be made available along with the publication. 
 
-The cost of reproducible research is trivial, many free online repositories exist for both source code and generated data; GitHub (http://github.com) and Dryad (http://datadryad.org) are two popular examples.
+The cost of reproducible research is trivial, many free online repositories exist for both source code and generated data; GitHub (http://github.com) and Dryad (http://datadryad.org) are two popular examples. Several journals are also making reproducibility a requirement and providing mechanisms for online storage of data (reference journal).
 
-### Reproducibility in connectivity
+### Reproducibility in connectivity studies
 I'm not going to go into what is required for reproducible research, others had done summarised it better than I ever could {Sandve:2013gh}. Instead I want researchers using biophysical models for connectivity studies to embrace reproducible research and to think about how they could do more in the context of their own publications.
 
-Biophysical models are inherently complex, combining both biological and physical models has an additive effect on the number of parameters as there is little overlap.  
-
-, often requiring parametrisation of greater than 50 variables into the study.
+Biophysical models are inherently complex, combining both biological and physical models has an additive effect on the number of parameters as there is little overlap.  However, it is impossible to reproduce a biophysical connectivity study without all of these parameters.
 
 
-The costs for open science and reproducibility of biophysical connectivity studies are negligible, with many online sources available to us (e.g. GitHub for source code, Dryad for digital repositories). More journals are also providing mechanisms for online storage of data.
-
-
-How different inputs can effect the output.
-- What does this mean again?
-- 
 Physical models parameters required. [List parameters in a table]
 Biological model parameters required. [List parameters in a table]
+
 
 (Mini-conclusion) Lets not re-invent the wheel.
 
