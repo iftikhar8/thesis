@@ -53,7 +53,7 @@ Table 1 The five metrics that are required to make comparative analysis on studi
 
 Dispersal metrics
 + Spread
-+ Distance travelled
++ Distance traveled
 
 Connectivity metrics
 + Self-recruitment
@@ -61,10 +61,26 @@ Connectivity metrics
 + Transport success
 
 ##Reproducibility
-Biophysical models are complex systems, often requiring parameterisation of greater than 50 variables into the study.
-Reproducibility has been a key theme in science in recent times and while it is hard for repeatable science in empirical ecology, it is fundamentally achievable in ecological modelling. (reference the psychology paper). Reproducibility allows us to exert confidence in our results and therefore gives more confidence to the reader in our drawn conclusions.
-The costs for open science and reproducibility of biophysical connectivity studies are neligible, with many online sources available to us (e.g. GitHub for source code, Dryad for digital repositories). More journals are also providing mechanisms for online storage of data.
-Reproducibility is the end goal for science publications
+
+### Why reproducible research
+Reproducibility, a buzzword often synonymous with open science, is an important facet of assessing the scientific merit of a published paper. 
+
+### Barriers and cost
+While reproducibility can be difficult to achieve in large empirical studies due to experimental variance {OpenScienceCollaboration:2015cn}, the same challenges do not exist in computational modelling {Peng:2011et}. Ideally the  model configurations (both physical and biological), all source code and the generated output data should be made available along with the publication. 
+
+The cost of reproducible research is trivial, many free online repositories exist for both source code and generated data; GitHub (http://github.com) and Dryad (http://datadryad.org) are two popular examples.
+
+### Reproducibility in connectivity
+I'm not going to go into what is required for reproducible research, others had done summarised it better than I ever could {Sandve:2013gh}. Instead I want researchers using biophysical models for connectivity studies to embrace reproducible research and to think about how they could do more in the context of their own publications.
+
+Biophysical models are inherently complex, combining both biological and physical models has an additive effect on the number of parameters as there is little overlap.  
+
+, often requiring parametrisation of greater than 50 variables into the study.
+
+
+The costs for open science and reproducibility of biophysical connectivity studies are negligible, with many online sources available to us (e.g. GitHub for source code, Dryad for digital repositories). More journals are also providing mechanisms for online storage of data.
+
+
 How different inputs can effect the output.
 - What does this mean again?
 - 
@@ -92,15 +108,14 @@ Our chosen metrics are suggestions only and, realistically, we need a community 
 Provide a link to the list of papers used (or should I just provide a link to a github repository?)
 
 ###Reproducibility
+Do I want to explain the type of values? 
 
 ####Physical parameters
 + Oceanographic models used (including sub-models, bathymetry & tidal models)
 + Spatial scale
 + Dates run
 + Timestep used
-+ Diffusion values
-
-
++ Diffusion method / values
 
 ####Biological parameters
 + Release times 
