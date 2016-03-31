@@ -81,7 +81,7 @@ Biophysical models are inherently complex, combining both biological and physica
 [*Table 3:* List of parameters that should be published with every connectivity study that uses a biophysical model][T3]
 |   Model    |           Name          |                                                            Description                                                             |
 |------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Particle   | Particle model          | Link to the source code of the particle model used and specifications with information on type, movement and integration methods | 
+| Particle   | Particle model          | Link to the source code of the particle model used and specifications with information on type, movement and integration methods e.g. Individual based model, with Lagrangian model and it uses Runge-Kutta fourth order method for integration  | 
 | Physical   | Oceanographic model     | Link to the specifications of the model, including all sub-models, bathymetry & tidal models used                                  |
 |            | Spatial scale           | The area the particles can move                                                                                                    |
 |            | Time step               | The time step used to move the particles using the oceanographic model (preferably in seconds)                                     |
