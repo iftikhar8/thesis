@@ -34,8 +34,6 @@ Connectivity is most commonly measured using a connectivity matrix.
 - Create a table showing the % that used what metrics, perhaps the 10 most popular?
 
 This paper suggests going with the most common metrics used for consistency. Graph theory provides some interesting metrics, yet it probably still isn't used enough (though we have nothing against it)
-
-<<<<<<< HEAD
  
 [*Table 1:* Those most common metrics published in the connectivity studies and the parameters reported per metric used.][T1]
 |        Metric       |        Parameter        |  Reported |
@@ -53,9 +51,6 @@ This paper suggests going with the most common metrics used for consistency. Gra
 |                     | Source-sink indices     | 32.0%     |
 | Graph theory        |                         | **10.2%** |
 
-
-
-
 [*Table 2:* The five parameter metrics that are required to make comparative analysis on studies using biophysical connectivity models][T2]
 |        Metric       |     Parameter      |
 | ------------------- | ------------------ |
@@ -66,37 +61,12 @@ This paper suggests going with the most common metrics used for consistency. Gra
 |                     | Settlement success |
 
 
-Dispersal kernel, Spread Distance,
- travelled
-
-Connectivity metrics, Self-recruitment
-=======
-### Most common metrics
-
-+ Dispersal kernel, 71.2%
-    + Mean distance, 57.1%
-    + Max distance, 33.3%
-    + Median distance, 11.9%
-    + Upper quartile distance, 11.9%
-    + Minimum distance, 4.8%
-+ Connectivity matrix, 84.6%
-    + Self-recruitment, 70.0%
-    + Local retention, 62.0%
-    + Transport success, 42.0%
-    + Source-sink indicies, 32.0%
-+ Graph theory, 10.2%
-
-
 ##Reproducibility
-Biophysical models are complex systems, often requiring parameterisation of greater than 50 variables into the study.
-Reproducibility has been a key theme in science in recent times and while it is hard for repeatable science in empirical ecology, it is fundamentally achievable in ecological modelling. (reference the psychology paper). Reproducibility allows us to exert confidence in our results and therefore gives more confidence to the reader in our drawn conclusions.
-The costs for open science and reproducibility of biophysical connectivity studies are negligible, with many online sources available to us (e.g. GitHub for source code, Dryad for digital repositories). More journals are also providing mechanisms for online storage of data.
-Reproducibility is the end goal for science publications
-How different inputs can effect the output.
-
 
 ### Why reproducible research
-Reproducibility, a buzzword often synonymous with open science, is an important facet of assessing the scientific merit of a published paper. 
+Reproducibility, a buzzword is often synonymous with open science, is an important facet of assessing the scientific merit of a published paper. 
+
+It would also provide an opportunity for marine scientists to become leaders in ecological reproducible research. 
 
 ### Barriers and cost
 While reproducibility can be difficult to achieve in large empirical studies due to experimental variance {OpenScienceCollaboration:2015cn}, the same challenges do not exist in computational modelling {Peng:2011et}. Ideally the  model configurations (both physical and biological), all source code and the generated output data should be made available along with the publication. 
@@ -106,10 +76,27 @@ The cost of reproducible research is trivial, many free online repositories exis
 ### Reproducibility in connectivity studies
 I'm not going to go into what is required for reproducible research, others had done summarised it better than I ever could {Sandve:2013gh}. Instead I want researchers using biophysical models for connectivity studies to embrace reproducible research and to think about how they could do more in the context of their own publications.
 
-Biophysical models are inherently complex, combining both biological and physical models has an additive effect on the number of parameters as there is little overlap.  However, it is impossible to reproduce a biophysical connectivity study without all of these parameters.
+Biophysical models are inherently complex, combining both biological and physical models has an additive effect on the number of parameters as there is little overlap.  It is impossible to reproduce a biophysical connectivity study without all of these parameters, hence it is so important that these details are published. 
 
-Physical models parameters required. [List parameters in a table]
-Biological model parameters required. [List parameters in a table]
+[*Table 3:* List of parameters that should be published with every connectivity study that uses a biophysical model][T3]
+|   Model    |           Name          |                                                            Description                                                             |
+|------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Particle   | Particle model          | Link to the source code of the particle model used and specifications with information on type, movement and integration methods | 
+| Physical   | Oceanographic model     | Link to the specifications of the model, including all sub-models, bathymetry & tidal models used                                  |
+|            | Spatial scale           | The area the particles can move                                                                                                    |
+|            | Time step               | The time step used to move the particles using the oceanographic model (preferably in seconds)                                     |
+|            | Diffusion / turbulence  | Diffusion strategy (random walk, horizontal and/or vertical) and the turbulence values used                                        |
+| Biological | Release times           | Release times of the particles                                                                                                     |
+|            | Release strategy        | How the particles were released (e.g. daily, lunar, temperature cues, depths)                                                      |
+|            | Release sites           | The GPS locations and sizes of the release sites                                                                                   |
+|            | Settlement sites        | The GPS locations and sizes of the settlement sites (if different from the release sites)                                          |
+|            | Particles released      | The number of particles released (both per release and in total)                                                                   |
+|            | Pelagic larval duration | The pelagic larval duration of the taxa and whether you used a variable or fixed duration                                          |
+|            | Pre-competency period   | The pre-competency period given before settlement could occur                                                                      |
+|            | Movement strategies     | What movement strategies were the particles given and the values associated with these strategies (e.g. passive, diel, horizontal) |
+|            | Mortality strategies    | The mortality strategy used (if any)                                                                                               |
+|            | Settlement strategies   | How did the particles choose a settlement site (e.g. passively, sites were buffered 10 kms, sensory cues)                          |
+
 
 (Mini-conclusion) Lets not re-invent the wheel.
 
