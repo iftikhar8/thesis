@@ -2,11 +2,12 @@
 Steven Hawes^1,2^ and Will Figueira^1,2^  
 1 Sydney Institute of Marine Science,  (Mosman, NSW,  (Australia); 2 University of Sydney, School of Life & Environmental Sciences (Sydney, NSW,  (Australia)
 
+  
 ##Abstract 
-
+*LEAVE THIS TO LAST*
 
 ##Introduction
-In recent times, biophysical models have become a popular tool in advancing our understanding on the connectivity patterns of various marine species. (Ref SEVERAL PAPERS). Biophysical models, as the name suggests, produce potential patterns of connectivity using a physical model coupled with a biological model. These models are particularly relevant for connectivity in marine systems, as dispersal during a pelagic larval stage is a key driver of connectivity. We couple the two models together, because while oceanic processes are the presiding driver of dispersal, biological processes also have highly influential roles ({Cowen:2009fm}). The usefulness of these models is their ability to quickly and cheaply give us connectivity patterns over temporal and spatial scales; and also due to the high costs associated with empirical research techniques.
+In recent times, biophysical models have become a popular tool in advancing our understanding on the connectivity patterns of various marine species {SanvicenteAnorve:2014bl}{Koeck:2015bf}{Andrello:2014ge}. Biophysical models, as the name suggests, produce potential patterns of connectivity using a physical model coupled with a biological model. These models are particularly relevant for connectivity in marine systems, as dispersal during a pelagic larval stage is a key driver of connectivity. We couple the two models together, because while oceanic processes are the presiding driver of dispersal, biological processes also have highly influential roles {Cowen:2009fm}. The usefulness of these models is their ability to quickly and cheaply give us connectivity patterns over temporal and spatial scales; and also due to the high costs associated with empirical research techniques.
 
 Ecological modellers inherently have underlying concerns about the validity of their models - how realistically have they modelled the system processes? This is a central, if not the primary, concern in all ecological modelling studies. Validation through empirical studies is the gold standard, yet constraints of cost, time and resources generally do not make this possible. Another practical and cheaper and approach is to use other published studies, both empirical and modelling, for validation.
 
@@ -23,9 +24,9 @@ Two prominent problems we came across were that researchers created their own un
 
 The de-facto standard for publishing connectivity matrices and dispersal kernels is to use a heat map. While heat maps are a powerful visualisation tool for both these metrics, it restricts what information we can extract from the graph, which bins the values to a colour legend, resulting in information loss. Comparative quantitative metrics are essential for analysis between studies, needed for model validation.
 
-This begs the question, in a field where there are so many measures, which ones should be consistently reported? The most common parameters found in the dataset related to distance the particles travelled and measures of self-recruitment, local-retention and settlement success (@tbl:common_metrics). Although this isn't as clear cut as it may seem, as there is confusion about the definitions of self-recruitment and local retention. These terms were often used interchangeably. {Burgess:2014cf} stated the definitions clearly and succinctly, i.e. local retention is the fraction of offspring produced by a population that also recruits into that population; and self-recruitment is the fraction of recruitment to a site comprised of individuals born in that site.
+In a field where there are so many measures, which ones should be consistently reported? The most common parameters found in the dataset related to distance the particles travelled and measures of self-recruitment, local-retention and settlement success (@tbl:common). Although this isn't as clear cut as it may seem, as there is confusion about the definitions of self-recruitment and local retention. These terms were often used interchangeably. {Burgess:2014cf} stated the definitions clearly and succinctly, i.e. local retention is the fraction of offspring produced by a population that also recruits into that population; and self-recruitment is the fraction of recruitment to a site comprised of individuals born in that site.
  
-Table : Those most common metrics published in the connectivity studies and the parameters reported per metric used. {#tbl:common_metrics}
+: Those most common metrics published in the connectivity studies and the parameters reported per metric used. {#tbl:common} 
 
 |        Metric       |        Measure parameters        |  Reported(%) |
 | ------------------- | ----------------------- | :-------: |
@@ -43,11 +44,11 @@ Table : Those most common metrics published in the connectivity studies and the 
 | Graph theory        |                         | **10.2** |  
   
 
-Our suggested approach is to utilise the two most common metrics used, these provide useful measures and also they should be readily accepted amongst the research community (@tbl:params). The first metric, a connectivity matrix, is the most important for connectivity studies. The measures of self-recruitment, local retention and settlement success can all be calculated easily from the underlying matrix data. The other important metric is a dispersal kernel. The dispersal kernel gives up valuable data on the spread of the particles and the distance they travel (including at what density). 
+Our suggested approach is to utilise the two most common metrics used, these provide useful measures and also they should be readily accepted amongst the research community (@tbl:metrics). The first metric, a connectivity matrix, is the most important for connectivity studies. The measures of self-recruitment, local retention and settlement success can all be calculated easily from the underlying matrix data. The other important metric is a dispersal kernel. The dispersal kernel gives up valuable data on the spread of the particles and the distance they travel, including the density.
   
-Table : The five measures that are required to make comparative analysis on studies using biophysical connectivity models. {#tbl:params}
+: The five measures that are required to make comparative analysis on studies using biophysical connectivity models. {#tbl:metrics} 
 
-|        Metric       |     Measure parameters      |
+|        Metric       | Measure parameters |
 | :------------------ | :----------------- |
 | Connectivity matrix | Self-recruitment   |
 |                     | Local retention    |
@@ -59,16 +60,16 @@ Table : The five measures that are required to make comparative analysis on stud
 ##Reproducibility
 
 ### Why reproducible research
-Reproducibility, a buzzword often synonymous with open science, is an important facet of assessing the scientific merit of a published paper. It can be difficult to achieve in large empirical studies due to experimental variance {OpenScienceCollaboration:2015cn}, the same challenges do not exist in computational modelling {Peng:2011et}. Ideally the  model configurations (both physical and biological), all source code and have the output data made available as part of the publication. 
+Reproducibility, a term often synonymous with open science, is an important facet in assessing the scientific merit of a published paper. It can be difficult to achieve in large empirical studies due to experimental variance {OpenScienceCollaboration:2015cn}, the same challenges do not exist in computational modelling {Peng:2011et}. Ideally for reproducibility, the model configurations (both physical and biological), all source code and the output data is made available at the time of publishing. Reproducibility allows us to run other published models to compare and contrast again our own.
 
-The cost of reproducible research is trivial, many free online repositories exist for both source code and data; GitHub (http://github.com) and Dryad (http://datadryad.org) are two popular examples. Several journals are also making reproducibility a requirement and providing mechanisms for online storage of data (e.g. PLOS Biology).
+The cost of reproducible research is minimal, many free online repositories exist for both source code and data, two popular examples being GitHub (http://github.com) and Dryad (http://datadryad.org) . Several journals are also making reproducibility a requirement and providing mechanisms for online storage of data (e.g. PLOS Biology).
 
 ### Reproducibility in connectivity studies
-We're not going to go into what is required for reproducible research, others have summarised it better than we ever could {Sandve:2013gh}. Instead the goal is to get researchers using biophysical models for connectivity studies to embrace reproducible research and to think about how they could do more in the context of their own publications.
+We're not going to go into what is required for reproducible research, others have summarised it better than we ever could {Sandve:2013gh}. Instead, the goal is to get researchers using biophysical models for connectivity studies to embrace the concept of reproducible research and to think about how they can meet this goal when publishing their next study.
 
-Biophysical models are inherently complex, combining both biological and physical models has an additive effect on the number of parameters as there is little overlap.  It is impossible to reproduce a biophysical connectivity study without all of these parameters, hence it is so important that these details are published. We have supplied a non-exhaustive list of the the sort of parameters required ({#tbl:list}).  
+Complexity in biophysical models derives from coupling two distinct models, biological and physical, creating an additive effect on the number of input parameters.  However, it is impossible to reproduce a biophysical connectivity study without all of these parameters, hence the importance of publishing these parameters along with the results. We have supplied a non-exhaustive list of the sort of parameters required to reproduce these studies (@tbl:open). The strong trend towards supplementary information in journals allows for publication of these parameters without obscuring the primary scientific message.
 
-: List of parameters that should be published with every connectivity study that uses a biophysical model. {#tbl:list}
+: List of parameters that should be published with every connectivity study that uses a biophysical model. {#tbl:open}
 
 |   Model    |           Name          |                                                                                                                   Description                                                                                                                   |
 |------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -89,19 +90,12 @@ Biophysical models are inherently complex, combining both biological and physica
 |            | Mortality strategies    | The mortality strategy used (if any)                                                                                                                                                                                                            |
 |            | Settlement strategies   | How did the particles choose a settlement site (e.g. passively, sites were buffered 10 kms, sensory cues)                                                  
 
+#Conclusion
+The purpose of this paper is to advance a dialogue about how we can compare biophysical models, used for measuring connectivity in marine systems, with the goal of maturing the field. We identified two main problems in the literature with connectivity studies, that are preventing us from making meaningful comparisons. The first is the inconsistency in the metrics used in connectivity models and how we present the data. The second is the lack of reproducibility and clarity of the model parameters used in studies. 
 
+The main take home message is that connectivity modelling studies need to start publishing quantitative metrics of both dispersal and connectivity; too often studies have just focused on one of these facets. We hope that, in addition to providing these measures, researchers will also feel comfortable about publishing the data behind their connectivity matrices and dispersal kernels, allowing for future meta-analyses. Research grants are increasingly asking for publication of datasets and as such, open data publications should start becoming standard practice in the near future.
 
-##Discussion
-The purpose of this paper is to facilitate a discussion about how we can compare biophysical models, used for measuring connectivity in marine systems, with the goal of maturing the field. We identified two main issues in the literature that are preventing us from making meaningful comparisons. The first issue is inconsistency in the metrics used in connectivity models and how we present the data. The second issue the lack of reproducibility and clarity of the model parameters used in studies. 
-
-The first issue is more difficult to solve, as it depends on both the aims of the connectivity study as well and the personal preferences of the research team. We have identified a succinct set of common metrics that we believe provides the ability-along with knowledge of the input parameters-to compare the output of connectivity models.
-
-In solving the issue of reproducibility, we have produced a concise (but non-exhaustive) list of the input parameters that should be published with every study ({#tbl:list}). The strong trend towards supplementary information in journals allows for easy publication of these parameters without clouding the main message of the article itself. Reproducible research is an easily achievable goal in ecological modelling and as such it should be a minimum requirement of future studies.
-
-The main take home message is that connectivity modelling studies need to start publishing quantitative metrics of both dispersal and connectivity; too often studies have just focused on one of these facets. We hope that, in addition to providing these measures, researchers will also feel comfortable about publishing the data behind their connectivity matrices and dispersal kernels wherever possible to facilitate future meta-analyses. Grants are increasingly asking for publication of datasets and as such, open data publications should start becoming standard practice in the near future.
-
-Our chosen metrics are suggestions only and, realistically, we need a community driven approach-such as a workshop-to ensure we come up with agreed common measures. We hope this paper goes some way to starting this discussion.
-
+Our chosen metrics are suggestions only and, realistically, we need a community driven approach——perhaps a discussion facilitated by a workshop——to ensure we come up with agreed common metrics. We hope this paper goes some way to starting this conversation.
 
 ##Acknowledgements
 ???
