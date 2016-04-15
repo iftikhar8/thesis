@@ -1,6 +1,6 @@
 #A quantitative & reproducible approach for biophysical connectivity models
 Steven Hawes^1,2^ and Will Figueira^1,2^  
-1 Sydney Institute of Marine Science,  (Mosman, NSW,  (Australia); 2 University of Sydney, School of Life & Environmental Sciences (Sydney, NSW,  (Australia)
+1 University of Sydney, School of Life & Environmental Sciences (Sydney, NSW,  (Australia); 2 Sydney Institute of Marine Science,  (Mosman, NSW,  (Australia)
 
   
 ##Abstract 
