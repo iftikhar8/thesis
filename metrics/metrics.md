@@ -9,7 +9,7 @@ Steven Hawes^1,2^ and Will Figueira^1,2^
 
 Biophysical models have become a popular tool in advancing our understanding on the connectivity patterns of various marine species {SanvicenteAnorve:2014bl}{Koeck:2015bf}{Andrello:2014ge}. Biophysical models, as the name suggests, produce potential patterns of connectivity using a physical model coupled with a biological model. These models are particularly relevant for connectivity in marine systems, as dispersal during a pelagic larval stage is a key driver of connectivity. We couple the two models together, because while oceanic processes are the presiding driver of dispersal, biological processes also have highly influential roles  {Cowen:2009fm}. The usefulness of these models is their ability to quickly and cheaply give us connectivity patterns over temporal and spatial scales; and also due to the high costs associated with empirical research techniques.
 
-Ecological modellers inherently have underlying concerns about the validity of their models - how realistically have they modelled the system processes? This is a central, if not the primary, concern in all ecological modelling studies. Validation through empirical studies is the gold standard, yet constraints of cost, time and resources do not make this possible. Another practical and cheaper and approach is to use other published studies, both empirical and modelling, to validate your study.
+Ecological modellers inherently have underlying concerns about the validity of their models - how realistically have they modelled the system processes? This is a central, if not the primary, concern in all ecological modelling studies. Validation through empirical studies is the gold standard, yet constraints of cost, time and resources generally do not make this possible. Another practical and cheaper approach is to use other published studies, both empirical and modelling, for validation.
 
 With the goal of validating our own biophysical model, we reviewed connectivity studies, published in the last 5 years. Unfortunately, there was inherent difficulty in comparisons, due to the number of competing metrics and lack of transparent data. For many of these studies, insufficient information was provided to be able to reproduce the connectivity patterns presented. 
 
@@ -18,7 +18,7 @@ We conducted a database search for connectivity studies, in the last 6 years per
 ##Metrics
 Two prominent problems we came across were researchers creating their own unique metric, which not embraced in other studies or only a single parameter of a metric was reported, e.g. mean, median, or upper quartile. These two issues made comparisons between studies almost impossible. In fact, we found over 30 different measures used to describe the patterns of connectivity & dispersal in these papers.
 
-The de-facto standard for publishing connectivity matrices and dispersal kernels is to use a heat map. While heat maps are a powerful visualisation tool for both these metrics, it restricts what information we can extract from the graph, which bins the values to a colour legend, resulting in information loss. Comparative quantitative metrics are essential for analysis between studies, needed for model validation.
+The de-facto standard for publishing connectivity matrices and dispersal kernels is to use a heat map. While heat maps are a powerful visualisation tool for both these metrics, it restricts what information which can be extracted from the graph, which bins the values to a colour legend, resulting in information loss. Comparative quantitative metrics are essential for analysis between studies, needed for model validation.
 
 In a field where there are so many measures, which ones should be consistently reported? The most common parameters found in the dataset related to distance the particles travelled and measures of self-recruitment, local-retention and settlement success (@tbl:common). Although this isn't as clear cut as it may seem, as there is confusion about the definitions of self-recruitment and local retention. These terms were often used interchangeably. {Burgess:2014cf} stated the definitions clearly and succinctly, i.e. local retention is the fraction of offspring produced by a population, which also recruits into that population; and self-recruitment is the fraction of recruitment to a site comprised of individuals born in that site.
 
@@ -65,7 +65,7 @@ Our chosen metrics are suggestions only and, realistically, we need a community 
 | Graph theory        |                         | **10.2** |  
 
 
-: The five measures that are required to make comparative analysis on studies using biophysical connectivity models. {#tbl:metrics} 
+: The five measures that are required to make comparative analysis from studies using biophysical connectivity models. {#tbl:metrics} 
 
 |        Metric       | Measure parameters |
 | :------------------ | :----------------- |
