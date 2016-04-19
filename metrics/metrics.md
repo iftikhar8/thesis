@@ -6,13 +6,21 @@ Steven Hawes^1,2^ and Will Figueira^1,2^
 ##Abstract 
 *LEAVE THIS TO LAST*
 
+##Introduction
 
-Biophysical models have become a popular tool in advancing our understanding on the connectivity patterns of various marine species {SanvicenteAnorve:2014bl}{Koeck:2015bf}{Andrello:2014ge}. Biophysical models, as the name suggests, produce potential patterns of connectivity using a physical model coupled with a biological model. These models are particularly relevant for connectivity in marine systems, as dispersal during a pelagic larval stage is a key driver of connectivity. We couple the two models together, because while oceanic processes are the presiding driver of dispersal, biological processes also have highly influential roles  {Cowen:2009fm}. The usefulness of these models is their ability to quickly and cheaply give us connectivity patterns over temporal and spatial scales; and also due to the high costs associated with empirical research techniques.
+###General Introduction
+Biophysical models have become a popular tool in advancing our understanding on the connectivity patterns of various marine species {SanvicenteAnorve:2014bl}{Koeck:2015bf}{Andrello:2014ge}. Biophysical models, as the name suggests, produce potential patterns of connectivity using a physical (i.e. oceanographic) model coupled with a biological model. These models are particularly relevant for connectivity in marine systems, as dispersal during a pelagic larval stage is a key driver of connectivity for many species {Cowen:2009fm}. We couple the two models together, because while oceanic processes are the presiding driver of dispersal, biological processes also have highly influential roles {Leis:2006kf}{Pineda:2007bv}. The usefulness of these models is their ability to quickly and cheaply give us connectivity patterns over temporal and spatial scales; and also due to the high costs associated with empirical research techniques.
+
+###Set up the problem
 
 Ecological modellers inherently have underlying concerns about the validity of their models - how realistically have they modelled the system processes? This is a central, if not the primary, concern in all ecological modelling studies. Validation through empirical studies is the gold standard, yet constraints of cost, time and resources generally do not make this possible. Another practical and cheaper approach is to use other published studies, both empirical and modelling, for validation.
 
+###Aims
+
 With the goal of validating our own biophysical model, we reviewed connectivity studies, published in the last 5 years. Unfortunately, there was inherent difficulty in comparisons, due to the number of competing metrics and lack of transparent data. For many of these studies, insufficient information was provided to be able to reproduce the connectivity patterns presented. 
 
+
+###Methods
 We conducted a database search for connectivity studies, in the last 6 years period (2010-2015) using a biophysical model in their methods. The start date of 2010 was chosen arbitrarily, to limit the search to a manageable amount of papers; note this was not an exhaustive search. The online search engines, ISI Web of Knowledge and SCOPUS, were queried with the keywords connectivity, model* and marine. The search returned 59 papers fitting within the scope of our study, consisting of 248 authors and published in 31 unique journals. The full list of references is available at (*provide reference to .csv at github perhaps or in supplementary material?*). 
 
 ##Metrics
