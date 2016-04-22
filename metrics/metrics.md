@@ -40,17 +40,25 @@ Our suggested approach is to utilise the two most common metrics used, these pro
 ###Why is reproducibility important?
 Reproducibility, a term often synonymous with open science, is an important facet in assessing the scientific merit of a published paper. It can be difficult to achieve in large empirical studies due to experimental variance {OpenScienceCollaboration:2015cn}, however, the same challenges do not exist in computational modelling {Peng:2011et}. Ideally for reproducibility, the model configurations, source code and the output data is made available at the time of publishing. Transparency provides both confidence to the reader, and the peer reviewer, about the outcome and interpretations of the study. It also shows you are confident in your results. 
 
-The cost of reproducible research for biophysical studies is minimal, many free online repositories exist for both source code and data, two popular examples being GitHub (http://github.com) and Dryad (http://datadryad.org). Several journals are also making reproducibility a requirement and providing mechanisms for online storage of data (e.g. PLOS Biology).
+7 of the studies used in our review did not provide information on the years used for their oceanographic model in their simulation. 
+
+20 did not mention the time-step used when moving the particles. 
+
+41 mentioned how they dealt with diffusion, but only 21 published the diffusion coefficient used.
+
+25% of the studies that included mortality into their biophysical model did not include the mortality curve or rate used.
+
 
 ### How can we create reproducible models?
 
-{Sandve:2013gh} produced a 
-
-Probably the most important aspect as a reader is summed up in Rule 10 of Sandve's paper
+{Sandve:2013gh} produced ten rules of reproducibility for computational research, which all apply to studies involving a biophysical model. Most are intuitive, such as tracking exactly how results were obtained, automating as many steps as possible, and using version control for scripts, code & software. Others are not thought about as often like recording the seed used for random number generators. The most visible facet to a researcher reading a published study is Rule 10; "all input data, scripts, versions, parameters, and intermediate results should be made publicly and easily accessible" {Sandve:2013gh}. 
 
 ###How can we achieve it?
 
-Complexity in biophysical models derives from coupling two distinct models, biological and physical, creating an additive effect on the number of input parameters.  However, it is impossible to reproduce a biophysical connectivity study without all of these parameters, hence the importance of publishing these parameters along with the results. We have supplied a non-exhaustive list of the sort of parameters required to reproduce these studies (@tbl:open). The strong trend towards supplementary information in journals allows for publication of these parameters without obscuring the primary scientific message.                                                  
+Complexity in biophysical models derives from coupling two distinct models, biological and physical, creating an additive effect on the number of input parameters.  However, it is impossible to reproduce a biophysical connectivity study without all of these parameters, hence the importance of publishing these parameters along with the results. We have supplied a non-exhaustive list of the sort of parameters required to reproduce these studies (@tbl:open). The strong trend towards supplementary information in journals allows for publication of these parameters without obscuring the primary scientific message.    
+
+The cost of reproducible research for biophysical studies is minimal, many free online repositories exist for both source code and data, two popular examples being GitHub (http://github.com) and Dryad (http://datadryad.org). Several journals are also making reproducibility a requirement and providing mechanisms for online storage of data (e.g. PLOS Biology).
+
 
 #A common approach
 The purpose of this paper is to advance a dialogue about how we can compare biophysical models, used for measuring connectivity in marine systems, with the goal of maturing the field. We identified two main problems in the literature with connectivity studies preventing us from making meaningful comparisons. The first is the inconsistency in the metrics used in connectivity models and how we present the data. The second is the lack of reproducibility and clarity of the model parameters used in studies. 
