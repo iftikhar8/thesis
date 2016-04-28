@@ -30,6 +30,8 @@ In a field where there are so many measures, it is difficult to nail down a core
 
 The de-facto standards for publishing the results of a biophysical connectivity study in our review, was to use a connectivity matrix as a measure of connectivity between sites (85%) and a dispersal kernel as a measure of spread (71%). A connectivity matrix is a square matrix with rows representing source sites and columns representing settlement sites. The diagonal of the matrix represents self-recruitment and each column, above and below the diagonal shows where settlers are coming from and where particles are settling too. Connectivity matrices are represented as either the potential connectivity (absolute values) or realised connectivity, which is the potential connectivity, normalised by the number of particles released. The most common metrics reported from these matrices are self-recruitement (), self 
 
+*ADD VARIABLES USED, can they just attach a connectivity matrix? How about heaps of data?
+
 A dispersal kernel is simply a probability distribution function of the particles in the system, which gives you a measure of how they moved in the system. Dispersal kernels are often overlaid on GIS images of the study area, in order to give the reader a better understanding of the spread and concentration of the advected particles. 
 *Reference a connectivity matrix & dispersal kernel from another study?*
 
