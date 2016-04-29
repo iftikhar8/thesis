@@ -16,30 +16,19 @@ We reviewed a sample of the literature to see what metrics were used when report
 ##Metrics
 
 ###General Introduction
-Biophysical connectivity studies inherently measure two things, the patterns of connectivity between natal and settlement sites and the dispersal patterns of the system.
+Biophysical connectivity studies measure two distinct – yet related – systems, the patterns of connectivity between natal and settlement sites and the dispersal patterns of the system. The first is essentially a measure of source-sink dynamics, looking at patterns of production and settlement in marine species. The second is a measure of the total dispersal area, looking at issues such as how far the particles travel and where do they occur in highest densities in the system. In undertaking this review, we came across two impediments to a meta-analysis. Firstly, the hardest issue to overcome, was that many studies utilised their own unique metric in measuring either of these patterns. In fact, we found over 30 different measures used to describe the patterns of connectivity & dispersal in these papers. Secondly, often only a single summary statistic was reported, e.g. mean, median, or upper quartile. This is of lesser concern, and can depend on the underlying distribution, but it does make comparisons difficult.
 
-In undertaking this review, we came across two impediments to a meta-analysis. Firstly, the hardest issue to overcome, was that many studies utilised their own unique metric  In fact, we found over 30 different measures used to describe the patterns of connectivity & dispersal in these papers. Secondly, only a single summary statistic was reported, e.g. mean, median, or upper quartile.
-
-###Why hard to get compare values? 
-In a field where there are so many measures, it is difficult to nail down a core set of metrics to report and reliably compare against. The most common parameters found in the dataset related to distance the particles travelled and measures of self-recruitment, local-retention and settlement success (@tbl:common). Although this is not as clear cut as it may seem, as there is confusion about the definitions of self-recruitment and local retention, with these terms often used interchangeably or synonymously with other terms such as self-connectivity. {Burgess:2014cf} stated the definitions clearly and succinctly; local retention is the fraction of offspring produced by a population, which also recruits into that population, and self-recruitment is the fraction of recruitment to a site comprised of individuals born in that site.
-
-### Heat maps (Connectivity matrices & dispersal kernels)
+In a field where there can be so many different response variables, it is difficult to nail down a core set of metrics to report and reliably compare against. The most common parameters found in the dataset related to distance the particles travelled and measures of self-recruitment, local-retention and settlement success (@tbl:common). Although this is not as clear cut as it may seem, as there is confusion about the definitions of self-recruitment and local retention, with these terms often used interchangeably or synonymously with other terms such as self-connectivity. {Burgess:2014cf} stated the definitions clearly and succinctly; local retention is the fraction of offspring produced by a population, which also recruits into that population, and self-recruitment is the fraction of recruitment to a site comprised of individuals born in that site.
 
 The de-facto standards for publishing the results of a biophysical connectivity study in our review, was to use a connectivity matrix as a measure of connectivity between sites (85%) and a dispersal kernel as a measure of spread (71%). A connectivity matrix is a square matrix with rows representing source sites and columns representing settlement sites. The diagonal of the matrix represents self-recruitment and each column, above and below the diagonal shows where settlers are coming from and where particles are settling too. Connectivity matrices are represented as either the potential connectivity (absolute values) or realised connectivity, which is the potential connectivity, normalised by the number of particles released. The most common metrics reported on from these matrices are self-recruitment (70%), local retention (62%), and transport success (42%; @tbl:common). 
 
 A dispersal kernel is simply a probability distribution function of the particles in the system, which gives you a measure of how they moved in the system. Dispersal kernels are often overlaid on GIS images of the study area, in order to give the reader a better understanding of the spread and concentration of the advected particles. The most common metric reported from the dispersal kernel is distance travelled, however, the methods of reporting the distance travelled varies from mean (57.1%), maximum (33.3%), median (11.9%), upper quartile (11.9%), and the minimum distance travelled (4.8%; @tbl:common). To add to the confusion, there were different interpretations of distance travelled; either it was the distance from the origin site to the final site, or the total length of the particles trajectory. In terms of measuring spread, there was no consensus amongst the studies on how to report the results.
 
-(Do I want to talk about how the different spread metrics?)
+*Do I want to talk about how the different spread metrics?* 
 
 *Reference a connectivity matrix & dispersal kernel from another study?*
 
 Both connectivity matrices and dispersal kernels are commonly depicted using heat maps, graphical techniques where a  colour system is used to represent numbers. Heat maps are a great visualisation tool for the reader and are to be encouraged, however, it restricts what information which can be extracted from the graph. In general, the range of values depicted are large, and thus they are binned to set of colours, resulting in information loss. Comparative quantitative metrics are essential for analysis between studies, which becomes difficult if the connectivity matrix depicted using a heat map is all that is published as part of the results. Therefore is it imperative for future comparisons that the raw data be published along with the heat maps. 
-
-### What do we want and how to reproduce?
-
-  
-### Summary (Do I need this section?)
-
 
 ##Models and reproducibility
 Reproducibility, a term often synonymous with open science, is an important facet in assessing the scientific merit of a published paper. It can be difficult to achieve in large empirical studies due to experimental variance {OpenScienceCollaboration:2015cn}, however, the same challenges do not exist in computational modelling {Peng:2011et}. Ideally for reproducibility, the model configurations, source code and the output data is made available at the time of publishing. Transparency provides both confidence to the reader, and importantly the peer reviewer, about the outcome and interpretations of the study. 
@@ -52,45 +41,28 @@ Complexity in biophysical models derives from coupling two distinct models, biol
 
 ##A common approach 
 
-In order provide transparency and allow for useful comparisons between connectivity studies using biophysical models, we need a common approach to publishing both methods and results. 
-
-??
-We identified two main problems in the literature with connectivity studies preventing us from making meaningful comparisons. The first is the inconsistency in the metrics used in connectivity models and how we present the data. The second is the lack of reproducibility and clarity of the model parameters used in studies. 
-
-#Guide on how to present data for metrics & reproducibility 
-
-#How do we handle multiple simulations? 
-
-#What do we specifically need?
-
-#How do we present this information?
-
-
-
-
-The main take home message is connectivity modelling studies need to start publishing quantitative metrics of both dispersal and connectivity; too often studies have just focused on one of these facets. We hope, in addition to providing these measures, researchers will also feel comfortable about publishing the data behind their connectivity matrices and dispersal kernels, allowing for future meta-analyses. Research grants are increasingly asking for publication of datasets and as such, open data publications should start becoming standard practice in the near future.
-
+In order to provide transparency and allow for useful comparisons between connectivity studies using biophysical models, we need a common approach to publishing both methods and results. We identified two main problems in the literature with connectivity studies preventing us from making meaningful comparisons. The first is the inconsistency in the metrics used in connectivity models and how we present the data. The second is the lack of reproducibility and clarity of the model parameters used in studies. 
 
 ### Metrics common approach
 
+#### Connectivity matric
+Our suggested approach is to utilise the two most common metrics used, these provide useful measures and also they should be readily accepted amongst the research community (@tbl:metrics). The first metric, a connectivity matrix, is the most useful for connectivity studies. The measures of self-recruitment, local retention and settlement success can all be calculated easily from the underlying matrix data. Therefore, in addition to presenting the data in a heat map, the full connectivity matrix should be published.
+
 *ADD VARIABLES USED, can they just attach a connectivity matrix? How about heaps of data?
 
-dispersal: mean, median, max
-what are the metrics of spread?
-
-Our suggested approach is to utilise the two most common metrics used, these provide useful measures and also they should be readily accepted amongst the research community (@tbl:metrics). The first metric, a connectivity matrix, is the most useful for connectivity studies. The measures of self-recruitment, local retention and settlement success can all be calculated easily from the underlying matrix data. Therefore, in addition to presenting the data in a heat map, 
-
+#### Dispersal Kernel
 The other metric is a dispersal kernel. The dispersal kernel gives up valuable data on the spread of the particles and the distance they travel, including the density.
+
+dispersal variables: mean, median, max
+what are metric should we use for spread??
 
 ### Reproducibility common approach
 
 We have supplied a non-exhaustive list of the sort of parameters required to reproduce these studies (@tbl:open).
 
-
 ##Summary
 
-???
-Our chosen metrics are suggestions only and, realistically, we need a community driven approach——perhaps a discussion facilitated by a workshop——to ensure we come up with agreed common metrics. We hope this paper goes some way to starting this conversation.
+The main take home message is connectivity modelling studies need to start publishing quantitative metrics of both dispersal and connectivity; too often studies have just focused on one of these facets. We hope, in addition to providing these measures, researchers will also feel comfortable about publishing the data behind their connectivity matrices and dispersal kernels, allowing for future meta-analyses. Research grants are increasingly asking for publication of datasets and as such, open data publications should start becoming standard practice in the near future.
 
 ##Acknowledgements
 ???
