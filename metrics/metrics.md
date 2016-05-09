@@ -109,8 +109,8 @@ To provide transparency between studies on how the biophysical model is implemen
 If we are going to advance our understanding of connectivity in marine systems, biophysical modelling studies need to start publishing consistent quantitative metrics of dispersal and connectivity so that comparisons can be made. Studies must also provide more transparency on the parameters used. We have attempted to provide a template for the basic information we think necessary based on our review. We suggest this template be used as the basis for discussion amongst scientists in the field but strongly encourage all researches publishing the results of biophysical connectivity studies to adopt at least the principles of cohesion, consistency and transparency which are at its core.  We feel that such an approach will greatly speed advancements in our understanding of the drivers and outcomes of connectivity more generally.  Ultimately it is confidence in the generality of the results of these models which will allow for their more widespread use within management and conservation initiatives.
 
 ##Supplementary materials
-The complete list of references used in the review:
 
+The complete list of references in the review are available in Supplement1.docx
 
 
 ##References
