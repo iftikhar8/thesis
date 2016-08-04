@@ -1,0 +1,19 @@
+
+Literature review:
+	- Read more papers and put into RAW
+	- Analyse the data
+	
+	
+Model:
+	- Get it working properly with the monthly netcdf files
+	- Dowload all the data onto El Guapo
+	- Build in egg pelagic phase
+
+Papers:
+	- Split the large Modelling paper into each chapter
+	- Write test cases
+		- M
+
+Fish Measurements:
+	- See if ImageJ can do the work
+	
