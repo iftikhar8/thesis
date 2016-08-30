@@ -2,7 +2,7 @@
 
 ##Labridae
 
-![Labrid species A](../figs/type_specimens/labrid_a.png "Labrid A")
+![Labrid species A](labrid_a.png "Labrid A")
 
 
 ![Labrid species B](../figs/type_specimens/labrid_b.png "Labrid B")
