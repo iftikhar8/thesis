@@ -43,7 +43,7 @@ Labrid D is notable for the patterns on the tail
 ## Synodontidae
 
 ###A
-![Synodontid species A](../figs/type_specimens/synodontid_a.jpg "Synodontid A")
+![Synodontid species A](../figs/type_specimens/synodontid_a.png "Synodontid A")
 
 ## Serranidae
 
@@ -51,10 +51,10 @@ Labrid D is notable for the patterns on the tail
 ![Serranid species A](../figs/type_specimens/serranid_a.jpg "Serranid A")
 
 ###B
-![Serranid species B](../figs/type_specimens/serranid_b.jpg "Serranid B")
+![Serranid species B](../figs/type_specimens/serranid_b.png "Serranid B")
 
 ###C
-![Serranid species C](../figs/type_specimens/serranid_c.jpg "Serranid C")
+![Serranid species C](../figs/type_specimens/serranid_c.png "Serranid C")
 
 ## Triglidae
 
