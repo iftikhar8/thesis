@@ -5,10 +5,10 @@
 ![Labrid species A](labrid_a.png "Labrid A")
 
 
-![Labrid species B](../figs/type_specimens/labrid_b.png "Labrid B")
+![Labrid species B](./figs/type_specimens/labrid_b.png "Labrid B")
 
 
-![Labrid species C](../figs/type_specimens/labrid_c.png "Labrid C")
+![Labrid species C](../figs/type_specimens/labrid_C.png "Labrid C")
 
 
 ![Labrid species D](../figs/type_specimens/labrid_d.png "Labrid D")  
