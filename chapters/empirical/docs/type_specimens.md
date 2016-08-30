@@ -30,9 +30,38 @@ Labrid D is notable for the patterns on the tail
 ###I
 ![Labrid species I](../figs/type_specimens/labrid_I.png "Labrid I")
 
-***
-
 ## Scaridae
 
 ###A
 ![Scarid species A](../figs/type_specimens/scarid_a.jpg "Scarid A")
+
+## Pomacentridae
+
+###A
+![Pomacentrid species A](../figs/type_specimens/pomacentrid_a.jpg "Pomacentrid A")
+
+## Synodontidae
+
+###A
+![Synodontid species A](../figs/type_specimens/synodontid_a.jpg "Synodontid A")
+
+## Serranidae
+
+###A
+![Serranid species A](../figs/type_specimens/serranid_a.jpg "Serranid A")
+
+###B
+![Serranid species B](../figs/type_specimens/serranid_b.jpg "Serranid B")
+
+###C
+![Serranid species C](../figs/type_specimens/serranid_c.jpg "Serranid C")
+
+## Triglidae
+
+###A
+![Triglid species A](../figs/type_specimens/triglid_a.jpg "Triglid A")
+
+## Scorpaenidae
+
+###A
+![Scorpaenid species A](../figs/type_specimens/scorpaenid_a.jpg "Scorpaenid A")
