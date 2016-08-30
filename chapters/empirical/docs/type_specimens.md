@@ -1,4 +1,6 @@
-# Type specimens for reef fish ichythoplankton
+# Type specimens for reef ichythoplankton
+
+These are the type specimens for different sub-family level taxa found amongst the reef fish collected on the RV Investigator voyage. 
 
 ##Labridae
 
