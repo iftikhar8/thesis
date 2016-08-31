@@ -8,20 +8,26 @@ These are the type specimens for different sub-family level taxa found amongst t
 ![Labrid species A](../figs/type_specimens/labrid_A.png "Labrid A")
 
 ###B
-![Labrid species B](../figs/type_specimens/labrid_B.png "Labrid B")
+###Preflexion
+![Labrid species B](../figs/type_specimens/labrid_b_pre.jpg "Labrid B Preflexion")
+###Postflexion
+![Labrid species B](../figs/type_specimens/labrid_b_pos.png "Labrid B Postflexion")
 
 ###C
 ![Labrid species C](../figs/type_specimens/labrid_C.png "Labrid C")
 
 ###D
-![Labrid species D](../figs/type_specimens/labrid_D.png "Labrid D")  
+###Preflexion
+![Labrid species D](../figs/type_specimens/labrid_d_pre.jpg "Labrid D Preflexion")
+###Postflexion
+![Labrid species D](../figs/type_specimens/labrid_d_pos.png "Labrid D Postflexion")
 Labrid D is notable for the patterns on the tail
 
 ###E
 ![Labrid species E](../figs/type_specimens/labrid_E.png "Labrid E")  
 
 ###F
-![Labrid species F](../figs/type_specimens/labrid_F.png "Labrid F")  
+![Labrid species F](../figs/type_specimens/labrid_f_pre.jpg "Labrid F Preflexion")  
 
 ###G
 ![Labrid species G](../figs/type_specimens/labrid_G.png "Labrid G")
@@ -31,6 +37,10 @@ Labrid D is notable for the patterns on the tail
 
 ###I
 ![Labrid species I](../figs/type_specimens/labrid_I.png "Labrid I")
+
+###I
+####Post-flexion
+![Labrid species J](../figs/type_specimens/labrid_J_pos.png "Labrid J")
 
 ## Scaridae
 
@@ -58,6 +68,11 @@ Labrid D is notable for the patterns on the tail
 ###C
 ![Serranid species C](../figs/type_specimens/serranid_c.png "Serranid C")
 
+###D
+####Flexion
+![Serranid species C](../figs/type_specimens/serranid_d_fle.png "Serranid D")
+
+
 ## Triglidae
 
 ###A
@@ -67,3 +82,17 @@ Labrid D is notable for the patterns on the tail
 
 ###A
 ![Scorpaenid species A](../figs/type_specimens/scorpaenid_a.jpg "Scorpaenid A")
+
+##Mullidae
+###A
+####Flexion
+![Mullidae species A](../figs/type_specimens/mullidae_a_fle.jpg "Mullidae A Flexion")
+####Post-flexion
+![Mullidae species A](../figs/type_specimens/mullidae_a_pos.jpg "Mullidae A Post-flexion")
+
+##Bothidae
+###A
+####Flexion
+![Bothid species A](../figs/type_specimens/bothid_a_fle.jpg "Bothid A")
+
+
