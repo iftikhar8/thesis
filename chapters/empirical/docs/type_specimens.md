@@ -63,7 +63,10 @@ Labrid D is notable for the patterns on the tail
 ![Serranid species A](../figs/type_specimens/serranid_a.jpg "Serranid A")
 
 ###B
-![Serranid species B](../figs/type_specimens/serranid_b.png "Serranid B")
+####Preflexion
+![Serranid species B](../figs/type_specimens/serranid_b_pre.jpg "Serranid B")
+####Postflexion
+![Serranid species B](../figs/type_specimens/serranid_b_pos.jpg "Serranid B")
 
 ###C
 ![Serranid species C](../figs/type_specimens/serranid_c.png "Serranid C")
@@ -86,9 +89,9 @@ Labrid D is notable for the patterns on the tail
 ##Mullidae
 ###A
 ####Flexion
-![Mullidae species A](../figs/type_specimens/mullidae_a_fle.jpg "Mullidae A Flexion")
+![Mullidae species A](../figs/type_specimens/mullid_a_fle.jpg "Mullidae A Flexion")
 ####Post-flexion
-![Mullidae species A](../figs/type_specimens/mullidae_a_pos.jpg "Mullidae A Post-flexion")
+![Mullidae species A](../figs/type_specimens/mullid_a_pos.jpg "Mullidae A Post-flexion")
 
 ##Bothidae
 ###A
