@@ -1,7 +1,7 @@
 install.packages("ggplot2")
 library("ggplot2")
 
-dataset <- read.csv("data/lit_review_metanalysis.csv")
+dataset <- read.csv("data/lit_review_cleaned.csv")
 fish_dataset <- subset(dataset,dataset$Species_type=='Fish')
 
 self_rec <- dataset$Self_recruitment_mean
