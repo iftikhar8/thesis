@@ -65,8 +65,8 @@ Labrid D is notable for the patterns on the tail
 ###B
 ####Preflexion
 ![Serranid species B](../figs/type_specimens/serranid_b_pre.jpg "Serranid B Preflexion")
-####Postflexion
-![Serranid species B](../figs/type_specimens/serranid_b_pos.jpg "Serranid B Postflexion")
+####Flexion
+![Serranid species B](../figs/type_specimens/serranid_b_fle.jpg "Serranid B Postflexion")
 
 ###C
 ![Serranid species C](../figs/type_specimens/serranid_c.png "Serranid C")
