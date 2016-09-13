@@ -1,51 +1,49 @@
-library(ggplot2)
+library("ggplot2")
+library("tibble")
+library("readr")
 
-dataset <- read.csv("data/lit_review_metanalysis.csv")
-fish_dataset <- subset(dataset,dataset$Species_type=='Fish')
+review_data <- read_csv("data/lit_review_cleaned.csv")
+papers <- review_data %>% select(Published,DOI) %>% distinct(Published,DOI) 
 
-#basic summary of data
-summary(dataset)
+#Figure 1: Metrics by mortality
+fig1a <- ggplot(review_data, aes(Mortality, Self_recruitment_mean))
+fig1a + geom_boxplot()
 
-#exploratory plots
+fig1b <- ggplot(review_data, aes(Mortality, Settlement_success_mean))
+fig1b + geom_boxplot()
 
-#resolution size
-plot(dataset$Model_resolution_min ~ dataset$Settlement_success_mean)
-plot(dataset$Model_resolution_min ~ dataset$Self_recruitment_mean)
-plot(dataset$Model_resolution_min ~ dataset$Distance_travelled_mean)
-plot(dataset$Model_resolution_min ~ dataset$Local_retention_mean)
+fig1c <- ggplot(review_data, aes(Mortality, Distance_travelled_mean))
+fig1c + geom_boxplot()
 
-#settlement reef size
-plot(dataset$Settlement_site_size ~ dataset$Settlement_success_mean)
-plot(dataset$Settlement_site_size ~ dataset$Self_recruitment_mean)
-plot(dataset$Settlement_site_size ~ dataset$Distance_travelled_mean)
-plot(dataset$Settlement_site_size ~ dataset$Local_retention_mean)
+#Figure 2: Years by publications
+fig2 <- ggplot(papers, aes(Published)) 
+fig2 + geom_bar()
 
-#pld
-plot(dataset$PLD_fixed ~ dataset$Settlement_success_mean)
-plot(dataset$PLD_fixed ~ dataset$Self_recruitment_mean)
-plot(dataset$PLD_fixed ~ dataset$Distance_travelled_mean)
-plot(dataset$PLD_fixed ~ dataset$Local_retention_mean)
+#Figure 3: Model runs per publication
+reorder_size <- function(x) {
+  factor(x, levels = names(sort(table(x))))
+}
 
-#OVM behaviour
-ggplot(data=dataset,aes(y=Settlement_success_mean,x=Ontogenetic_vertical_migration)) + geom_boxplot()
-ggplot(data=dataset,aes(y=Self_recruitment_mean,x=Ontogenetic_vertical_migration)) + geom_boxplot()
-ggplot(data=dataset,aes(y=Distance_travelled_mean,x=Ontogenetic_vertical_migration)) + geom_boxplot()
-ggplot(data=dataset,aes(y=Local_retention_mean,x=Ontogenetic_vertical_migration)) + geom_boxplot()
+fig3 <- ggplot(review_data,aes(reorder_size(DOI)))
+fig3 + geom_bar() + theme(axis.text.x=element_blank(),
+                        axis.ticks.x=element_blank()) + xlab("Models per paper")
 
-#Passive behaviour
-ggplot(data=dataset,aes(y=Settlement_success_mean,x=Passive_movement)) + geom_boxplot()
-ggplot(data=dataset,aes(y=Self_recruitment_mean,x=Passive_movement)) + geom_boxplot()
-ggplot(data=dataset,aes(y=Distance_travelled_mean,x=Passive_movement)) + geom_boxplot()
-ggplot(data=dataset,aes(y=Local_retention_mean,x=Passive_movement)) + geom_boxplot()
+#Table 1: Proportions of implemented behaviours
+review_data %>% group_by(Mortality) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+review_data %>% group_by(Growth) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+review_data %>% group_by(Sensory_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+review_data %>% group_by(Settlement_competency_window) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+review_data %>% group_by(Orientation) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+review_data %>% group_by(Mortality) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 
-#Sensory ability
-ggplot(data=dataset,aes(y=Settlement_success_mean,x=Sensory_ability)) + geom_boxplot()
-ggplot(data=dataset,aes(y=Self_recruitment_mean,x=Sensory_ability)) + geom_boxplot()
-ggplot(data=dataset,aes(y=Local_retention_mean,x=Sensory_ability)) + geom_boxplot()
-
-ggplot(data=dataset,aes(y=Settlement_success_mean,x=Settlement_competency_window)) + geom_boxplot()
-ggplot(data=dataset,aes(y=Self_recruitment_mean,x=Settlement_competency_window)) + geom_boxplot()
-ggplot(data=dataset,aes(y=Local_retention_mean,x=Settlement_competency_window)) + geom_boxplot()
-
-# comparison of behaviours
-
+#Table 2: Proportions of swimming behaviours
+non.passive.models <- filter(review_data,Passive_movement==FALSE)
+non.passive.models %>% group_by(Horizontal_swimming_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+non.passive.models %>% group_by(Vertical_swimming_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+non.passive.models %>% group_by(Ontogentic_vertical_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+non.passive.models %>% group_by(Diel_vertical_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+non.passive.models %>% group_by(Halocline_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+non.passive.models %>% group_by(Circatidal_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+non.passive.models %>% group_by(Pynocline_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+non.passive.models %>% group_by(Sinking_velocity) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+non.passive.models %>% group_by(Egg_buoyancy) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
