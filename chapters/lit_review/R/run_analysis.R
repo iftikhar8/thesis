@@ -1,8 +1,11 @@
 library("ggplot2")
 library("tibble")
 library("readr")
+library("dplyr")
 
 review_data <- read_csv("data/lit_review_cleaned.csv")
+ichthy.data <- filter(review_data,Species_type == "Fish")
+
 papers <- review_data %>% select(Published,DOI) %>% distinct(Published,DOI) 
 
 #Figure 1: Metrics by mortality
