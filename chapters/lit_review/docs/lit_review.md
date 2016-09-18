@@ -1,10 +1,14 @@
 # Literature review
 
+
+Our review used the keywords connectivity, model* and marine, querying the online search engines ISI Web of Knowledge and SCOPUS.In total we found 59 studies matching these criteria within this period, consisting of 248 contributing authors and published in 31 different journals (the full list of references is provided in the Supplementary materials). 
+
+
 ###Figures and tables
 
 Comparison between self-recruitment & settlement success
 
-Table 1: The behaviours that have been implemented in the connectivity studies.
+Table 1: The behaviours that have been implemented in the connectivity studies modelling ichthyoplankton. Note that multiple behaviours can be implemented in the one model
 
 |        Functionality         | Proportion(Paper) | Proportion(Model) |
 |------------------------------|-------------------|-------------------|
@@ -17,7 +21,7 @@ Table 1: The behaviours that have been implemented in the connectivity studies.
 | Passive                      |                   |             0.743 |
 
 
-Table 2: The different implementations of swimming behaviours
+Table 2: The different implementations of swimming behaviours for models of ichthyoplankton. 
 
 |       Swimming behaviour      | Proportion |
 |-------------------------------|------------|
