@@ -14,11 +14,22 @@ explain the organisation – i.e. sequence – of the review;
 state the scope of the review – i.e. what is included and what isn’t included. For example, if you were reviewing the literature on obesity in children you might say something like: There are a large number of studies of obesity trends in the general population. However, since the focus of this research is on obesity in children, these will not be reviewed in detail and will only be referred to as appropriate.
 
 ## Main Body
-The main body should:
 
-organise the literature according to common themes;
-provide insight into the relation between your chosen topic and the wider subject area e.g. between obesity in children and obesity in general;
-move from a general, wider view of the literature being reviewed to the specific focus of your research.
+
+## Where are we now?
+
+Comparisons with ithychology & connectivity modelling in general? 
+
+### What are the behaviours that are getting modelled
+
+
+
+## How do the behaviours influence metrics?
+
+
+## Future directions
+
+
 
 ## Conclusion
 The conclusion should:
