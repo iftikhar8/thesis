@@ -14,3 +14,5 @@ ggplot(settlement, aes(sr, ss))
 geom_point(aes(size = count), alpha = 1/2) +
   geom_smooth() +
   scale_size_area()
+
+journals <- factor(clean_dataset$Journal)

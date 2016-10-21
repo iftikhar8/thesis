@@ -6,7 +6,7 @@ library("dplyr")
 review.data <- read_csv("data/lit_review_cleaned.csv")
 ichthy.data <- filter(review.data,Species_type == "Fish")
 
-papers.data <- review.data %>% select(ID,Published,Oceanic_region,Years_total) %>% distinct(ID,Published,Oceanic_region,Years_total) 
+papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total) %>% distinct(Paper_ID,Published,Oceanic_region,Years_total) 
 
 #Figure 1: Metrics by mortality
 fig1a <- ggplot(review.data, aes(Mortality, Self_recruitment_mean))
