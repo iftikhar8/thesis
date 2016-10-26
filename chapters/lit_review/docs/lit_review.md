@@ -1,6 +1,6 @@
 # Literature review
 
-
+## Title
 
 
 
@@ -25,21 +25,17 @@ This review focuses on biophysical connectivity models.
 
 ####What are they used for?
 
-####Aims of the review
+####Aims/scope of the review
 
-This review investigated studies of a variety of marine species, not just ichtyoplankton models, because often the differences in input parameterisation are negligible.
+This review begun from an attempt to understand what biological parameters influence connectivity and how they influence connectivity. We wanted to build a biophysical model and we wanted to know what behaviours we needed as input to get the most accurate patterns we could (without empirical validation). Common to all models is the suspicion that the output does not in fact match the reality of the processes modelled. In connectivity modelling, it can be difficult to verify the output, factored by the spatial and temporal scales used. However, we need to have progression in the field so that where it is difficult to empirically replicate the results, we can have a degree of confidence in the accuracy and precision of the modelled patterns. The end goal is to understand what input parameters are required to make the most accurate model possible (with well understood trade-offs such as execution time), to allow us to infer compelling conclusions. 
 
+The last major review in the area of ichthyoplankton biophysical modelling was undertaken nearly a decade ago (Miller 2007). We wanted to see if the biological processes found in this review were still relevant in recently published models. For example, had emergent processes like growth become standard in models now or was there a new consensus of parameters to implement? In the last decade, high powered computing has become more accessible to researchers and in addition researchers are becoming more programming literate, arguably due to the rising popularity of the free statistical platform R (citation needed). Therefore it is expected that models will be both more common in the recent literature and that these models will have a higher inherent complexity, as the tools and knowledge to construct these models are more ubiquitous. 
 
-- Last review was in 2007 (Miller). 
-
-The problem with connectivity modelling is that the output is rarely attempted to be verified. Without progression in the field, the distance between producing garbage or accurate results will not narrow. The end goal is to understand what input parameters are required to make the most accurate model possible (with appropriate trade-offs), to allow us to infer compelling conclusions. 
-
- - Talk about the advances in computing power and the increasing number of programming literate scientists. These studies are now not beyond the reach of many scientists as they were ten years ago
+Our research interest lies in the connectivity patterns of ichthyoplankton, however we looked at studies for a variety of marine species with a pelagic larval stage, as the differences in input parameterisation can be negligible. Therefore the scope of this review was to understand the parameters being used in these models and how these input parameters effect the dispersal patterns generated. We wanted to identify what processes were shared amongst these models, to understand if there was an established suite of required biological processes. Specifically, our interest was in how the configuration of parameters affected these generated dispersal patterns, allowing us to understand what we needed to include in our model. 
 
 #####Study aims: 
 
 1. Wanted to compare how larval behaviours affected the connectivity patterns of models. The aim was to understand what behaviours are required to produce the most accurately generated models.
-
 
 
 ## Methods
