@@ -6,7 +6,9 @@ library("dplyr")
 review.data <- read_csv("data/lit_review_cleaned.csv")
 ichthy.data <- filter(review.data,Species_type == "Fish")
 
-papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total) %>% distinct(Paper_ID,Published,Oceanic_region,Years_total) 
+papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone) %>% 
+  distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone) 
+
 
 #Figure 1: Metrics by mortality
 fig1a <- ggplot(review.data, aes(Mortality, Self_recruitment_mean))
@@ -17,6 +19,7 @@ fig1b + geom_boxplot()
 
 fig1c <- ggplot(review.data, aes(Mortality, Distance_travelled_mean))
 fig1c + geom_boxplot()
+
 
 #Figure 2: Years by publications
 fig2 <- ggplot(papers.data, aes(Published)) 
@@ -51,8 +54,9 @@ non.passive.models %>% group_by(Pynocline_migration) %>% summarise (n = n()) %>%
 non.passive.models %>% group_by(Sinking_velocity) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 non.passive.models %>% group_by(Egg_buoyancy) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 
-# Figure 4. Publications by oceangraphic region
+# Figure 4. Publications by oceanographic region
 fig4 <- ggplot(papers.data,aes(reorder_size(Oceanic_region)),fill=gray) + geom_bar() + coord_flip()
+papers.data %>% group_by(Geographical_zone) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 
 # Figure 5. Years per study
 #fig5 <- ggplot(papers.data,aes(reorder_size(Years_total)),fill=gray) + geom_bar() + coord_flip()
@@ -62,6 +66,12 @@ fig5 <- ggplot(papers.data.complete,aes(x=Years_total)) + geom_density() + scale
 #Figure 6 PLDs
 fig6 <- ggplot(review.data,aes(x=PLD_fixed)) + geom_histogram(binwidth = 10)
 
+# Figure 7. Species modelled
+fig7 <- ggplot(data=review.data,aes(reorder_size(Species_type)),fill=gray) + geom_bar() + coord_flip()
+fig7
+summary(review.data$Species_type=='Fish')
+summary(review.data$Species_type=='Bivalvia')
+fish.species = select(review.data$Species_scientific_name)
 
 
 

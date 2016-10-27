@@ -27,9 +27,9 @@ This review focuses on biophysical connectivity models.
 
 ####Aims/scope of the review
 
-This review begun from an attempt to understand what biological parameters influence connectivity and how they influence connectivity. We wanted to build a biophysical model and we wanted to know what behaviours we needed as input to get the most accurate patterns we could (without empirical validation). Common to all models is the suspicion that the output does not in fact match the reality of the processes modelled. In connectivity modelling, it can be difficult to verify the output, factored by the spatial and temporal scales used. However, we need to have progression in the field so that where it is difficult to empirically replicate the results, we can have a degree of confidence in the accuracy and precision of the modelled patterns. The end goal is to understand what input parameters are required to make the most accurate model possible (with well understood trade-offs such as execution time), to allow us to infer compelling conclusions. 
+This review begun from an attempt to understand what biological parameters influence connectivity and how they influence connectivity. We wanted to build a biophysical model and we wanted to know what behaviours we needed as input to get the most accurate patterns we could (without empirical validation). Common to all models is the suspicion that the output does not in fact match the reality of the processes modelled. In connectivity modelling, it can be difficult to verify the output. This difficulty is proportional to the spatial and temporal scales used in the model. However, we need to have progression in the field so that where it is difficult to empirically replicate the results, we can have a degree of confidence in the accuracy and precision of the modelled patterns. The end goal is to understand what input parameters are required to make the most accurate model possible (with well understood trade-offs such as execution time), to allow us to infer compelling conclusions. 
 
-The last major review in the area of ichthyoplankton biophysical modelling was undertaken nearly a decade ago (Miller 2007). We wanted to see if the biological processes found in this review were still relevant in recently published models. For example, had emergent processes like growth become standard in models now or was there a new consensus of parameters to implement? In the last decade, high powered computing has become more accessible to researchers and in addition researchers are becoming more programming literate, arguably due to the rising popularity of the free statistical platform R (citation needed). Therefore it is expected that models will be both more common in the recent literature and that these models will have a higher inherent complexity, as the tools and knowledge to construct these models are more ubiquitous. 
+The last major review in the area of ichthyoplankton biophysical modelling was undertaken nearly a decade ago (Miller 2007). We wanted to see if the biological processes found in this review were still relevant in recently published models. For example, had emergent processes like growth become standard in models now or was there a new consensus of parameters to implement? In the last decade, high powered computing has become more accessible to researchers and in addition researchers are becoming more programming literate, arguably due to the rising popularity of the free statistical platform R (insert citation). Therefore it is expected that models will be both more common in the recent literature and that these models will have a higher inherent complexity, as the tools and knowledge to construct these models are more ubiquitous. 
 
 Our research interest lies in the connectivity patterns of ichthyoplankton, however we looked at studies for a variety of marine species with a pelagic larval stage, as the differences in input parameterisation can be negligible. Therefore the scope of this review was to understand the parameters being used in these models and how these input parameters effect the dispersal patterns generated. We wanted to identify what processes were shared amongst these models, to understand if there was an established suite of required biological processes. Specifically, our interest was in how the configuration of parameters affected these generated dispersal patterns, allowing us to understand what we needed to include in our model. 
 
@@ -48,12 +48,19 @@ Papers were assessed in three main sections, the input parameters of their physi
 Models were classified into four categories basic on the objective of the study: climate change, marine park connectivity, dispersal & settlement and theoretical. Climate change objectives sought to see how larval connectivity patterns changed over by temporal and spatial scales by increasing ocean temperatures. Marine park connectivity studies were focused on seeing how well connected either existing or potential marine parks were connected for various species. Dispersal and settlement approaches were interested in the dispersal or settlement of a particular species using known input parameters. Theoretical approaches to connectivity studies investigated how different larval parameters effected the pattens of connectivity. 
 
 
-## Main Body
 
-### Study species / Study areas
+## Review results
 
-Most of the studies are concentrated in Northern Hemisphere, especially in the seas around Europe, with the North-West Atlantic and Mediterranean Sea accounting for 36% of the studies we investigated (Figure 4). These are 
+###Summary
+Biophysical connectivity model studies are a popular research tool for understanding connectivity patterns. Although it looks like this popularity peaked in 2013, with a decrease since then in their occurrence in the literature (@fig:years). The regions these studies are investigating span the breadth of the globe, although similar to Miller's 2007 review, they are still concentrated in highly industrialised fishing regions, such as the North-East Atlantic coast and the Mediterranean Sea (@fig:ocean_regions). The stark difference is in the increase in tropical studies, with 35% of the studies occurring in tropical regions, compared to only 4% in Miller's 2007 review. The majority of studies were in temperate waters (65%) , with one study in the Antarctic polar region and another attempting a global connectivity study.
 
+![The years studies in the review were published](../figs/years.png){#fig:years}
+
+![The oceanographic regions modelled in the studies used in the review](../figs/oceanic_region.png){#fig:ocean_regions}
+
+The taxa of species modelled, when looking at individual model runs (there were often multiple species per paper), consisted of 10 major groups and a generic group (#fig:species). Generic species, in that there was no model species, instead a suite of parameters that could apply to several species was the most common, consisting of 40% of the model runs. Out of the specified taxa, the most common were Fish (39%) and Bivalves (10%). Within the fish taxa, in the majority, individual species were modelled, however they were sometimes modelled to the family level or even as generic fish.
+
+![The different taxa that were modelled in the reviewed papers](../figs/species.png){#fig:species}
 
 
 ## Where are we now?
@@ -65,13 +72,44 @@ Comparisons with ichthyology & connectivity modelling in general?
 ### Biological model inputs
 
 
+
 ### #What are the behaviours that are getting modelled
 
+For the ichthyoplankton studies, every study included the concept of a pelagic larval duration (@tbl:behaviours). 
 
+: The behaviours that have been implemented in the modelled connectivity studies. Note that multiple behaviours can be implemented in the one model {#tbl:behaviours} 
+
+|        Functionality         | Proportion(Model) |
+|------------------------------|-------------------|
+| Pelagic larval duration      |             0.965 |
+| Mortality                    |             0.410 |
+| Growth                       |             0.067 |
+| Sensory ability              |             0.583 |
+| Settlement competency window |             0.487 |
+| Orientation                  |             0.026 |
+| Swimming behaviours          |             0.257 |
+| Passive                      |             0.743 |
+
+
+: The different implementations of swimming behaviours for models of ichthyoplankton {#tbl:swimming} 
+
+|       Swimming behaviour      | Proportion |
+|-------------------------------|------------|
+| Horizontal swimming           |      0.125 |
+| Vertical swimming             |      0.045 |
+| Ontogenetic vertical swimming |      0.272 |
+| Diel vertical migration       |      0.454 |
+| Halocline migration           |      0.011 |
+| Circatidal migration          |      0.057 |
+| Pynocline migration           |      0.068 |
+| Sinking velocity              |      0.034 |
+| Egg buoyoncy                  |      0.045 |
 
 ## Metrics
 
 ###How do the behaviours influence metrics?
+
+###Mortality
 
 
 ## Future directions
@@ -88,35 +126,12 @@ outline areas for future study;
 link your research to existing knowledge.
 
 
-###Figures and tables
+###Figures and tables required
 
 Comparison between self-recruitment & settlement success
 
-Table 1: The behaviours that have been implemented in the connectivity studies modelling ichthyoplankton. Note that multiple behaviours can be implemented in the one model
-
-|        Functionality         | Proportion(Paper) | Proportion(Model) |
-|------------------------------|-------------------|-------------------|
-| Pelagic larval duration      |                   |               1.0 |
-| Mortality                    |                   |             0.410 |
-| Growth                       |                   |             0.067 |
-| Sensory ability              |                   |             0.583 |
-| Settlement competency window |                   |             0.487 |
-| Orientation                  |                   |             0.026 |
-| Swimming behaviours          |                   |             0.257 |
-| Passive                      |                   |             0.743 |
 
 
-Table 2: The different implementations of swimming behaviours for models of ichthyoplankton. 
 
-|       Swimming behaviour      | Proportion |
-|-------------------------------|------------|
-| Horizontal swimming           |      0.125 |
-| Vertical swimming             |      0.045 |
-| Ontogenetic vertical swimming |      0.272 |
-| Diel vertical migration       |      0.454 |
-| Halocline migration           |      0.011 |
-| Circatidal migration          |      0.057 |
-| Pynocline migration           |      0.068 |
-| Sinking velocity              |      0.034 |
-| Egg buoyoncy                  |      0.045 |
-|                               |            |
+
+
