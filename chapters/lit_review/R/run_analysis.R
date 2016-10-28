@@ -64,7 +64,8 @@ papers.data.complete = na.omit(papers.data)
 fig5 <- ggplot(papers.data.complete,aes(x=Years_total)) + geom_density() + scale_x_log10(breaks=c(1,10,100,1000))
 
 #Figure 6 PLDs
-fig6 <- ggplot(review.data,aes(x=PLD_fixed)) + geom_histogram(binwidth = 10)
+fig6 <- ggplot(review.data,aes(x=PLD_fixed)) + geom_histogram(binwidth = 15)
+review.data %>% group_by(PLD_type) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 
 # Figure 7. Species modelled
 fig7 <- ggplot(data=review.data,aes(reorder_size(Species_type)),fill=gray) + geom_bar() + coord_flip()
@@ -73,5 +74,6 @@ summary(review.data$Species_type=='Fish')
 summary(review.data$Species_type=='Bivalvia')
 fish.species = select(review.data$Species_scientific_name)
 
-
+# Mortality
+review.data %>% group_by(Mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 

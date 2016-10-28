@@ -62,6 +62,7 @@ The taxa of species modelled, when looking at individual model runs (there were 
 
 ![The different taxa that were modelled in the reviewed papers](../figs/species.png){#fig:species}
 
+### Talk about the years modelled etc. All the initial summary conditions. 
 
 ## Where are we now?
 
@@ -75,13 +76,14 @@ Comparisons with ichthyology & connectivity modelling in general?
 
 ### #What are the behaviours that are getting modelled
 
-For the ichthyoplankton studies, every study included the concept of a pelagic larval duration (@tbl:behaviours). 
+#### Pelagic larval duration
+Nearly every study reviewed included the concept of a pelagic larval duration (PLD) (@tbl:behaviours). Whereby the larvae (or particle, from here on I shall use the larvae when referring to particles in a biophysical model) moved in the system until the a defined number of days based of knowledge from the literature. Although this was a common approach, there were a variety of methods used to implement this concept. The standard approach (92.4% of models) was to make this PLD value a fixed concept for each larvae, so that if the individual larva reached this it either had to settle where it was (if possible) or it was killed. The other approach was to implement some variability in the PLD, either using a Gaussian distribution (based on knowledge of the population) or instead of using time, make the PLD dependent on ocean temperature. Most of the fixed PLD values are found between 20-60 (@fig:pld_range). Although there were exceptions, with some models implementing values large values (excess of 100) depending on the known biology of the species, e.g. the long duration of the phyllosoma stage of some lobster larvae. 
 
 : The behaviours that have been implemented in the modelled connectivity studies. Note that multiple behaviours can be implemented in the one model {#tbl:behaviours} 
 
 |        Functionality         | Proportion(Model) |
 |------------------------------|-------------------|
-| Pelagic larval duration      |             0.965 |
+| Pelagic larval duration      |             0.993 |
 | Mortality                    |             0.410 |
 | Growth                       |             0.067 |
 | Sensory ability              |             0.583 |
@@ -90,6 +92,15 @@ For the ichthyoplankton studies, every study included the concept of a pelagic l
 | Swimming behaviours          |             0.257 |
 | Passive                      |             0.743 |
 
+![The range of fixed PLD values implemented in the reviewed models (n=318)](../figs/pld_range.png){#fig:pld_range}
+
+#### Mortality
+
+Larval mortality was implemented in 41% of the models (@tbl:behaviours). However the implementation of mortality varied across the models, the most common mortality function used was a linear function (82.2%), whereby a fixed  percentage of the larvae were killed after each day. Although the number of larvae killed varied from a maximum rate of 30.0% to minimum mortality rate of 1.7%. Another popular mortality implementation was to kill the larvae based on a known temperature or salinity threshold. Mortality schemes using decay or Weibull functions were implemented in a small subset of the models (less than 2%). 
+
+#### Growth
+
+Unlike in Miller's 2007 review, where growth was implemented in a 1/3 of the studies, only 6% of the models we looked at had the concept of growth built in (@tbl:behaviours). 
 
 : The different implementations of swimming behaviours for models of ichthyoplankton {#tbl:swimming} 
 
