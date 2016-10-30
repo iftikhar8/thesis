@@ -92,7 +92,10 @@ Nearly every study reviewed included the concept of a pelagic larval duration (P
 | Swimming behaviours          |             0.257 |
 | Passive                      |             0.743 |
 
-![The range of fixed PLD values implemented in the reviewed models (n=318)](../figs/pld_range.png){#fig:pld_range}
+![The range of fixed PLD values implemented in the reviewed models (n=318)](../figs/pld_ranges.png){#fig:pld_range}
+
+#### Settlement competency window
+
 
 #### Mortality
 
@@ -101,6 +104,12 @@ Larval mortality was implemented in 41% of the models (@tbl:behaviours). However
 #### Growth
 
 Unlike in Miller's 2007 review, where growth was implemented in a 1/3 of the studies, only 6% of the models we looked at had the concept of growth built in (@tbl:behaviours). 
+
+#### Sensory Ability & Orientation
+
+#### Swimming behaviours 
+Only 26% of the models implemented swimming behaviours of some kind, meaning the other 74% assumed the larvae were passive and moved solely by the currents. This is interesting, because we know that this is not the case. At the very least many larvae have diel vertical migration patterns to below the mixed layer to escape predators during the day. Is the reason we are not seeing swimming behaviours implemented because a) we do not know enough about the behaviour of the individual species, b) researchers do not believe swimming movement has much overall effect on the connectivity patterns or c) are people trying to keep their models as simple as possible. It has been established that vertical migration (either diel or ontogenetic) does increase self-recruitment and limit the dispersal kernel [cite Paris etc].  
+
 
 : The different implementations of swimming behaviours for models of ichthyoplankton {#tbl:swimming} 
 
@@ -120,14 +129,31 @@ Unlike in Miller's 2007 review, where growth was implemented in a 1/3 of the stu
 
 ###How do the behaviours influence metrics?
 
-###Mortality
+Discuss the difficulty of the meta-analysis due to the different metrics that were used. Made comparisons difficult. List all the reasons it made them difficult. 
 
+Describe we could not achieve the goal of the physical & behavourial models required. 
+
+###Mortality against metrics
+
+It appeared that having mortality in your model increases the the mean self-recruitment (#fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (#fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what you would expect (#fig:dist_mort).
+
+(Can I panel these graphs?)
+![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png){#fig:sr_mort}
+![Comparison of the mean settlement success values with mortality included implemented in the model](../figs/ss_mortality.png){#fig:ss_mort}
+![Comparison of the mean distance travelled with mortality included implemented in the model](../figs/dist_mortality.png){#fig:dist_mort}
 
 ## Future directions
 
+Can we only model species we have enough information about their early life history? Added complexity of behaviour means that we might. 
+
+Also the lack of movement forward, does that suggest we are at the forefront until we get more empirical validation for these models?
 
 
 ## Conclusion
+
+We want to progress the field, have more clarity in connectivity modelling, yet we probably cannot until we have common metrics. 
+
+
 The conclusion should:
 
 summarise the important aspects of the existing body of literature;
