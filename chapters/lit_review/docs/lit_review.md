@@ -103,7 +103,7 @@ Larval mortality was implemented in 41% of the models (@tbl:behaviours). However
 
 #### Growth
 
-Unlike in Miller's 2007 review, where growth was implemented in a 1/3 of the studies, only 6% of the models we looked at had the concept of growth built in (@tbl:behaviours). 
+Unlike in Miller's 2007 review, where growth was implemented in a 1/3 of the studies, only 6% of the models we looked at had the concept of growth built in (@tbl:behaviours). This would be because these models are focused on connectivity, where growth is not considered such an important factor in moving between the source and sink sites. 
 
 #### Sensory Ability & Orientation
 

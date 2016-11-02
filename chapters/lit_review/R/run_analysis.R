@@ -4,37 +4,36 @@ library("readr")
 library("dplyr")
 
 review.data <- read_csv("data/lit_review_cleaned.csv")
-ichthy.data <- filter(review.data,Species_type == "Fish")
 
+#Summary statistics
+spec(review.data)
+summary(review.data)
+
+review.ichthy.data <- filter(review.data,Species_type == "Fish")
 papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone) %>% 
   distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone) 
 
 
-#Figure 1: Metrics by mortality
-fig1a <- ggplot(review.data, aes(Mortality, Self_recruitment_mean))
-fig1a + geom_boxplot()
-
-fig1b <- ggplot(review.data, aes(Mortality, Settlement_success_mean))
-fig1b + geom_boxplot()
-
-fig1c <- ggplot(review.data, aes(Mortality, Distance_travelled_mean))
-fig1c + geom_boxplot()
 
 
-#Figure 2: Years by publications
-fig2 <- ggplot(papers.data, aes(Published)) 
-fig2 + geom_bar()
+#Metrics by mortality
+ggplot(review.data, aes(Mortality, Self_recruitment_mean)) + geom_boxplot()
+ggplot(review.data, aes(Mortality, Settlement_success_mean)) + geom_boxplot()
+ggplot(review.data, aes(Mortality, Distance_travelled_mean)) + geom_boxplot()
 
-#Figure 3: Model runs per publication
+
+#Years by publications
+ggplot(papers.data, aes(Published)) + geom_bar()
+
+#Model runs per publication
 reorder_size <- function(x) {
   factor(x, levels = names(sort(table(x))))
 }
 
-fig3 <- ggplot(review.data,aes(reorder_size(DOI)))
-fig3 + geom_bar() + theme(axis.text.x=element_blank(),
+ggplot(review.data,aes(reorder_size(DOI))) + geom_bar() + theme(axis.text.x=element_blank(),
                         axis.ticks.x=element_blank()) + xlab("Models per paper")
 
-#Table 1: Proportions of implemented behaviours
+#Proportions of implemented behaviours
 review.data %>% group_by(Mortality) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 review.data %>% group_by(Growth) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 review.data %>% group_by(Sensory_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
@@ -42,38 +41,51 @@ review.data %>% group_by(Settlement_competency_window) %>% summarise (n = n()) %
 review.data %>% group_by(Orientation) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 review.data %>% group_by(Mortality) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 
-#Table 2: Proportions of swimming behaviours
-non.passive.models <- filter(review.data,Passive_movement==FALSE)
-non.passive.models %>% group_by(Horizontal_swimming_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-non.passive.models %>% group_by(Vertical_swimming_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-non.passive.models %>% group_by(Ontogentic_vertical_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-non.passive.models %>% group_by(Diel_vertical_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-non.passive.models %>% group_by(Halocline_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-non.passive.models %>% group_by(Circatidal_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-non.passive.models %>% group_by(Pynocline_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-non.passive.models %>% group_by(Sinking_velocity) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-non.passive.models %>% group_by(Egg_buoyancy) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+#Proportions of swimming behaviours for FISH larvae
+ichthy.swimming <- filter(review.ichthy.data,Passive_movement==FALSE)
+ichthy.swimming %>% group_by(Horizontal_swimming_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+ichthy.swimming %>% group_by(Vertical_swimming_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+ichthy.swimming %>% group_by(Ontogentic_vertical_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+ichthy.swimming %>% group_by(Diel_vertical_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+ichthy.swimming %>% group_by(Halocline_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+ichthy.swimming %>% group_by(Circatidal_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+ichthy.swimming %>% group_by(Pynocline_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+ichthy.swimming %>% group_by(Sinking_velocity) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+ichthy.swimming %>% group_by(Egg_buoyancy) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 
-# Figure 4. Publications by oceanographic region
-fig4 <- ggplot(papers.data,aes(reorder_size(Oceanic_region)),fill=gray) + geom_bar() + coord_flip()
+#Proportions of swimming behaviours for ALL larvae
+larvae.swimming <- filter(review.data,Passive_movement==FALSE)
+larvae.swimming %>% group_by(Horizontal_swimming_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+larvae.swimming %>% group_by(Vertical_swimming_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+larvae.swimming %>% group_by(Ontogentic_vertical_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+larvae.swimming %>% group_by(Diel_vertical_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+larvae.swimming %>% group_by(Halocline_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+larvae.swimming %>% group_by(Circatidal_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+larvae.swimming %>% group_by(Pynocline_migration) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+larvae.swimming %>% group_by(Sinking_velocity) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+larvae.swimming %>% group_by(Egg_buoyancy) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+
+#Publications by oceanographic region
+ggplot(papers.data,aes(reorder_size(Oceanic_region)),fill=gray) + geom_bar() + coord_flip()
 papers.data %>% group_by(Geographical_zone) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 
-# Figure 5. Years per study
-#fig5 <- ggplot(papers.data,aes(reorder_size(Years_total)),fill=gray) + geom_bar() + coord_flip()
+#Years per study
+#ggplot(papers.data,aes(reorder_size(Years_total)),fill=gray) + geom_bar() + coord_flip()
 papers.data.complete = na.omit(papers.data)
-fig5 <- ggplot(papers.data.complete,aes(x=Years_total)) + geom_density() + scale_x_log10(breaks=c(1,10,100,1000))
+ggplot(papers.data.complete,aes(x=Years_total)) + geom_density() + scale_x_log10(breaks=c(1,10,100,1000))
+ggplot(papers.data.complete,aes(x=Years_total)) + geom_histogram(binwidth = 5)
+ggplot(papers.data.complete,aes(x=Years_total)) + geom_boxplot()
 
-#Figure 6 PLDs
-fig6 <- ggplot(review.data,aes(x=PLD_fixed)) + geom_histogram(binwidth = 15)
+#Pelagic larval durations
+ggplot(review.data,aes(x=PLD_fixed)) + geom_histogram(binwidth = 15)
 review.data %>% group_by(PLD_type) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 
-# Figure 7. Species modelled
-fig7 <- ggplot(data=review.data,aes(reorder_size(Species_type)),fill=gray) + geom_bar() + coord_flip()
-fig7
+#Species modelled
+ggplot(data=review.data,aes(reorder_size(Species_type)),fill=gray) + geom_bar() + coord_flip()
 summary(review.data$Species_type=='Fish')
 summary(review.data$Species_type=='Bivalvia')
 fish.species = select(review.data$Species_scientific_name)
 
-# Mortality
+#Mortality
 review.data %>% group_by(Mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 
