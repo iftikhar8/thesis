@@ -58,13 +58,31 @@ Biophysical connectivity model studies are a popular research tool for understan
 
 ![The oceanographic regions modelled in the studies used in the review](../figs/oceanic_region.png){#fig:ocean_regions}
 
-The taxa of species modelled, when looking at individual model runs (there were often multiple species per paper), consisted of 10 major groups and a generic group (#fig:species). Generic species, in that there was no model species, instead a suite of parameters that could apply to several species was the most common, consisting of 40% of the model runs. Out of the specified taxa, the most common were Fish (39%) and Bivalves (10%). Within the fish taxa, in the majority, individual species were modelled, however they were sometimes modelled to the family level or even as generic fish.
+The taxa of species modelled, when looking at individual model runs (there were often multiple species per paper), consisted of 10 major groups and a generic group (#fig:species). Generic species, in that there was no model species, instead a suite of parameters that could apply to several species used in 12.2% of the model runs. Out of the specified taxa, the most common were Fish (39%) and Bivalves (10%). Within the fish taxa, in the majority, individual species were modelled, however they were sometimes modelled to the family level or even as generic fish.
 
 ![The different taxa that were modelled in the reviewed papers](../figs/species.png){#fig:species}
 
-### Talk about the years modelled etc. All the initial summary conditions. 
+Other things to talk about
+- years in the system
+- timesteps of the model
+- particles used in the model
+- different 
+
+## Time scales
+
+Talk about the years used, the range of start dates. How some are continuous, some are have breaks in the years. 
+
+Different trends were also considered. Some looked at trends between years, others between months. Others pooled their data to look at averages over time. 
+
+The earliest year modelled was 1950, with a mean of 2001 and the latest year modelled 2100 (obviously they had to use estimated ocean current data), with a mean end date of 2008. The median number of years modelled was 3.
+
+###Run mode
+The studies, with one exception, all used forecasting models to run their connectivity studies. The exception used a hindcast solution, where the larvae were moved from settlement sites to determine their natal sites {Wren:2016gu}. 
+
 
 ## Where are we now?
+
+
 
 ###Physical model inputs
 
@@ -77,7 +95,7 @@ Comparisons with ichthyology & connectivity modelling in general?
 ### #What are the behaviours that are getting modelled
 
 #### Pelagic larval duration
-Nearly every study reviewed included the concept of a pelagic larval duration (PLD) (@tbl:behaviours). Whereby the larvae (or particle, from here on I shall use the larvae when referring to particles in a biophysical model) moved in the system until the a defined number of days based of knowledge from the literature. Although this was a common approach, there were a variety of methods used to implement this concept. The standard approach (92.4% of models) was to make this PLD value a fixed concept for each larvae, so that if the individual larva reached this it either had to settle where it was (if possible) or it was killed. The other approach was to implement some variability in the PLD, either using a Gaussian distribution (based on knowledge of the population) or instead of using time, make the PLD dependent on ocean temperature. Most of the fixed PLD values are found between 20-60 (@fig:pld_range). Although there were exceptions, with some models implementing values large values (excess of 100) depending on the known biology of the species, e.g. the long duration of the phyllosoma stage of some lobster larvae. 
+Nearly every study reviewed included the concept of a pelagic larval duration (PLD) (@tbl:behaviours). Whereby the larvae (or particle, from here on I shall use the larvae when referring to particles in a biophysical model) moved in the system until the a defined number of days based of knowledge from the literature. Although this was a common approach, there were a variety of methods used to implement this concept. The standard approach (92.4% of models) was to make this PLD value a fixed concept for each larvae, so that if the individual larva reached this it either had to settle where it was (if possible) or it was killed. The other approach was to implement some variability in the PLD, either using a Gaussian distribution (based on knowledge of the population) or instead of using time, make the PLD dependent on ocean temperature. Most of the fixed PLD values are found between 20-60, with the median value 30 days (@fig:pld_range). Although there were exceptions, with some models implementing values large values (excess of 100) depending on the known biology of the species, e.g. the long duration of the phyllosoma stage of some lobster larvae. 
 
 : The behaviours that have been implemented in the modelled connectivity studies. Note that multiple behaviours can be implemented in the one model {#tbl:behaviours} 
 
