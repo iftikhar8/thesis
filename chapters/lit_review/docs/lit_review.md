@@ -58,57 +58,53 @@ Biophysical connectivity model studies are a popular research tool for understan
 
 ![The oceanographic regions modelled in the studies used in the review](../figs/oceanic_region.png){#fig:ocean_regions}
 
-The taxa of species modelled, when looking at individual model runs (there were often multiple species per paper), consisted of 10 major groups and a generic group (#fig:species). Generic species, in that there was no model species, instead a suite of parameters that could apply to several species used in 12.2% of the model runs. Out of the specified taxa, the most common were Fish (39%) and Bivalves (10%). Within the fish taxa, in the majority, individual species were modelled, however they were sometimes modelled to the family level or even as generic fish.
+###Taxa
+The taxa of species modelled, when looking at individual model runs (there were often multiple species per paper), consisted of 10 major groups and a generic group (#fig:species). These 10 taxa were constructed of 47 different species and another 7 which were specified at the family level, e.g. Labridae or Sparidae. Generic species, in that there was no model species, instead a suite of parameters that could apply to several species used in 40.2% of the model runs. Out of the specified taxa, the most common were Fish (39%) and Bivalves (10%). Within the fish taxa, in the majority, individual species were modelled, however they were sometimes modelled to the family level or even as generic fish.
 
 ![The different taxa that were modelled in the reviewed papers](../figs/species.png){#fig:species}
 
 Other things to talk about
-- years in the system
 - timesteps of the model
 - particles used in the model
-- different 
 
-## Time scales
+### Time scales
+The models used different amounts of oceanographic data depending on the trends they were interested (inter- or intra-annual). Interestingly, only one study used the average of several years input data to interpret mean connectivity patterns (Feutry:2013je). The trend was to run the model over a small amount of years using the oceanographic data (#fig:modelled_years). While many studies only opted to use a single year, the median number of years modelled was 3. There were a couple of outliers running models to investigate climate change scenarios, which used periods of 60 years {Aiken:2011dv} and 130 years {Andrello:2014ge} . The earliest year modelled was 1950,and the latest year modelled was 2100 (obviously using estimated ocean current data). The average of the dates modelled was a start date of 2001 with an end date of 2008. Although not all models used continuous years as input, for some studies only specific years were used as input.
 
-Talk about the years used, the range of start dates. How some are continuous, some are have breaks in the years. 
-
-Different trends were also considered. Some looked at trends between years, others between months. Others pooled their data to look at averages over time. 
-
-The earliest year modelled was 1950, with a mean of 2001 and the latest year modelled 2100 (obviously they had to use estimated ocean current data), with a mean end date of 2008. The median number of years modelled was 3.
-
-###Run mode
-The studies, with one exception, all used forecasting models to run their connectivity studies. The exception used a hindcast solution, where the larvae were moved from settlement sites to determine their natal sites {Wren:2016gu}. 
+![The spread of total years modelled in each of the model runs](../figs/modelled_years.png){#fig:modelled_years}
 
 
-## Where are we now?
+###Models used
 
+Most studies practised software reuse, using an existing particle tracking model (82.6%), rather than create a new models (16.0%). The three most popular models used were Ichthyop (18.67%), Connectivity Modelling System (CMS;12.0%) & MGET (8.0%) (*Need to find the citations for these models*). In total amongst the studies, a minimum 21 different models were used (for 22.7% of the papers we were unable to identify the exact particle tracking model used). The studies, with one exception, all used forecasting models to run their connectivity studies. The exception used a hindcast solution, where the larvae were moved from settlement sites to determine their natal sites {Wren:2016gu}. 
+
+###Timesteps
+The time particles were updated in the system was either a fixed time step or it varied depending on other factors. The median time step was 1 hour, with a maximum time step of 24 hours {Mora:2012kn} and minimum time step of 60 seconds {Moritz:2013dc}. Under reporting of the timestep used occurred in 37.3% of the papers.
 
 
 ###Physical model inputs
 
+###Physical models used.
+Although this review focuses on the biological part of the coupled model, we will report some findings of the physical models used. The choice of oceanographic current model to use is dependent upon the region the connectivity study is taking place in. The two most common ocean circulation models used were the Regional Ocean Modelling System (ROMS;25.3%) and the Hybrid Coordinate Ocean Model (HYCOM;17.3%). To get around models with low resolution, more complex particle trackers were able to use nest circulation models so that depending where the particle was located, the best resolution model was used. The mean resolution of the largest resolution used in these connectivity models was 5.6km^2, with extremes ranging from a precise 50m^2 {Brennan:2014fm} to broader 33km^2 {Crochelet:2013kr}. 
+
 Comparisons with ichthyology & connectivity modelling in general? 
 
 ### Biological model inputs
-
-
-
-### #What are the behaviours that are getting modelled
 
 #### Pelagic larval duration
 Nearly every study reviewed included the concept of a pelagic larval duration (PLD) (@tbl:behaviours). Whereby the larvae (or particle, from here on I shall use the larvae when referring to particles in a biophysical model) moved in the system until the a defined number of days based of knowledge from the literature. Although this was a common approach, there were a variety of methods used to implement this concept. The standard approach (92.4% of models) was to make this PLD value a fixed concept for each larvae, so that if the individual larva reached this it either had to settle where it was (if possible) or it was killed. The other approach was to implement some variability in the PLD, either using a Gaussian distribution (based on knowledge of the population) or instead of using time, make the PLD dependent on ocean temperature. Most of the fixed PLD values are found between 20-60, with the median value 30 days (@fig:pld_range). Although there were exceptions, with some models implementing values large values (excess of 100) depending on the known biology of the species, e.g. the long duration of the phyllosoma stage of some lobster larvae. 
 
 : The behaviours that have been implemented in the modelled connectivity studies. Note that multiple behaviours can be implemented in the one model {#tbl:behaviours} 
 
-|        Functionality         | Proportion(Model) |
-|------------------------------|-------------------|
-| Pelagic larval duration      |             0.993 |
-| Mortality                    |             0.410 |
-| Growth                       |             0.067 |
-| Sensory ability              |             0.583 |
-| Settlement competency window |             0.487 |
-| Orientation                  |             0.026 |
-| Swimming behaviours          |             0.257 |
-| Passive                      |             0.743 |
+|        Functionality         | Proportion |
+|------------------------------|------------|
+| Pelagic larval duration      |      0.993 |
+| Mortality                    |      0.410 |
+| Growth                       |      0.067 |
+| Sensory ability              |      0.583 |
+| Settlement competency window |      0.487 |
+| Orientation                  |      0.026 |
+| Swimming behaviours          |      0.257 |
+| Passive                      |      0.743 |
 
 ![The range of fixed PLD values implemented in the reviewed models (n=318)](../figs/pld_ranges.png){#fig:pld_range}
 
@@ -116,11 +112,9 @@ Nearly every study reviewed included the concept of a pelagic larval duration (P
 
 
 #### Mortality
-
 Larval mortality was implemented in 41% of the models (@tbl:behaviours). However the implementation of mortality varied across the models, the most common mortality function used was a linear function (82.2%), whereby a fixed  percentage of the larvae were killed after each day. Although the number of larvae killed varied from a maximum rate of 30.0% to minimum mortality rate of 1.7%. Another popular mortality implementation was to kill the larvae based on a known temperature or salinity threshold. Mortality schemes using decay or Weibull functions were implemented in a small subset of the models (less than 2%). 
 
 #### Growth
-
 Unlike in Miller's 2007 review, where growth was implemented in a 1/3 of the studies, only 6% of the models we looked at had the concept of growth built in (@tbl:behaviours). This would be because these models are focused on connectivity, where growth is not considered such an important factor in moving between the source and sink sites. 
 
 #### Sensory Ability & Orientation
@@ -128,8 +122,7 @@ Unlike in Miller's 2007 review, where growth was implemented in a 1/3 of the stu
 #### Swimming behaviours 
 Only 26% of the models implemented swimming behaviours of some kind, meaning the other 74% assumed the larvae were passive and moved solely by the currents. This is interesting, because we know that this is not the case. At the very least many larvae have diel vertical migration patterns to below the mixed layer to escape predators during the day. Is the reason we are not seeing swimming behaviours implemented because a) we do not know enough about the behaviour of the individual species, b) researchers do not believe swimming movement has much overall effect on the connectivity patterns or c) are people trying to keep their models as simple as possible. It has been established that vertical migration (either diel or ontogenetic) does increase self-recruitment and limit the dispersal kernel [cite Paris etc].  
 
-
-: The different implementations of swimming behaviours for models of ichthyoplankton {#tbl:swimming} 
+: The different implementations of swimming behaviours for models of ichthyoplankton. Note the proportions sum to greater than 1 because multiple swimming behaviours can be implemented {#tbl:swimming} 
 
 |       Swimming behaviour      | Proportion |
 |-------------------------------|------------|
@@ -142,6 +135,12 @@ Only 26% of the models implemented swimming behaviours of some kind, meaning the
 | Pynocline migration           |      0.068 |
 | Sinking velocity              |      0.034 |
 | Egg buoyoncy                  |      0.045 |
+
+###Spawning behaviour / Timing / Release position / Particles spawned
+
+
+###Settling behaviours
+
 
 ## Metrics
 
@@ -159,6 +158,16 @@ It appeared that having mortality in your model increases the the mean self-recr
 ![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png){#fig:sr_mort}
 ![Comparison of the mean settlement success values with mortality included implemented in the model](../figs/ss_mortality.png){#fig:ss_mort}
 ![Comparison of the mean distance travelled with mortality included implemented in the model](../figs/dist_mortality.png){#fig:dist_mort}
+
+##Discussion
+
+
+##Biological Model
+
+
+##Physical model
+
+It is hard to understand the differences in how the physical models affect the output. It appears, from the outlook of a biologist, to be a fairly mature field, therefore most differences are believed to be in the meso- and sub-scale resolution of ocean circulation (*find a paper to support this statement, its a bit pie in the sky*). The strong embrace of open circulation models is encouraging for field.
 
 ## Future directions
 

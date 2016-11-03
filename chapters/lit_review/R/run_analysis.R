@@ -3,15 +3,15 @@ library("tibble")
 library("readr")
 library("dplyr")
 
-review.data <- read_csv("data/lit_review_cleaned.csv")
+review.data <- read_csv("data/lit_review.csv")
 
 #Summary statistics
 spec(review.data)
 summary(review.data)
 
 review.ichthy.data <- filter(review.data,Species_type == "Fish")
-papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone) %>% 
-  distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone) 
+papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) %>% 
+  distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) 
 
 
 
@@ -76,6 +76,11 @@ ggplot(papers.data.complete,aes(x=Years_total)) + geom_density() + scale_x_log10
 ggplot(papers.data.complete,aes(x=Years_total)) + geom_histogram(binwidth = 5)
 ggplot(papers.data.complete,aes(x=Years_total)) + geom_boxplot()
 
+#Models used
+summary(papers.data$Model_reuse)
+models.particle.freq <- papers.data %>% group_by(Model_name) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+models.ocean.freq <-papers.data %>% group_by(Physical_model) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+models.sub
 #Pelagic larval durations
 ggplot(review.data,aes(x=PLD_fixed)) + geom_histogram(binwidth = 15)
 review.data %>% group_by(PLD_type) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
@@ -84,7 +89,8 @@ review.data %>% group_by(PLD_type) %>% summarise (n = n()) %>% mutate(freq = n /
 ggplot(data=review.data,aes(reorder_size(Species_type)),fill=gray) + geom_bar() + coord_flip()
 summary(review.data$Species_type=='Fish')
 summary(review.data$Species_type=='Bivalvia')
-fish.species = select(review.data$Species_scientific_name)
+fish.species <- factor(na.omit(review.data$Species_scientific_name))
+
 
 #Mortality
 review.data %>% group_by(Mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
