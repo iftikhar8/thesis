@@ -109,6 +109,10 @@ Nearly every study reviewed included the concept of a pelagic larval duration (P
 ![The range of fixed PLD values implemented in the reviewed models (n=318)](../figs/pld_ranges.png){#fig:pld_range}
 
 #### Settlement competency window
+The settlement competency window gives the fish larvae a period of time in which they can settle before they reach the end of their pelagic larval duration. It is generally based on their known biology and the idea that most species have to develop sufficiently before their pelagic stage can finish. The start date has a strong correlative relationship with the 
+
+![Settlement competency start date compared to the pelagic larval duration date for the marine organisms (n=157)](../figs/pld_ranges.png){#fig:pld_range}
+
 
 
 #### Mortality

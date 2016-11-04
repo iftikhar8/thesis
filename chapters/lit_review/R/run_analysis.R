@@ -1,7 +1,4 @@
-library("ggplot2")
-library("tibble")
-library("readr")
-library("dplyr")
+library("tidyverse")
 
 review.data <- read_csv("data/lit_review.csv")
 
@@ -91,6 +88,10 @@ summary(review.data$Species_type=='Fish')
 summary(review.data$Species_type=='Bivalvia')
 fish.species <- factor(na.omit(review.data$Species_scientific_name))
 
+#Settlement compentency
+f1 <- lm(Settlement_competency_type_start~PLD_fixed,data=review.data)
+f2 <- lm(PLD_fixed~Settlement_competency_type_start,data=review.data)
+f <- ggplot(review.data, aes(Settlement_competency_type_start,PLD_fixed))+geom_point() + geom_smooth(method=lm) 
 
 #Mortality
 review.data %>% group_by(Mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
