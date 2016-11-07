@@ -9,3 +9,11 @@ Table: Spatial scales and temporal scales. Comparisons of what trends. Also inte
 Mention about how studies are trying to use empirical data to validate these models! 
 
 Ichthyoplankton (from Greek: ἰχθύς, ikhthus, "fish"; and πλαγκτός, planktos, "drifter") are the eggs and larvae of fish. They are usually found in the sunlit zone of the water column, less than 200 metres deep, which is sometimes called the epipelagic or photic zone. (Source: Wikipedia)
+
+
+The conclusion should:
+summarise the important aspects of the existing body of literature;
+evaluate the current state of the literature reviewed;
+identify significant flaws or gaps in existing knowledge;
+outline areas for future study;
+link your research to existing knowledge.

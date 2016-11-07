@@ -1,9 +1,11 @@
 library("tidyverse")
-
 review.data <- read_csv("data/lit_review.csv")
 
 #Summary statistics
 spec(review.data)
+review_data$Sensory_impl <- as.factor(review_data$Sensory_impl)
+review_data$Spawning_depth_type <- as.factor(review_data$Spawning_depth_type)
+summary(review_data$Sensory_impl)
 summary(review.data)
 
 review.ichthy.data <- filter(review.data,Species_type == "Fish")
@@ -23,9 +25,7 @@ ggplot(review.data, aes(Mortality, Distance_travelled_mean)) + geom_boxplot()
 ggplot(papers.data, aes(Published)) + geom_bar()
 
 #Model runs per publication
-reorder_size <- function(x) {
-  factor(x, levels = names(sort(table(x))))
-}
+
 
 ggplot(review.data,aes(reorder_size(DOI))) + geom_bar() + theme(axis.text.x=element_blank(),
                         axis.ticks.x=element_blank()) + xlab("Models per paper")
@@ -69,7 +69,7 @@ papers.data %>% group_by(Geographical_zone) %>% summarise (n = n()) %>% mutate(f
 #Years per study
 #ggplot(papers.data,aes(reorder_size(Years_total)),fill=gray) + geom_bar() + coord_flip()
 papers.data.complete = na.omit(papers.data)
-ggplot(papers.data.complete,aes(x=Years_total)) + geom_density() + scale_x_log10(breaks=c(1,10,100,1000))
+ggplot(papers.data.complete,aes(x=Years_total)) + geom_density() 
 ggplot(papers.data.complete,aes(x=Years_total)) + geom_histogram(binwidth = 5)
 ggplot(papers.data.complete,aes(x=Years_total)) + geom_boxplot()
 
@@ -88,7 +88,7 @@ summary(review.data$Species_type=='Fish')
 summary(review.data$Species_type=='Bivalvia')
 fish.species <- factor(na.omit(review.data$Species_scientific_name))
 
-#Settlement compentency
+#Settlement competency
 f1 <- lm(Settlement_competency_type_start~PLD_fixed,data=review.data)
 f2 <- lm(PLD_fixed~Settlement_competency_type_start,data=review.data)
 f <- ggplot(review.data, aes(Settlement_competency_type_start,PLD_fixed))+geom_point() + geom_smooth(method=lm) 
@@ -96,3 +96,11 @@ f <- ggplot(review.data, aes(Settlement_competency_type_start,PLD_fixed))+geom_p
 #Mortality
 review.data %>% group_by(Mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 
+#Self-recruitment
+ggplot(review_data,aes(Self_recruitment_mean)) + geom_boxplot()
+
+#Metrics
+
+ggplot(data=dataset,aes(y=Settlement_success_mean,x=Settlement_competency_window)) + geom_boxplot()
+ggplot(data=dataset,aes(y=Self_recruitment_mean,x=Settlement_competency_window)) + geom_boxplot()
+ggplot(data=dataset,aes(y=Local_retention_mean,x=Settlement_competency_window)) + geom_boxplot()

@@ -2,7 +2,7 @@ library("ggplot2")
 library("tibble")
 library("readr")
 data.mort.prop = mutate(data.mort ,prop = Mortality / sum(Mortality))
-dataset <- read_csv("data/lit_review_cleaned.csv")
+dataset <- read_csv("data/lit_review.csv")
 fish_dataset <- subset(dataset,dataset$Species_type=='Fish')
 
 self_rec <- dataset$Self_recruitment_mean

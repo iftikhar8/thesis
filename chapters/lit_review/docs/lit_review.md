@@ -1,39 +1,26 @@
-# Literature review
+# Biophysical model review
 
 ## Title
-
-
+Review of biophysical modelling in investigating connectivity patterns in marine species with a pelagic larval stage. 
 
 ## Introduction 
-The introduction should:
-
-define your topic and provide an appropriate context for reviewing the literature;
-establish your reasons – i.e. point of view – for
-reviewing the literature;
-explain the organisation – i.e. sequence – of the review;
-state the scope of the review – i.e. what is included and what isn’t included. For example, if you were reviewing the literature on obesity in children you might say something like: There are a large number of studies of obesity trends in the general population. However, since the focus of this research is on obesity in children, these will not be reviewed in detail and will only be referred to as appropriate.
 
 ### First background paragraph 
 This review focuses on biophysical connectivity models. 
 
-####What is a biophysical model? 
+-What is a biophysical model? 
+-When did we start utilising them? 
+-The ICES manual was released in 2009, have people been implementing models using this paper? It has a suite of recommendations. Want to evaluate if the field is moving forward at all, or are we just making the same mistakes. 
+-What are they used for?
 
-####When did we start utilising them? 
-
-- The ICES manual was released in 2009, have people been implementing models using this paper? It has a suite of recommendations. Want to evaluate if the field is moving forward at all, or are we just making the same mistakes. 
-
-
-####What are they used for?
-
-####Aims/scope of the review
-
+###Aims/scope of the review
 This review begun from an attempt to understand what biological parameters influence connectivity and how they influence connectivity. We wanted to build a biophysical model and we wanted to know what behaviours we needed as input to get the most accurate patterns we could (without empirical validation). Common to all models is the suspicion that the output does not in fact match the reality of the processes modelled. In connectivity modelling, it can be difficult to verify the output. This difficulty is proportional to the spatial and temporal scales used in the model. However, we need to have progression in the field so that where it is difficult to empirically replicate the results, we can have a degree of confidence in the accuracy and precision of the modelled patterns. The end goal is to understand what input parameters are required to make the most accurate model possible (with well understood trade-offs such as execution time), to allow us to infer compelling conclusions. 
 
 The last major review in the area of ichthyoplankton biophysical modelling was undertaken nearly a decade ago (Miller 2007). We wanted to see if the biological processes found in this review were still relevant in recently published models, even though our focus was on connectivity models. For example, had emergent processes like growth become standard in models now or was there a new consensus of parameters to implement? In the last decade, high powered computing has become more accessible to researchers and in addition researchers are becoming more programming literate, arguably due to the rising popularity of the free statistical platform R (insert citation). Therefore it is expected that models will be both more common in the recent literature and that these models will have a higher inherent complexity, as the tools and knowledge to construct these models are more ubiquitous. 
 
 Our research interest lies in the connectivity patterns of ichthyoplankton, however we looked at studies for a variety of marine species with a pelagic larval stage, as the differences in input parameterisation can be negligible. Therefore the scope of this review was to understand the parameters being used in these models and how these input parameters effect the dispersal patterns generated. We wanted to identify what processes were shared amongst these models, to understand if there was an established suite of required biological processes. Specifically, our interest was in how the configuration of parameters affected these generated dispersal patterns, allowing us to understand what we needed to include in our model. 
 
-#####Study aims: 
+####Study aims: 
 
 1. Wanted to compare how larval behaviours affected the connectivity patterns of models. The aim was to understand what behaviours are required to produce the most accurately generated models.
 
@@ -47,9 +34,7 @@ Papers were assessed in three main sections, the input parameters of their physi
 
 Models were classified into four categories basic on the objective of the study: climate change, marine park connectivity, dispersal & settlement and theoretical. Climate change objectives sought to see how larval connectivity patterns changed over by temporal and spatial scales by increasing ocean temperatures. Marine park connectivity studies were focused on seeing how well connected either existing or potential marine parks were connected for various species. Dispersal and settlement approaches were interested in the dispersal or settlement of a particular species using known input parameters. Theoretical approaches to connectivity studies investigated how different larval parameters effected the pattens of connectivity. 
 
-
-
-## Review results
+##Results
 
 ###Summary
 Biophysical connectivity model studies are a popular research tool for understanding connectivity patterns. Although it looks like this popularity peaked in 2013, with a decrease since then in their occurrence in the literature (@fig:years). The regions these studies are investigating span the breadth of the globe, although similar to Miller's 2007 review, they are still concentrated in highly industrialised fishing regions, such as the North-East Atlantic coast and the Mediterranean Sea (@fig:ocean_regions). The stark difference is in the increase in tropical studies, with 35% of the studies occurring in tropical regions, compared to only 4% in Miller's 2007 review. The majority of studies were in temperate waters (65%) , with one study in the Antarctic polar region and another attempting a global connectivity study.
@@ -58,37 +43,32 @@ Biophysical connectivity model studies are a popular research tool for understan
 
 ![The oceanographic regions modelled in the studies used in the review](../figs/oceanic_region.png){#fig:ocean_regions}
 
-###Taxa
+####Taxa
 The taxa of species modelled, when looking at individual model runs (there were often multiple species per paper), consisted of 10 major groups and a generic group (#fig:species). These 10 taxa were constructed of 47 different species and another 7 which were specified at the family level, e.g. Labridae or Sparidae. Generic species, in that there was no model species, instead a suite of parameters that could apply to several species used in 40.2% of the model runs. Out of the specified taxa, the most common were Fish (39%) and Bivalves (10%). Within the fish taxa, in the majority, individual species were modelled, however they were sometimes modelled to the family level or even as generic fish.
 
 ![The different taxa that were modelled in the reviewed papers](../figs/species.png){#fig:species}
 
-Other things to talk about
-- timesteps of the model
-- particles used in the model
-
-### Time scales
+####Time scales
 The models used different amounts of oceanographic data depending on the trends they were interested (inter- or intra-annual). Interestingly, only one study used the average of several years input data to interpret mean connectivity patterns (Feutry:2013je). The trend was to run the model over a small amount of years using the oceanographic data (#fig:modelled_years). While many studies only opted to use a single year, the median number of years modelled was 3. There were a couple of outliers running models to investigate climate change scenarios, which used periods of 60 years {Aiken:2011dv} and 130 years {Andrello:2014ge} . The earliest year modelled was 1950,and the latest year modelled was 2100 (obviously using estimated ocean current data). The average of the dates modelled was a start date of 2001 with an end date of 2008. Although not all models used continuous years as input, for some studies only specific years were used as input.
 
-![The spread of total years modelled in each of the model runs](../figs/modelled_years.png){#fig:modelled_years}
+![Density plot of the total years modelled in each of the model runs](../figs/modelled_years.png){#fig:modelled_years}
 
 
-###Models used
-
+####Models used
 Most studies practised software reuse, using an existing particle tracking model (82.6%), rather than create a new models (16.0%). The three most popular models used were Ichthyop (18.67%), Connectivity Modelling System (CMS;12.0%) & MGET (8.0%) (*Need to find the citations for these models*). In total amongst the studies, a minimum 21 different models were used (for 22.7% of the papers we were unable to identify the exact particle tracking model used). The studies, with one exception, all used forecasting models to run their connectivity studies. The exception used a hindcast solution, where the larvae were moved from settlement sites to determine their natal sites {Wren:2016gu}. 
 
-###Timesteps
+####Timesteps
 The time particles were updated in the system was either a fixed time step or it varied depending on other factors. The median time step was 1 hour, with a maximum time step of 24 hours {Mora:2012kn} and minimum time step of 60 seconds {Moritz:2013dc}. Under reporting of the timestep used occurred in 37.3% of the papers.
 
 
-###Physical model inputs
+###Physical model
 
-###Physical models used.
+####Physical models used.
 Although this review focuses on the biological part of the coupled model, we will report some findings of the physical models used. The choice of oceanographic current model to use is dependent upon the region the connectivity study is taking place in. The two most common ocean circulation models used were the Regional Ocean Modelling System (ROMS;25.3%) and the Hybrid Coordinate Ocean Model (HYCOM;17.3%). To get around models with low resolution, more complex particle trackers were able to use nest circulation models so that depending where the particle was located, the best resolution model was used. The mean resolution of the largest resolution used in these connectivity models was 5.6km^2, with extremes ranging from a precise 50m^2 {Brennan:2014fm} to broader 33km^2 {Crochelet:2013kr}. 
 
 Comparisons with ichthyology & connectivity modelling in general? 
 
-### Biological model inputs
+###Biological model
 
 #### Pelagic larval duration
 Nearly every study reviewed included the concept of a pelagic larval duration (PLD) (@tbl:behaviours). Whereby the larvae (or particle, from here on I shall use the larvae when referring to particles in a biophysical model) moved in the system until the a defined number of days based of knowledge from the literature. Although this was a common approach, there were a variety of methods used to implement this concept. The standard approach (92.4% of models) was to make this PLD value a fixed concept for each larvae, so that if the individual larva reached this it either had to settle where it was (if possible) or it was killed. The other approach was to implement some variability in the PLD, either using a Gaussian distribution (based on knowledge of the population) or instead of using time, make the PLD dependent on ocean temperature. Most of the fixed PLD values are found between 20-60, with the median value 30 days (@fig:pld_range). Although there were exceptions, with some models implementing values large values (excess of 100) depending on the known biology of the species, e.g. the long duration of the phyllosoma stage of some lobster larvae. 
@@ -109,11 +89,9 @@ Nearly every study reviewed included the concept of a pelagic larval duration (P
 ![The range of fixed PLD values implemented in the reviewed models (n=318)](../figs/pld_ranges.png){#fig:pld_range}
 
 #### Settlement competency window
-The settlement competency window gives the fish larvae a period of time in which they can settle before they reach the end of their pelagic larval duration. It is generally based on their known biology and the idea that most species have to develop sufficiently before their pelagic stage can finish. The start date has a strong correlative relationship with the 
+The settlement competency window gives the fish larvae a period of time in which they can settle before they reach the end of their pelagic larval duration. It is generally based on their known biology and the idea that most species have to develop sufficiently before their pelagic stage can finish. The start date has a strong predictive relationship with the pelagic larval duration, although the settlement window gets longer as the pld increases (#fig:settlement_pld; r^2 = 0.495).
 
-![Settlement competency start date compared to the pelagic larval duration date for the marine organisms (n=157)](../figs/pld_ranges.png){#fig:pld_range}
-
-
+![Settlement competency start date compared to the pelagic larval duration date for the marine organisms (n=157)](../figs/settlement_pld.png){#fig:settlement_pld}
 
 #### Mortality
 Larval mortality was implemented in 41% of the models (@tbl:behaviours). However the implementation of mortality varied across the models, the most common mortality function used was a linear function (82.2%), whereby a fixed  percentage of the larvae were killed after each day. Although the number of larvae killed varied from a maximum rate of 30.0% to minimum mortality rate of 1.7%. Another popular mortality implementation was to kill the larvae based on a known temperature or salinity threshold. Mortality schemes using decay or Weibull functions were implemented in a small subset of the models (less than 2%). 
@@ -122,11 +100,9 @@ Larval mortality was implemented in 41% of the models (@tbl:behaviours). However
 Unlike in Miller's 2007 review, where growth was implemented in a 1/3 of the studies, only 6% of the models we looked at had the concept of growth built in (@tbl:behaviours). This would be because these models are focused on connectivity, where growth is not considered such an important factor in moving between the source and sink sites. 
 
 #### Sensory Ability & Orientation
+The ability of the marine larvae to sense settlement habitat was implemented in 50.9% of the models. Of these, 95.4% opted for a buffer implementation, where each settlement habitat has a buffer zone added around it. The average size of the buffer zone around the potential settlement sites was 8.18 km. The other implementation, which essentially works on similar principles, was to give the larvae a detection distance, which was relative to the centre of the settlement site {Staaterman:2012ek}. This settlement cue was used to allow the larvae to orientate towards the reef if the larvae was within the cue distance, where they used a mixture of early and late onset sensory abilities. Giving the larvae the ability to orientate early improved their chances of settling, and also increased self-recruitment. 
 
-
-Implementations of the ability for a fish larvae to orientate towards a reef based on a pseudo-scent was implemented in only one study {Staaterman:2012ek}, where they used a mixture of early and late onset sensory abilities. Giving the larvae the ability to orientate early improved their chances of settling, and also increased self-recruitment. 
-
-#### Swimming behaviours 
+#### Swimming behaviours
 Only 26% of the models implemented swimming behaviours of some kind, meaning the other 74% assumed the larvae were passive and moved solely by the currents. This is interesting, because we know that this is not the case. At the very least many larvae have diel vertical migration patterns to below the mixed layer to escape predators during the day. Is the reason we are not seeing swimming behaviours implemented because a) we do not know enough about the behaviour of the individual species, b) researchers do not believe swimming movement has much overall effect on the connectivity patterns or c) are people trying to keep their models as simple as possible. It has been established that vertical migration (either diel or ontogenetic) does increase self-recruitment and limit the dispersal kernel [cite Paris etc].  
 
 : The different implementations of swimming behaviours for models of ichthyoplankton. Note the proportions sum to greater than 1 because multiple swimming behaviours can be implemented {#tbl:swimming} 
@@ -143,23 +119,30 @@ Only 26% of the models implemented swimming behaviours of some kind, meaning the
 | Sinking velocity              |      0.034 |
 | Egg buoyoncy                  |      0.045 |
 
-###Spawning behaviour / Timing / Release position / Particles spawned
+#### Spawning strategies
+How the larvae were released in the model was dependent on the biology of the marine species, for instance fish can have multiple strategies, e.g. pelagic eggs, demersal eggs, and brooding. The different strategies meant studies changed the depth larvae were released. Some larvae were released at a fixed depth (37.5%), others released the larvae over a depth range (60.8%). The timing of when larvae were released varied hugely. Some studies released larvae on hourly intervals {Jacobi:2012cz}, others daily {Kough:2013fa}, others on lunar cycles {Davies:2014cw} or even only a one off release {Herbert:2011bh}. There were also several different strategies for the impotence of spawning, most spawned 
 
+The median number of larvae that were spawned at each site was 6800, with a mean overall larvae count of 3200000. 
 
-###Settling behaviours
+### Metrics
 
-
-## Metrics
-
-###How do the behaviours influence metrics?
+####How do the behaviours influence metrics?
 
 Discuss the difficulty of the meta-analysis due to the different metrics that were used. Made comparisons difficult. List all the reasons it made them difficult. 
 
 Describe we could not achieve the goal of the physical & behavourial models required. 
 
-###Mortality against metrics
+####Self-recruitment, local retention & transport success
 
-It appeared that having mortality in your model increases the the mean self-recruitment (#fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (#fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what you would expect (#fig:dist_mort).
+We were able to extract mean self-recruitment values from 29.4% of the published models (#fig:sr_range). There was a large spread of mean self-recruitment amongst the models, ranging from virtually none at all to almost 100%. Local retention was a more common metric, and we were able to get mean local retention values for 32.8% of the models. Local retention ranged from negligible amounts to 35.1% (#fig:lr_range). Settlement success had a similar range to self-recruitment, with a median success of 17.0% (#fig:ss_range).
+
+![The range of mean self-recruitment values in the models](../figs/self_recruitment_box.png){#fig:sr_range}
+
+![The range of mean local-retention values in the models](../figs/local_retention_box.png){#fig:lr_range}
+
+![The range of mean settlement success values in the models](../figs/settlement_success_box.png){#fig:ss_range}
+
+It appears that having mortality in the model increases the the mean self-recruitment (#fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (#fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what you would expect (#fig:dist_mort).
 
 (Can I panel these graphs?)
 ![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png){#fig:sr_mort}
@@ -169,38 +152,23 @@ It appeared that having mortality in your model increases the the mean self-recr
 ##Discussion
 
 
-##Biological Model
+###Biological Model
 
 
-##Physical model
+###Physical model
 
 It is hard to understand the differences in how the physical models affect the output. It appears, from the outlook of a biologist, to be a fairly mature field, therefore most differences are believed to be in the meso- and sub-scale resolution of ocean circulation (*find a paper to support this statement, its a bit pie in the sky*). The strong embrace of open circulation models is encouraging for field.
 
-## Future directions
+###Future directions
 
 Can we only model species we have enough information about their early life history? Added complexity of behaviour means that we might. 
 
 Also the lack of movement forward, does that suggest we are at the forefront until we get more empirical validation for these models?
 
 
-## Conclusion
+###Conclusion
 
 We want to progress the field, have more clarity in connectivity modelling, yet we probably cannot until we have common metrics. 
-
-
-The conclusion should:
-
-summarise the important aspects of the existing body of literature;
-evaluate the current state of the literature reviewed;
-identify significant flaws or gaps in existing knowledge;
-outline areas for future study;
-link your research to existing knowledge.
-
-
-###Figures and tables required
-
-Comparison between self-recruitment & settlement success
-
 
 
 

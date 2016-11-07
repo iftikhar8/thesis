@@ -1,0 +1,53 @@
+---
+title: "R Notebook for Literature Review"
+output: html_notebook
+---
+
+
+```{r}
+#load libraries
+library("tidyverse")
+
+#load data
+data.all <- read_csv("data/lit_review.csv")
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
+
+```{r}
+#check the columns loaded
+spec(data.all)
+
+#get a summary of all the data
+summary(data.all)
+```
+
+Subset data for analysis
+
+```{r}
+#extract data for single paper (is there a better way to do this?)
+data.papers <- data.all %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) %>% 
+  distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step)
+
+#papers looking at fish
+data.fish <- filter(data.all,Species_type == "Fish")
+```
+
+
+Results
+
+The years the studies were published
+
+```{r}
+ggplot(data.papers, aes(Published)) + geom_bar() +labs( x = "Publication year", y = "Number of papers")
+```
+
+The published studies for each model
+
+```{r}
+source("sort_factor.R")
+ggplot(data.all,aes(SortFactorBySize(DOI))) + geom_bar() + theme(axis.text.x=element_blank(),
+                        axis.ticks.x=element_blank()) + xlab("Models per paper")
+```
