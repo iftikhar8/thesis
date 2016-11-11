@@ -1,5 +1,5 @@
 ---
-title: "R Notebook for Literature Review"
+title: "Review Summary"
 output: html_notebook
 ---
 
@@ -36,12 +36,26 @@ data.fish <- filter(data.all,Species_type == "Fish")
 ```
 
 
-Results
+##Summary
 
 The years the studies were published
 
 ```{r}
-ggplot(data.papers, aes(Published)) + geom_bar() +labs( x = "Publication year", y = "Number of papers")
+data.all <- mutate(data.all, movement = 
+  Circatidal_migration |
+  Pynocline_migration |
+  Halocline_migration |
+  Ontogentic_vertical_migration |
+  Vertical_swimming_ability |
+  Horizontal_swimming_ability |
+  Sinking_velocity  | 
+  Diel_vertical_migration)
+
+data.all.test <- data.all %>% gather(Behaviours, Implemented, Passive_movement,movement)
+
+data.papers.published <- data.all.test %>% select(Paper_ID,Published,Behaviours,Implemented) %>% distinct(Paper_ID,Published,Behaviours,Implemented)
+data.papers.published <- filter(data.papers.published,Implemented == TRUE)
+ggplot(data.papers.published, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers")
 ```
 
 The published studies for each model
