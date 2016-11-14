@@ -31,6 +31,8 @@ Subset data for analysis
 data.papers <- data.all %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) %>% 
   distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step)
 
+data.all$Species_type <- as.factor(data.all$Species_type)
+
 #papers looking at fish
 data.fish <- filter(data.all,Species_type == "Fish")
 ```
@@ -38,7 +40,7 @@ data.fish <- filter(data.all,Species_type == "Fish")
 
 ##Summary
 
-The years the studies were published
+###The years the studies were published
 
 ```{r}
 data.all <- mutate(data.all, movement = 
@@ -57,11 +59,42 @@ data.papers.published <- data.all.test %>% select(Paper_ID,Published,Behaviours,
 data.papers.published <- filter(data.papers.published,Implemented == TRUE)
 ggplot(data.papers.published, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers")
 ```
-
-The published studies for each model
+###Published studies for each model
 
 ```{r}
 source("sort_factor.R")
 ggplot(data.all,aes(SortFactorBySize(DOI))) + geom_bar() + theme(axis.text.x=element_blank(),
                         axis.ticks.x=element_blank()) + xlab("Models per paper")
 ```
+###Different taxa
+
+```{r}
+ggplot(data=data.all,aes(SortFactorBySize(Species_type))) + geom_bar() + coord_flip() + ylab("Number of models using the taxa") + xlab("Taxa")
+```
+
+###Oceangraphic regions
+```{r}
+data.papers %>% group_by(Geographical_zone) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+ggplot(data.papers,aes(SortFactorBySize(Oceanic_region)),fill=gray) + geom_bar() + coord_flip() + xlab("Oceanographic region") + ylab("Number of papers per region")
+```
+
+
+###Biophysical models used
+```{r}
+data.papers %>% group_by(Model_name) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+```
+
+###Physical models used
+```{r}
+data.papers %>% group_by(Physical_model) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+```
+
+###Pelagic larval durations
+```{r}
+ggplot(review.data,aes(x=PLD_fixed)) + geom_histogram(binwidth = 15)
+data.all %>% group_by(PLD_type) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+```
+
+##Comparisons
+
+
