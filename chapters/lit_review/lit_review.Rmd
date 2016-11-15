@@ -53,9 +53,13 @@ data.all <- mutate(data.all, movement =
   Sinking_velocity  | 
   Diel_vertical_migration)
 
-data.all.test <- data.all %>% gather(Behaviours, Implemented, Passive_movement,movement)
+data.all.movements <- data.all %>% gather(Behaviours, Implemented, Passive_movement,movement)
 
-data.papers.published <- data.all.test %>% select(Paper_ID,Published,Behaviours,Implemented) %>% distinct(Paper_ID,Published,Behaviours,Implemented)
+data.all.comparisons <- data.all %>% mutate(settlement,Sensory_extent > 0)
+data.all.comparisons <- data.all.comparisons %>% gather(Behaviours, Implemented, Passive_movement,movement,Orientation,settlement)
+
+
+data.papers.published <- data.all.comparisons %>% select(Paper_ID,Published,Behaviours,Implemented) %>% distinct(Paper_ID,Published,Behaviours,Implemented)
 data.papers.published <- filter(data.papers.published,Implemented == TRUE)
 ggplot(data.papers.published, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers")
 ```
@@ -89,7 +93,7 @@ data.models %>% group_by(Model_name) %>% summarise (n = n()) %>% mutate(freq = n
 
 
 ##Physical models
-
+This section compares outputs of the physical models
 ###Physical models used
 ```{r}
 data.model.ocean <- data.all %>% select(Paper_ID,Physical_model) %>% distinct(Paper_ID,Physical_model)
@@ -104,22 +108,20 @@ ggplot(data.papers.timestep,aes(Model_time_step)) + geom_density() + xlab("Time 
 ```
 
 
-####Self-recruitment
+####Metrics influence
 ```{r}
 data.timestamp.sr <- select(data.all,Model_time_step,Self_recruitment_mean) %>% na.omit()
 ggplot(data.timestamp.sr,aes(Model_time_step,Self_recruitment_mean)) + geom_point()
-```
-####Local retention
-```{r}
+
 data.timestamp.lr <- select(data.all,Model_time_step,Local_retention_mean) %>% na.omit()
 ggplot(data.timestamp.lr,aes(Model_time_step,Local_retention_mean)) + geom_point()
-```
-####Settlement success
-```{r}
+
 data.timestamp.ss <- select(data.all,Model_time_step,Settlement_success_mean)
-ggplot(na.omit(data.timestamp.ss
-               ),aes(Model_time_step,Settlement_success_mean)) + geom_point()
+ggplot(na.omit(data.timestamp.ss),aes(Model_time_step,Settlement_success_mean)) + geom_point()
+
 ```
+
+
 
 
 ###Model resolution
@@ -134,19 +136,19 @@ ggplot(data.papers.resolution.grid,aes(Model_resolution_min)) + geom_density() +
 ```{r}
 data.resolution.sr <- data.all %>% filter(Model_spatial_shape == "Grid") %>%select(Model_resolution_min,Model_spatial_shape,Self_recruitment_mean,Nested_submodels) %>% na.omit() 
 ggplot(data.resolution.sr,aes(Model_resolution_min,Self_recruitment_mean)) + geom_point()
-ggplot(data.resolution.sr,aes(Nested_submodels,Self_recruitment_mean)) + geom_boxplot()
+ggplot(data.resolution.sr,aes(Nested_submodels,Self_recruitment_mean)) + geom_boxplot()+ geom_jitter(width = 0.2)
 ```
 ####Local retention
 ```{r}
 data.resolution.lr <- data.all %>% filter(Model_spatial_shape == "Grid") %>%select(Model_resolution_min,Nested_submodels,Local_retention_mean) %>% na.omit()
 ggplot(data.resolution.lr,aes(Model_resolution_min,Local_retention_mean)) + geom_point()
-ggplot(data.resolution.lr,aes(Nested_submodels,Local_retention_mean)) + geom_boxplot()
+ggplot(data.resolution.lr,aes(Nested_submodels,Local_retention_mean)) + geom_boxplot()+ geom_jitter(width = 0.2)
 ```
 ####Settlement success
 ```{r}
 data.resolution.ss <- data.all %>% filter(Model_spatial_shape == "Grid") %>%select(Model_resolution_min,Nested_submodels,Settlement_success_mean) %>% na.omit()
 ggplot(data.resolution.ss,aes(Model_resolution_min,Settlement_success_mean)) + geom_point() + geom_smooth(method=lm)
-ggplot(data.resolution.ss,aes(Nested_submodels,Settlement_success_mean)) + geom_boxplot()
+ggplot(data.resolution.ss,aes(Nested_submodels,Settlement_success_mean)) + geom_boxplot()+ geom_jitter(width = 0.2)
 ```
 
 
@@ -156,8 +158,19 @@ ggplot(data.resolution.ss,aes(Nested_submodels,Settlement_success_mean)) + geom_
 ###Pelagic larval durations
 ```{r}
 ggplot(data.all,aes(x=PLD_fixed)) + geom_density()
-data.all %>% group_by(PLD_type) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+data.all %>% group_by(PLD_type) %>% summarise (n = n()) %>% mutate(freq = n / sum(n)) %>% na.omit
 ```
+####Comparisons
+```{r}
+
+data.all.lessoutlier <- filter(data.all,PLD_fixed < 150)
+
+ggplot(data.all.lessoutlier,aes(PLD_fixed,Self_recruitment_mean)) + geom_point() 
+ggplot(data.all.lessoutlier,aes(PLD_fixed,Local_retention_mean)) + geom_point()
+ggplot(data.all.lessoutlier,aes(PLD_fixed,Settlement_success_mean)) + geom_point()
+ggplot(data.all.lessoutlier,aes(PLD_fixed,Distance_travelled_mean)) + geom_point() 
+```
+
 
 ###Mortality
 ```{r}
@@ -173,7 +186,7 @@ ggplot(data.all,aes(x=Sensory_extent,y=Local_retention_mean)) + geom_point()
 ggplot(data.all,aes(x=Sensory_extent,y=Settlement_success_mean)) + geom_point()
 ```
 
-#Proportions of implemented behaviours
+###Proportions of implemented behaviours
 ```{r}
 data.all %>% group_by(Mortality) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 data.all %>% group_by(Growth) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
@@ -182,7 +195,7 @@ data.all %>% group_by(Settlement_competency_window) %>% summarise (n = n()) %>% 
 data.all %>% group_by(Orientation) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 ```
 
-#Proportions of swimming behaviours for ALL larvae
+###Proportions of swimming behaviours for ALL larvae
 ```{r}
 larvae.swimming <- filter(data.all,Passive_movement==FALSE)
 larvae.swimming %>% group_by(Horizontal_swimming_ability) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
@@ -198,4 +211,28 @@ larvae.swimming %>% group_by(Egg_buoyancy) %>% summarise (n = n()) %>% mutate(fr
 
 ##Comparisons
 
+###Outputs with movement / settlement / orientation
+```{r}
+data.compare.metrics <- data.all %>% mutate(settlement = Sensory_extent > 0) %>% mutate(move_orien = movement & Orientation) %>% mutate(orien_settle = Orientation & Sensory_extent > 0) %>% mutate(move_orien_settle = Orientation & Sensory_extent > 0 & movement) %>% mutate(move_settle = Sensory_extent > 0 & movement)
+data.compare.metrics <- data.compare.metrics %>% gather(Behaviours, Implemented, Passive_movement,movement,Orientation,settlement,move_orien,orien_settle,move_settle,move_orien_settle) %>% filter(Implemented == TRUE)
+ggplot(data.compare.metrics,aes(Behaviours,Self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
+ggplot(data.compare.metrics,aes(Behaviours,Local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
+ggplot(data.compare.metrics,aes(Behaviours,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
+```
+
+###Comparisons of different movement methods
+```{r}
+data.compare.moving <- data.all %>% gather(movement_factor, implemented,  Circatidal_migration, Pynocline_migration, Halocline_migration, Ontogentic_vertical_migration, Vertical_swimming_ability, Horizontal_swimming_ability, Sinking_velocity, Diel_vertical_migration) %>% filter(implemented == TRUE)
+ggplot(data.compare.moving,aes(movement_factor,Self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
+ggplot(data.compare.moving,aes(movement_factor,Local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
+ggplot(data.compare.moving,aes(movement_factor,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
+```
+
+###Comparisons of different settlement methods
+```{r}
+data.compare.settlement <- data.all %>% mutate(settlement,Sensory_extent > 0)
+ggplot(data.compare.settlement,aes(settlement,Self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) 
+ggplot(data.compare.settlement,aes(settlement,Local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) 
+ggplot(data.compare.settlement,aes(settlement,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) 
+```
 
