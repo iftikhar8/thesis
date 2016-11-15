@@ -100,7 +100,6 @@ review.data %>% group_by(Mortality_function) %>% summarise (n = n()) %>% mutate(
 ggplot(review_data,aes(Self_recruitment_mean)) + geom_boxplot()
 
 #Metrics
-
 ggplot(data=dataset,aes(y=Settlement_success_mean,x=Settlement_competency_window)) + geom_boxplot()
 ggplot(data=dataset,aes(y=Self_recruitment_mean,x=Settlement_competency_window)) + geom_boxplot()
 ggplot(data=dataset,aes(y=Local_retention_mean,x=Settlement_competency_window)) + geom_boxplot()
