@@ -1,10 +1,13 @@
 ---
-title: "Review Summary"
-output: html_notebook
+title: "Review Presentation for Will"
+output:
+  html_document: default
+  html_notebook: default
 ---
 
+A list of all the figures and tables to go into the biophysical connectivity review paper
 
-```{r}
+```{r include=FALSE}
 #load libraries
 library("tidyverse")
 
@@ -12,38 +15,23 @@ library("tidyverse")
 data.all <- read_csv("data/lit_review.csv")
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
-
-```{r}
+```{r include=FALSE}
 #check the columns loaded
 spec(data.all)
+```
 
+Summary of all the data
+```{r}
 #get a summary of all the data
 summary(data.all)
 ```
 
-Subset data for analysis
-
-```{r}
-#extract data for single paper (is there a better way to do this?)
-data.papers <- data.all %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) %>% 
-  distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step)
-
-data.all$Species_type <- as.factor(data.all$Species_type)
-
-#papers looking at fish
-data.fish <- filter(data.all,Species_type == "Fish")
-```
-
-
-##Summary
+##General summary section
 
 ###The years the studies were published
 
 ```{r}
-data.all <- mutate(data.all, movement = 
+data.all <- data.all %>% mutate(movement = 
   Circatidal_migration |
   Pynocline_migration |
   Halocline_migration |
@@ -51,14 +39,11 @@ data.all <- mutate(data.all, movement =
   Vertical_swimming_ability |
   Horizontal_swimming_ability |
   Sinking_velocity  | 
-  Diel_vertical_migration)
+  Diel_vertical_migration) %>% mutate(settlement = Sensory_extent > 0)
 
-data.all.movements <- data.all %>% gather(Behaviours, Implemented, Passive_movement,movement)
+##data.all.comparisons <- data.all %>% gather(Behaviours, Implemented, Passive_movement,movement)
 
-data.all.comparisons <- data.all %>% mutate(settlement,Sensory_extent > 0)
-data.all.comparisons <- data.all.comparisons %>% gather(Behaviours, Implemented, Passive_movement,movement,Orientation,settlement)
-
-
+data.all.comparisons <- data.all %>% gather(Behaviours, Implemented,Passive_movement,movement,Orientation,settlement)
 data.papers.published <- data.all.comparisons %>% select(Paper_ID,Published,Behaviours,Implemented) %>% distinct(Paper_ID,Published,Behaviours,Implemented)
 data.papers.published <- filter(data.papers.published,Implemented == TRUE)
 ggplot(data.papers.published, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers")
@@ -107,7 +92,6 @@ data.papers.timestep <- data.all %>% select(Paper_ID,Model_time_step) %>% distin
 ggplot(data.papers.timestep,aes(Model_time_step)) + geom_density() + xlab("Time step (seconds)")
 ```
 
-
 ####Metrics influence
 ```{r}
 data.timestamp.sr <- select(data.all,Model_time_step,Self_recruitment_mean) %>% na.omit()
@@ -122,9 +106,7 @@ ggplot(na.omit(data.timestamp.ss),aes(Model_time_step,Settlement_success_mean)) 
 ```
 
 
-
-
-###Model resolution
+###Model resolution and submodels
 ```{r}
 data.papers.resolution <- data.all %>% select(Paper_ID,Model_resolution_min,Model_spatial_shape) %>% distinct(Paper_ID,Model_resolution_min,Model_spatial_shape)
 data.papers.resolution.grid <- filter(data.papers.resolution,Model_spatial_shape == "Grid")
@@ -147,7 +129,7 @@ ggplot(data.resolution.lr,aes(Nested_submodels,Local_retention_mean)) + geom_box
 ####Settlement success
 ```{r}
 data.resolution.ss <- data.all %>% filter(Model_spatial_shape == "Grid") %>%select(Model_resolution_min,Nested_submodels,Settlement_success_mean) %>% na.omit()
-ggplot(data.resolution.ss,aes(Model_resolution_min,Settlement_success_mean)) + geom_point() + geom_smooth(method=lm)
+ggplot(data.resolution.ss,aes(Model_resolution_min,Settlement_success_mean)) + geom_point() 
 ggplot(data.resolution.ss,aes(Nested_submodels,Settlement_success_mean)) + geom_boxplot()+ geom_jitter(width = 0.2)
 ```
 
@@ -175,8 +157,11 @@ ggplot(data.all.lessoutlier,aes(PLD_fixed,Distance_travelled_mean)) + geom_point
 ###Mortality
 ```{r}
 data.all %>% filter(Mortality == TRUE) %>% group_by(Mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+ggplot(data.all, aes(Mortality, Self_recruitment_mean)) + geom_boxplot() + geom_jitter(width = 0.2)
+ggplot(data.all, aes(Mortality, Local_retention_mean)) + geom_boxplot()+ geom_jitter(width = 0.2)
+ggplot(data.all, aes(Mortality, Settlement_success_mean)) + geom_boxplot()+ geom_jitter(width = 0.2)
+ggplot(data.all, aes(Mortality, Distance_travelled_mean)) + geom_boxplot()+ geom_jitter(width = 0.2)
 ```
-
 
 ###Sensory extent
 ```{r}
@@ -236,3 +221,17 @@ ggplot(data.compare.settlement,aes(settlement,Local_retention_mean)) + geom_boxp
 ggplot(data.compare.settlement,aes(settlement,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) 
 ```
 
+###Comparisons of different sensory extent sizes
+```{r}
+ggplot(data.compare.settlement, aes(Sensory_extent,Self_recruitment_mean)) + geom_point()
+ggplot(data.compare.settlement, aes(Sensory_extent,Local_retention_mean)) + geom_point()
+ggplot(data.compare.settlement, aes(Sensory_extent,Settlement_success_mean)) + geom_point()
+```
+
+###Comparisons of different sensory extent sizes
+```{r}
+##data.compare.settlement <- mutate(data.compare.settlement,settlement_size = Sensory_extent + Settlement_site_size)
+ggplot(data.compare.settlement, aes(Settlement_site_size,Self_recruitment_mean)) + geom_point(aes(colour= factor(settlement)))
+ggplot(data.compare.settlement, aes(Settlement_site_size,Local_retention_mean)) + geom_point(aes(colour= factor(settlement)))
+ggplot(data.compare.settlement, aes(Settlement_site_size,Settlement_success_mean)) + geom_point(aes(colour= factor(settlement)))
+```
