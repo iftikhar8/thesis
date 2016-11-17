@@ -5,64 +5,70 @@ These are the type specimens for different sub-family level taxa found amongst t
 ##Labridae
 
 ###Labrid A
-###Postflexion
+####Postflexion
 ![Labrid species A](../figs/type_specimens/labrid_a_pos.png "Labrid A Postflexion")
 
 ###Labrid B
-###Preflexion
+####Preflexion
 ![Labrid species B](../figs/type_specimens/labrid_b_pre.png "Labrid B Preflexion")
-###Postflexion
+
+####Postflexion
 ![Labrid species B](../figs/type_specimens/labrid_b_pos.png "Labrid B Postflexion")
 
 ###Labrid C
-###Flexion
+####Flexion
 ![Labrid species C](../figs/type_specimens/labrid_c_fle.png "Labrid C Flexion")
 
 ###Labrid D
-###Preflexion
+####Preflexion
 ![Labrid species D](../figs/type_specimens/labrid_d_pre.jpg "Labrid D Preflexion")
-###Postflexion
+####Postflexion
 ![Labrid species D](../figs/type_specimens/labrid_d_pos.png "Labrid D Postflexion")  
 
 Labrid D is notable for the patterns on the tail  
 
 ###Labrid E
-###Postflexion
+####Postflexion
 ![Labrid species E](../figs/type_specimens/labrid_e_pos.png "Labrid E Postflexion")
 
 ###Labrid F
-###Preflexion
+####Preflexion
 ![Labrid species F](../figs/type_specimens/labrid_f_pre.jpg "Labrid F Preflexion")  
 
 ###Labrid G
-###Flexion
+####Flexion
 ![Labrid species G](../figs/type_specimens/labrid_g_fle.png "Labrid G Flexion")
 
 ###Labrid H
 ![Labrid species H](../figs/type_specimens/labrid_h_pos.png "Labrid H Postflexion")
 
 ###Labrid I
-###Flexion
+####Flexion
 ![Labrid species I](../figs/type_specimens/labrid_i_fle.png "Labrid I Flexion")
 
 ###Labrid J
 ####Postflexion
 ![Labrid species J](../figs/type_specimens/labrid_j_pos.jpg "Labrid J Postflexion") 
 
-## Scaridae
 
-###A
+##Scaridae
+
+###Species A
+####Postflexion
 ![Scarid species A](../figs/type_specimens/scarid_a.jpg "Scarid A")
 
 ## Pomacentridae
 
 ###Pom A
+####Flexion
 ![Pomacentrid species A](../figs/type_specimens/pomacentrid_a_fle.jpg "Pomacentrid A")  
 
 ###Pom B
+####Flexion
 ![Pomacentrid species B](../figs/type_specimens/pomacentrid_b_fle.png "Pomacentrid B")  
 
 ###Pom C
+####Flexion
 ![Pomacentrid species C](../figs/type_specimens/pomacentrid_c_fle.png "Pomacentrid C")  
 
 ## Synodontidae
