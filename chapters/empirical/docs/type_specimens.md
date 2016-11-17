@@ -48,7 +48,7 @@ Labrid D is notable for the patterns on the tail
 
 ###Labrid J
 ####Postflexion
-![Labrid species J](../figs/type_specimens/labrid_j_pos.jpg "Labrid J Postflexion") 
+![Labrid species J](../figs/type_specimens/labrid_J_pos.jpg "Labrid J Postflexion") 
 
 
 ##Scaridae
@@ -69,7 +69,7 @@ Labrid D is notable for the patterns on the tail
 
 ###Pom C
 ####Flexion
-![Pomacentrid species C](../figs/type_specimens/pomacentrid_c_fle.png "Pomacentrid C")  
+![Pomacentrid species C](../figs/type_specimens/pomacentrid_c_fle.PNG "Pomacentrid C")  
 
 ## Synodontidae
 
@@ -104,11 +104,11 @@ Labrid D is notable for the patterns on the tail
 ![Serranid species F](../figs/type_specimens/serranid_f_pre.png "Serranid F Preflexion")  
 
 ####Postflexion
-![Serranid species F](../figs/type_specimens/serranid_f_pos.png "Serranid F Postflexion")  
+![Serranid species F](../figs/type_specimens/serranid_f_pos.PNG "Serranid F Postflexion")  
 
 ###Serranid H
 ####Flexion
-![Serranid species H](../figs/type_specimens/serranid_h_fle.png "Serranid H Flexion")  
+![Serranid species H](../figs/type_specimens/serranid_h_fle.PNG "Serranid H Flexion")  
 
 
 ##Triglidae
