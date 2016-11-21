@@ -1,20 +1,52 @@
+class: middle, center
+
 #Modelling chapters proposal
 ---
-##Theoretical chapter
+#1. Theory chapter
 
-+ Movement in the water column and how it affects dispersal. 
+Vertical movement in the water column and how it affects dispersal. 
 
-Using the empirical data found for various fish species (perhaps choose the different strategies)
 ---
-###Scope
-+ Comparison of different movement behaviours. Diel, OVM, Vertical swimming ability, Horizontal swimming ability, salinity based movement, Temperature based movement. 
-+ Comparison of different implementations of OVM. Does how you implement your solution affect the output?
+#Scope
+Major theme: Compare different movement behaviours for fish
+ - Diel, ontogenetic, vertical & horizontal swimming
+ - Combinatorial approach (=16 including passive)
+ 
+Minor theme: Compare different implementations of ontogenetic migration. 
+
 ---
-###Questions
-How do different movements affect the connectivity (i.e. what has the most effect)? 
-Can any one movement be substituted for the others? 
-Is the answer in really understanding the fishes biology or will implementing diel vertical migration for example be enough to simulate movement? 
+
+#Hypothesis
+
+##Major
+Expectation is they will all show unique patterns as they all influence the movement in different ways
+
+##Minor
+I also expect that while implementation will slightly change the values, I do not expect there to be significant differences and they all try and achieve the same outcomes
+
 ---
+#Movement comparison
+
+##Methods: 
+- Model a generic fish, with only the implemented behaviours to change
+- Use same random number generator (or run multiple trials?) 
+- Release at 10 (equi-distant or random?) sites along the east Australian coast
+
+##Visualising Results:
+Compare on metrics of: 
+- connectivity (self-recruitment, local-retention & connectivity success)
+- dispersal (distance & spread)
+
+QUESTION. How to compare 5 different response metrics and 16 model runs?
+- nMDS
+- Can I capture all 5 response variables in a linear model? 
+
+---
+#Implementation comparison
+
+Methods: 
+
+Again compare metrics.
 
 ##Applied chapter
 ---

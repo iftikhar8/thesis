@@ -1,47 +1,141 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Title</title>
-    <meta charset="utf-8">
-    <style>
-      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+	<head>
+		<meta charset="utf-8" />
+		<title>#Modelling chapters proposal</title>
+		<style>
+			body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h1, h2, h3 {
+	font-weight: 400;
+	margin-bottom: 0;
+}
+.remark-slide-content h1 { font-size: 3em; }
+.remark-slide-content h2 { font-size: 2em; }
+.remark-slide-content h3 { font-size: 1.6em; }
+.footnote {
+	position: absolute;
+	bottom: 3em;
+}
+li p { line-height: 1.25em; }
+.red { color: #fa0000; }
+.large { font-size: 2em; }
+a, a > code {
+	color: rgb(249, 38, 114);
+	text-decoration: none;
+}
+code {
+	background: none repeat scroll 0 0 #F8F8FF;
+  border: 1px solid #DEDEDE;
+  border-radius: 3px 	;
+  padding: 0 0.2em;
+}
+.remark-code, .remark-inline-code { font-family: "Bitstream Vera Sans Mono", "Courier", monospace; }
+.remark-code-line-highlighted     { background-color: #373832; }
+.pull-left {
+	float: left;
+	width: 47%;
+}
+.pull-right {
+	float: right;
+	width: 47%;
+}
+.pull-right ~ p {
+	clear: both;
+}
+#slideshow .slide .content code {
+	font-size: 0.8em;
+}
+#slideshow .slide .content pre code {
+	font-size: 0.9em;
+	padding: 15px;
+}
+.main-title, .title {
+	background: #272822;
+	color: #777872;
+	text-shadow: 0 0 20px #333;
+}
+.title h1, .title h2, .main-title h1, .main-title h2 {
+	color: #f3f3f3;
+	line-height: 0.8em;
+}
+/* Custom */
+.remark-code {
+	display: block;
+	padding: 0.5em;
+}
 
-      body { font-family: 'Droid Serif'; }
-      h1, h2, h3 {
-        font-family: 'Yanone Kaffeesatz';
-        font-weight: normal;
-      }
-      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
-    </style>
-  </head>
-  <body>
-    <textarea id="source">
+		</style>
+	</head>
+	<body>
+		<textarea id="source">
+class: middle, center
 
-class: center, middle
+#Modelling chapters proposal
+---
+class: middle, center
+#1. Theory chapter
 
-# Title
+Vertical movement in the water column and how it affects dispersal. 
+
+---
+#Scope
+Major theme: Compare different movement behaviours for fish
+ - Diel, ontogenetic, vertical & horizontal swimming
+ - Combinatorial approach (=16 including passive)
+ 
+Minor theme: Compare different implementations of ontogenetic migration. 
 
 ---
 
-# Agenda
+#Hypothesis
 
-1. Introduction
-2. Deep-dive
-3. ...
+##Major
+I expect them to be all slightly different
+
+##Minor
+I also expect that while implementation will slightly change the values, I do not expect it to be significant
+
+---
+#Movement comparison
+
+Compare on metrics of: 
+- connectivity (self-recruitment, local-retention & connectivity success)
+- dispersal (distance & spread)
+
+How to compare 5 different response metrics and 16 model runs?
+
+
+
+
+How do different movements affect the connectivity (i.e. what has the most effect)? 
+Can any one movement be substituted for the others?
+Is the answer in really understanding the fishes biology or will implementing diel vertical migration for example be enough to simulate movement? 
 
 ---
 
-# Introduction
+##Applied chapter
+---
++ Connectivity between marine estates in Australia
+---
+###Scope
+Look at the new Federal marine parks and the state marine parks on the east-Australian coast. Choosing the marine species will be key, but also interesting to see if how these areas connect to each other. Doesn't necessarily all have to be representative of fish, can also include commercial invertebrate species such as mussels, abalone? Options are to look at at large area, or just focus on one state at a time and then compare between SA, VIC, NSW. 
 
-    </textarea>
-    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
-    </script>
-    <script>
-      var slideshow = remark.create({
-        sourceUrl: 'modelling_chapters.md'
-      });
-    </script>
-  </body>
+Implement the vertical migration of several species if we know it (or just use the general patterns that we found, with different PLDs). Therefore can cover a wide range of (generic) fish species. 
+---
+###Questions
+Are they well connected for all species, or a subset of species?
+What species benefit from the current arrangements & what species do not? 
+Are the marine parks well connected (e.g. number of isolated sites, sinks, sources). 
+Aim is not to get political about it, just report on connectivity for a few species. Aim to use generic species to be cover a wide range. 
+---
+
+		</textarea>
+		<script src="http://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
+		<script>
+			var slideshow = remark.create();
+		</script>
+		<script></script>
+	</body>
 </html>
