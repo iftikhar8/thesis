@@ -44,15 +44,22 @@ QUESTION. How to compare 5 different response metrics and 16 model runs?
 ---
 #Implementation comparison
 
-Methods: 
-
-Again compare metrics.
-
-##Applied chapter
+##Methods: 
+- Use the same general methods as part one
+- Look at different four implementations of OVM
+    + Probability distribution function covers water column
+    + Probability distribution but constrained by location
+    + Fixed migration (based on age)
+    + Fixed migration and randomisation within stratified zones
+    
 ---
-+ Connectivity between marine estates in Australia
+#2. Applied chapter
+
+Connectivity between marine estates in Australia
+(NSW marine estates, include federal marine parks?)
+
 ---
-###Scope
+#Scope
 Look at the new Federal marine parks and the state marine parks on the east-Australian coast. Choosing the marine species will be key, but also interesting to see if how these areas connect to each other. Doesn't necessarily all have to be representative of fish, can also include commercial invertebrate species such as mussels, abalone? Options are to look at at large area, or just focus on one state at a time and then compare between SA, VIC, NSW. 
 
 Implement the vertical migration of several species if we know it (or just use the general patterns that we found, with different PLDs). Therefore can cover a wide range of (generic) fish species. 
