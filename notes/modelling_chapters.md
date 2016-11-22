@@ -37,7 +37,7 @@ Compare on metrics of:
 - connectivity (self-recruitment, local-retention & connectivity success)
 - dispersal (distance & spread)
 
-QUESTION. How to compare 5 different response metrics and 16 model runs?
+###QUESTION. How to compare 5 different response metrics and 16 model runs?
 - nMDS
 - Can I capture all 5 response variables in a linear model? 
 
@@ -55,18 +55,28 @@ QUESTION. How to compare 5 different response metrics and 16 model runs?
 ---
 #2. Applied chapter
 
+I want to do an applied chapter, but need a good question
+Marine estates / parks seems like the obvious one
+
 Connectivity between marine estates in Australia
 (NSW marine estates, include federal marine parks?)
 
 ---
 #Scope
-Look at the new Federal marine parks and the state marine parks on the east-Australian coast. Choosing the marine species will be key, but also interesting to see if how these areas connect to each other. Doesn't necessarily all have to be representative of fish, can also include commercial invertebrate species such as mussels, abalone? Options are to look at at large area, or just focus on one state at a time and then compare between SA, VIC, NSW. 
+##Ideas
+1. Compare the connectivity of the current NSW marine estates for various fish species, using behaviour. Fish would be from the families I caught on the boat so I can use those OVM as these were caught in NSW/QLD waters. (Some of this probably has been done, but not explicitly with models & behaviour)
 
-Implement the vertical migration of several species if we know it (or just use the general patterns that we found, with different PLDs). Therefore can cover a wide range of (generic) fish species. 
+2. Compare the connectivity of the federal marine reserves
+- pelagic / commercial marine species
+- but then do I need other factors like predation?
+
+
 ---
-###Questions
-Are they well connected for all species, or a subset of species?
-What species benefit from the current arrangements & what species do not? 
-Are the marine parks well connected (e.g. number of isolated sites, sinks, sources). 
-Aim is not to get political about it, just report on connectivity for a few species. Aim to use generic species to be cover a wide range. 
+
+# Method
+
+
+# Results
+
+
 ---

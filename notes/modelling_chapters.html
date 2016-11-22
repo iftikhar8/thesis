@@ -74,7 +74,6 @@ class: middle, center
 
 #Modelling chapters proposal
 ---
-class: middle, center
 #1. Theory chapter
 
 Vertical movement in the water column and how it affects dispersal. 
@@ -92,45 +91,67 @@ Minor theme: Compare different implementations of ontogenetic migration.
 #Hypothesis
 
 ##Major
-I expect them to be all slightly different
+Expectation is they will all show unique patterns as they all influence the movement in different ways
 
 ##Minor
-I also expect that while implementation will slightly change the values, I do not expect it to be significant
+I also expect that while implementation will slightly change the values, I do not expect there to be significant differences and they all try and achieve the same outcomes
 
 ---
 #Movement comparison
 
+##Methods: 
+- Model a generic fish, with only the implemented behaviours to change
+- Use same random number generator (or run multiple trials?) 
+- Release at 10 (equi-distant or random?) sites along the east Australian coast
+
+##Visualising Results:
 Compare on metrics of: 
 - connectivity (self-recruitment, local-retention & connectivity success)
 - dispersal (distance & spread)
 
-How to compare 5 different response metrics and 16 model runs?
+###QUESTION. How to compare 5 different response metrics and 16 model runs?
+- nMDS
+- Can I capture all 5 response variables in a linear model? 
 
+---
+#Implementation comparison
 
+##Methods: 
+- Use the same general methods as part one
+- Look at different four implementations of OVM
+    + Probability distribution function covers water column
+    + Probability distribution but constrained by location
+    + Fixed migration (based on age)
+    + Fixed migration and randomisation within stratified zones
+    
+---
+#2. Applied chapter
 
+I want to do an applied chapter, but need a good question
+Marine estates / parks seems like the obvious one
 
-How do different movements affect the connectivity (i.e. what has the most effect)? 
-Can any one movement be substituted for the others?
-Is the answer in really understanding the fishes biology or will implementing diel vertical migration for example be enough to simulate movement? 
+Connectivity between marine estates in Australia
+(NSW marine estates, include federal marine parks?)
+
+---
+#Scope
+##Ideas
+1. Compare the connectivity of the current NSW marine estates for various fish species, using behaviour. Fish would be from the families I caught on the boat so I can use those OVM as these were caught in NSW/QLD waters. (Some of this probably has been done, but not explicitly with models & behaviour)
+
+2. Compare the connectivity of the federal marine reserves
+- pelagic / commercial marine species
+- but then do I need other factors like predation?
+
 
 ---
 
-##Applied chapter
----
-+ Connectivity between marine estates in Australia
----
-###Scope
-Look at the new Federal marine parks and the state marine parks on the east-Australian coast. Choosing the marine species will be key, but also interesting to see if how these areas connect to each other. Doesn't necessarily all have to be representative of fish, can also include commercial invertebrate species such as mussels, abalone? Options are to look at at large area, or just focus on one state at a time and then compare between SA, VIC, NSW. 
+# Method
 
-Implement the vertical migration of several species if we know it (or just use the general patterns that we found, with different PLDs). Therefore can cover a wide range of (generic) fish species. 
----
-###Questions
-Are they well connected for all species, or a subset of species?
-What species benefit from the current arrangements & what species do not? 
-Are the marine parks well connected (e.g. number of isolated sites, sinks, sources). 
-Aim is not to get political about it, just report on connectivity for a few species. Aim to use generic species to be cover a wide range. 
----
 
+# Results
+
+
+---
 		</textarea>
 		<script src="http://gnab.github.io/remark/downloads/remark-latest.min.js"></script>
 		<script>
