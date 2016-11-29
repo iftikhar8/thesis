@@ -17,3 +17,11 @@ evaluate the current state of the literature reviewed;
 identify significant flaws or gaps in existing knowledge;
 outline areas for future study;
 link your research to existing knowledge.
+
+
+##Behavior and Settlement
+Butler IV shows OVM reduces dispersal distance, also gives other examples with lobster larave
+
+
+##Mortality
+If only we know the mortality. The difference between potential and realised connectivity could be great with high mortality, see Butler IV highlights. 
