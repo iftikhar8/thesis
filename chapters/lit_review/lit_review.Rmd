@@ -10,8 +10,9 @@ A list of all the figures and tables to go into the biophysical connectivity rev
 ```{r include=FALSE}
 #load libraries
 library("tidyverse")
-
+##library("readxl")
 #load data
+##df <- read_excel("data/lit_review.xlsx",sheet=1,col_names=TRUE,na="NA")
 data.all <- read_csv("data/lit_review.csv")
 ```
 
@@ -58,7 +59,7 @@ ggplot(data.all,aes(SortFactorBySize(DOI))) + geom_bar() + theme(axis.text.x=ele
 ###Different taxa
 
 ```{r}
-data.taxa <- select(data.all,Species_type) %>% na.omit()
+data.taxa <- select(data.all,Species_type) 
 ggplot(data=data.taxa,aes(SortFactorBySize(Species_type))) + geom_bar() + coord_flip() + ylab("Number of models using the taxa") + xlab("Taxa")
 ```
 
@@ -198,19 +199,37 @@ larvae.swimming %>% group_by(Egg_buoyancy) %>% summarise (n = n()) %>% mutate(fr
 
 ###Outputs with movement / settlement / orientation
 ```{r}
-data.compare.metrics <- data.all %>% mutate(settlement = Sensory_extent > 0) %>% mutate(move_orien = movement & Orientation) %>% mutate(orien_settle = Orientation & Sensory_extent > 0) %>% mutate(move_orien_settle = Orientation & Sensory_extent > 0 & movement) %>% mutate(move_settle = Sensory_extent > 0 & movement)
-data.compare.metrics <- data.compare.metrics %>% gather(Behaviours, Implemented, Passive_movement,movement,Orientation,settlement,move_orien,orien_settle,move_settle,move_orien_settle) %>% filter(Implemented == TRUE)
-ggplot(data.compare.metrics,aes(Behaviours,Self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
-ggplot(data.compare.metrics,aes(Behaviours,Local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
-ggplot(data.compare.metrics,aes(Behaviours,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
+data.compare.metrics <- data.all %>% 
+  mutate(settlement = Sensory_ability & Passive_movement & !Orientation) %>% 
+  mutate(move_orien = movement & Orientation & !Sensory_ability) %>% 
+  mutate(orien_settle = Orientation & Sensory_ability & Passive_movement) %>% 
+  mutate(move_orien_settle = Orientation & Sensory_extent > 0 & !Passive_movement) %>% 
+  mutate(move_settle = Sensory_ability & movement & !Orientation) %>% 
+  mutate(no_behav = Passive_movement == TRUE & Sensory_ability == FALSE & Orientation == FALSE) %>% 
+  mutate(orien = Orientation == TRUE & Sensory_ability == FALSE & Passive_movement == TRUE) %>% 
+  mutate(move = Passive_movement == FALSE & Sensory_ability == FALSE & Orientation == FALSE)
+
+data.compare.metrics <- data.compare.metrics %>% gather(Behaviours, Implemented, no_behav,move,orien,settlement,move_orien,orien_settle,move_settle,move_orien_settle) %>% filter(Implemented == TRUE)
+
+data.compare.metrics$Behaviours <- factor(data.compare.metrics$Behaviours,levels = c('no_behav','move','orien','settlement','move_orien','move_settle','orien_settle','move_orien_settle'),ordered=TRUE)
+
+ggplot(data.compare.metrics,aes(Behaviours,Self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) 
+ggplot(data.compare.metrics,aes(Behaviours,Local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2)
+ggplot(data.compare.metrics,aes(Behaviours,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2)
 ```
 
 ###Comparisons of different movement methods
 ```{r}
-data.compare.moving <- data.all %>% gather(movement_factor, implemented,  Circatidal_migration, Pynocline_migration, Halocline_migration, Ontogentic_vertical_migration, Vertical_swimming_ability, Horizontal_swimming_ability, Sinking_velocity, Diel_vertical_migration) %>% filter(implemented == TRUE)
+data.compare.moving <- data.all %>% gather(movement_factor, implemented,  Passive_movement, Circatidal_migration, Pynocline_migration, Halocline_migration, Ontogentic_vertical_migration, Vertical_swimming_ability, Horizontal_swimming_ability, Sinking_velocity, Diel_vertical_migration) %>% filter(implemented == TRUE)
+
+
 ggplot(data.compare.moving,aes(movement_factor,Self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
 ggplot(data.compare.moving,aes(movement_factor,Local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
 ggplot(data.compare.moving,aes(movement_factor,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
+
+ggplot(data.all,aes(Passive_movement,Self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
+ggplot(data.all,aes(Passive_movement,Local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
+ggplot(data.all,aes(Passive_movement,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) + coord_flip()
 ```
 
 ###Comparisons of different settlement methods
@@ -230,8 +249,23 @@ ggplot(data.compare.settlement, aes(Sensory_extent,Settlement_success_mean)) + g
 
 ###Comparisons of different sensory extent sizes
 ```{r}
-##data.compare.settlement <- mutate(data.compare.settlement,settlement_size = Sensory_extent + Settlement_site_size)
-ggplot(data.compare.settlement, aes(Settlement_site_size,Self_recruitment_mean)) + geom_point(aes(colour= factor(settlement)))
-ggplot(data.compare.settlement, aes(Settlement_site_size,Local_retention_mean)) + geom_point(aes(colour= factor(settlement)))
-ggplot(data.compare.settlement, aes(Settlement_site_size,Settlement_success_mean)) + geom_point(aes(colour= factor(settlement)))
+data.compare.settlement <- data.all %>% select(Settlement_site_size,Sensory_extent,Self_recruitment_mean,Local_retention_mean,Settlement_success_mean, Sensory_impl)  %>%  mutate(settlement_size_normalised = if_else(Sensory_impl=="Buffer",(sqrt(Settlement_site_size)+Sensory_extent)^2,Settlement_site_size,missing=Settlement_site_size)) %>% filter(settlement_size_normalised > 0 & settlement_size_normalised < 500 )
+
+ggplot(data.compare.settlement, aes(settlement_size_normalised,Self_recruitment_mean)) + geom_point()
+ggplot(data.compare.settlement, aes(settlement_size_normalised,Local_retention_mean)) + geom_point()
+ggplot(data.compare.settlement, aes(settlement_size_normalised,Settlement_success_mean)) + geom_point()
+```
+
+####Open / Closed
+```{r}
+ggplot(data.all,aes(System,Self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) 
+ggplot(data.all,aes(System,Local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2)
+ggplot(data.all,aes(System,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2)
+```
+
+
+
+####New settlement size
+```{r}
+data.all.size 
 ```
