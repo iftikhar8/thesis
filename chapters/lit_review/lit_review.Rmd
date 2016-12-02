@@ -300,7 +300,34 @@ ggplot(data.all,aes(System,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE
 
 
 
-####New settlement size
+####New settlement windoes
 ```{r}
-data.all.size 
+data.window <- data.all %>% select(PLD_fixed,Settlement_competency_type_start,Self_recruitment_mean) %>%
+  mutate(window=PLD_fixed-Settlement_competency_type_start) %>%
+  na.omit
+ggplot(data.window,aes(window,Self_recruitment_mean)) + geom_point() + geom_smooth(method=lm)
+lmSR <- lm(window~Self_recruitment_mean,data.window)
+summary(lmSR)
+
+data.window <- data.all %>% select(PLD_fixed,Settlement_competency_type_start,Settlement_success_mean) %>%
+  mutate(window=PLD_fixed-Settlement_competency_type_start) %>%
+  na.omit
+ggplot(data.window,aes(window,Settlement_success_mean)) + geom_point() + geom_smooth(method=lm)
+lmSS <- lm(window~Settlement_success_mean,data.window)
+summary(lmSS)
+
+data.window <- data.all %>% select(PLD_fixed,Settlement_competency_type_start,Local_retention_mean) %>%
+  mutate(window=PLD_fixed-Settlement_competency_type_start) %>%
+  na.omit
+ggplot(data.window,aes(window,Local_retention_mean)) + geom_point() + geom_smooth(method=lm)
+lmLR <- lm(window~Local_retention_mean,data.window)
+summary(lmLR)
+
 ```
+```{r}
+ggplot(data.all,aes(Spawning_release_sites,Spawning_settlement_sites)) + geom_point() + geom_smooth(method=lm)
+summary(lm(Spawning_release_sites~Spawning_settlement_sites,data.all))
+data.settlement <- data.all %>% mutate(site_diff_num = abs(Spawning_settlement_sites - Spawning_release_sites)) %>% mutate(site_diff = if_else(site_diff_num > 0,TRUE,FALSE))
+ggplot(data.settlement,aes(site_diff,Settlement_success_mean)) + geom_boxplot()
+```
+
