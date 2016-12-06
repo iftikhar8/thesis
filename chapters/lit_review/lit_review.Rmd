@@ -49,6 +49,10 @@ data.all.comparisons <- data.all %>% gather(Behaviours, Implemented,Passive_move
 data.papers.published <- data.all.comparisons %>% select(Paper_ID,Published,Behaviours,Implemented,Species_type) %>% distinct(Paper_ID,Published,Behaviours,Implemented,Species_type)
 data.papers.published <- filter(data.papers.published,Implemented == TRUE)
 ggplot(data.papers.published, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers")
+
+ggsave("figs/years.png")
+
+
 data.papers.published.fish <- filter(data.papers.published,Species_type == 'Fish')
 fish.total <- ggplot(data.papers.published.fish, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers", title = "Proportion of total papers with implemented fish behaviours by year")
 
@@ -69,8 +73,10 @@ invert.prop <- ggplot(data.papers.published.invert, aes(x=Published,y=freq, grou
 
 fish.prop <- ggplot(data.papers.published.fish, aes(x=Published,y=freq, group=Behaviours, colour=Behaviours)) + geom_line()
 
-grid.arrange(fish.total,fish.prop)
-grid.arrange(invert.total,invert.prop)
+p <- grid.arrange(fish.total,fish.prop)
+ggsave("figs/fish_prop.png",plot=p)
+p <- grid.arrange(invert.total,invert.prop)
+ggsave("figs/invert_prop.png",plot=p)
 
 ```
 ###Published studies for each model

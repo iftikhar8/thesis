@@ -25,3 +25,14 @@ Butler IV shows OVM reduces dispersal distance, also gives other examples with l
 
 ##Mortality
 If only we know the mortality. The difference between potential and realised connectivity could be great with high mortality, see Butler IV highlights. 
+
+
+##Background
+This review focuses on biophysical connectivity models. 
+
+-What is a biophysical model? 
+-When did we start utilising them? 
+-The ICES manual was released in 2009, have people been implementing models using this paper? It has a suite of recommendations. Want to evaluate if the field is moving forward at all, or are we just making the same mistakes. 
+-What are they used for?
+
+Biophysical modelling is a field that is 30 years old, although the physical model is more mature than its coupled biological model.

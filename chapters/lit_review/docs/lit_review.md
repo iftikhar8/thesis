@@ -5,15 +5,7 @@ WORKING TITLE: Review of biophysical modelling in investigating connectivity pat
 
 ## Introduction 
 
-### First background paragraph 
-This review focuses on biophysical connectivity models. 
-
--What is a biophysical model? 
--When did we start utilising them? 
--The ICES manual was released in 2009, have people been implementing models using this paper? It has a suite of recommendations. Want to evaluate if the field is moving forward at all, or are we just making the same mistakes. 
--What are they used for?
-
-Biophysical modelling is a field that is 30 years old, although the physical model is more mature than its coupled biological model.
+### Background paragraph 
 
 [INSERT HERE]
 
@@ -89,7 +81,7 @@ To see if there was an effect of the modelled geographical area on settlement, t
 ###Physical model
 
 ####Hydrodynamic models used
-Although this review focuses on the biological part of the coupled model, we will report some findings of the physical models used. The choice of oceanographic current model depends upon the region the connectivity study is taking place in. The two most common ocean circulation models used were the Regional Ocean Modelling System (ROMS;25.3%) and the Hybrid Coordinate Ocean Model (HYCOM;17.3%). Nested circulation models were used in the more complex particle trackers to bypass issues of low resolution in modelling. 
+Although this review focuses on the biological part of the coupled model, we will report some findings of the physical models used. The choice of oceanographic current model depends upon the region the connectivity study is taking place in. The two most common ocean circulation models used were the Regional Ocean Modelling System (ROMS; 25.3%) and the Hybrid Coordinate Ocean Model (HYCOM; 17.3%). Nested circulation models were used in the more complex particle trackers to bypass issues of low resolution in modelling. 
 
 The mean resolution of the largest resolution used in these connectivity models was 5.6km^2, with extremes ranging from a precise 50m^2 {Brennan:2014fm} to broader 33km^2 {Crochelet:2013kr}. As seen in Miller's 2007 review, there was no trend over time towards high resolution models. There was no relationship between either model resolution or nested models on the metrics of settlement or dispersal. This was unexpected given that sub-mesoscale processes are expected to be more accurately captured in the hydrodynamic model as the resolution increases, as would the connectivity patterns of the modelled larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs.
 
@@ -130,7 +122,7 @@ How the larvae were released in the model was dependent on the biology of the ma
 #### Mortality
 Larval mortality was implemented in 41% of the models (@tbl:behaviours). However the implementation of mortality varied across the models, the most common mortality function used was a linear function (82.2%), whereby a fixed  percentage of the larvae were killed after each day. Although the number of larvae killed varied from a maximum rate of 30.0% to minimum mortality rate of 1.7%. Another popular mortality implementation was to kill the larvae based on a known temperature or salinity threshold. Mortality schemes using decay or Weibull functions were implemented in a small subset of the models (less than 2%). 
 
-It appears that having mortality in the model increases the the mean self-recruitment (#fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (#fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what you would expect (#fig:dist_mort).
+Including mortality in the model increases the the mean self-recruitment (@fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (@fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what you would expect (@fig:dist_mort). 
 
 (Can I panel these graphs?)
 ![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png){#fig:sr_mort}
@@ -160,7 +152,6 @@ Only 26% of the models implemented swimming behaviours of some kind, meaning the
 | Sinking velocity              |      0.034 |
 | Egg buoyoncy                  |      0.045 |
 
-
 #### How does introducing behaviour influence connectivity
 
 As behaviour (movement, orientation & settlement) is introduced, it lowers the amount the level of self-recruitment (@fig:behaviours_sr), while increasing the overall settlement success (@fig:behaviours_ss). 
@@ -171,21 +162,13 @@ As behaviour (movement, orientation & settlement) is introduced, it lowers the a
 
 
 
-##Discussion
-
-
-###Biological Model
-
-
-###Physical model
-
-It is hard to understand the differences in how the physical models affect the output. It appears, from the outlook of a biologist, to be a fairly mature field, therefore most differences are believed to be in the meso- and sub-scale resolution of ocean circulation (*find a paper to support this statement, its a bit pie in the sky*). The strong embrace of open circulation models is encouraging for field.
 
 ###Future directions
 
 Can we only model species we have enough information about their early life history? Added complexity of behaviour means that we might. 
 
 Also the lack of movement forward, does that suggest we are at the forefront until we get more empirical validation for these models?
+
 
 
 ###Conclusion
