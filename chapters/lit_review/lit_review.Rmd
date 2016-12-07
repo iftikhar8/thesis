@@ -257,6 +257,7 @@ data.compare.metrics$Behaviours <- factor(data.compare.metrics$Behaviours,levels
 ggplot(data.compare.metrics,aes(Behaviours,Self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) 
 ggplot(data.compare.metrics,aes(Behaviours,Local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2)
 ggplot(data.compare.metrics,aes(Behaviours,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2)
+
 ```
 
 ###Comparisons of different movement methods

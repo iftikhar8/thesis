@@ -52,7 +52,7 @@ The utility of biophysical connectivity model studies as a research tool for und
 
 
 ####Motivations
-The overwhelming motivation for using a connectivity biophysical model was to answer questions about dispersal and settlement {@fig:motivation}. Dispersal models without settlement and studies motivated by investigating marine park connectivity occurred in equal frequencies. Theoretical and climate change studies were both rare motivations amongst these review papers. Understandably, climate change predictions for connectivity patterns using hydrodynamic modelling have inherent difficulties in ascertaining their accuracy due to having to use past oceanographic data. Interestingly, there were few studies using a purely theoretical approach to understanding the biology that influences connectivity, although many studies indirectly did this by using different behaviours.
+The overwhelming motivation for using a connectivity biophysical model was to answer questions about dispersal and settlement (@fig:motivation). Dispersal models without settlement and studies motivated by investigating marine park connectivity occurred in equal frequencies. Theoretical and climate change studies were both rare motivations amongst these review papers. Understandably, climate change predictions for connectivity patterns using hydrodynamic modelling have inherent difficulties in ascertaining their accuracy due to having to use past oceanographic data. Interestingly, there were few studies using a purely theoretical approach to understanding the biology that influences connectivity, although many studies indirectly did this by using different behaviours.
 
 ![The different motivations for the studies reviewed](../figs/motivation.png){#fig:motivation}
 
@@ -125,9 +125,13 @@ Larval mortality was implemented in 41% of the models (@tbl:behaviours). However
 Including mortality in the model increases the the mean self-recruitment (@fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (@fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what you would expect (@fig:dist_mort). 
 
 (Can I panel these graphs?)
-![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png){#fig:sr_mort}
-![Comparison of the mean settlement success values with mortality included implemented in the model](../figs/ss_mortality.png){#fig:ss_mort}
-![Comparison of the mean distance travelled with mortality included implemented in the model](../figs/dist_mortality.png){#fig:dist_mort}
+
+![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png){#fig:sr_mort} 
+
+![Comparison of the mean settlement success values with mortality included implemented in the model](../figs/ss_mortality.png){#fig:ss_mort} 
+
+![Comparison of the mean distance travelled with mortality included implemented in the model](../figs/dist_mortality.png){#fig:dist_mort} 
+
 
 #### Growth
 Unlike in Miller's 2007 review, where growth was implemented in a 1/3 of the studies, only 6% of the models we looked at had the concept of growth built in (@tbl:behaviours). This would be because these models are focused on connectivity, where growth is not considered such an important factor in moving between the source and sink sites. 
@@ -154,11 +158,11 @@ Only 26% of the models implemented swimming behaviours of some kind, meaning the
 
 #### How does introducing behaviour influence connectivity
 
-As behaviour (movement, orientation & settlement) is introduced, it lowers the amount the level of self-recruitment (@fig:behaviours_sr), while increasing the overall settlement success (@fig:behaviours_ss). 
+From the reviewed papers, if movement or settlement sensory was included in the model, it reduced the mean self-recruitment occurring of the model (@fig:behaviours_sr). If both these behaviours were included, then self-recruitment increased, although there are fewer data points for comparison. The opposite trend appears to occur for settlement success (@fig:behaviours_ss). the highest settlement success occurred when multiple behaviours of movement & settlement or movement & orientation & settlement were all included in the model. Unfortunately there were not many studies that included orientation to make meaningful comparison about how this behaviour influenced the connectivity. 
 
-![The influence of implementing behaviours on self-recruitment](../figs/behaviours_sr.png){#fig:behaviours_sr}
+![The effect of larval behaviour (movement, orientation & settlement sensory) on the mean self-recruitment in connectivity studies](../figs/behaviours_sr.png){#fig:behaviours_sr}
 
-![The influence of implementing behaviours on settlement success](../figs/behaviours_ss.png){#fig:behaviours_ss}
+![The effect of larval behaviour (movement, orientation & settlement sensory) on the mean settlement success of larvae in connectivity studies](../figs/behaviours_ss.png){#fig:behaviours_ss}
 
 
 
@@ -167,7 +171,14 @@ As behaviour (movement, orientation & settlement) is introduced, it lowers the a
 
 Can we only model species we have enough information about their early life history? Added complexity of behaviour means that we might. 
 
+Is it a divide between physical and biological oceanographers?
+
 Also the lack of movement forward, does that suggest we are at the forefront until we get more empirical validation for these models?
+
+
+#Caveat & Limitiations
+
+Obviously there are heaps of parameters influencing these results, while there may not be much correlation between them, adding them together will produce an effect. 
 
 
 
