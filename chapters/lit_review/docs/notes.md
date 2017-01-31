@@ -19,8 +19,8 @@ outline areas for future study;
 link your research to existing knowledge.
 
 
-##Behavior and Settlement
-Butler IV shows OVM reduces dispersal distance, also gives other examples with lobster larave
+##Behaviour and Settlement
+Butler IV shows OVM reduces dispersal distance, also gives other examples with lobster larvae
 
 
 ##Mortality
