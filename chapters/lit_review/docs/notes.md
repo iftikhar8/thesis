@@ -36,3 +36,9 @@ This review focuses on biophysical connectivity models.
 -What are they used for?
 
 Biophysical modelling is a field that is 30 years old, although the physical model is more mature than its coupled biological model.
+
+
+
+#Figures Use
+(NB = no behaviour, M = movement, S = settlement sensory, MO = movement and orientation, MS = movement and settlement sensory, OS = orientation and settlement sensory, MOS = movement, orientation & settlement sensory)
+
