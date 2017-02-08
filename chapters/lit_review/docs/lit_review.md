@@ -88,67 +88,77 @@ The models used different time-scales of oceanographic data depending on the tre
 ![Density plot of the total years modelled in each of the model runs](../figs/modelled_years.png){#fig:modelled_years}
 
 ##Biological model
-The biological attributes implemented were not consistent across studies, apart from the two biological parameters every connectivity study must implement, spawning strategies and pelagic larval duration. Whether this lack of consistency is because researchers do not agree that biological has much influence on connectivity patterns, some behaviours are species specific  or the empirical knowledge to parametrise the model is missing in the literature. 
+The biological models implemented were not consistent across studies. The only biological parameters that were consistent and implemented across nearly each study in this review were the trait of pelagic larval duration (100%) and the spawning behaviour (98.3%; as mentioned before there was a single hindcast study). It is not clear why there is a lack of consistency in the choices of the biological model used. Possible reasons could be that researchers do not agree that biological has much influence on connectivity patterns,  that certain traits and behaviours are species specific, or that the empirical knowledge to parametrise the model is lacking.
 
 : The behaviours that have been implemented in the modelled connectivity studies. Note that multiple behaviours can be implemented in the one model {#tbl:behaviours} 
 
-|        Functionality         | Proportion |
-|------------------------------|------------|
-| Pelagic larval duration      |      1.000 |
-| Settlement competency window |      0.487 |
-| Spawning strategies          |      1.000 |
-| Mortality                    |      0.410 |
-| Growth                       |      0.067 |
-| Sensory ability              |      0.583 |
-| Orientation                  |      0.026 |
-| Swimming behaviours          |      0.257 |
+|        Functionality         | Implemented(%) |
+|------------------------------|----------------|
+| Pelagic larval duration      |          100.0 |
+| Settlement competency window |           48.7 |
+| Spawning strategies          |           98.3 |
+| Mortality                    |           41.0 |
+| Growth                       |            6.7 |
+| Sensory ability              |           58.3 |
+| Orientation                  |            2.6 |
+| Swimming behaviours          |           25.7 |
 
 
 ### Pelagic larval duration
-The first core biological parameter that is inherent to every biophysical model is the pelagic larval duration (PLD) of the model species (@tbl:behaviours). The pelagic larval duration is the time the larvae spends in the ocean before it settles at a site. There were two different approaches when implementing the pelagic larval duration. The standard approach (92.4% of models) was to make the PLD value a fixed for each larva. If the individual larva reaches this time, it either must settle (if possible) or it is considered dead. The other approach was to implement some variability in the PLD, either using a Gaussian distribution (based on knowledge of the population) or instead of using time, make the PLD dependent on ocean temperature. The fixed PLD values ranged from 2-420 days, with the median value 30 days (@fig:pld_range). The PLDs were, in general, taken from known ranges found in the literature, with the highest values modelled for invertebrate species e.g. the long duration of the phyllosoma stage of some lobster larvae {ButlerIV:2011kq}{Kough:2013fa}.
+Information on the length of time an organism will spend in the pelagic environment prior to settlement at a site is fundamental to any attempt at transport modelling.  As such, this period, often termed the pelagic larval duration (PLD) is a core parameter found in every study we reviewed (@tbl:behaviours). The studies we reviewed exhibited two different approaches when implementing the pelagic larval duration. The standard approach (92.4% of models) was to make the PLD value a fixed for each larva. If the individual larva reaches this time, it either must settle (if possible) or it is considered dead. The other approach was to implement some variability in the PLD (5.6% of models), either using a Gaussian distribution (based on knowledge of the population) or instead of using time, make the PLD dependent on ocean temperature. The fixed PLD values ranged from 2-420 days, with a median value of 30 days (@fig:pld_range). The PLDs were, in general, taken from known ranges found in the literature, with the highest values modelled for invertebrate species e.g. the long duration (~400 days) of the phyllosoma stage of some lobster larvae {ButlerIV:2011kq}{Kough:2013fa}.
 
 ![The range of fixed PLD values implemented in the reviewed models (n=318)](../figs/pld_ranges.png){#fig:pld_range}
 
-The settlement competency window gives the fish larvae a period in which they can settle before they reach the end of their pelagic larval duration. It is generally based on their known biology and the idea that most species must develop sufficiently before their pelagic stage can finish. The length of the settlement competency window (from the beginning age of settlement to the pelagic larval duration) had no effect on the mean settlement success. It did have a slight positive correlation with self-recruitment (r^0.27, df=18) and a strong negative correlation with local retention (r^0.70, df=9). (*Note: Do I want to show these graphs?*)
+*TODO: intro*
+The settlement competency window gives the fish larvae a period in which they can settle before they reach the end of their pelagic larval duration. It is generally based on their known biology and the idea that most species must develop sufficiently before their pelagic stage can finish. 
+
+*TODO: Put in the ranges of the settlement competency window*
 
 ###Spawning strategies
-How the larvae were released in the model was dependent on the biology of the marine species, for instance fish can have multiple strategies, e.g. pelagic eggs, demersal eggs, and brooding. The implement these different strategies, studies changed the release depth of the larvae. The two strategies for releasing the particles at depth were either to use a fixed depth (37.5%), or to randomly release the larvae over a range of depth values (60.8%), i.e release larvae in in the 0-20 m range of the water column. The timing of when larvae were released varied from hourly intervals {Jacobi:2012cz}, daily {Kough:2013fa}, monthly {Staaterman:2012ek}, on lunar cycles {Davies:2014cw} or just a one-off spawning event {Herbert:2011bh}. The spawning windows relied on the known biology and what times of year the species is known to produce larvae. In general, spawning events were pre-determined, but several studies used temperature as a spawning initiation {Andrello:2014ge}{Rochette:2012io} or even wave height was used to release abalone larvae in one model {Miyake:2011hr}. In general, the release sites and settlement sites were same sites. However, in several studies with known release sites, there were many more available settlement habitats for the larvae. The larvae spawned at each site ranged from only 10 larvae to 10,000,000, with a median of 6800. The overall larvae tracked in the system (spawning site x number of sites x number of releases) had a similarly large range, from 328 to 610,000,000 larvae, with a median total of 3.2 million. Some studies also used a super-individual concept, whereby a single particle in the system represented a number of larvae with similar attributes. 
+A second key element included by necessity in every study in our review was some sort of spawning strategy which determined how the larvae were released in the model. The spawning strategy was typically dependent on the biology of the modelled taxa and included pelagic eggs, demersal eggs, or brooding. In order to implement these different strategies, studies changed depth for the release of the larvae, e.g. demersal eggs were released on the bottom of the natal reef and pelagic eggs were released higher up the water column. The two strategies for releasing the particles at depth were either to use a fixed depth (37.5%), or to randomly release the larvae over a range of depth values (60.8%), i.e release larvae in in the 0-20 m range of the water column. The timing of when larvae were released varied from hourly intervals {Jacobi:2012cz}, daily {Kough:2013fa}, monthly {Staaterman:2012ek}, on lunar cycles {Davies:2014cw} or just a one-off spawning event {Herbert:2011bh}. The spawning windows relied on the known biology and what times of year the species is known to produce larvae. In general, spawning events were pre-determined, but several studies used temperature as a spawning initiation {Andrello:2014ge}{Rochette:2012io} or even wave height was used to release abalone larvae in one model {Miyake:2011hr}. In general, the release sites and settlement sites were same sites. However, in several studies with known release sites, there were many more available settlement habitats for the larvae. The larvae spawned at each site ranged from only 10 larvae to 10,000,000, with a median of 6800. The overall larvae tracked in the system (spawning site x number of sites x number of releases) had a similarly large range, from 328 to 610,000,000 larvae, with a median total of 3.2 million. 
+
+*Would it be possible to give the average number of larvae released from a site that were used to make one connectivity matrix?  This would differentiate situations where, for instance they released 100,000 larvae from each site, ran them out and made a matrix and they did this every week…so one matrix per week.  As compared ot another study which may have released 100000 ever week for a month and then used all this info to make one matrix.  The idea would be to give some sort of guidance on the amount of larvae people seem to think is enough to generate a single estimate of connectivity.*
+
+
+*how many super-individualed their model*
+Some studies also used the concept of a super-individual, whereby a single larvae in the system represents a larger number of larvae with a normalised collection of attributes. There are large computational benefits to this approach, especially in models that use a continuous space. The caveat is that you have to consider how much individual variation you are willing to lose by modelling these super-individuals.
 
 ### Mortality
-Larval mortality was implemented in 41% of the models (@tbl:behaviours). However, the implementation of mortality varied across the models, the most common mortality function used was a linear function (82.2%), whereby a fixed  percentage of the larvae were killed after each day. Although the number of larvae killed varied from a maximum rate of 30.0% to minimum mortality rate of 1.7%. Another popular mortality implementation was to kill the larvae based on a known temperature or salinity threshold. Mortality schemes using decay or Weibull functions were implemented in a small subset of the models (less than 2%). 
-
-Including mortality in the model increases the mean self-recruitment (@fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (@fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what you would expect (@fig:dist_mort). 
-
-![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png){#fig:sr_mort} 
-
-![Comparison of the mean settlement success values with mortality included implemented in the model](../figs/ss_mortality.png){#fig:ss_mort} 
-
-![Comparison of the mean distance travelled with mortality included implemented in the model](../figs/dist_mortality.png){#fig:dist_mort} 
+Larval mortality was implemented in 41% of the models (@tbl:behaviours). However, the implementation of mortality varied across the models, the most common mortality function used was a linear function (82.2%), whereby a fixed  percentage of the larvae were killed each day. The daily mortality rate in these studies varied from 1.7% to 30.0% with an average of *X*%.  Another popular mortality implementation was to kill the larvae based on a known temperature or salinity threshold. Mortality schemes using decay or Weibull functions were implemented in a small subset of the models (less than 2%). 
+*is that 2% the models that have mortality or overall*
 
 *TODO: Do I need these mortality graphs and if so, put them into a panel?*
 
 ### Growth
-Unlike in Miller's 2007 review, where growth was implemented in a 1/3 of the studies, only 6% of the models we looked at had the concept of growth built in (@tbl:behaviours). This would be because these models are focused on connectivity, where growth is not considered such an important factor in moving between the source and sink sites. 
+Unlike in Miller's 2007 review, where growth was implemented in one-third of the studies, only 6% of the models reviewed had the concept of growth built in (@tbl:behaviours). The rationale is that the models used in this review are solely investigating connectivity, where growth is not considered such an important factor affecting the strength of connectivity amongst sites, unless it is co-implemented with a sinking velocity dependent on mass.
 
 ### Sensory Ability & Orientation
-The ability of the marine larvae to sense settlement habitat was implemented in 50.9% of the models. Of these, 95.4% opted for a buffer implementation, where each settlement habitat has a buffer zone added around it. The average size of the buffer zone around the potential settlement sites was 8.18 km. The other implementation, which essentially works on similar principles, was to give the larvae a detection distance, which was relative to the centre of the settlement site {Staaterman:2012ek}. This settlement cue was used to allow the larvae to orientate towards the reef if the larvae was within the cue distance, where they used a mixture of early and late onset sensory abilities. Giving the larvae the ability to orientate early improved their chances of settling, and increased self-recruitment. 
+The ability of the marine larvae to sense settlement habitat was implemented in 50.9% of the models. Of these, 95.4% opted for a buffer implementation, where each settlement habitat has a buffer zone added around it. The average size of the buffer zone around the potential settlement sites was 8.18 km *standard deviation??*. The other implementation, which essentially works on similar principles, was to give the larvae a detection distance, which was relative to the centre of the settlement site {Staaterman:2012ek}. This settlement cue was used to allow the larvae to orientate towards the reef if the larvae was within the cue distance (*what distances were used?*), where a mixture of early and late onset sensory abilities. Giving the larvae the ability to orientate early improved their chances of settling, and also increased self-recruitment. 
 
 ### Swimming behaviours
-Only 26% of the models implemented swimming behaviours of some kind, meaning the other 74% assumed the larvae were passive and moved solely by the currents. This is interesting, because we know that this is not the case. At the very least many larvae have diel vertical migration patterns to below the mixed layer to escape predators during the day. Is the reason we are not seeing swimming behaviours implemented because a) we do not know enough about the behaviour of the individual species, b) researchers do not believe swimming movement has much overall effect on the connectivity patterns or c) are people trying to keep their models as simple as possible. It has been established that vertical migration (either diel or ontogenetic) does increase self-recruitment and limit the dispersal kernel (*Note:cite all the papers*).  
+Only 26% of the models implemented swimming behaviours of some kind, meaning the other 74% assumed the larvae were passive and moved solely by the currents. This is interesting, given the growing body of literature which highlights the often extensive swimming abilities of fishes (CITES). Even where horizontal swimming may not be important, many larvae have diel vertical migration patterns to below the mixed layer to escape predators during the day. It has been established that vertical migration (either diel or ontogenetic) does increase self-recruitment and limit the dispersal kernel (*Note:cite all the papers*).  
 
-: The different implementations of swimming behaviours for models of ichthyoplankton. Note the proportions sum to greater than 1 because multiple swimming behaviours can be implemented {#tbl:swimming} 
+When swimming behaviours were implemented, the most common behaviour was diel vertical migration (45.4%; @tbl:swimming), followed by ontogenetic vertical migration (27.2%).
 
-|       Swimming behaviour      | Proportion |
-|-------------------------------|------------|
-| Horizontal swimming           |      0.125 |
-| Vertical swimming             |      0.045 |
-| Ontogenetic vertical swimming |      0.272 |
-| Diel vertical migration       |      0.454 |
-| Halocline migration           |      0.011 |
-| Circatidal migration          |      0.057 |
-| Pynocline migration           |      0.068 |
-| Sinking velocity              |      0.034 |
-| Egg buoyancy                  |      0.045 |
+NEED TO TALK ABOUT ALL OF THE DIFFERENT MIGRATIONS AND WHAT THEY INVOLVE.
+
+(*Do I keep this paragraph in there?*)
+Is the reason we are not seeing swimming behaviours implemented because a) we do not know enough about the behaviour of the individual species, b) researchers do not believe swimming movement has much overall effect on the connectivity patterns or c) are people trying to keep their models as simple as possible. 
+
+: The percentage of ichthyoplankton models in this review which implemented different swimming behaviours. Note the percentages sum to greater than 1 because multiple swimming behaviours can be implemented in a single model. {#tbl:swimming} 
+
+|       Swimming behaviour      | Implemented(%) |
+|-------------------------------|----------------|
+| Horizontal swimming           |           12.5 |
+| Vertical swimming             |            4.5 |
+| Ontogenetic vertical swimming |           27.2 |
+| Diel vertical migration       |           45.4 |
+| Halocline migration           |            1.1 |
+| Circatidal migration          |            5.7 |
+| Pynocline migration           |            6.8 |
+| Sinking velocity              |            3.4 |
+| Egg buoyancy                  |            4.5 |
+
 
 
 ## Metrics
@@ -158,18 +168,28 @@ The trend in biophysical modelling is to present data using visual techniques su
 
 We could extract mean self-recruitment values from 17.5% of the published models, even though 29.7% of the papers used self-recruitment in their analysis. There was a large spread of the mean self-recruitment amongst the models, ranging from 0-98%, depending on the study, with a median self-recruitment value of 13.0%. Local retention, while mentioned for 31.7% of studies, we were only able to get mean local retention values for 5.5% of the models. Most people only reported potential connectivity models (potential is the probability of settlement, where realised is a more accurate measure offset by biological processes such as egg production and mortality). Mean local retention ranged from 0.3-46.0%, with a median value of 6.0%. Overall mean settlement success of the larvae was extracted for 18.02% of the studies, ranging from 0.1-80% successful settlement rates, with a median of 26.8%. 
 
-### How does introducing behaviour influence connectivity
+#What parameters are important for connectivity models
+## Discuss the common metrics used for comparison
+Why did we use the metrics we did? What were the issues with only have a few metrics.
+
+## Is the choice of physical parameter important?
+
+
+## Is the choice of biological parameter important? 
 
 *TODO: Should I do Kruskall-Wallace tests between these groups to see the statistical differences, or just visualise it*
 
-From the reviewed papers, if movement or settlement sensory was included in the model, it reduced the mean self-recruitment occurring of the model (@fig:behaviours_sr). This is an unexpected result, considering the overriding consensus is that self-recruitment is increased through behavioural implementations in the model. While the maximum values for mean self-recruitment are higher with behaviour, other model parameters specific to the studies could be influencing this trend. If both these behaviours were included, then self-recruitment increased, although there are fewer data points for comparison. The large spread of values for self-recruitment, ranging from close to 100% down to almost none, also suggest that the is a mix of parameters influencing the self-recruitment seen in models.
+###Swimming behaviours
+Models which included movement or settlement sensory had overall lower mean self-recruitment levels than those which did not (@fig:behaviours_sr, INCLUDE STATS). This is an unexpected result, considering the overriding consensus is that self-recruitment is increased through behavioural implementations in the model (CITES). While the maximum values for mean self-recruitment are higher with behaviour, other model parameters specific to the studies could be influencing this trend. If both these behaviours were included, then self-recruitment increased, although there are fewer data points for comparison. The large spread of values for self-recruitment, ranging from close to 100% down to almost none, also suggest that the is a mix of parameters influencing the self-recruitment seen in models.
 
-The opposite trend appears to occur for settlement success (@fig:behaviours_ss). The highest settlement success occurred when multiple behaviours of movement & settlement or movement & orientation & settlement were all included in the model. Unfortunately there were not many studies that included orientation to draw meaningful comparisons about orientation influenced connectivity amongst the papers, but the strong assumption is that it would also increase settlement success, as shown in individual studies {Staaterman:2012ek}. 
+The opposite trend appears to occur for settlement success (@fig:behaviours_ss). The highest settlement success occurred when multiple behaviours of movement & settlement or movement & orientation & settlement were all included in the model. Unfortunately there were not many studies that included orientation to draw meaningful comparisons about the influence of orientation on connectivity patterns, but the strong assumption is that it would also increase settlement success, as shown in individual studies {Staaterman:2012ek}. 
 
 ![The effect of larval behaviour (movement, orientation & settlement sensory) on the mean self-recruitment in connectivity studies](../figs/behaviours_sr.png){#fig:behaviours_sr}
 
 ![The effect of larval behaviour (movement, orientation & settlement sensory) on the mean settlement success of larvae in connectivity studies](../figs/behaviours_ss.png){#fig:behaviours_ss}
 
+##Settlement competency
+The length of the settlement competency window (from the beginning age of settlement to the pelagic larval duration) had no effect on the mean settlement success. It did have a slight positive correlation with self-recruitment (r^0.27, df=18) and a strong negative correlation with local retention (r^0.70, df=9). (*Note: Do I want to show these graphs?*)
 
 ## Open / Closed system effect
 To see if there was an effect of the modelled geographical area on settlement, the regions were broadly categorised into open (coastal, island) or closed (bay or inland sea). There was no noticeable effect of geographical area on self-recruitment, however closed systems had double the median settlement success rate. This makes sense as in a closed system the choices of settlement sites for larvae are increased. Open systems will have higher degree of unsettled larvae as many are swept out into sea and away from settlement regions. There were not enough data points on local retention for comparison on geographical location.
@@ -180,6 +200,16 @@ What did we think would influence the connectivity and why?
 ### Model resolution
 There was no relationship between either model resolution or nested models on the metrics of settlement or dispersal. This was unexpected given that sub-mesoscale processes are expected to be more accurately captured in the hydrodynamic model as the resolution increases, as would the connectivity patterns of the modelled larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs.
 
+
+### Mortality
+
+Including mortality in the model increases the mean self-recruitment (@fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (@fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what is expected (@fig:dist_mort). 
+
+![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png){#fig:sr_mort} 
+
+![Comparison of the mean settlement success values with mortality included implemented in the model](../figs/ss_mortality.png){#fig:ss_mort} 
+
+![Comparison of the mean distance travelled with mortality included implemented in the model](../figs/dist_mortality.png){#fig:dist_mort} 
 
 #Conclusion and recommendations
 The interesting finding from this review is that after all the empirical knowledge of fish behaviour influencing the outcome of connectivity {Leis:2006kf}{Cowen:2009fm}, many biophysical modelling showing how connectivity changes with behaviour, and papers suggesting the way forward is to include behaviour {Staaterman:2014ee}{Anonymous:2009tx}, there are still many studies including models with no implemented behaviour at all - passive larvae were used in 75% of model configurations. One reason for this could be that the complete (or even partial) early life history is often unknown for many species, and researchers might be trying to avoid any behavioural assumptions. Fish larval behaviour is known to be species specific, yet many models are reduced to using data from the Family taxonomic level due to what is known in the literature. Such an approach for large taxonomic families like Labridae, potentially masks a large variation of behavioural traits. This then poses the question, that can we only model species where we truly understand the early life history, or is there some level of assumptions that are deemed to still be scientifically valid? Another potential explanation is there could be a divide amongst physical and biological oceanographers over how much larval behaviour compared to physical processes really do influence connectivity patterns in the real world. Although we suspect that while this might occur, it is probably not the case as these papers often involve excess of 5 co-authors, indicating high collaboration between fields.
