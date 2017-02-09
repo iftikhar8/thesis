@@ -35,13 +35,18 @@ Each biophysical model run was classified using four categories. The first was g
 ##Statistics and data
 Data was derived from figures where possible, using the free software package GraphClick (version 3.0.3; http://www.arizona-software.ch/graphclick/). Data analysis was conducted using the R programming language version 3.3.2 {RAlanguageanden:wf}, using the package *tidyverse* to manipulate the data {Wickham:2016te} and the package *ggplot2* to produce the figures {Wickham:2009tn}.
 
-##Definitions table
 
-Dispersal kernel
-Connectivity matrix
-Self-recruitment
-Local retention
-Settlement success
+
+: The definitions used of terms used in biophysical connectivity papers that are referred to in this review {#tbl:definitions} 
+
+|         Term        |                                                                                      Definition                                                                                     |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Self-recruitment    | The percentage of recruits to a site, that were natal to that site {Burgess:2014cf}                                                                                                 |
+| Local retention     | The percentage of the larvae natal to a site that recruited back to that site {Burgess:2014cf}                                                                                      |
+| Settlement success  | The percentage of recruits natal to a site that successfully recruited to a site                                                                                                    |
+| Dispersal kernel    | The probability density function of the dispersal distance for the larvae released in the system                                                                                    |
+| Connectivity matrix | A matrix with columns specifying natal sites and rows specifying settlement sites, showing the probability that a larva is born in one site and settles at another {Burgess:2014cf} |
+
 
 
 #Current trends in biophysical connectivity modelling
