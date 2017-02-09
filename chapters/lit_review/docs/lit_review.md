@@ -48,6 +48,7 @@ Data was derived from figures where possible, using the free software package Gr
 
 #Current trends in biophysical connectivity modelling
 
+##General
 Of the study motivations classified, the overwhelming motivation for using a connectivity biophysical model was to answer questions about dispersal and settlement (@fig:motivation). Dispersal models without settlement and studies motivated by investigating marine park connectivity occurred in equal frequencies. Theoretical and climate change were motivations used only occasionally amongst these review papers. Understandably, climate change models are not that common, as predicting connectivity patterns in 50-100 years, using current hydrodynamic modelling has inherent predictive complications. Interestingly, there were few studies using a purely theoretical approach to understanding the biology that influences connectivity, although many studies indirectly accomplished this within some other more applied context, e.g. using multiple species in a study that have varied behaviours or traits.
 
 ![The different motivations (DS = dispersal and settlement; DI = dispersal; MP = marine park connectivity; TH = theoretical; CC = climate change) used for the studies reviewed](../figs/motivation.png){#fig:motivation}
@@ -56,16 +57,7 @@ The studies in this review used hydrodynamic models covering 20 oceanographic re
 
 ![The oceanographic regions modelled in the studies used in the review](../figs/oceanic_region.png){#fig:ocean_regions}
 
-###Taxa
-The taxa of species modelled, when looking at individual model runs (there were often multiple species per paper), consisted of 10 major groups and a generic group (@fig:species). These 10 taxa comprised 47 different species and another 7 which were specified at the family level, e.g. Labridae or Sparidae. Generic species, defined as a suite of parameters that could apply to several species, was used in 40.2% of the model runs with 99 of these occurring in one paper. Fish (39%) and Bivalves (10%) were the most commonly specified taxa. Individual species were modeled within the fish taxa to the greater extent compared with modeling to the family level or even as generic fish.
-
-![The different taxa that were modelled in the reviewed papers](../figs/species.png){#fig:species}
-
-*rename NA to generic*
-
-###Models used
-Most studies used an established biophysical connectivity model (82.6%), compared to 16% of studies that constructed a new biophysical model for their study. The three most popular biophysical models used amongst the reviewed studies were Ichthyop ({Lett:2008fo};18.67%), Connectivity Modelling System ({Paris:2013fs};12.0%) & MGET ({Roberts:2010df};8.0%). At least 21 different models were used in all studies, although we were unable to identify the exact particle tracking model used for 12 (22.7%) of the papers. The studies used forecasting models to run their connectivity studies, with one exception - a hindcast solution whereby the larvae were initially tracked from settlement sites to determine their natal sites {Wren:2016gu}.
-
+Almost all studies used an established biophysical connectivity model (82.6%), only 16% of studies constructed a new biophysical model for their particular connectivity study. The three most popular biophysical models used amongst the reviewed studies were Ichthyop ({Lett:2008fo};18.67%), Connectivity Modelling System ({Paris:2013fs};12.0%) & MGET ({Roberts:2010df};8.0%). Overall, it was determined that 21 different biophysical models (ignoring version numbers) were used amongst the studies, although we were unable to identify the exact particle tracking model used for nearly one quarter of the papers (22.7%). The studies used forecasting models to run their connectivity studies, with one exception - a hindcast solution whereby the larvae are initially tracked from settlement sites to determine their natal sites {Wren:2016gu}.
 
 ##Physical model
 
@@ -82,7 +74,11 @@ The models used different time-scales of oceanographic data depending on the tre
 
 ##Biological model
 
-In the papers we reviewed, biophysical connectivity modelling has been a regular research tool for understanding connectivity patterns (@fig:years). While the number of ichthyoplankton studies decreased from 2012, so did the studies using passive movement, with 2015 being the first time there were more studies using movement behaviours than other forms of behaviour (@fig:fish_prop). The yearly totals of fish based biophysical models are similar to the totals found in the previous review {Miller:2007iu}. Implementation of settlement sensory strategies seem to have remained constant over the published time period. Interestingly, the ability of fish to orientate towards settlement sites was only found to be implemented in one study in 2012. This is despite the increasing body of research in the last decade regarding the ability of reef fish larvae to orientate towards natal reefs using olfactory mechanisms {Gerlach:2007gw}, celestial cues {Leis:2014es}{Faillettaz:2015dn} and a magnetic compass {Bottesch:2016hl}. For invertebrates, there appears to be no real real change in the pattern of implemented behaviours, except for 2014 when there was a trend towards passive moving larvae (@fig:invert_prop).
+In the papers we reviewed, biophysical connectivity modelling has been a regular research tool for understanding connectivity patterns. Ten marine taxonomic groups, and a generic marine taxonomic group, were used in the modelling (@fig:taxa). The generic taxonomic group was used by studies that defined as a suite of biological parameters that could potentially apply to multiple species, e.g. many species of reef fish most likely have a pelagic larval duration of 20 days. Generic species were used in 40.2% of the total executed model runs amongst the papers. This was skewed by one study executing 99 model runs using a suite of generic parameters {Treml:2015bt}. The 10 known taxonomic groups were comprised from 47 species and another 7 where the modelled biological group was specified at the family level, e.g. Labridae or Sparidae.  The two most common taxa modelled were fish (39%) and bivalves (10%).
+
+![The different taxa that were modelled in the reviewed papers](../figs/species.png){#fig:taxa}
+
+While the number of ichthyoplankton studies decreased from 2012, so did the studies using passive movement, with 2015 being the first time there were more studies using movement behaviours than other forms of behaviour (@fig:fish_prop). The yearly totals of fish based biophysical models are similar to the totals found in the previous review {Miller:2007iu}. Implementation of settlement sensory strategies seem to have remained constant over the published time period. Interestingly, the ability of fish to orientate towards settlement sites was only found to be implemented in one study in 2012. This is despite the increasing body of research in the last decade regarding the ability of reef fish larvae to orientate towards natal reefs using olfactory mechanisms {Gerlach:2007gw}, celestial cues {Leis:2014es}{Faillettaz:2015dn} and a magnetic compass {Bottesch:2016hl}. For invertebrates, there appears to be no real real change in the pattern of implemented behaviours, except for 2014 when there was a trend towards passive moving larvae (@fig:invert_prop).
 
 ![The years studies in the review were published](../figs/years.png){#fig:years}
 
