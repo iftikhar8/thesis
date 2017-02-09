@@ -1,14 +1,23 @@
+###
+# Literature review chapter R code
+###
+
+# Load all required libaries
 library("tidyverse")
-review.data <- read_csv("data/lit_review.csv")
+library("grid")
+library("ggplot2")
 
-#Summary statistics
-spec(review.data)
-review_data$Sensory_impl <- as.factor(review_data$Sensory_impl)
-review_data$Spawning_depth_type <- as.factor(review_data$Spawning_depth_type)
-summary(review_data$Sensory_impl)
-summary(review.data)
+# Load external functions
+source("sort_factor.R")
 
-review.ichthy.data <- filter(review.data,Species_type == "Fish")
+# Load the dataset
+data.all <- read_csv("data/lit_review.csv")
+
+# Subset some data
+data.fish <- filter(data.all,Species_type == "Fish")
+
+
+review.ichthy.data 
 papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) %>% 
   distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) 
 
