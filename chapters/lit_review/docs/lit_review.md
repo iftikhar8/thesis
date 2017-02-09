@@ -44,15 +44,6 @@ Settlement success
 
 #Current trends in biophysical connectivity modelling
 
-##Overall trends
-In the papers we reviewed, biophysical connectivity modelling has been a consistent research tool for understanding connectivity patterns (@fig:years). While the number of ichthyoplankton studies decreased from 2012, so did the studies using passive movement, with 2015 being the first time there were more studies using movement behaviours than other forms of behaviour (@fig:fish_prop). The yearly totals of fish based biophysical models are similar to the totals found in the previous review {Miller:2007iu}. Implementation of settlement sensory strategies seem to have remained constant over the published time period. Interestingly, the ability of fish to orientate towards settlement sites was only found to be implemented in one study in 2012. This is despite the increasing body of research in the last decade regarding the ability of reef fish larvae to orientate towards natal reefs using olfactory mechanisms {Gerlach:2007gw}, celestial cues {Leis:2014es}{Faillettaz:2015dn} and a magnetic compass {Bottesch:2016hl}. For invertebrates, there appears to be no real real change in the pattern of implemented behaviours, except for 2014 when there was a trend towards passive moving larvae (@fig:invert_prop).
-
-![The years studies in the review were published](../figs/years.png){#fig:years}
-
-![The proportion of behaviours in the published fish studies by year](../figs/fish_prop.png){#fig:fish_prop}
-
-![The proportion of behaviours in the published invertebrate studies by year](../figs/invert_prop.png){#fig:invert_prop}
-
 ###Motivations
 The overwhelming motivation for using a connectivity biophysical model was to answer questions about dispersal and settlement (@fig:motivation). Dispersal models without settlement and studies motivated by investigating marine park connectivity occurred in equal frequencies. Theoretical and climate change  were motivations used only occasionally amongst these review papers. Understandably, climate change models are not that common, as predicting future connectivity patterns using hydrodynamic modelling of the past, has inherent difficulties. Interestingly, there were few studies using a purely theoretical approach to understanding the biology that influences connectivity, although many studies indirectly accomplished this within some other more applied context, e.g. using multiple species in a study that have varied behaviours or traits.
 
@@ -88,6 +79,15 @@ The models used different time-scales of oceanographic data depending on the tre
 ![Density plot of the total years modelled in each of the model runs](../figs/modelled_years.png){#fig:modelled_years}
 
 ##Biological model
+
+In the papers we reviewed, biophysical connectivity modelling has been a regular research tool for understanding connectivity patterns (@fig:years). While the number of ichthyoplankton studies decreased from 2012, so did the studies using passive movement, with 2015 being the first time there were more studies using movement behaviours than other forms of behaviour (@fig:fish_prop). The yearly totals of fish based biophysical models are similar to the totals found in the previous review {Miller:2007iu}. Implementation of settlement sensory strategies seem to have remained constant over the published time period. Interestingly, the ability of fish to orientate towards settlement sites was only found to be implemented in one study in 2012. This is despite the increasing body of research in the last decade regarding the ability of reef fish larvae to orientate towards natal reefs using olfactory mechanisms {Gerlach:2007gw}, celestial cues {Leis:2014es}{Faillettaz:2015dn} and a magnetic compass {Bottesch:2016hl}. For invertebrates, there appears to be no real real change in the pattern of implemented behaviours, except for 2014 when there was a trend towards passive moving larvae (@fig:invert_prop).
+
+![The years studies in the review were published](../figs/years.png){#fig:years}
+
+![The proportion of behaviours in the published fish studies by year](../figs/fish_prop.png){#fig:fish_prop}
+
+![The proportion of behaviours in the published invertebrate studies by year](../figs/invert_prop.png){#fig:invert_prop}
+
 The biological models implemented were not consistent across studies. The only biological parameters that were consistent and implemented across nearly each study in this review were the trait of pelagic larval duration (100%) and the spawning behaviour (98.3%; as mentioned before there was a single hindcast study). It is not clear why there is a lack of consistency in the choices of the biological model used. Possible reasons could be that researchers do not agree that biological has much influence on connectivity patterns,  that certain traits and behaviours are species specific, or that the empirical knowledge to parametrise the model is lacking.
 
 : The behaviours that have been implemented in the modelled connectivity studies. Note that multiple behaviours can be implemented in the one model {#tbl:behaviours} 
