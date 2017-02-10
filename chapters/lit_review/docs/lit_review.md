@@ -138,15 +138,26 @@ There was a large spread of the mean self-recruitment amongst the models, rangin
 The large range in these three metrics, especially settlement success, causes some concern about the maturity of these models. It was expected that the settlement success would be extremely low, even if mortality is not included in the system. The complicated suite of input parameters makes it difficult to tease out why the range is so large, whether it be the shape and size of the study site, high vs low resolution ocean models, area of settlement sites, larval mortality rate, length of PLDs etc. 
 
 #What parameters are important for connectivity models
+
 ## Discuss the common metrics used for comparison
-Why did we use the metrics we did? What were the issues with only have a few metrics.
+<Do I need this section?>
 
 ## Is the choice of physical parameter important?
 
+To test the effect of physical parameter choice on connectivity metrics, we considered....
+- the system (open/closed)
+- model resolution
+- timestep
+- choice of physical model
+- choice of particle model
+- years model was run
+- nested models or not
+
+To see if there was an effect of the modelled geographical area on settlement, the regions were broadly categorised into open (coastal, island) or closed (bay or inland sea). There was no noticeable effect of geographical area on self-recruitment, however closed systems had double the median settlement success rate. This makes sense as in a closed system the choices of settlement sites for larvae are increased. Open systems will have higher degree of unsettled larvae as many are swept out into sea and away from settlement regions. There were not enough data points on local retention for comparison on geographical location.
+
+There was no relationship between either model resolution or nested models on the metrics of settlement or dispersal. This was unexpected given that sub-mesoscale processes are expected to be more accurately captured in the hydrodynamic model as the resolution increases, as would the connectivity patterns of the modelled larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs.
 
 ## Is the choice of biological parameter important? 
-
-*TODO: Should I do Kruskall-Wallace tests between these groups to see the statistical differences, or just visualise it*
 
 ###Swimming behaviours
 Models which included movement or settlement sensory had overall lower mean self-recruitment levels than those which did not (@fig:behaviours_sr, INCLUDE STATS). This is an unexpected result, considering the overriding consensus is that self-recruitment is increased through behavioural implementations in the model (CITES). While the maximum values for mean self-recruitment are higher with behaviour, other model parameters specific to the studies could be influencing this trend. If both these behaviours were included, then self-recruitment increased, although there are fewer data points for comparison. The large spread of values for self-recruitment, ranging from close to 100% down to almost none, also suggest that the is a mix of parameters influencing the self-recruitment seen in models.
@@ -160,18 +171,7 @@ The opposite trend appears to occur for settlement success (@fig:behaviours_ss).
 ##Settlement competency
 The length of the settlement competency window (from the beginning age of settlement to the pelagic larval duration) had no effect on the mean settlement success. It did have a slight positive correlation with self-recruitment (r^0.27, df=18) and a strong negative correlation with local retention (r^0.70, df=9). (*Note: Do I want to show these graphs?*)
 
-## Open / Closed system effect
-To see if there was an effect of the modelled geographical area on settlement, the regions were broadly categorised into open (coastal, island) or closed (bay or inland sea). There was no noticeable effect of geographical area on self-recruitment, however closed systems had double the median settlement success rate. This makes sense as in a closed system the choices of settlement sites for larvae are increased. Open systems will have higher degree of unsettled larvae as many are swept out into sea and away from settlement regions. There were not enough data points on local retention for comparison on geographical location.
-
-## Physical comparisons
-What did we think would influence the connectivity and why? 
-
-### Model resolution
-There was no relationship between either model resolution or nested models on the metrics of settlement or dispersal. This was unexpected given that sub-mesoscale processes are expected to be more accurately captured in the hydrodynamic model as the resolution increases, as would the connectivity patterns of the modelled larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs.
-
-
 ### Mortality
-
 Including mortality in the model increases the mean self-recruitment (@fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (@fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what is expected (@fig:dist_mort). 
 
 ![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png){#fig:sr_mort} 
@@ -182,12 +182,9 @@ Including mortality in the model increases the mean self-recruitment (@fig:sr_mo
 
 #Conclusion and recommendations
 
-
-
-
 The other interesting outcome was the large spread of values reported for these studies. The common measures of self-recruitment, local-retention and settlement success all reported huge variations amongst studies. Seemingly obvious explanations such as open/closed systems did not explain the variance. These are inherently complex systems and teasing out the differences between studies is not a trivial task. The other key driver is the variability of the oceanographic currents, which change within and between years. Therefore it was interesting there were still many studies that only looked at dispersal patterns over one or two year periods, arguably not allowing the model to capture enough natural variation.
 
-*You can’t just throw this in as a sentence.  What did you do, what does this mean?  Need to show that you actually looked at this in some objective manner so your argument that it can be dismissed will be accepted.You can’t just throw this in as a sentence.  What did you do, what does this mean?  Need to show that you actually looked at this in some objective manner so your argument that it can be dismissed will be accepted.*
+*WILLS COMMENT: You can’t just throw this in as a sentence.  What did you do, what does this mean?  Need to show that you actually looked at this in some objective manner so your argument that it can be dismissed will be accepted.You can’t just throw this in as a sentence.  What did you do, what does this mean?  Need to show that you actually looked at this in some objective manner so your argument that it can be dismissed will be accepted.*
 
 The first caveat to such an approach is that comparisons such are difficult because of the number of parameters used to configure these biophysical models that could all have an influence on the results. This is a complicated issue to resolve. Comparing a large number of studies should cancel out some of the noise surrounding all the parameters. A future direction would be to determine a way to normalise the data based on the input parameters, allowing for more effective comparisons. Otherwise perhaps it is only prudent to compare studies that occur in the same oceanic region, at the same time, using the same physical models and perhaps the same particle disperser for consistency.
 
