@@ -16,6 +16,19 @@ data.all <- read_csv("data/lit_review.csv")
 # Subset some data
 data.fish <- filter(data.all,Species_type == "Fish")
 
+## Current trends section
+
+# Motivations
+motivations.data <- data.all %>% select(Paper_ID,Motivation) %>% distinct(Paper_ID,Motivation)
+motivations.plot <- ggplot(motivations.data,aes(Motivation),fill=gray) + geom_bar()
+ggsave("figs/motivations.png",plot=motivations.plot)
+
+# Oceanic regions
+regions.data <- data.all %>% select(Paper_ID,Oceanic_region) %>% distinct(Paper_ID,Oceanic_region)
+regions.data %>% group_by(Oceanic_region) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
+regions.plot <- ggplot(regions.data,aes(SortFactorBySize(Oceanic_region)),fill=gray) + geom_bar() + coord_flip() + xlab("Oceanic region") + ylab("Number of papers per region")
+ggsave("figs/oceanic_region.png",plot=regions.plot)
+
 
 review.ichthy.data 
 papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) %>% 

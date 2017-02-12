@@ -183,6 +183,8 @@ ggplot(data.resolution.ss,aes(Nested_submodels,Settlement_success_mean)) + geom_
 ```{r}
 ggplot(data.all,aes(x=PLD_fixed)) + geom_density()
 data.all %>% group_by(PLD_type) %>% summarise (n = n()) %>% mutate(freq = n / sum(n)) %>% na.omit
+data.all %>% select(PLD_fixed,Settlement_competency_type_start) %>% na.omit
+ggplot(data.all,aes(PLD_fixed,Settlement_competency_type_start)) + geom_point()
 ```
 ####Comparisons
 ```{r}

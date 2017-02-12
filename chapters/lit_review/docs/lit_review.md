@@ -142,8 +142,9 @@ The large range in these three metrics, especially settlement success, causes so
 ## Discuss the common metrics used for comparison
 <Do I need this section?>
 
-## Is the choice of physical parameter important?
+Each parameter was tested, where possible, against the common metrics of mean- self-recruitment, local retention, settlement success and distance travelled. It was difficult to get measures to compare amongst the papers due to the different metrics that were used. When there were common approaches of connectivity matrices, visual tools such as heat maps hid the underlying data points, impeding any meta-analysis. A consistent approach, including providing underlying data would assist in progressing the field for future comparisons, allowing us to understand why there is so much variation amongst reported measures such as self-recruitment and transport success. 
 
+## Is the choice of physical parameter important?
 To test the effect of physical parameter choice on connectivity metrics, we considered....
 - the system (open/closed)
 - model resolution
@@ -153,9 +154,21 @@ To test the effect of physical parameter choice on connectivity metrics, we cons
 - years model was run
 - nested models or not
 
+###System
 To see if there was an effect of the modelled geographical area on settlement, the regions were broadly categorised into open (coastal, island) or closed (bay or inland sea). There was no noticeable effect of geographical area on self-recruitment, however closed systems had double the median settlement success rate. This makes sense as in a closed system the choices of settlement sites for larvae are increased. Open systems will have higher degree of unsettled larvae as many are swept out into sea and away from settlement regions. There were not enough data points on local retention for comparison on geographical location.
 
+###Model Resolution
 There was no relationship between either model resolution or nested models on the metrics of settlement or dispersal. This was unexpected given that sub-mesoscale processes are expected to be more accurately captured in the hydrodynamic model as the resolution increases, as would the connectivity patterns of the modelled larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs.
+
+###Timestep
+
+### Choice of physical model
+
+### Choice of particle model
+
+### Years model was run
+
+### Nested models or not
 
 ## Is the choice of biological parameter important? 
 
@@ -188,7 +201,7 @@ The other interesting outcome was the large spread of values reported for these 
 
 The first caveat to such an approach is that comparisons such are difficult because of the number of parameters used to configure these biophysical models that could all have an influence on the results. This is a complicated issue to resolve. Comparing a large number of studies should cancel out some of the noise surrounding all the parameters. A future direction would be to determine a way to normalise the data based on the input parameters, allowing for more effective comparisons. Otherwise perhaps it is only prudent to compare studies that occur in the same oceanic region, at the same time, using the same physical models and perhaps the same particle disperser for consistency.
 
-The second caveat is that is was difficult to get measures to compare amongst the papers due to the different metrics that were used. When there were common approaches of connectivity matrices, visual tools such as heat maps hid the underlying data points, impeding any meta-analysis. A consistent approach, including providing underlying data would assist in progressing the field for future comparisons, allowing us to understand why there is so much variation amongst reported measures such as self-recruitment and transport success. 
+
 
 The current state of the field feels like is not moving forward as coherently it should be. Studies have been calling for behaviour to be implemented for nearly a decade, yet the majority of studies are still not including larval behavioural traits. This is despite the evidence that behaviours do change the described connectivity patterns. Perhaps we cannot move forward until these models, which include behaviour, are empirically validated. However, we would argue that the first priority should be to start including both movement and settlement sensory abilities for species where this is applicable and known in the literature. The second priority to is provide clarity in metrics so we can meaningfully compare the outcomes of connectivity studies and progress the field further.
 
