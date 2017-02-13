@@ -140,37 +140,26 @@ The large range in these three metrics, especially settlement success, causes so
 #What parameters are important for connectivity models
 
 ## Discuss the common metrics used for comparison
-<Do I need this section?>
-
 Each parameter was tested, where possible, against the common metrics of mean- self-recruitment, local retention, settlement success and distance travelled. It was difficult to get measures to compare amongst the papers due to the different metrics used for measuring model outputs. When there were common approaches of connectivity matrices, visual tools such as heat maps often hid the underlying data points, impeding meta-analysis. A consistent approach, including providing underlying data would assist in progressing the field for future comparisons, allowing us to understand why there is so much variation amongst reported measures such as self-recruitment and transport success. 
 
-## Is the choice of physical parameter important?
 To test the effect of physical parameter choice on connectivity metrics, we considered....
 
-- timestep
-- choice of physical model
-- choice of particle model
-- years model was run
-
-
-###System
+###System choice
 To see if there was an effect of the modelled geographical area on settlement, the regions were broadly categorised into open (coastal, island) or closed (bay or inland sea). Mean self-recruitment increased by 13% in closed systems and mean settlement success increased by 7%, although both results were non-significant using a t-test. It is expected that closed systems would promote settlement as in a closed system the choices of settlement sites for larvae are increased. Open systems will have higher degree of unsettled larvae as many are swept out to sea and away from the coastal settlement regions. There were not enough data points on local retention for comparison on geographical location.
 
-###Model Resolution
+###Model resolution
 There was no apparent relationship between model resolution and self-recruitment (r^2=0.07, p < 0.05) or settlement success (r^2=0.01, p > 0.05). This was unexpected given that sub-mesoscale processes are expected to be more accurately captured in the hydrodynamic model as the resolution increases, as would the connectivity patterns of the modelled larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs. For nested models (using higher resolution models near the coast), self-recruitment was significantly smaller when nested models were used (t=6.45, df=44.1, p<0.05), however, caution has to used when evaluating this result due to the large unbalance between the groups. There was no significant difference in the mean settlement success when using nested models.
 
-###Timestep
+### Choice of physical model?
 
-### Choice of physical model
+### Choice of particle model?
 
-### Choice of particle model
-
-### Years model was run
+### Years model was run?
 
 ## Is the choice of biological parameter important? 
 
 ###Swimming behaviours
-Models which included movement or settlement sensory had overall lower mean self-recruitment levels than those which did not (@fig:behaviours_sr, INCLUDE STATS). This is an unexpected result, considering the overriding consensus is that self-recruitment is increased through behavioural implementations in the model (CITES). While the maximum values for mean self-recruitment are higher with behaviour, other model parameters specific to the studies could be influencing this trend. If both these behaviours were included, then self-recruitment increased, although there are fewer data points for comparison. The large spread of values for self-recruitment, ranging from close to 100% down to almost none, also suggest that the is a mix of parameters influencing the self-recruitment seen in models.
+Models which included movement or settlement sensory had overall lower mean self-recruitment levels than those which did not (@fig:behaviours_sr, **INCLUDE STATS**). This is an unexpected result, considering the overriding consensus is that self-recruitment is increased through behavioural implementations in the model {Paris:2004te}{Werner:1993if}. While the maximum values for mean self-recruitment are higher with behaviour, other model parameters specific to the studies could be influencing this trend. If both these behaviours were included, then self-recruitment increased, although there are fewer data points for comparison. The large spread of values for self-recruitment, ranging from close to 100% down to almost none, also suggest that the is a mix of parameters influencing the self-recruitment seen in models.
 
 The opposite trend appears to occur for settlement success (@fig:behaviours_ss). The highest settlement success occurred when multiple behaviours of movement & settlement or movement & orientation & settlement were all included in the model. Unfortunately there were not many studies that included orientation to draw meaningful comparisons about the influence of orientation on connectivity patterns, but the strong assumption is that it would also increase settlement success, as shown in individual studies {Staaterman:2012ek}. 
 
@@ -179,7 +168,7 @@ The opposite trend appears to occur for settlement success (@fig:behaviours_ss).
 ![The effect of larval behaviour (movement, orientation & settlement sensory) on the mean settlement success of larvae in connectivity studies](../figs/behaviours_ss.png){#fig:behaviours_ss}
 
 ##Settlement competency
-The length of the settlement competency window (from the beginning age of settlement to the pelagic larval duration) had no effect on the mean settlement success. It did have a slight positive correlation with self-recruitment (r^0.27, df=18) and a strong negative correlation with local retention (r^0.70, df=9). (*Note: Do I want to show these graphs?*)
+The length of the settlement competency window (from the beginning age of settlement to the pelagic larval duration) had no effect on the mean settlement success. It did have a slight positive correlation with self-recruitment (r^2=0.27, df=18) and a strong negative correlation with local retention (r^2=0.70, df=9).
 
 ### Mortality
 Including mortality in the model increases the mean self-recruitment (@fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (@fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what is expected (@fig:dist_mort). 
@@ -191,14 +180,11 @@ Including mortality in the model increases the mean self-recruitment (@fig:sr_mo
 ![Comparison of the mean distance travelled with mortality included implemented in the model](../figs/dist_mortality.png){#fig:dist_mort} 
 
 #Conclusion and recommendations
-
 The other interesting outcome was the large spread of values reported for these studies. The common measures of self-recruitment, local-retention and settlement success all reported huge variations amongst studies. Seemingly obvious explanations such as open/closed systems did not explain the variance. These are inherently complex systems and teasing out the differences between studies is not a trivial task. The other key driver is the variability of the oceanographic currents, which change within and between years. Therefore it was interesting there were still many studies that only looked at dispersal patterns over one or two year periods, arguably not allowing the model to capture enough natural variation.
 
 *WILLS COMMENT: You can’t just throw this in as a sentence.  What did you do, what does this mean?  Need to show that you actually looked at this in some objective manner so your argument that it can be dismissed will be accepted.You can’t just throw this in as a sentence.  What did you do, what does this mean?  Need to show that you actually looked at this in some objective manner so your argument that it can be dismissed will be accepted.*
 
 The first caveat to such an approach is that comparisons such are difficult because of the number of parameters used to configure these biophysical models that could all have an influence on the results. This is a complicated issue to resolve. Comparing a large number of studies should cancel out some of the noise surrounding all the parameters. A future direction would be to determine a way to normalise the data based on the input parameters, allowing for more effective comparisons. Otherwise perhaps it is only prudent to compare studies that occur in the same oceanic region, at the same time, using the same physical models and perhaps the same particle disperser for consistency.
-
-
 
 The current state of the field feels like is not moving forward as coherently it should be. Studies have been calling for behaviour to be implemented for nearly a decade, yet the majority of studies are still not including larval behavioural traits. This is despite the evidence that behaviours do change the described connectivity patterns. Perhaps we cannot move forward until these models, which include behaviour, are empirically validated. However, we would argue that the first priority should be to start including both movement and settlement sensory abilities for species where this is applicable and known in the literature. The second priority to is provide clarity in metrics so we can meaningfully compare the outcomes of connectivity studies and progress the field further.
 
