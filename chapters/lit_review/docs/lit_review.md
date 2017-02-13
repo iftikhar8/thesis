@@ -142,20 +142,21 @@ The large range in these three metrics, especially settlement success, causes so
 ## Discuss the common metrics used for comparison
 <Do I need this section?>
 
-Each parameter was tested, where possible, against the common metrics of mean- self-recruitment, local retention, settlement success and distance travelled. It was difficult to get measures to compare amongst the papers due to the different metrics that were used. When there were common approaches of connectivity matrices, visual tools such as heat maps hid the underlying data points, impeding any meta-analysis. A consistent approach, including providing underlying data would assist in progressing the field for future comparisons, allowing us to understand why there is so much variation amongst reported measures such as self-recruitment and transport success. 
+Each parameter was tested, where possible, against the common metrics of mean- self-recruitment, local retention, settlement success and distance travelled. It was difficult to get measures to compare amongst the papers due to the different metrics used for measuring model outputs. When there were common approaches of connectivity matrices, visual tools such as heat maps often hid the underlying data points, impeding meta-analysis. A consistent approach, including providing underlying data would assist in progressing the field for future comparisons, allowing us to understand why there is so much variation amongst reported measures such as self-recruitment and transport success. 
 
 ## Is the choice of physical parameter important?
 To test the effect of physical parameter choice on connectivity metrics, we considered....
-- the system (open/closed)
+
 - model resolution
+- nested models or not
 - timestep
 - choice of physical model
 - choice of particle model
 - years model was run
-- nested models or not
+
 
 ###System
-To see if there was an effect of the modelled geographical area on settlement, the regions were broadly categorised into open (coastal, island) or closed (bay or inland sea). There was no noticeable effect of geographical area on self-recruitment, however closed systems had double the median settlement success rate. This makes sense as in a closed system the choices of settlement sites for larvae are increased. Open systems will have higher degree of unsettled larvae as many are swept out into sea and away from settlement regions. There were not enough data points on local retention for comparison on geographical location.
+To see if there was an effect of the modelled geographical area on settlement, the regions were broadly categorised into open (coastal, island) or closed (bay or inland sea). Mean self-recruitment increased by 13% in closed systems and mean settlement success increased by 7%, although both results were non-significant using a t-test. It is expected that closed systems would promote settlement as in a closed system the choices of settlement sites for larvae are increased. Open systems will have higher degree of unsettled larvae as many are swept out to sea and away from the coastal settlement regions. There were not enough data points on local retention for comparison on geographical location.
 
 ###Model Resolution
 There was no relationship between either model resolution or nested models on the metrics of settlement or dispersal. This was unexpected given that sub-mesoscale processes are expected to be more accurately captured in the hydrodynamic model as the resolution increases, as would the connectivity patterns of the modelled larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs.
