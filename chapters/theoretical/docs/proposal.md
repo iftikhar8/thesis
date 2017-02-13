@@ -3,18 +3,16 @@
 What swimming behaviours (including orientated) most effect the output of dispersal patterns. If you were going to implement larval behaviours, where should we start and what ideas should we be focusing on. Also do implementations matter - a case study using ontogenetic vertical migration.
 
 ##Scope
-Major aim: Compare different movement behaviours for fish
- * Diel, ontogenetic, vertical & horizontal swimming, orientation
- * Combinatorial approach (=16 including passive)
+* Major aim: Compare different movement behaviours for fish
+    * Diel, ontogenetic, vertical & horizontal swimming, orientation
+    * Combinatorial approach (=16 including passive)
 
-Minor aim: Compare different implementations of ontogenetic migration
+* Minor aim: Compare different implementations of ontogenetic migration
 
 ##Hypothesis
 
-###Major
-Expectation is they will all show unique patterns as they all influence the movement in different ways. However, vertical migration will exhibit a greater effect than horizontal swimming. The idea being that we cannot get away with running passive models any more!
-###Minor
-I also expect that while implementation will slightly change the values, I do not expect there to be significant differences and they all try and achieve the same outcomes
+* Major: Expectation is they will all show unique patterns as they all influence the movement in different ways. However, vertical migration will exhibit a greater effect than horizontal swimming. The idea being that we cannot get away with running passive models any more! 
+* Minor: I also expect that while implementation will slightly change the values, I do not expect there to be significant differences and they all try and achieve the same outcomes
 
 ##Aim 1: Movement comparison
 
