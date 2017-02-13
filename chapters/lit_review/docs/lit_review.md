@@ -147,8 +147,6 @@ Each parameter was tested, where possible, against the common metrics of mean- s
 ## Is the choice of physical parameter important?
 To test the effect of physical parameter choice on connectivity metrics, we considered....
 
-- model resolution
-- nested models or not
 - timestep
 - choice of physical model
 - choice of particle model
@@ -159,7 +157,7 @@ To test the effect of physical parameter choice on connectivity metrics, we cons
 To see if there was an effect of the modelled geographical area on settlement, the regions were broadly categorised into open (coastal, island) or closed (bay or inland sea). Mean self-recruitment increased by 13% in closed systems and mean settlement success increased by 7%, although both results were non-significant using a t-test. It is expected that closed systems would promote settlement as in a closed system the choices of settlement sites for larvae are increased. Open systems will have higher degree of unsettled larvae as many are swept out to sea and away from the coastal settlement regions. There were not enough data points on local retention for comparison on geographical location.
 
 ###Model Resolution
-There was no relationship between either model resolution or nested models on the metrics of settlement or dispersal. This was unexpected given that sub-mesoscale processes are expected to be more accurately captured in the hydrodynamic model as the resolution increases, as would the connectivity patterns of the modelled larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs.
+There was no apparent relationship between model resolution and self-recruitment (r^2=0.07, p < 0.05) or settlement success (r^2=0.01, p > 0.05). This was unexpected given that sub-mesoscale processes are expected to be more accurately captured in the hydrodynamic model as the resolution increases, as would the connectivity patterns of the modelled larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs. For nested models (using higher resolution models near the coast), self-recruitment was significantly smaller when nested models were used (t=6.45, df=44.1, p<0.05), however, caution has to used when evaluating this result due to the large unbalance between the groups. There was no significant difference in the mean settlement success when using nested models.
 
 ###Timestep
 
@@ -168,8 +166,6 @@ There was no relationship between either model resolution or nested models on th
 ### Choice of particle model
 
 ### Years model was run
-
-### Nested models or not
 
 ## Is the choice of biological parameter important? 
 
