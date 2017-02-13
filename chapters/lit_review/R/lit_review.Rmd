@@ -160,10 +160,7 @@ ggplot(data.papers.resolution.grid,aes(Published,Model_resolution_min)) + geom_p
 ```{r}
 data.resolution.sr <- data.all %>% filter(Model_spatial_shape == "Grid") %>%select(Model_resolution_min,Model_spatial_shape,Self_recruitment_mean,Nested_submodels) %>% na.omit() 
 ggplot(data.resolution.sr,aes(Model_resolution_min,Self_recruitment_mean)) + geom_point()
-model <- lm(Model_resolution_min~Self_recruitment_mean, data=data.resolution.sr)
-summary(model)
 ggplot(data.resolution.sr,aes(Nested_submodels,Self_recruitment_mean)) + geom_boxplot()+ geom_jitter(width = 0.2)
-t.test(data.resolution.sr$Self_recruitment_mean~data.resolution.sr$Nested_submodels)
 ```
 ####Local retention
 ```{r}
@@ -175,10 +172,7 @@ ggplot(data.resolution.lr,aes(Nested_submodels,Local_retention_mean)) + geom_box
 ```{r}
 data.resolution.ss <- data.all %>% filter(Model_spatial_shape == "Grid") %>%select(Model_resolution_min,Nested_submodels,Settlement_success_mean) %>% na.omit()
 ggplot(data.resolution.ss,aes(Model_resolution_min,Settlement_success_mean)) + geom_point() 
-model <- lm(Model_resolution_min~Settlement_success_mean, data=data.resolution.ss)
-summary(model)
 ggplot(data.resolution.ss,aes(Nested_submodels,Settlement_success_mean)) + geom_boxplot()+ geom_jitter(width = 0.2)
-t.test(data.resolution.ss$Settlement_success_mean~data.resolution.ss$Nested_submodels)
 ```
 
 
@@ -189,8 +183,6 @@ t.test(data.resolution.ss$Settlement_success_mean~data.resolution.ss$Nested_subm
 ```{r}
 ggplot(data.all,aes(x=PLD_fixed)) + geom_density()
 data.all %>% group_by(PLD_type) %>% summarise (n = n()) %>% mutate(freq = n / sum(n)) %>% na.omit
-data.all %>% select(PLD_fixed,Settlement_competency_type_start) %>% na.omit
-ggplot(data.all,aes(PLD_fixed,Settlement_competency_type_start)) + geom_point()
 ```
 ####Comparisons
 ```{r}
@@ -311,8 +303,6 @@ ggplot(data.compare.settlement, aes(settlement_size_normalised,Settlement_succes
 ggplot(data.all,aes(System,Self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2) 
 ggplot(data.all,aes(System,Local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2)
 ggplot(data.all,aes(System,Settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.2)
-t.test(data.all$Self_recruitment_mean~data.all$System)
-t.test(data.all$Settlement_success_mean~data.all$System)
 ```
 
 
