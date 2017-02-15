@@ -320,20 +320,20 @@ data.window <- data.all %>% select(PLD_fixed,Settlement_competency_type_start,Se
   mutate(window=PLD_fixed-Settlement_competency_type_start) %>%
   na.omit
 ggplot(data.window,aes(window,Self_recruitment_mean)) + geom_point() + geom_smooth(method=lm)
-corrSR <- cor(data.window$window,data.window$Self_recruitment_mean)
+corrSR <- cor.test(data.window$window,data.window$Self_recruitment_mean)
 
 data.window <- data.all %>% select(PLD_fixed,Settlement_competency_type_start,Settlement_success_mean) %>%
   mutate(window=PLD_fixed-Settlement_competency_type_start) %>%
   na.omit
 ggplot(data.window,aes(window,Settlement_success_mean)) + geom_point() + geom_smooth(method=lm)
-corrSS <- cor(data.window$window,data.window$Settlement_success_mean)
+corrSS <- cor.test(data.window$window,data.window$Settlement_success_mean)
 
 
 data.window <- data.all %>% select(PLD_fixed,Settlement_competency_type_start,Local_retention_mean) %>%
   mutate(window=PLD_fixed-Settlement_competency_type_start) %>%
   na.omit
 ggplot(data.window,aes(window,Local_retention_mean)) + geom_point() + geom_smooth(method=lm)
-corrLR <- cor(data.window$window,data.window$Local_retention_mean)
+corrLR <- cor.test(data.window$window,data.window$Local_retention_mean)
 
 ```
 ```{r}
