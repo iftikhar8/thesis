@@ -52,6 +52,45 @@ models.physical <- get_factor_proportion(models.data$physical_model)
 summary(data.all$model_time_step)
 
 
+
+
+## Comparisons with metrics section
+
+### PHYSICAL COMPARISONS
+
+### BIOLOGICAL COMPARISONS
+
+
+
+#Settlement compentency window
+
+#Add the window
+data.all <- data.all %>% mutate(window=pld_fixed-settlement_competency_type_start)
+#ggplot(data.all,aes(window,self_recruitment_mean)) + geom_point() + geom_smooth(method=lm)
+window.sr_correlation <- cor.test(data.all$window,data.all$self_recruitment_mean)
+window.sr_correlation <- cor.test(data.all$window,data.all$local_retention_mean)
+window.ss_correlation <- cor.test(data.all$window,data.all$settlement_success_mean)
+window.dt_correlation <- cor.test(data.all$window,data.all$distance_travelled_mean)
+
+data.window <- data.all %>% select(PLD_fixed,Settlement_competency_type_start,Settlement_success_mean) %>%
+  mutate(window=PLD_fixed-Settlement_competency_type_start) %>%
+  na.omit
+ggplot(data.window,aes(window,Settlement_success_mean)) + geom_point() + geom_smooth(method=lm)
+corrSS <- cor.test(data.window$window,data.window$Settlement_success_mean)
+
+
+data.window <- data.all %>% select(PLD_fixed,Settlement_competency_type_start,Local_retention_mean) %>%
+  mutate(window=PLD_fixed-Settlement_competency_type_start) %>%
+  na.omit
+ggplot(data.window,aes(window,Local_retention_mean)) + geom_point() + geom_smooth(method=lm)
+corrLR <- cor.test(data.window$window,data.window$Local_retention_mean)
+
+
+#### EXTRA
+
+
+
+
 review.ichthy.data 
 papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) %>% 
   distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) 
@@ -72,7 +111,7 @@ ggplot(papers.data, aes(Published)) + geom_bar()
 
 
 ggplot(review.data,aes(reorder_size(DOI))) + geom_bar() + theme(axis.text.x=element_blank(),
-                        axis.ticks.x=element_blank()) + xlab("Models per paper")
+                                                                axis.ticks.x=element_blank()) + xlab("Models per paper")
 
 #Proportions of implemented behaviours
 review.data %>% group_by(Mortality) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
@@ -147,3 +186,4 @@ ggplot(review_data,aes(Self_recruitment_mean)) + geom_boxplot()
 ggplot(data=dataset,aes(y=Settlement_success_mean,x=Settlement_competency_window)) + geom_boxplot()
 ggplot(data=dataset,aes(y=Self_recruitment_mean,x=Settlement_competency_window)) + geom_boxplot()
 ggplot(data=dataset,aes(y=Local_retention_mean,x=Settlement_competency_window)) + geom_boxplot()
+
