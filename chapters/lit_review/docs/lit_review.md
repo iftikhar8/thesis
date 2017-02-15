@@ -43,7 +43,7 @@ Data was derived from figures where possible, using the free software package Gr
 |---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Self-recruitment    | The percentage of recruits to a site, that were natal to that site {Burgess:2014cf}                                                                                                 |
 | Local retention     | The percentage of the larvae natal to a site that recruited back to that site {Burgess:2014cf}                                                                                      |
-| Settlement success  | The percentage of recruits natal to a site that successfully recruited to a site                                                                                                    |
+| Settlement success  | The percentage of recruits natal to a site that successfully recruited to the site                                                                                                    |
 | Dispersal kernel    | The probability density function of the dispersal distance for the larvae released in the system                                                                                    |
 | Connectivity matrix | A matrix with columns specifying natal sites and rows specifying settlement sites, showing the probability that a larva is born in one site and settles at another {Burgess:2014cf} |
 
@@ -157,18 +157,14 @@ Other ideas for comparison which I need to quickly explore
 
 ## Is the choice of biological parameter important? 
 
-##Pelagic larval duration
+###Pelagic larval duration
 Local retention was positively correlated with the pelagic larval duration (r=0.75, df=16, p<0.05), when pelagic larval durations greater than 150 days were removed. The pelagic larval duration was not significantly correlated with the other the three comparison metrics of self-recruitment, settlement success and distance travelled. Again it must be noted local retention had the lowest data points compared to the other metrics. Interestingly pelagic larval duration was not correlated with dispersal distance. Logically, longer dispersal times would theoretically lead to longer dispersal distances. This result has been seen in other studies (CITES).
 
+###Settlement competency window
+The length of the settlement competency window determined as the time period between the first age of settlement competency and the end of the pelagic larval duration. The settlement competency window was negatively correlated with local retention (r=-0.86, p<0.05) and a positively correlated with self-recruitment (r=0.52, p<0.05). The was no significant correlation with settlement success. (Need to think about why LR would go down and SR would go up. LR goes down because longer window so means can settle further away, but why would SR go up - seems counter intuitive)
 
-
-##Settlement competency
-The length of the settlement competency window (from the beginning age of settlement to the pelagic larval duration) had no effect on the mean settlement success. It did have a slight positive correlation with self-recruitment (r^2=0.27, df=18) and a strong negative correlation with local retention (r^2=0.70, df=9).
-
-### Mortality
+### Mortality included (need to compare size of linear mortality as well?)
 Including mortality in the model increases the mean self-recruitment (@fig:sr_mort). There was not much change in the mean overall settlement success, however mortality limited the spread of the percentage that successfully settled (@fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what is expected (@fig:dist_mort). 
-
-
 
 ![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png){#fig:sr_mort} 
 
@@ -176,7 +172,7 @@ Including mortality in the model increases the mean self-recruitment (@fig:sr_mo
 
 ![Comparison of the mean distance travelled with mortality included implemented in the model](../figs/dist_mortality.png){#fig:dist_mort} 
 
-###Swimming behaviours
+###Movement behaviours
 Models which included movement or settlement sensory had overall lower mean self-recruitment levels than those which did not (@fig:behaviours_sr, **INCLUDE STATS**). This is an unexpected result, considering the overriding consensus is that self-recruitment is increased through behavioural implementations in the model {Paris:2004te}{Werner:1993if}. 
 
 While the maximum values for mean self-recruitment are higher with behaviour, other model parameters specific to the studies could be influencing this trend. If both these behaviours were included, then self-recruitment increased, although there are fewer data points for comparison. The large spread of values for self-recruitment, ranging from close to 100% down to almost none, also suggest that the is a mix of parameters influencing the self-recruitment seen in models.
@@ -186,8 +182,6 @@ The opposite trend appears to occur for settlement success (@fig:behaviours_ss).
 ![The effect of larval behaviour (movement, orientation & settlement sensory) on the mean self-recruitment in connectivity studies](../figs/behaviours_sr.png){#fig:behaviours_sr}
 
 ![The effect of larval behaviour (movement, orientation & settlement sensory) on the mean settlement success of larvae in connectivity studies](../figs/behaviours_ss.png){#fig:behaviours_ss}
-
-
 
 #Conclusion and recommendations
 The other interesting outcome was the large spread of values reported for these studies. The common measures of self-recruitment, local-retention and settlement success all reported huge variations amongst studies. Seemingly obvious explanations such as open/closed systems did not explain the variance. These are inherently complex systems and teasing out the differences between studies is not a trivial task. The other key driver is the variability of the oceanographic currents, which change within and between years. Therefore it was interesting there were still many studies that only looked at dispersal patterns over one or two year periods, arguably not allowing the model to capture enough natural variation.
