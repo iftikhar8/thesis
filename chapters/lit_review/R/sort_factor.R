@@ -1,4 +1,4 @@
-SortFactorBySize <- function(x) {
+sort_factor <- function(x) {
   # Reorders the factor by size, which is useful for printing figures
   #
   # Args:

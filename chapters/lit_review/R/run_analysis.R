@@ -9,25 +9,47 @@ library("ggplot2")
 
 # Load external functions
 source("sort_factor.R")
+source("get_factor_proportion.R")
 
 # Load the dataset
-data.all <- read_csv("data/lit_review.csv")
+data.all <- read_csv("../data/lit_review.csv")
+
+# Make column headers lowercase
+colnames(data.all) <- tolower(colnames(data.all))
 
 # Subset some data
-data.fish <- filter(data.all,Species_type == "Fish")
+data.fish <- filter(data.all,species_type == "Fish")
 
 ## Current trends section
 
 # Motivations
-motivations.data <- data.all %>% select(Paper_ID,Motivation) %>% distinct(Paper_ID,Motivation)
-motivations.plot <- ggplot(motivations.data,aes(Motivation),fill=gray) + geom_bar()
-ggsave("figs/motivations.png",plot=motivations.plot)
+data.all$motivation <- as.factor(data.all$motivation)
+motivations.data <- data.all %>% select(paper_id,motivation) %>% distinct(paper_id,motivation)
+motivations.prop <- get_factor_proportion(motivations.data$motivation)
+motivations.plot <- ggplot(motivations.data,aes(motivation),fill=gray) + geom_bar()
+ggsave("../figs/motivations.png",plot=motivations.plot)
+rm(motivations.data)
+#rm(motivations.plot)
 
 # Oceanic regions
-regions.data <- data.all %>% select(Paper_ID,Oceanic_region) %>% distinct(Paper_ID,Oceanic_region)
-regions.data %>% group_by(Oceanic_region) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-regions.plot <- ggplot(regions.data,aes(SortFactorBySize(Oceanic_region)),fill=gray) + geom_bar() + coord_flip() + xlab("Oceanic region") + ylab("Number of papers per region")
-ggsave("figs/oceanic_region.png",plot=regions.plot)
+data.all$oceanic_region <- as.factor(data.all$oceanic_region)
+data.all$geographical_zone <- as.factor(data.all$geographical_zone)
+regions.data <- data.all %>% select(paper_id,oceanic_region,geographical_zone) %>% distinct(paper_id,oceanic_region,geographical_zone)
+regions.prop <- get_factor_proportion(regions.data$oceanic_region)
+regions.zoneprop <- get_factor_proportion(regions.data$geographical_zone)
+regions.plot <- ggplot(regions.data,aes(sort_factor(oceanic_region)),fill=gray) + geom_bar() + coord_flip() + xlab("Oceanic region") + ylab("Number of papers per region")
+ggsave("../figs/oceanic_region.png",plot=regions.plot)
+rm(regions.data)
+
+# Models used
+data.all$physical_model <- as.factor(data.all$physical_model)
+data.all$model_name <- as.factor(data.all$model_name)  
+models.data <- data.all %>% select(paper_id,physical_model,model_name) %>% distinct(paper_id,physical_model,model_name)
+models.biophysical <- get_factor_proportion(models.data$model_name) 
+models.physical <- get_factor_proportion(models.data$physical_model)
+
+# Time-step
+summary(data.all$model_time_step)
 
 
 review.ichthy.data 
