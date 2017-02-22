@@ -1,6 +1,9 @@
 # BOOK: When do fish become juveniles
 # Edited by Copp, Kovac & Hensel
 
+*Title: "Alternative ways to become a juvenile or a definitive phenotype (and on some persisting linguistic offenses)" Environmental biology of fishes. 1999
+Author: Eugene K. Balon*
+
 Is ontogeny saltatory or gradual?
 Saltatory ontogeny for swimming at depth, requires a tail fin.
 
@@ -14,4 +17,4 @@ Egg -> Embryo -> Larva -> Juvenile -> Adult -> Senescence
 
 Should the use of noun as an adjective be discouraged?  
 
-Epigenesis can define how the larva is born, based on the volume and density of yolk produced (altricial or precocial)
+Epigenesis can define how the larva is born, based on the volume and density of yolk produced (altricial = less yolk or precocial = more yolk)
