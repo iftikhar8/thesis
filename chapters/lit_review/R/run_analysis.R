@@ -2,14 +2,21 @@
 # Literature review chapter R code
 ###
 
-# Load all required libaries
-library("tidyverse")
+# Install libraries if required
+install.packages("ggplot2")
+install.packages("tidyverse")
+
+# Load all required libraries
 library("grid")
+library("tidyverse")
 library("ggplot2")
 
 # Load external functions
 source("sort_factor.R")
 source("get_factor_proportion.R")
+
+# Clean the data sources after running
+clean <- FALSE
 
 # Load the dataset
 data.all <- read_csv("../data/lit_review.csv")
@@ -26,10 +33,15 @@ data.fish <- filter(data.all,species_type == "Fish")
 data.all$motivation <- as.factor(data.all$motivation)
 motivations.data <- data.all %>% select(paper_id,motivation) %>% distinct(paper_id,motivation)
 motivations.prop <- get_factor_proportion(motivations.data$motivation)
-motivations.plot <- ggplot(motivations.data,aes(motivation),fill=gray) + geom_bar()
+motivations.plot <- ggplot(motivations.data,aes(motivation),fill=gray) + geom_bar() + 
+  labs(x="Categories of review motivations", y="Number of studies")
 ggsave("../figs/motivations.png",plot=motivations.plot)
-rm(motivations.data)
-#rm(motivations.plot)
+
+if(clean) {
+  rm(motivations.data)
+  rm(motivations.prop)
+  rm(motivations.plot)
+}
 
 # Oceanic regions
 data.all$oceanic_region <- as.factor(data.all$oceanic_region)
