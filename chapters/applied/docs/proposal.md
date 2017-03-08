@@ -1,7 +1,7 @@
 # Proposal for applied thesis chapter
 
 ## Summary
-Investigate how the Commonwealth marine parks (particularly the Temperate East Commonwealth Marine Reserves Network) assist in the connectivity of the threatened black cod (*Epinephelus daemelii*). Do the current marine parks fulfil the goal of protecting this vulnerable species or are we missing important connectivity to larval settling areas.
+Investigate how the Commonwealth marine parks (particularly the Temperate East Commonwealth Marine Reserves Network) assist in the connectivity of the threatened black cod (*Epinephelus daemelii*).
 
 ## Conservation status
 Listed as vulnerable in August 2012 by the the Environment Minister. It has been protected since 1983 under NSW fisheries legislation. Therefore this is an **important** fish in the scheme of things. Interesting results could be good for outreach, e.g. conversation articles, blog posts.
@@ -20,7 +20,7 @@ Inhabits caves, gutters and crevices usually to depths of 50 m, although individ
 Black Rockcod are very territorial and individuals have relatively small home ranges. Smaller individuals are regularly seen in caves and gutters around Lord Howe Island. Are abundant at Middleton and Elizabeth reefs, in the Lord Howe marine protected area. They are also found at Norfolk island.
 Black cod are known to occur to some degree in all six NSW Marine Parks – Lord Howe, Cape Byron, Solitary Island, Port Stephens, Jervis Bay and Batemans Bay.
 
-Queensland and Victoria are the extreme bounds of its distribution (will this change with warming waters?)
+Queensland and victoria are the extreme bounds of its distribution (will this change with warming waters?)
 http://onlinelibrary.wiley.com/doi/10.1111/jfb.12179/abstract
 
 *Note:* Preliminary research based on small sample sizes suggests the Elizabeth and Middleton Reef black cod population may be of the same genetic stock as NSW populations, which in turn suggests that larval drift may be sufficient to prevent genetic differentiation in black cod populations along and off the NSW coastline.
@@ -32,11 +32,11 @@ So far the best option is to use data found for other Epinephelus and use an ave
 [Epinephelus species list](http://www.fishbase.org/identification/SpeciesList.php?genus=Epinephelus)
 
 - *Epinephelus marginatus* was used in a connectivity study testing connectivity of MPAs in the Mediterranean.
-- *Epinephelus quernus* was using in a connectivity study in the Hawaii
+- *Epinephelus quernus* was using in a connectivity study in the hawaii
 
 ### PLD
+Haven't found PLD for black cod, but medium-to large-bodied groupers range from 30–80 days. I have contacted Dave Harasti (emailed 7/3), asking for more information, hopefully they have unpublished otolith data. I will also enquire with Jeff Leis once I hear back from Dave.
 Their pelagic larval stage lasts up to 60 days (Heemstra and Randall 1993; Richardson and Gold 1997)
-Medium-to large-bodied groupers range from 30–80 days. I have contacted Dave Harasti (emailed 7/3), asking for more information, fingers crossed they have unpublished otolith data. I will also enquire with Jeff Leis once I hear back from Dave.
 
 ### Spawning
 Adults generally inhabit coastal rocky reefs and offshore coral reefs.
@@ -47,14 +47,6 @@ Epinephelus species produce pelagic eggs in several spawning bouts (Coleman et a
 Post-larval and juvenile E. daemelii (,30-cm total length (TL)) occur mainly in rock pools and shallow rocky intertidal areas.
 In NSW, juvenile E. daemelii are more common along the central to southern coast (,32–358S) than in northern NSW (,28–318S; Harasti et al. 2014). This is likely a result of larval dispersal by the East Australian Current (EAC), a western boundary current with jets and eddies that can transport larvae southwards from northern NSW (Booth et al. 2007). However, north-to-south coastal connectivity and successful recruitment are likely to be highly variable at a range of temporal scales, because the EAC often separates from the Australian mainland coast around Smoky Cape (,318S; Syahailatua et al. 2011; Cetina-Heredia et al. 2014).
 
-### Mortality
-Use generic values from the literature.
-
-### Vertical migration
-Again, no known values at this moment.
-
-### Orientation (+ horizontal swimming)
-Would like to include, but do not know if I will have enough information.
 
 ## Marine park connectivity
 Use both commonwealth & NSW no-take areas where they occur in known areas. The idea would be to investigate the connectivity of the cod and how the marine parks might protect the species, especially as the juveniles are so territorial and can remain in or near rockpools until 30cm.
@@ -68,7 +60,7 @@ Use both commonwealth & NSW no-take areas where they occur in known areas. The i
 - need to find some data on ontogenetic vertical migration, emailing Tony for growth data. Is there anything in his book about lengths?
 - use a total of 10 years to evaluate dispersal over time, but the most recent years to reflect when numbers were sufficiently low to list as vulnerable.
 - other standard values used from means in the review (e.g. buffer)
-- implemented behaviour depends on what we can find out
+- implemented behaviour depends on what we can find out really
 
 ### Measuring outputs
 - use the nMDS approach to compare within and between years
