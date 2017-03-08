@@ -26,15 +26,15 @@ data.all <- read_csv("../data/lit_review.csv")
 colnames(data.all) <- tolower(colnames(data.all))
 
 # Subset some data
-data.fish <- filter(data.all,species_type == "Fish")
+data.fish <- filter(data.all, species_type == "Fish")
 
 ## Current trends section
 
 # Motivations
 data.all$motivation <- as.factor(data.all$motivation)
-motivations.data <- data.all %>% select(paper_id,motivation) %>% distinct(paper_id,motivation)
+motivations.data <- data.all %>% select(paper_id, motivation) %>% distinct(paper_id, motivation)
 motivations.prop <- get_factor_proportion(motivations.data$motivation)
-motivations.plot <- ggplot(motivations.data,aes(motivation),fill=gray) + geom_bar() + 
+motivations.plot <- ggplot(motivations.data,aes(motivation),fill=gray) + geom_bar() +
   labs(x="Categories of review motivations", y="Number of studies")
 ggsave("../figs/motivations.png",plot=motivations.plot)
 
@@ -56,9 +56,9 @@ rm(regions.data)
 
 # Models used
 data.all$physical_model <- as.factor(data.all$physical_model)
-data.all$model_name <- as.factor(data.all$model_name)  
+data.all$model_name <- as.factor(data.all$model_name)
 models.data <- data.all %>% select(paper_id,physical_model,model_name) %>% distinct(paper_id,physical_model,model_name)
-models.biophysical <- get_factor_proportion(models.data$model_name) 
+models.biophysical <- get_factor_proportion(models.data$model_name)
 models.physical <- get_factor_proportion(models.data$physical_model)
 
 # Time-step
@@ -131,7 +131,7 @@ t.test(settlement_success_mean ~ nested_submodels, data=data.all, var.equal=TRUE
 bartlett.test(distance_travelled_mean ~ nested_submodels, data=data.all)
 t.test(distance_travelled_mean ~ nested_submodels, data=data.all, var.equal=FALSE)
 
-       
+
 ### BIOLOGICAL COMPARISONS
 datastuff <- select(data.all$nested_submodels,data.all$self_recruitment_mean)
 
@@ -173,9 +173,9 @@ corrLR <- cor.test(data.window$window,data.window$Local_retention_mean)
 
 
 
-review.ichthy.data 
-papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) %>% 
-  distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) 
+review.ichthy.data
+papers.data <- review.data %>% select(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step) %>%
+  distinct(Paper_ID,Published,Oceanic_region,Years_total,Geographical_zone,Model_reuse,Model_name,Physical_model,Nested_submodels,Model_time_step)
 
 
 
@@ -234,7 +234,7 @@ papers.data %>% group_by(Geographical_zone) %>% summarise (n = n()) %>% mutate(f
 #Years per study
 #ggplot(papers.data,aes(reorder_size(Years_total)),fill=gray) + geom_bar() + coord_flip()
 papers.data.complete = na.omit(papers.data)
-ggplot(papers.data.complete,aes(x=Years_total)) + geom_density() 
+ggplot(papers.data.complete,aes(x=Years_total)) + geom_density()
 ggplot(papers.data.complete,aes(x=Years_total)) + geom_histogram(binwidth = 5)
 ggplot(papers.data.complete,aes(x=Years_total)) + geom_boxplot()
 
@@ -256,7 +256,7 @@ fish.species <- factor(na.omit(review.data$Species_scientific_name))
 #Settlement competency
 f1 <- lm(Settlement_competency_type_start~PLD_fixed,data=review.data)
 f2 <- lm(PLD_fixed~Settlement_competency_type_start,data=review.data)
-f <- ggplot(review.data, aes(Settlement_competency_type_start,PLD_fixed))+geom_point() + geom_smooth(method=lm) 
+f <- ggplot(review.data, aes(Settlement_competency_type_start,PLD_fixed))+geom_point() + geom_smooth(method=lm)
 
 #Mortality
 review.data %>% group_by(Mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
@@ -268,4 +268,3 @@ ggplot(review_data,aes(Self_recruitment_mean)) + geom_boxplot()
 ggplot(data=dataset,aes(y=Settlement_success_mean,x=Settlement_competency_window)) + geom_boxplot()
 ggplot(data=dataset,aes(y=Self_recruitment_mean,x=Settlement_competency_window)) + geom_boxplot()
 ggplot(data=dataset,aes(y=Local_retention_mean,x=Settlement_competency_window)) + geom_boxplot()
-
