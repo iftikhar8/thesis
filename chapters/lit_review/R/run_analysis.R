@@ -17,7 +17,7 @@ source("get_factor_proportion.R")
 source("multiplot.R")
 
 # Clean the data sources after running
-clean <- FALSE
+CLEAN <- FALSE
 
 # Load the dataset
 data.all <- read_csv("../data/lit_review.csv")
@@ -30,6 +30,14 @@ data.fish <- filter(data.all, species_type == "Fish")
 
 ## Current trends section
 
+# Years 
+data.all$published <- as.factor(data.all$published)
+years.data <- data.all %>% select(paper_id, published) %>% distinct(paper_id, published)
+years.plot <- ggplot(years.data,aes(published),fill=gray) + geom_bar() +
+  labs(x="Years of publication", y="Number of studies")
+ggsave("../figs/years.png",plot=years.plot)
+
+
 # Motivations
 data.all$motivation <- as.factor(data.all$motivation)
 motivations.data <- data.all %>% select(paper_id, motivation) %>% distinct(paper_id, motivation)
@@ -38,7 +46,7 @@ motivations.plot <- ggplot(motivations.data,aes(motivation),fill=gray) + geom_ba
   labs(x="Categories of review motivations", y="Number of studies")
 ggsave("../figs/motivations.png",plot=motivations.plot)
 
-if(clean) {
+if(CLEAN) {
   rm(motivations.data)
   rm(motivations.prop)
   rm(motivations.plot)
