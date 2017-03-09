@@ -52,6 +52,8 @@ Most studies used an existing biophysical connectivity model (82.6%), conversely
 
 ## How connectivity studies are parameterising the physical models
 
+
+
 **INTRODUCTION NEEDED**
 **WILL: Given these are results/discussion sections, I think it would be smart to pose a topic sentence which clarifies the hypotheses about each section. So here you could say. Miller indicated blah blah about conversion of modelling environments to similar approaches. In our review of the this more r cent period we saw blah blah…some confomirty in modes used but still great variance in….  or something like that. Then describe thei specifics.  So just a sentence that lets the reader know what we're looking for here so this isn't just a description but rather a comment on the state of the discipline.**
 
@@ -64,7 +66,7 @@ The time particles updated in the system (environmental forcing) were either fix
 
 **INTRODUCTION NEEDED**
 
-Ten specific and one generic marine taxonomic groups were identified in the studies we reviewed (@fig:taxa). The generic taxonomic group was used by studies that defined as a suite of biological parameters that could potentially apply to multiple species, e.g. many species of reef fish most likely have a pelagic larval duration of 20 days. Generic species were used in 40.2% of the models, although one study used 99 models (28.4% of the total analysed models in the review) implementing a suite of generic parameters [@Treml:2015bt]. The 10 known taxonomic groups were comprised from 47 species and another seven where the modelled biological group was specified at the family level, e.g. Labridae or Sparidae.  The two most common taxa modelled were fish (39%) and bivalves (10%). The number of BDM studies modelling fish that were published each year were consistent to what was seen in Miller (2007).
+Ten specific and one generic marine taxonomic groups were identified in the studies we reviewed (@fig:taxa). The generic taxonomic group was used by studies that defined as a suite of biological parameters that could potentially apply to multiple species, e.g. many species of reef fish most likely have a pelagic larval duration of 20 days. Generic species were used in 40.2% of the models, although one study used 99 models (28.4% of the total analysed models in the review) implementing a suite of generic parameters [@Treml:2015bt]. The 10 known taxonomic groups were comprised from 47 species and another seven where the modelled biological group was specified at the family level, e.g. Labridae or Sparidae.  The two most common taxa modelled were fish (39%) and bivalves (10%). The number of ichthyoplankton BDMs that were published each year were consistent to what was seen in Miller (2007).
 
 ![The different taxonomic groups that were used to parameterise the biological models in the reviewed connectivity studies](../figs/species.png)[@#fig:taxa]
 
