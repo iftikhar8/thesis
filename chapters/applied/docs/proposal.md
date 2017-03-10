@@ -14,7 +14,7 @@ The locations of the commonwealth marine reserves (overlap in conjunction with t
 ## Biology
 The larvae recruit to coastal rockpools (the juveniles later move into estuaries).
 
-## Distribution
+### Distribution
 Found in warm temperate to temperate waters of south-eastern Australia, from southern Queensland to Mallacoota, Victoria (rarely further westwards), Tasman Sea islands and seamounts – Norfolk Island, Elizabeth and Middleton Reefs, Lord Howe Island, to New Zealand – the Kermadec Islands, the North Island and the Poor Knights Islands. Depth range 1-50 m.
 Inhabits caves, gutters and crevices usually to depths of 50 m, although individuals have been collected from below 100 m. Juveniles are found inshore, often in coastal rockpools and estuaries.
 Black Rockcod are very territorial and individuals have relatively small home ranges. Smaller individuals are regularly seen in caves and gutters around Lord Howe Island. Are abundant at Middleton and Elizabeth reefs, in the Lord Howe marine protected area. They are also found at Norfolk island.
@@ -27,33 +27,39 @@ http://onlinelibrary.wiley.com/doi/10.1111/jfb.12179/abstract
 
 Black cod in NZ waters appear to be vagrants, as no known breeding or recruitment grounds.
 
-## Early-life history
+### Early-life history
 So far the best option is to use data found for other Epinephelus and use an average of those. There is a lot known about other species in the family. There are 89 species in the family, but aim for other temperate species data.
 [Epinephelus species list](http://www.fishbase.org/identification/SpeciesList.php?genus=Epinephelus)
 
 - *Epinephelus marginatus* was used in a connectivity study testing connectivity of MPAs in the Mediterranean.
 - *Epinephelus quernus* was using in a connectivity study in the Hawaii
 
-### PLD
+From Jeff Leis:
+*Hi - as far as I am aware, the larvae of E. daemelii are unknown, although they almost certainly share the normal characteristics of larvae of that genus.  As far as other temperate species of Epinephelus, there may be something in one of the NOAA/NMFS larval fish identification Atlases edited by Richards for the Western Atlantic or by Moser for the Eastern Pacific. Most of the PLD data on Epinephelus spp comes from lab rearings, and are probably not very representative of what happens in the ocean.  There are several papers that have complied PLD data for a broad range of species to look at different variables and their relation to PLD.  You might find something in those.*
+
+#### PLD
 Their pelagic larval stage lasts up to 60 days (Heemstra and Randall 1993; Richardson and Gold 1997)
 Medium-to large-bodied groupers range from 30–80 days. I have contacted Dave Harasti (emailed 7/3), asking for more information, fingers crossed they have unpublished otolith data. I will also enquire with Jeff Leis once I hear back from Dave.
 
-### Spawning
+#### Spawning
 Adults generally inhabit coastal rocky reefs and offshore coral reefs.
 Epinephelus species produce pelagic eggs in several spawning bouts (Coleman et al. 1999)
 
-### Settlement
+From Dave Harsti (personal comm)
+*we think it's around April-May, as this is when they have been record aggregating at sites in the northern part of the state.*
+
+#### Settlement
 *Taken from Harasti's paper*
 Post-larval and juvenile E. daemelii (,30-cm total length (TL)) occur mainly in rock pools and shallow rocky intertidal areas.
 In NSW, juvenile E. daemelii are more common along the central to southern coast (,32–358S) than in northern NSW (,28–318S; Harasti et al. 2014). This is likely a result of larval dispersal by the East Australian Current (EAC), a western boundary current with jets and eddies that can transport larvae southwards from northern NSW (Booth et al. 2007). However, north-to-south coastal connectivity and successful recruitment are likely to be highly variable at a range of temporal scales, because the EAC often separates from the Australian mainland coast around Smoky Cape (,318S; Syahailatua et al. 2011; Cetina-Heredia et al. 2014).
 
-### Mortality
+#### Mortality
 Use generic values from the literature.
 
-### Vertical migration
+#### Vertical migration
 Again, no known values at this moment.
 
-### Orientation (+ horizontal swimming)
+#### Orientation (+ horizontal swimming)
 Would like to include, but do not know if I will have enough information.
 
 ## Marine park connectivity
