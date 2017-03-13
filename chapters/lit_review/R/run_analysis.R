@@ -69,10 +69,31 @@ models.data <- data.all %>% select(paper_id,physical_model,model_name) %>% disti
 models.biophysical <- get_factor_proportion(models.data$model_name)
 models.physical <- get_factor_proportion(models.data$physical_model)
 
+# Nested models
+nested.data <- data.all %>% select(paper_id, nested_submodels) %>% distinct(paper_id, nested_submodels)
+summary(nested.data)
 # Time-step
 summary(data.all$model_time_step)
+# Model integration 
+data.all$model_integration <- as.factor(data.all$model_integration) 
+integration.data <- data.all %>% select(paper_id, model_integration) %>% distinct(paper_id, model_integration)
+summary(integration.data$model_integration)
 
+## Biological models
 
+# Spawning sites
+data.all <- data.all %>% mutate(spawning_sites_diff=spawning_settlement_sites-spawning_release_sites)
+spawning_sites.data <- data.all %>% select(paper_id, spawning_sites_diff) %>% distinct(paper_id, spawning_sites_diff)
+summary(spawning_sites.data$spawning_sites_diff > 0)
+
+# Years total
+model_years.data <- data.all %>% select(paper_id, years_total) %>% distinct(paper_id, years_total)
+summary(model_years.data$years_total == 1)
+
+## Metrics used
+mean(data.all$settlement_success_mean)
+settlement_success.data <- na.omit(data.all$settlement_success_mean)
+summary(settlement_success.data)
 
 
 ## Comparisons with metrics section
