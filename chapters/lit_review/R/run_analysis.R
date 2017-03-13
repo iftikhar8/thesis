@@ -105,7 +105,7 @@ plot1 <- ggplot(data.all,aes(model_name,self_recruitment_mean)) + geom_boxplot()
 plot2 <- ggplot(data.all,aes(model_name,local_retention_mean)) + geom_boxplot()+ geom_jitter(width = 0.2) + coord_flip()
 plot3 <- ggplot(data.all,aes(model_name,settlement_success_mean)) + geom_boxplot()+ geom_jitter(width = 0.2) + coord_flip()
 plot4 <- ggplot(data.all,aes(model_name,distance_travelled_mean)) + geom_boxplot()+ geom_jitter(width = 0.2) + coord_flip()
-model.biological_plot <- multiplot(g1,g2,g3,g4, cols=2)
+model.biological_plot <- multiplot(plot1,plot2,plot3,plot4, cols=2)
 ggsave("../figs/model_bdm_metrics.png",plot=model.biological_plot)
 
 #Ocean model
@@ -114,8 +114,8 @@ plot1 <- ggplot(data.all,aes(physical_model,self_recruitment_mean)) + geom_boxpl
 plot2 <- ggplot(data.all,aes(physical_model,local_retention_mean)) + geom_boxplot()+ geom_jitter(width = 0.2) + coord_flip()
 plot3 <- ggplot(data.all,aes(physical_model,settlement_success_mean)) + geom_boxplot()+ geom_jitter(width = 0.2) + coord_flip()
 plot4 <-ggplot(data.all,aes(physical_model,distance_travelled_mean)) + geom_boxplot()+ geom_jitter(width = 0.2) + coord_flip()
-model.physical_plot <- multiplot(g1,g2,g3,g4, cols=2)
-ggsave("../figs/model_physical_metrics.png",plot=model.physical_plot)
+model.physical_plot <- multiplot(plot1,plot2,plot3,plot4, cols=2)
+ggsave("model_physical_metrics.png",plot=model.physical_plot)
 
 # Oceanic region
 data.all$oceanic_region <- as.factor(data.all$oceanic_region)
@@ -162,18 +162,21 @@ t.test(distance_travelled_mean ~ nested_submodels, data=data.all, var.equal=FALS
 
 
 ### BIOLOGICAL COMPARISONS
-datastuff <- select(data.all$nested_submodels,data.all$self_recruitment_mean)
+
+#Pelagic larval duration
+pld.sr_lm <- lm(pld_fixed ~ self_recruitment_mean, data = data.all)
+summary(pld.sr_lm)
+pld.ss_lm <- lm(pld_fixed ~ settlement_success_mean, data = data.all)
+summary(pld.ss_lm)
+pld.lr_lm <- lm(pld_fixed ~ local_retention_mean, data = data.all)
+summary(pld.lr_lm)
+pld.dd_lm <- lm(pld_fixed ~ distance_travelled_mean, data = data.all)
+summary(pld.dd_lm)
 
 #Settlement compentency window
 
 #Add the window
 data.all <- data.all %>% mutate(window=pld_fixed-settlement_competency_type_start)
-#ggplot(data.all,aes(window,self_recruitment_mean)) + geom_point() + geom_smooth(method=lm)
-window.sr_lm <- lm(data.all$window,data.all$self_recruitment_mean)
-window.sr_lm <- cor.test(data.all$window,data.all$local_retention_mean)
-window.ss_lm <- cor.test(data.all$window,data.all$settlement_success_mean)
-window.dt_lm <- cor.test(data.all$window,data.all$distance_travelled_mean)
-
 window.sr_lm <- lm(window ~ self_recruitment_mean, data = data.all)
 window.ss_lm <- lm(window ~ settlement_success_mean, data = data.all)
 window.lr_lm <- lm(window ~ local_retention_mean, data = data.all)
