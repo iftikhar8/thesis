@@ -170,7 +170,7 @@ There appears to be no clear pattern between choice of either physical or BDM mo
 There was a significant positive predictive relationship between model resolution and local retention (r^2^=0.82, F(1,17)=79.11, p\<0.05), but no relationship between model resolution and self-recruitment (r^2^=0.05, F(1,57)=2.75, p\>0.05), settlement success (r^2^=0.01, F(1,64)=0.77, p\>0.05) or dispersal distance (r^2^=0.01, F(1,51)=0.69, p\>0.05). This was unexpected given that sub-mesoscale processes are expected to be more accurately captured in the hydrodynamic model as the resolution increases (spatial scale decreases), as would the connectivity patterns of the modelled larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs. Local retention increases as model resolution gets coarser, which is difficult to explain in absence of no relationship with self-recruitment or settlement success and model resolution.
 
 #### Nested model design
-The self-recruitment at natal sites was significantly reduced (28.8% versus 0.9%) when nested models (i.e. submodels with higher resolution near settlement sites) were used (t=7.15, df=49.13, p\<0.05), however, caution should be used when evaluating this result due to the large unbalance between the groups (only 10 models describing self-recruitment had nested designs versus 50 which did not). There was no significant difference in the settlement success or dispersal distance when using nested models, and there were no studies using nested models where we were able to get local retention values. Again, the results are not expected, as similar to above, increasing model resolution theoretically increases self-recruitment and local retention, while decreasing the dispersal distance.
+The self-recruitment at natal sites was significantly reduced (28.8% versus 0.9%) when nested models (i.e. sub-models with higher resolution near settlement sites) were used (t=7.15, df=49.13, p\<0.05), however, caution should be used when evaluating this result due to the large unbalance between the groups (only 10 models describing self-recruitment had nested designs versus 50 which did not). There was no significant difference in the settlement success or dispersal distance when using nested models, and there were no studies using nested models where we were able to get local retention values. Again, the results are not expected, as similar to above, increasing model resolution theoretically increases self-recruitment and local retention, while decreasing the dispersal distance.
 
 ### Open systems vs closed systems
 There was no evidence that the geographic openness of the modelled system was consistently affecting the connectivity results derived from the models. While both self-recruitment and settlement success (38% and 22% higher respectively) were greater in closed system, the difference was not significant (self-recruitment: t=1.24, df=16.49, p\>0.05; settlement success: t=0.97, df=64, p\>0.05).  This result is unexpected given the presumably elevated rates of larval loss in open systems, but it should be noted that the samples sizes here are small. Of course, this lack of difference could also be indicative of researchers appropriately choosing the boundaries of the modelled systems based on the biology of the modelled taxa. In this case, even seemingly open systems, may in fact be demographically more similar to geographically (and thus also demographically) closed ones. Dispersal distance was 3.4 times longer in open systems, compared to closed (t=-3.75, df=41.82, p\<=0.05). This can be explained by the geographical nature of an open system, potentially allowing more larvae to be dispersed away from settlement sites and into large oceanic features. There were not enough data points on local retention for a meaningful comparison.
@@ -178,37 +178,31 @@ There was no evidence that the geographic openness of the modelled system was co
 ## Biological parameterisation
 
 ### Pelagic larval duration
-Local retention had a significant positive relationship with the pelagic larval duration of a marine species (r^2^=0.57, F(1,16)=20.95, p\<0.05), however again there was no relationship with either self-recruitment (r^2^=0.02, F(1,54)=1.12, p\>0.05) or settlement success (r^2^=0.05, F(1,59)=3.08, p\>0.05).
-
-There was a significant positive relationship with pelagic larval duration (r^2^=0.23, F(1,45)=13.63, p\<0.05) explaining 25% of the variation found in dispersal distance.
-
-**When it wasn't explain this**
-The pelagic larval duration was not significantly correlated with the other the three metrics. Again it must be noted local retention had the lowest sample size compared to the other metrics. Interestingly pelagic larval duration was not correlated with dispersal distance. Logically, longer dispersal times would theoretically lead to longer dispersal distances. This result has been seen in other studies (CITES).
-**Add in more discussion to this section**
+Local retention to the natal site showed a significant positive relationship with the length of PLD (r^2^=0.57, F(1,16)=20.95, p\<0.05), although there were not enough data points to be confident of this relationship. There was no relationship with either self-recruitment (r^2^=0.02, F(1,54)=1.12, p\>0.05) or settlement success (r^2^=0.05, F(1,59)=3.08, p\>0.05). There was a significant positive relationship with PLD (r^2^=0.23, F(1,45)=13.63, p\<0.05), although it explains only about 25% of the variation found in dispersal distance. Other studies have shown a relationship between PLD and dispersal distance, <<CITE>>. It is interesting that pelagic larval duration does not appear to influence self-recruitment or settlement success at all. Suggesting that the evolutionary pressures for longer pelagic larval duration is being able to disperse further, combined with other potential factors such as increased size before settlement to reduce recruitment mortality.
 
 ### Settlement competency window
-The settlement competency window was strongly negatively correlated with local retention (r^2^=0.70, F(1,9)=20.83, p\<0.05) and weakly positively correlated with self-recruitment (r^2^=0.27, F(1,18)=6.69, p\<0.05). The was no significant relationship with settlement success (r^2^=0.09, F(1,24)=2.39, p\>0.05) or dispersal distance (r^2^=0.04, F(1,19)=0.75, p\>0.05).
+The settlement competency window, dependent on the pelagic larval duration, was strongly negatively correlated with local retention (r^2^=0.70, F(1,9)=20.83, p\<0.05) and weakly positively correlated with self-recruitment (r^2^=0.27, F(1,18)=6.69, p\<0.05). The was no significant relationship with settlement success (r^2^=0.09, F(1,24)=2.39, p\>0.05) or dispersal distance (r^2^=0.04, F(1,19)=0.75, p\>0.05). The opposite result was expected, specifically that increasing the settlement competency window would increase both the settlement success of the larvae and the dispersal distance, by giving them more chances to find settlement sites. If there is no relationship with settlement success and the settlement competency window, it is unusual that there would be relationships with both self-recruitment and local retention and even more unusual that they have opposite directions in their relationships, since we know they are proportional to each other [@Lett:2015ff]. For all of these analyses the degrees of freedom were low which could account for the anomalies.
 
-(Need to think about why LR would go down and SR would go up. LR goes down because longer window so means can settle further away, but why would SR go up - seems counter intuitive)
+### Mortality
+Models which included mortality had similar levels of self-recruitment (t=-1.54, df=58, p=\>0.05) and settlement success (t=0.70, df=64, p\>0.05) to models run without mortality (@fig:mort_metrics). Including mortality also had no effect on the dispersal distance of the marine larvae (t=-1.16, df=9.13, p\>0.05). There was a significant difference in local retention when mortality was applied compared to when it was not (t=-3.65, df=4.30, p\<0.05). Mortality did reduce the variation of the settlement success and the dispersal distance (apart from two outliers) values, which was expected. The variation of self-recruitment values increased, which would occur if settlement success also decreased, as less larvae would be arriving from other sites. Local retention, while going up with mortality, which is an expected results, again there are not enough data points to draw strong conclusions.
 
-**Well, would expect SS to go up with CW, and it doesn’t. Would expect inc in SS with CW would possibly dilute natal site larvae so SR would go down. Would expect inc in LR with inc CW. You sure we got our definitions correct here!?  This seems backwards.**
+<<Discussion>>
 
-### Mortality included (need to compare size of linear mortality as well?)
-
-**Have enough data?  Would be interesting to regress metrics on mortality rate**
-
-Models which included mortality had higher levels of self-recruitment than those that didn’t (@fig:sr_mort), stats…assuming this was significant?). The inclusion of mortality didn’t have a strong effect on the mean overall settlement success, however there was much lower variability when mortality was included (stats…do a comparison of variation?) (@fig:ss_mort). Including mortality also seemed to increase the mean distance travelled of the larvae, which is the opposite of what is expected (@fig:dist_mort).
-
-**Are there stats here?Need much better discussion of all this…there is none. Note very high SS values. Including mortality knocks those  out…makes sense. But values are still high even with mort. Higher SR could be driven by lower SS in general but with non-natal larvae more affected than natal ones because they have to travel farther (so SR goes up). What about LR.**
-
-![Comparison of the mean self-recruitment values with mortality included implemented in the model](../figs/sr_mortality.png)[@#fig:sr_mort]
-
-![Comparison of the mean settlement success values with mortality included implemented in the model](../figs/ss_mortality.png)[@#fig:ss_mort]
-
-![Comparison of the mean distance travelled with mortality included implemented in the model](../figs/dist_mortality.png)[@#fig:dist_mort]
+![Comparing models that implemented mortality with self-recruitment, local retention, settlement success and dispersal distance values](../figs/mort_metrics.png)[@#fig:mort_metrics]
 
 ### Movement behaviours
-Models which included movement or settlement sensory abilities had overall lower mean self-recruitment levels than those which did not (@fig:behaviours_sr, **INCLUDE STATS**). This is an unexpected result, considering the overriding consensus is that self-recruitment is increased through behavioural implementations in the model [@Paris:2004te; @Werner:1993if].
+
+(settlement success)
+Including movement and settlement greatly increased settlement success, again there were not as many values as for the other behaviours
+
+(self-recruitment)
+The inclusion of movement or settlement sensory abilities reduced the self-recruitment of a model (@fig:behaviour_metrics). While the data indicates including both of them increases self-recruitment, this is likely due to a low number of data points.
+
+
+
+![The effect of larval behaviour (P=passive, M=movement, O=orientation, S=settlement sensory, MO=movement and orientation, MS=movement and settlement sensory, OS=orientation and sensory, MOS=movement, orientation and settlement sensory) on the mean self-recruitment, settlement success, local retention and distance travelled in the reviewed connectivity studies](../figs/behaviour_metrics.png)[@#fig:behaviour_metrics]
+
+Models which included movement or settlement sensory abilities had overall lower mean self-recruitment levels than those which did not (@fig:behaviour_metrics). This is an unexpected result, considering the overriding consensus is that self-recruitment is increased through behavioural implementations in the model [@Paris:2004te][@Werner:1993if].
 
 **Is that what they say…self recruitment?  I think they would mean local retention as we define it here…prop from a site that come back.  Remember that self-recruitment levels will be tied up with overall SS as that directly related to the denom of the SR equation.  So if behavior drives up SS, which it seems to, then the denom goes up at all sites. And since the pool of larvae supplying the denom is potentially all sites while the numerator is only the natal site, even if SS goes up and equal prop for larvae from all sites, the denom will grow more than the num and the value of SR would go down.  So I think this result may actually be consistent.  Check my math. Also double check the prediction in those papers and if they didn’t mean LR.**
 
@@ -218,29 +212,26 @@ The opposite trend appears to occur for settlement success (@fig:behaviours_ss).
 
 Giving the larvae the ability to orientate early improved their chances of settling, and also increased self-recruitment.
 
-![The effect of larval behaviour (movement, orientation & settlement sensory) on the mean self-recruitment in connectivity studies](../figs/behaviours_sr.png)[@#fig:behaviours_sr]
 
-![The effect of larval behaviour (movement, orientation & settlement sensory) on the mean settlement success of larvae in connectivity studies](../figs/behaviours_ss.png)[@#fig:behaviours_ss]
 
 # Conclusion and recommendations
-This study has shown there was the large spread of values reported for these studies. The common measures of self-recruitment, local-retention and settlement success all reported huge variations amongst studies. Seemingly obvious explanations such as open/closed systems did not explain the variance. These are inherently complex systems and teasing out the differences between studies is not a trivial task. The other key driver is the variability of the oceanographic currents, which change within and between years. Therefore, it was interesting there were still many studies that only looked at dispersal patterns over one or two year periods, arguably not allowing the model to capture enough natural variation.
 
-**WILLS COMMENT: You can’t just throw this in as a sentence.  What did you do, what does this mean?  Need to show that you actually looked at this in some objective manner so your argument that it can be dismissed will be accepted.You can’t just throw this in as a sentence.  What did you do, what does this mean?  Need to show that you actually looked at this in some objective manner so your argument that it can be dismissed will be accepted.**
+(What does this review show?)
+1. Fewer BDM studies over the last few years but a greater proportion of them, especially those focused on fish taxa, seem to be taking the advice of the ICES manual to include considerations about animal movement as opposed to being passive.
 
-The first caveat to such an approach is that comparisons such are difficult because of the number of parameters used to configure these BDMs that could all have an influence on the results. This is a complicated issue to resolve. Comparing many studies should cancel out some of the noise surrounding all the parameters. A future direction would be to determine a way to normalise the data based on the input parameters, allowing for more effective comparisons. Otherwise perhaps it is only prudent to compare studies that occur in the same oceanic region, at the same time, using the same physical models and perhaps the same particle disperser for consistency.
-
-A consistent approach, including providing underlying data would assist in progressing the field for future comparisons, allowing us to understand why there is so much variation amongst reported measures such as self-recruitment and transport success.
-
-The current state of the field feels like is not moving forward as coherently it should be. Studies have been calling for behaviour to be implemented for nearly a decade, yet most studies are still not including larval behavioural traits. This is despite the evidence that behaviours do change the described connectivity patterns. Perhaps we cannot move forward until these models, which include behaviour, are empirically validated. However, we would argue that the priority should be to start including both movement and settlement sensory abilities for species where this is applicable and known in the literature. The second priority to is provide clarity in metrics so we can meaningfully compare the outcomes of connectivity studies and progress the field further.
-
-**This is all rather unfocused.  You want to get across here:**
-
-This review shows:
-  -	Fewer BPTM studies over the last few years but a greater proportion of them, especially those focused on fish taxa, seem to be taking the advice of XXX to include considerations about animal movement as opposed to being passive.
-  -	There is quite a range of values for key metrics of connectivity coming out of these studies and this very likely necessarily due to modelling and parameter choices made.  For this dataset we can see that
+2. There is quite a range of values for key metrics of connectivity coming out of these studies and this very likely necessarily due to modelling and parameter choices made.  For this dataset we can see that
   - Geography of system no strongly affecting things (good choices by researchers)?
   - Model resolution in general doesn’t’ have a strong effect though nested models do seem to deliver elevated SS rates…discuss this as a key model choice.
 
-**Keep going with this approach for the bio variables.  Highlight things that would be key model choices based on what we say.  So mortality and behavior both came out as important.  Also highlight things that don’t seem to be as critical as we thought they might…competency window for instance.  And may also note the lack of orientation behavior in models despite empirical evidence for its importance.**
+This study has shown there was the large spread of values reported for these studies. The common measures of self-recruitment, local-retention and settlement success all reported huge variations amongst studies. Seemingly obvious explanations such as open/closed systems did not explain the variance. These are inherently complex systems and teasing out the differences between studies is not a trivial task. The other key driver is the variability of the oceanographic currents, which change within and between years. Therefore, it was interesting there were still many studies that only looked at dispersal patterns over one or two year periods, arguably not allowing the model to capture enough natural variation.
+
+(What were the limitations)
+The first caveat to such an approach is that comparisons such are difficult because of the number of parameters used to configure these BDMs that could all have an influence on the results. This is a complicated issue to resolve. Comparing many studies should cancel out some of the noise surrounding all the parameters. A future direction would be to determine a way to normalise the data based on the input parameters, allowing for more effective comparisons. Otherwise perhaps it is only prudent to compare studies that occur in the same oceanic region, at the same time, using the same physical models and perhaps the same particle disperser for consistency.
+
+(Where to go from here)
+A consistent approach, including providing underlying data would assist in progressing the field for future comparisons, allowing us to understand why there is so much variation amongst reported measures such as self-recruitment and transport success.
+
+(Concluding statement)
+The current state of the field feels like is not moving forward as coherently it should be. Studies have been calling for behaviour to be implemented for nearly a decade, yet most studies are still not including larval behavioural traits. This is despite the evidence that behaviours do change the described connectivity patterns. Perhaps we cannot move forward until these models, which include behaviour, are empirically validated. However, we would argue that the priority should be to start including both movement and settlement sensory abilities for species where this is applicable and known in the literature. The second priority to is provide clarity in metrics so we can meaningfully compare the outcomes of connectivity studies and progress the field further.
 
 # References
