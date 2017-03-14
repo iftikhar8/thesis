@@ -39,7 +39,7 @@ From Jeff Leis:
 
 #### PLD
 Their pelagic larval stage lasts up to 60 days (Heemstra and Randall 1993; Richardson and Gold 1997)
-Medium-to large-bodied groupers range from 30–80 days. I have contacted Dave Harasti (emailed 7/3), asking for more information, fingers crossed they have unpublished otolith data. I will also enquire with Jeff Leis once I hear back from Dave.
+Medium-to large-bodied groupers range from 30–80 days. I have contacted Dave Harasti (emailed 7/3), asking for more information, fingers crossed they have unpublished otolith data.
 
 #### Spawning
 Adults generally inhabit coastal rocky reefs and offshore coral reefs.
