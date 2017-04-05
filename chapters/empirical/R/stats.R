@@ -10,8 +10,21 @@ performFishersTest <- function(countdata) {
 }
 
 performChiSqTest <- function(countdata) {
-  matrix <- acast(countdata,depth ~ stage,value.var="count")
+  matrix <- acast(countdata, depth ~ stage, value.var="count")
   ft <- chisq.test(matrix)
   print(ft)
   return(ft)
+}
+
+
+performChiSqPostHocTest <- function(countdata) {
+  library('rcompanion')
+  matrix <- acast(countdata, depth ~ stage, value.var="count")
+  post_hoc <- pairwiseNominalIndependence(matrix,
+                                fisher = FALSE,
+                                gtest  = FALSE,
+                                chisq  = TRUE,
+                                method = "fdr")
+  print(post_hoc)
+  return(post_hoc)
 }
