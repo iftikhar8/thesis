@@ -10,6 +10,37 @@ source("get_proportions.R")
 source("graphing.R")
 source("stats.R")
 
+# MANOVA on the ichyplankton OVM data
+data <- read_csv('../data/ichthyoplankton_ovm.csv')
+names(data) <- tolower(names(data))
+data.tidied <- data %>% gather(key = "taxa", value = "count", -site, -depth, 
+         -net, -type, -location, -fixed_in,-tow_volume) %>%
+        separate(col=taxa, into=c("ontogeny","taxa"))
+
+# Weight the data to 250m3
+data.weighted <- data.tidied %>% filter(tow_volume > 0) %>%
+  mutate(weighted_count = count/tow_volume*250)
+
+total <- summarize(group_by(data.weighted, taxa, ontogeny), total=sum(weighted_count))
+                
+# Transform data
+ggplot(data.weighted, aes(x=taxa, y=log10(weighted_count + 0.5))) + 
+  geom_boxplot() + 
+  coord_flip()
+
+ggplot(data.weighted, aes(x=log10(weighted_count0.5), group=taxa)) + 
+  geom_line(stat="density")
+
+data.transformed <- mutate(data.weighted, transformed_count = log10(weighted_count0.5))
+
+ggplot(data.transformed, aes(x=ontogeny, y=depth, fill=transformed_count)) + 
+  geom_tile() + 
+  facet_grid(~taxa) +
+  scale_fill_viridis() + 
+  theme_minimal()
+
+
+
 data <- read_csv('../data/ovm_weighted.csv',skip = 2)
 names(data) <- tolower(names(data))
 str(data)
@@ -26,7 +57,6 @@ scarids <- getFishData(data,"pre_scaridae","fle_scaridae","pos_scaridae")
 bothids <- getFishData(data,"pre_bothidae","fle_bothidae","pos_bothidae")
 triglids <- getFishData(data,"pre_triglidae","fle_triglidae","pos_triglidae")
 scorpids <- getFishData(data,"pre_scorpaenidae","fle_scorpaenidae","pos_scorpaenidae")
-
 
 
 labrids.sum <- summarise(labrids, count = sum(value))

@@ -1,14 +1,12 @@
 class: middle, center, blue-text, text-darken-2
 # The empirical chapter outline
 ---
-# Aim
+# Chapter aims
 - To investigate the ontogenetic vertical migration of reef fish families off the eastern coast of Australia
-  - Were there differences between families?
-  - How does this compare to data from other parts of the world?
-  - How did the onset of ontogeny change vertical position?
-  - Did location (north / south) or water feature (coastal / eddy) play a part?
-  - How does length related to ontogeny?
-    - Need to fix up my length data - can now that I can log onto the system
+  - *Question 1*: Is ontogeny the major driver of change in depth?
+  - *Question 2*: Is there an overall trend downwards for ichthyoplankton during ontogeny or is it taxa specific?
+  - *Question 3*: If there are changes, at which stage does it occur pre-flexion / flexion / post-flexion
+  - *Question 4*: Is length a better predictor than ontogenetic stage?
 ---
 class: middle, center, blue-text, text-darken-2
 # Methods
@@ -28,14 +26,15 @@ class: middle, center, blue-text, text-darken-2
 # Study sites
 - Collected along the eastern coast of Australia in June 2015 (Brisbane to Sydney).
 - 16 stations
-  - Seperated by latitude
+  - Separated by latitude
     - North 27.3-29.1 and South 31.6-32.3 (SST differed by 1-2 degrees )
-  - Seperated by water features (coastal waters and eddies)
+  - Separated by water features (coastal waters and eddies)
+  - Data collected on SST, chlorophyll-a fluorescence, salinity
 ---
 # Collection
 - Three depths used with 500 micron mesh
   - Neuston nets used to collect the surface
-    - No nets at site 16 because of rough weather and no flow meter at site 8
+    - Unbalanced design: No nets at site 16 because of rough weather and no flow meter at site 8
   - EZ nets getting two depths (5-50m, 50-100m)
 ---
 # Data
