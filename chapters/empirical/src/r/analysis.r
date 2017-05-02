@@ -45,4 +45,3 @@ ggsave("feature_stage.png",path="../../figs/")
 
 ggplot(data,aes(depth,fill=stage)) + geom_bar(position="dodge") + facet_wrap(~family)
 ggsave("depth_stage.png",path="../../figs/")
-

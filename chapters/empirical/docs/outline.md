@@ -65,7 +65,22 @@ Stage | Count
 Pre-flexion   | 1089
 Flexion   | 856
 Post-flexion   | 882
-
+---
+# Ontogeny summary
+Unbalanced counts in each group (especially serranidae - bias of nets or swimming ability?)
+![stages of ontogeny](../figs/families_stage_count.png "Ontogeny by families")
+---
+# Sites
+Not all stages (or families) caught at all sites, Labrids most consistent
+![sites](../figs/families_stage_count.png "Ontogeny by site")
+---
+# Location (Northern or mid-NSW)
+Location doesn't appear to be a factor
+![stages of ontogeny](../figs/families_stage_count.png "Ontogeny by families")
+---
+# Feature (Coastal water or Eddies)
+Labrids and scarids (older) found 2x more in eddies
+![stages of ontogeny](../figs/families_stage_count.png "Ontogeny by families")
 ---
 # Labrid
 ![lab_mosaic](../figs/outline/mosaic_lab.png "Labrid ovm")
