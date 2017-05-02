@@ -29,7 +29,7 @@ data <- mutate(data, total_length = standard_length + caudal_fin_length)
 
 # Ontogeny
 ggplot(data,aes(family)) + geom_bar()
-ggsave("families_count.png",path="../../figs/")
+ggsave("families_count.png",path="../../figs/", height=3, width=3)
 
 ggplot(data,aes(family,fill=stage)) + geom_bar(position="dodge")
 ggsave("families_stage_count.png",path="../../figs/")
