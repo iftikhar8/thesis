@@ -22,7 +22,12 @@ data.weighted <- data.tidied %>% filter(tow_volume > 0) %>%
   mutate(weighted_count = count/tow_volume*250)
 
 total <- summarize(group_by(data.weighted, taxa, ontogeny), total=sum(weighted_count))
-                
+   
+# Classification Tree
+fit <- rpart(ontogeny ~ taxa + depth + type + location,
+             method="class", data=data.weighted)
+       
+      
 # Transform data
 ggplot(data.weighted, aes(x=taxa, y=log10(weighted_count + 0.5))) + 
   geom_boxplot() + 
@@ -31,7 +36,7 @@ ggplot(data.weighted, aes(x=taxa, y=log10(weighted_count + 0.5))) +
 ggplot(data.weighted, aes(x=log10(weighted_count0.5), group=taxa)) + 
   geom_line(stat="density")
 
-data.transformed <- mutate(data.weighted, transformed_count = log10(weighted_count0.5))
+data.transformed <- mutate(data.weighted, transformed_count = log10(weighted_count))
 
 ggplot(data.transformed, aes(x=ontogeny, y=depth, fill=transformed_count)) + 
   geom_tile() + 

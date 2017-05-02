@@ -47,6 +47,26 @@ class: middle, center, blue-text, text-darken-2
 class: middle, center, blue-text, text-darken-2
 # Results
 ---
+# Summary
+We caught 2827 fish in these 7 family groups
+
+Family        | Count
+--------------|------
+labridae      | 1252
+mullidae      | 244
+pomacentridae | 194
+scaridae      | 228
+scorpaenidae  | 176
+serranidae    | 593
+synodontidae  | 140
+
+Stage | Count
+------|------
+Pre-flexion   | 1089
+Flexion   | 856
+Post-flexion   | 882
+
+---
 # Labrid
 ![lab_mosaic](../figs/outline/mosaic_lab.png "Labrid ovm")
 ---
