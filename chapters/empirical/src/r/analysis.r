@@ -45,3 +45,11 @@ ggsave("feature_stage.png",path="../../figs/")
 
 ggplot(data,aes(depth,fill=stage)) + geom_bar(position="dodge") + facet_wrap(~family)
 ggsave("depth_stage.png",path="../../figs/")
+
+data.ontogeny <- summarize(group_by(data, location, feature, depth, family, stage), count=n())
+data.length <- summarize(group_by(data, location, feature, depth, family), length_mean=mean(total_length))
+
+data.length.depth <- summarize(group_by(data, depth, family),length_mean=mean(total_length), length_sd=sd(total_length),length_se=length_sd/n(),cont=n())
+
+ggplot(data.length.depth, aes(depth,length_mean)) + geom_bar(stat = "identity") + facet_wrap(~family) + geom_errorbar(aes(ymin=length_mean-length_se, ymax=length_mean+length_se, width=0.1))
+ggsave("depth_length.png",path="../../figs/")

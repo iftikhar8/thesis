@@ -68,19 +68,31 @@ Post-flexion   | 882
 ---
 # Ontogeny summary
 Unbalanced counts in each group (especially serranidae - bias of nets or swimming ability?)
-![stages of ontogeny](../figs/families_stage_count.png "Ontogeny by families")
+![families by ontogeny](../figs/families_stage_count.png "Ontogeny by families")
 ---
 # Sites
 Not all stages (or families) caught at all sites, Labrids most consistent
-![sites](../figs/families_stage_count.png "Ontogeny by site")
+![sites by ontogeny](../figs/site_stage.png "Ontogeny by site")
 ---
 # Location (Northern or mid-NSW)
 Location doesn't appear to be a factor
-![stages of ontogeny](../figs/families_stage_count.png "Ontogeny by families")
+![location by ontogeny](../figs/location_stage.png "Ontogeny by location")
 ---
 # Feature (Coastal water or Eddies)
 Labrids and scarids (older) found 2x more in eddies
-![stages of ontogeny](../figs/families_stage_count.png "Ontogeny by families")
+![features by ontogeny](../figs/feature_stage.png "Ontogeny by features")
+---
+# Ontogeny and depth 1
+![depth by ontogeny](../figs/depth_stage.png "Ontogeny by depth")
+---
+# Ontogeny and depth 2
+- Labridae - majority caught in the 5-50m bin.
+- Mullidae - hardly any PRE caught below 50m (drops off in both Pos & Fle too)
+- Poms - No pos caught at surface. Also not many below 50m
+- Scaridae - similar patterns at each depth.
+- Scorpion fish - Opposite trends in surface and > 50m. Similar at 25m
+- Serranids - huge number of pre-flexion, drops off at 50m. Flexion, post-flexion most caught below 50m
+- Synodontids - Pre-flexion at surface. All mostly occur 5-50m.
 ---
 # Labrid
 ![lab_mosaic](../figs/outline/mosaic_lab.png "Labrid ovm")
@@ -141,5 +153,16 @@ Labrids and scarids (older) found 2x more in eddies
 - Most fish caught in 5-50 metres, not many below 50m
 - Not many post-flexion (increased swimming ability?)
 - Pre-flexion decreases with depth, flexion and post-flexion increases
+---
+# General length data
+family | length_mean | length_sd
+------|---------|--------
+labridae  |  5.92 | 2.80
+mullidae  |  7.44  | 6.31
+pomacentridae  |  3.88 |  1.50
+scaridae |   5.90 | 1.75
+scorpaenidae  |  5.15 | 2.16
+serranidae  |  3.32 |  1.47
+synodontidae  | 10.35 | 6.53
 ---
 # Discussion
