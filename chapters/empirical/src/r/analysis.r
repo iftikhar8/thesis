@@ -10,28 +10,56 @@ data <- filter(data, family != "bothid" & family != "triglid")
 data <- filter(data, is.na(not_calibrated), is.na(damaged))
 data <- select(data, -subgroup, -photo_id, -damaged, -not_calibrated)
 
+
 # Create factors
 data$stage <- factor(data$stage, levels = c("PRE", "FLE", "POS"))
 data$family <- as.factor(data$family)
 data$net <- as.factor(data$net)
-data$site <- as.factor(data$site)
 data$depth <- as.factor(data$depth)
 data$preservation_method <- as.factor(data$preservation_method)
 data$feature <- as.factor(data$feature)
 data$location <- as.factor(data$location)
+#data$station <- as.factor(data$station)
+data$site <- as.factor(data$site)
 
 data.tow$net <- as.factor(data.tow$net_number)
-data.tow$site <- as.factor(data.tow$site)
 data.tow$feature <- as.factor(data.tow$feature)
+data.tow$feature_name <- as.factor(data.tow$feature_name)
 data.tow$location <- as.factor(data.tow$location)
+data.tow$site <- as.factor(data.tow$site)
 
 data <- mutate(data, total_length = standard_length + caudal_fin_length)
 
-data.sum <- summarize(group_by(data, site, location, feature, net, depth, family,
-  stage), count = n(), length_mean = mean(total_length), length_sd = sd(total_length),
-  length_se = length_sd/n())
+data.length <- summarize(group_by(data, location, station, feature, net, depth, family,
+  stage), count = n())
 
-data.all <- data.sum %>% left_join(data.tow) %>% mutate(concentration = count/volume)
+data.stage <- summarize(group_by(data, location, station, feature, net, family,
+                               stage), count = n(), length_mean = mean(total_length), length_sd = sd(total_length),
+length_se = length_sd/n())
+
+data.spread <- spread(data.stage, key=stage, value=count, drop =FALSE, fill = 0)
+data.gather <- gather(data.spread, key=stage, value=count, PRE, POS, FLE, na.rm = FALSE)
+
+data.concentration <- data.gather %>% left_join(data.tow) %>% mutate(concentration = count/volume * 1000)
+data.concentration <- mutate(data.concentration, concentration_log = log(concentration + 1), 
+                             depth = if_else(net == 'N1' || net == 'N2', 0, if_else(net == 'M5' || net == 'M4', 25 ,75)))
+data.concentration$depth <- as.factor(data.concentration$depth)
+
+data.summary.total <- summarise(group_by(data.concentration, location, feature, depth,
+                                          stage), mean_conc = mean(concentration), sd_conc = sd(concentration),
+                                mean_conc_log = mean(concentration_log), sd_conc_log = sd(concentration_log))
+                                    
+
+
+ggplot(data = data.summary.total, aes(x = mean_conc, y = sd_conc)) + geom_point()
+ggplot(data = data.summary.total, aes(x = mean_conc_log, y = sd_conc_log)) + geom_point()
+
+model <- lm(concentration_log ~ location * feature * depth * stage * family, data =data.concentration)
+
+### Check for correlations
+data.all %>% correlate() %>% focus(concentration, total_length)
+data.numeric <- select(data.all, concentration, length_mean, latitude, longitude, sst, chlorophyll_fluorescence, salinity)
+data.numeric %>% correlate() %>% focus(concentration, total_length)
 
 ### Exploratory graphs
 
@@ -68,4 +96,12 @@ data.length.depth <- summarize(group_by(data, depth, family), length_mean = mean
 ggplot(data.length.depth, aes(depth, length_mean)) + geom_bar(stat = "identity") +
   facet_wrap(~family) + geom_errorbar(aes(ymin = length_mean - length_se, ymax = length_mean +
   length_se, width = 0.1))
+
 ggsave("depth_length.png", path = "../../figs/", width = 8, height = 7, dpi = 100)
+
+
+model <- lm(concentration ~ location * feature * depth * stage, data = data.all)
+model2 <- lm(length_mean ~ depth * stage, data = data.all)
+summary.lm(model)
+
+
