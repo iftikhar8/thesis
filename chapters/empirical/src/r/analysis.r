@@ -19,7 +19,7 @@ data$depth <- as.factor(data$depth)
 data$preservation_method <- as.factor(data$preservation_method)
 data$feature <- as.factor(data$feature)
 data$location <- as.factor(data$location)
-#data$station <- as.factor(data$station)
+data$station <- as.factor(data$station)
 data$site <- as.factor(data$site)
 
 data.tow$net <- as.factor(data.tow$net_number)
@@ -27,32 +27,35 @@ data.tow$feature <- as.factor(data.tow$feature)
 data.tow$feature_name <- as.factor(data.tow$feature_name)
 data.tow$location <- as.factor(data.tow$location)
 data.tow$site <- as.factor(data.tow$site)
+data.tow$station <- as.factor(data.tow$station)
 
 data <- mutate(data, total_length = standard_length + caudal_fin_length)
 
 data.length <- summarize(group_by(data, location, station, feature, net, depth, family,
-  stage), count = n())
+  stage), length_mean = mean(total_length), length_sd = sd(total_length),
+  length_se = length_sd/n())
 
 data.stage <- summarize(group_by(data, location, station, feature, net, family,
-                               stage), count = n(), length_mean = mean(total_length), length_sd = sd(total_length),
-length_se = length_sd/n())
+                               stage), count = n())
 
 data.spread <- spread(data.stage, key=stage, value=count, drop =FALSE, fill = 0)
 data.gather <- gather(data.spread, key=stage, value=count, PRE, POS, FLE, na.rm = FALSE)
 
 data.concentration <- data.gather %>% left_join(data.tow) %>% mutate(concentration = count/volume * 1000)
-data.concentration <- mutate(data.concentration, concentration_log = log(concentration + 1), 
+data.concentration <- mutate(data.concentration, concentration_log = log(concentration + 1),
                              depth = if_else(net == 'N1' || net == 'N2', 0, if_else(net == 'M5' || net == 'M4', 25 ,75)))
 data.concentration$depth <- as.factor(data.concentration$depth)
 
 data.summary.total <- summarise(group_by(data.concentration, location, feature, depth,
                                           stage), mean_conc = mean(concentration), sd_conc = sd(concentration),
                                 mean_conc_log = mean(concentration_log), sd_conc_log = sd(concentration_log))
-                                    
+
 
 
 ggplot(data = data.summary.total, aes(x = mean_conc, y = sd_conc)) + geom_point()
 ggplot(data = data.summary.total, aes(x = mean_conc_log, y = sd_conc_log)) + geom_point()
+
+ggplot(data = data.concentration, aes(y=concentration, x=stage)) + geom_boxplot() + facet_wrap(~family)
 
 model <- lm(concentration_log ~ location * feature * depth * stage * family, data =data.concentration)
 
@@ -101,7 +104,7 @@ ggsave("depth_length.png", path = "../../figs/", width = 8, height = 7, dpi = 10
 
 
 model <- lm(concentration ~ location * feature * depth * stage, data = data.all)
-model2 <- lm(length_mean ~ depth * stage, data = data.all)
+model_test <- lm(concentration_log ~ stage * depth * station / feature * location, data=data.concentration)
+model_test2 <- lm(concentration_log ~ stage * depth * feature * location, data=data.concentration)
+model2 <- lm(concentration_log ~ stage * depth, data = data.concentration)
 summary.lm(model)
-
-
