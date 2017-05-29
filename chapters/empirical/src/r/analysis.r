@@ -10,7 +10,6 @@ data <- filter(data, family != "bothid" & family != "triglid")
 data <- filter(data, is.na(not_calibrated), is.na(damaged))
 data <- select(data, -subgroup, -photo_id, -damaged, -not_calibrated)
 
-
 # Create factors
 data$stage <- factor(data$stage, levels = c("PRE", "FLE", "POS"))
 data$family <- as.factor(data$family)
@@ -41,7 +40,7 @@ data.stage <- summarize(group_by(data, location, station, feature, net, family,
 data.spread <- spread(data.stage, key=stage, value=count, drop =FALSE, fill = 0)
 data.gather <- gather(data.spread, key=stage, value=count, PRE, POS, FLE, na.rm = FALSE)
 
-data.concentration <- data.gather %>% left_join(data.tow) %>% mutate(concentration = count/volume * 1000)
+data.concentration <- data.gather %>% left_join(data.tow) %>% mutate(concentration = count/volume * 250)
 data.concentration <- mutate(data.concentration, concentration_log = log(concentration + 1),
                              depth = if_else(net == 'N1' || net == 'N2', 0, if_else(net == 'M5' || net == 'M4', 25 ,75)))
 data.concentration$depth <- as.factor(data.concentration$depth)
@@ -102,9 +101,12 @@ ggplot(data.length.depth, aes(depth, length_mean)) + geom_bar(stat = "identity")
 
 ggsave("depth_length.png", path = "../../figs/", width = 8, height = 7, dpi = 100)
 
+L <- as.random(data.concentration$location)
+W <- as.fixed(data.concentration$feature)
+S <- as.random(data.concentration$station)
+D <- as.fixed(data.concentration$depth)
+O <- as.fixed(data.concentration$stage)
+model.concentration <- lm(concentration_log ~ L * S / W * D * O, data = data.concentration)
+gad(model.concentration)
 
-model <- lm(concentration ~ location * feature * depth * stage, data = data.all)
-model_test <- lm(concentration_log ~ stage * depth * station / feature * location, data=data.concentration)
-model_test2 <- lm(concentration_log ~ stage * depth * feature * location, data=data.concentration)
-model2 <- lm(concentration_log ~ stage * depth, data = data.concentration)
 summary.lm(model)

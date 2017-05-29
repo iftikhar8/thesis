@@ -31,12 +31,13 @@ Unit of replication = net (2)
 
 Transformation as per Underwood for concentration data.
 
+#### Total reef fish
 ```
-model <- lm(concentration_log ~ stage * depth * station / feature * location, data=data.concentration)
+model.concentration <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.concentration)
 ```
 
 ANOVAs to reproduce:
-One for overall trends.
+One for total trends.
 One per each fish family.
 
 
