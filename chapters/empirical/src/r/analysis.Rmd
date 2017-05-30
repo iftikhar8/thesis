@@ -70,6 +70,8 @@ ggplot(aes(x=depth, y=concentration_log), data=data.all)
 
 ### Model
 
+
+
 | Independent factors | Type   | Levels | Nested | Values                             |
 |:--------------------|:-------|:-------|:-------|------------------------------------|
 | location            | fixed  | 2      | no     | north, south                       |
@@ -98,67 +100,65 @@ One per each fish family.
 #### Total reef fish
 ```{r}
 model.conc <- lm(concentration_log ~ location * feature * depth * stage, data=data.conc)
-Anova(model.conc, type = "III")
+Anova(model.conc, type = "II")
 ```
 
 #### Labridae
 ```{r}
 data.conc.labrid <- filter(data.conc, family == "labridae")
 model.conc.labrid <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.labrid)
-Anova(model.conc.labrid, type = "III")
+Anova(model.conc.labrid, type = "II")
 ```
 
 #### Mullidae
 ```{r}
 data.conc.mullid <- filter(data.conc, family == "mullidae")
 model.conc.mullid <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.mullid)
-Anova(model.conc.mullid, type = "III")
+Anova(model.conc.mullid, type = "II")
 ```
 
 #### Pomcentridae
 ```{r}
 data.conc.pom <- filter(data.conc, family == "pomacentridae")
 model.conc.pom <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.pom)
-Anova(model.conc.pom, type = "III")
+Anova(model.conc.pom, type = "II")
 ```
 
 #### Scaridae
 ```{r}
 data.conc.scarid <- filter(data.conc, family == "scaridae")
 model.conc.scarid <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.scarid)
-Anova(model.conc.scarid, type = "III")
+Anova(model.conc.scarid, type = "II")
 ```
 
 #### Scorpaenidae
 ```{r}
 data.conc.scorp <- filter(data.conc, family == "scorpaenidae")
 model.conc.scorp <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.scorp)
-Anova(model.conc.scorp, type = "III")
+Anova(model.conc.scorp, type = "II")
 ```
 
 #### Serranidae
 ```{r}
 data.conc.serr <- filter(data.conc, family == "serranidae")
 model.conc.serr <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.serr)
-Anova(model.conc.serr, type = "III")
+Anova(model.conc.serr, type = "II")
 ```
 
 #### Synodontidae
 ```{r}
 data.conc.syn <- filter(data.conc, family == "synodontidae")
 model.conc.syn <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.syn)
-Anova(model.conc.syn, type = "III")
+Anova(model.conc.syn, type = "II")
 ```
 
 ## Aim 2: Does length predict depth
 
 | Independent factors | Type   | Levels | Values                             |
 |:--------------------|:-------|:-------|------------------------------------|
-| location            | random | 2      |                                    |
-| feature             | fixed  | 2      | coastal, eddy                      |
-| sites               | random | 2      |                                    |
+| location            | fixed | 2      | north, south                       |
+| feature             | fixed  | 2      | coastal, eddy                      |                  
 | depth              | fixed  | 3      | 0, 25, 75                          |
-| stage               | fixed  | 3      | pre-flexion, flexion, post-flexion |
 
 #### Total reef fish
 ```{r}
