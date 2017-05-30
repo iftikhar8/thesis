@@ -44,7 +44,7 @@ data.stage <- summarize(group_by(data, location, station, feature, net, family,
 data.spread <- spread(data.stage, key=stage, value=count, drop =FALSE, fill = 0)
 data.gather <- gather(data.spread, key=stage, value=count, PRE, POS, FLE, na.rm = FALSE)
 
-data.conc <- data.gather %>% left_join(data.tow) %>% mutate(concentration = count/volume * 250)
+data.conc <- data.gather %>% left_join(data.tow) %>% mutate(concentration = count/volume * 250) %>% filter(site != "4", site != "8", site != "12", site != "16")
 data.conc <- mutate(data.conc, concentration_log = log(concentration + 1),
                              depth = if_else(net == 'N1' || net == 'N2', 0, if_else(net == 'M5' || net == 'M4', 25 ,75)))
 data.conc$depth <- as.factor(data.conc$depth)
@@ -57,23 +57,25 @@ data.summary.total <- summarise(group_by(data.conc, location, feature, depth,
 
 ## Aim 1: Does stage predict depth
 
+The design of the experiment is unbalanced, as we lost one surface tow at site 8 to a broken logger and we lost one surface tow at site 16 to rough weather. Therefore to balance the design up, we removed the offending sites, and two extra sites for balance.
+
 ### Exploratory graphs
 
 Graph concentration as a factor of stage, grouped by depth
 
-```
+```{r}
 ggplot(aes(x=depth, y=concentration_log), data=data.all)
 ```
+
 
 ### Model
 
 | Independent factors | Type   | Levels | Nested | Values                             |
 |:--------------------|:-------|:-------|:-------|------------------------------------|
-| location            | random | 2      | no     |                                    |
+| location            | fixed  | 2      | no     | north, south                       |
 | feature             | fixed  | 2      | no     | coastal, eddy                      |
 | depth               | fixed  | 3      | no     | 0, 25, 75                          |
 | stage               | fixed  | 3      | no     | pre-flexion, flexion, post-flexion |
-
 
 Unit of replication = net (2)
 
@@ -82,6 +84,12 @@ Unit of replication = net (2)
 | Concentration    | log(x+1)       |
 
 Transformation as per Underwood for concentration data.
+
+```{r}
+ggplot(data = data.summary.total, aes(x = mean_conc, y = sd_conc)) + geom_point()
+ggplot(data = data.summary.total, aes(x = mean_conc_log, y = sd_conc_log)) + geom_point()
+```
+
 
 ANOVAs to reproduce:
 One for total trends.

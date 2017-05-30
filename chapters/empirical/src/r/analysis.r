@@ -30,7 +30,7 @@ data.tow$station <- as.factor(data.tow$station)
 
 data <- mutate(data, total_length = standard_length + caudal_fin_length)
 
-data.length <- summarize(group_by(data, location, station, feature, net, depth, family,
+data.length <- summarize(group_by(data, location, feature, site,net, depth, family,
   stage), length_mean = mean(total_length), length_sd = sd(total_length),
   length_se = length_sd/n())
 
@@ -101,12 +101,13 @@ ggplot(data.length.depth, aes(depth, length_mean)) + geom_bar(stat = "identity")
 
 ggsave("depth_length.png", path = "../../figs/", width = 8, height = 7, dpi = 100)
 
-L <- as.random(data.concentration$location)
-W <- as.fixed(data.concentration$feature)
-S <- as.random(data.concentration$station)
-D <- as.fixed(data.concentration$depth)
-O <- as.fixed(data.concentration$stage)
-model.concentration <- lm(concentration_log ~ L * S / W * D * O, data = data.concentration)
-gad(model.concentration)
+data.conc.balanced <- filter(data.concentration, site != "8", site != "16", site != "4", site != "12")
+model.concentration <- lm(concentration_log ~ location * feature * depth * stage, data = data.conc.balanced)
+Anova(model.concentration, type="II")
+summary.lm(model.concentration)
 
-summary.lm(model)
+L <- as.fixed(data$location)
+W <- as.fixed(data$feature)
+D <- as.fixed(data$depth)
+model.length <- lm(total_length ~ L * W * D, data = data)
+Anova(model.length, type="III")
