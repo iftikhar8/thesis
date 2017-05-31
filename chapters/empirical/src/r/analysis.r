@@ -66,7 +66,7 @@ data.numeric %>% correlate() %>% focus(concentration, total_length)
 ### Exploratory graphs
 
 # Distribution of concentration data
-plot.conc <- ggplot(data.all, aes(concentration)) + geom_density()
+plot.conc <- ggplot(data, aes(concentration)) + geom_density()
 
 # Ontogeny
 plot.families <- ggplot(data, aes(family)) + geom_bar()
