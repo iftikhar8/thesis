@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Analysis steps for empirical chapter
 
 Two facets for each analysis, a total taxa trend for reef fish, and looking at the 7 individual families.
@@ -44,7 +49,7 @@ data.stage <- summarize(group_by(data, location, station, feature, net, family,
 data.spread <- spread(data.stage, key=stage, value=count, drop =FALSE, fill = 0)
 data.gather <- gather(data.spread, key=stage, value=count, PRE, POS, FLE, na.rm = FALSE)
 
-data.conc <- data.gather %>% left_join(data.tow) %>% mutate(concentration = count/volume * 250) %>% filter(site != "4", site != "8", site != "12", site != "16")
+data.conc <- data.gather %>% left_join(data.tow) %>% mutate(concentration = count/volume * 1000) %>% filter(site != "4", site != "8", site != "12", site != "16")
 data.conc <- mutate(data.conc, concentration_log = log(concentration + 1),
                              depth = if_else(net == 'N1' || net == 'N2', 0, if_else(net == 'M5' || net == 'M4', 25 ,75)))
 data.conc$depth <- as.factor(data.conc$depth)
@@ -52,24 +57,31 @@ data.conc$depth <- as.factor(data.conc$depth)
 data.summary.total <- summarise(group_by(data.conc, location, feature, depth,
                                           stage), sum_conc=sum(concentration_log), mean_conc = mean(concentration), sd_conc = sd(concentration), mean_conc_log = mean(concentration_log), sd_conc_log = sd(concentration_log))
 
+data.length.sum <- summarize(group_by(data.length.raw, location, feature, depth, family), length_mean = mean(total_length), length_sd = sd(total_length), length_se = length_sd/n())
+
 ```
 
 
 ## Aim 1: Does stage predict depth
 
-The design of the experiment is unbalanced, as we lost one surface tow at site 8 to a broken logger and we lost one surface tow at site 16 to rough weather. Therefore to balance the design up, we removed the offending sites, and two extra sites for balance.
+The design of the experiment is unbalanced, as we lost one surface tow at site 8 to a broken logger and we lost one surface tow at site 16 to rough weather. Therefore to balance the design up, I removed the incomplete sites, and two other sites. Thus for the concentration analysis it has 12 sites instead of 16.
 
 ### Exploratory graphs
 
 Graph concentration as a factor of stage, grouped by depth
 
 ```{r}
-ggplot(aes(x=depth, y=concentration_log), data=data.all)
+ggplot(aes(x=depth, y=concentration_log), data=data.conc) + geom_boxplot()
 ```
 
 
 ### Model
 
+The factors chosen:
+- Location. They were at different latitudes, so there are temperature / salinty differences etc.
+- Feature. The water type was either from coastal source water or from inside an eddy
+- Depth. The three depths the fish were caught at. 
+- Stage. The three stages of ontogeny the fish were measured at
 
 
 | Independent factors | Type   | Levels | Nested | Values                             |
@@ -79,13 +91,13 @@ ggplot(aes(x=depth, y=concentration_log), data=data.all)
 | depth               | fixed  | 3      | no     | 0, 25, 75                          |
 | stage               | fixed  | 3      | no     | pre-flexion, flexion, post-flexion |
 
-Unit of replication = net (2)
+Unit of replication = net (2) * site(3) = 6
 
 | Dependent factor | Transformation |
 |:-----------------|:---------------|
 | Concentration    | log(x+1)       |
 
-Transformation as per Underwood for concentration data.
+Transformation as per Underwood for concentration data. Also x1000 to get concentrations at 1000m^3. The idea of increasing it was get large enough values so the logarithm transformation was monotomic. Plotting the mean and sd before and after the log transformation.
 
 ```{r}
 ggplot(data = data.summary.total, aes(x = mean_conc, y = sd_conc)) + geom_point()
@@ -97,58 +109,82 @@ ANOVAs to reproduce:
 One for total trends.
 One per each fish family.
 
-#### Total reef fish
+### Total reef fish ontogeny
+
+Measures the overall trends for the reef fish, regardless of taxa. Location, feature, depth and stage are all significant. Including many interactions (and the 5-way interaction). 
 ```{r}
-model.conc <- lm(concentration_log ~ location * feature * depth * stage, data=data.conc)
+model.conc <- lm(concentration_log ~ location * feature * depth * stage * family, data=data.conc)
 Anova(model.conc, type = "II")
 ```
 
-#### Labridae
+Splitting family up into each taxa after the significant 5-way interaction
+
+### Labridae
+
+Labrids have a significant differences across all the main effects and the 4-way interaction.
+
 ```{r}
 data.conc.labrid <- filter(data.conc, family == "labridae")
-model.conc.labrid <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.labrid)
+model.conc.labrid <- lm(concentration_log ~ location * feature * depth * stage, data=data.conc.labrid)
 Anova(model.conc.labrid, type = "II")
 ```
 
-#### Mullidae
+### Mullidae
+
+Mullids have a significant main effect of feature and depth, and also the 4-way interaction.
+
 ```{r}
 data.conc.mullid <- filter(data.conc, family == "mullidae")
-model.conc.mullid <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.mullid)
+model.conc.mullid <- lm(concentration_log ~ location * feature * depth * stage, data=data.conc.mullid)
 Anova(model.conc.mullid, type = "II")
 ```
 
-#### Pomcentridae
+### Pomcentridae
+
+Pomacentrids have a significant differences in depth and stage, and also the 4-way interaction.
+
 ```{r}
 data.conc.pom <- filter(data.conc, family == "pomacentridae")
-model.conc.pom <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.pom)
+model.conc.pom <- lm(concentration_log ~ location * feature * depth * stage, data=data.conc.pom)
 Anova(model.conc.pom, type = "II")
 ```
 
-#### Scaridae
+### Scaridae
+
+Scarids have significants main effects of location, feature, & stage. The main signification interation (using 0.001 as a cut off), are feature and stage, location and depth and location and feature. The was no significant interaction of depth & stage. 
+
 ```{r}
 data.conc.scarid <- filter(data.conc, family == "scaridae")
-model.conc.scarid <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.scarid)
+model.conc.scarid <- lm(concentration_log ~ location * feature * depth * stage, data=data.conc.scarid)
 Anova(model.conc.scarid, type = "II")
 ```
 
-#### Scorpaenidae
+### Scorpaenidae
+
+The main effects of location, depth and feature are significant. As well as the interactions of location x feature x stage and also feature x depth x stage. 
 ```{r}
 data.conc.scorp <- filter(data.conc, family == "scorpaenidae")
-model.conc.scorp <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.scorp)
+model.conc.scorp <- lm(concentration_log ~ location * feature * depth * stage, data=data.conc.scorp)
 Anova(model.conc.scorp, type = "II")
 ```
 
-#### Serranidae
+### Serranidae
+
+There is a significant main effect of stage and an interaction term of location x feature x stage.
+
 ```{r}
 data.conc.serr <- filter(data.conc, family == "serranidae")
-model.conc.serr <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.serr)
+model.conc.serr <- lm(concentration_log ~ location * feature * depth * stage, data=data.conc.serr)
 Anova(model.conc.serr, type = "II")
 ```
 
-#### Synodontidae
+### Synodontidae
+
+The main effects of location and depth have significant effects. All of the 3-way interactions are significant for sydnodontids. 
+
 ```{r}
 data.conc.syn <- filter(data.conc, family == "synodontidae")
-model.conc.syn <- lm(concentration_log ~ location * station / feature * depth * stage, data=data.conc.syn)
+model.conc.syn <- lm(concentration_log ~ location * feature * depth * stage, data=data.conc.syn)
 Anova(model.conc.syn, type = "II")
 ```
 
@@ -160,59 +196,57 @@ Anova(model.conc.syn, type = "II")
 | feature             | fixed  | 2      | coastal, eddy                      |                  
 | depth              | fixed  | 3      | 0, 25, 75                          |
 
-#### Total reef fish
+### Total reef fish length
 ```{r}
-model.length <- lm(total_length ~ location * station / feature * depth, data=data.length.raw)
-alias(model.length)
-Anova(model.length, type="III")
+model.length <- lm(total_length ~ location * feature * depth * family, data=data.length.raw)
+Anova(model.length, type="III", singular.ok = TRUE)
 ```
 
-#### Labridae
+### Labridae
 ```{r}
 data.length.labrid <- filter(data.length.raw, family == "labridae")
-model.length.labrid <- lm(total_length ~ location * station / feature * depth, data=data.length.labrid)
-Anova(model.length.labrid, type="III")
+model.length.labrid <- lm(total_length ~ location * feature * depth, data=data.length.labrid)
+Anova(model.length.labrid, type="III", singular.ok = TRUE)
 ```
 
-#### Mullidae
+### Mullidae
 ```{r}
 data.length.mullid <- filter(data.length.raw, family == "mullidae")
-model.length.mullid <- lm(total_length ~ location * station / feature * depth, data=data.length.mullid)
-Anova(model.length.mullid, type="III")
+model.length.mullid <- lm(total_length ~ location * feature * depth, data=data.length.mullid)
+Anova(model.length.mullid, type="III", singular.ok = TRUE)
 ```
 
-#### Pomcentridae
+### Pomcentridae
 ```{r}
 data.length.pom <- filter(data.length.raw, family == "pomacentridae")
-model.length.pom <- lm(total_length ~ location * station / feature * depth, data=data.length.pom)
-Anova(model.length.pom, type="III")
+model.length.pom <- lm(total_length ~ location * feature * depth, data=data.length.pom)
+Anova(model.length.pom, type="III", singular.ok = TRUE)
 ```
 
-#### Scaridae
+### Scaridae
 ```{r}
 data.length.scarid <- filter(data.length.raw, family == "scaridae")
-model.length.scarid <- lm(total_length ~ location * station / feature * depth, data=data.length.scarid)
-Anova(model.length.scarid)
+model.length.scarid <- lm(total_length ~ location * feature * depth, data=data.length.scarid)
+Anova(model.length.scarid, type="III", singular.ok = TRUE)
 ```
 
-#### Scorpaenidae
+### Scorpaenidae
 ```{r}
 data.length.scorp <- filter(data.length.raw, family == "scorpaenidae")
-model.length.scorp <- lm(total_length ~ location * station / feature * depth, data=data.length.scorp)
-Anova(model.length.scorp)
+model.length.scorp <- lm(total_length ~ location * feature * depth, data=data.length.scorp)
+Anova(model.length.scorp, type ="III")
 ```
 
-#### Serranidae
+### Serranidae
 ```{r}
 data.length.serr <- filter(data.length.raw, family == "serranidae")
-model.length.serr <- lm(total_length ~ location * station / feature * depth, data=data.length.serr)
-Anova(model.length.serr)
+model.length.serr <- lm(total_length ~ location * feature * depth, data=data.length.serr)
+Anova(model.length.serr, type="III")
 ```
 
-#### Synodontidae
+### Synodontidae
 ```{r}
 data.length.syn <- filter(data.length.raw, family == "synodontidae")
-model.length.syn <- lm(total_length ~ location * station / feature * depth, data=data.length.syn)
-alias(model.length.syn)
-Anova(model.length.syn, type="III")
+model.length.syn <- lm(total_length ~ location * feature * depth, data=data.length.syn)
+Anova(model.length.syn, type="III", singular.ok = TRUE)
 ```
