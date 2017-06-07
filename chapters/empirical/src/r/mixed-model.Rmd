@@ -1,0 +1,35 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Linear mixed model analysis
+The data is not normally distributed (log normal distribution). 
+
+SEE: https://stats.stackexchange.com/questions/181034/post-hoc-test-of-interaction-factor-in-binomial-glmm-with-proportions
+https://cran.r-project.org/web/packages/lsmeans/vignettes/using-lsmeans.pdf
+
+## Distribution
+```{r}
+require(car)
+require(MASS)
+lmr_model <- lmer(conc_log ~ feature * depth * stage + (1 | location) + (1 | feature : station), data=data.conc.labrid, REML=TRUE)
+summary(lmr_model)
+```
+
+Anova on the model
+```{r}
+Anova(lmr_model)
+```
+
+Interaction diagram
+```{r}
+lsmip(lmr_model, stage ~ depth | feature)
+```
+
+Post-hoc tests
+```{r}
+lsmeans(lmr_model, ~ feature*stage)
+summary(pairs(lsmeans(lmr_model, ~ feature*stage)), type = "response")
+```
+

@@ -76,5 +76,7 @@ vignettes/*.pdf
 .~lock.*#
 
 # Output directories
-/out/
-/figs/
+/chapters/*/out/
+/chapters/*/figs/
+*.docx
+*.pdf

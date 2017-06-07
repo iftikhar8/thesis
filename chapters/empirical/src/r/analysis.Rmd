@@ -50,10 +50,11 @@ data.stage <- summarize(group_by(data, location, station, feature, net, family,
 
 # Organise the data to have zero counts where there was no data
 data.spread <- spread(data.stage, key=stage, value=count, drop =FALSE, fill = 0)
-data.gather <- gather(data.spread, key=stage, value=count, PRE, POS, FLE, na.rm = FALSE)
+data.gather <- gather(data.spread, key=stage, value=count, PRE, FLE, POS,  na.rm = FALSE)
 
 # Calculate the concetration as 1000 cubic metres and balance the data
-data.conc <- data.gather %>% left_join(data.tow) %>% mutate(conc = count/volume * 1000) %>% filter(site != "4", site != "8", site != "12", site != "16")
+data.conc <- data.gather %>% left_join(data.tow) %>% mutate(conc = count/volume * 250) %>% filter(site != "4", site != "8", site != "12", site != "16")
+data.conc$stage <- factor(data$data.conc, levels = c("PRE", "FLE", "POS"))
 
 # Transform the data by log(x + 1) as there are zeros, and add depth column for net
 data.conc <- mutate(data.conc, conc_log = log(conc + 1),
