@@ -54,7 +54,7 @@ data.gather <- gather(data.spread, key=stage, value=count, PRE, FLE, POS,  na.rm
 
 # Calculate the concetration as 1000 cubic metres and balance the data
 data.conc <- data.gather %>% left_join(data.tow) %>% mutate(conc = count/volume * 250) %>% filter(site != "4", site != "8", site != "12", site != "16")
-data.conc$stage <- factor(data$data.conc, levels = c("PRE", "FLE", "POS"))
+#data.conc$stage <- factor(data$data.conc, levels = c("PRE", "FLE", "POS"))
 
 # Transform the data by log(x + 1) as there are zeros, and add depth column for net
 data.conc <- mutate(data.conc, conc_log = log(conc + 1),

@@ -1,0 +1,329 @@
+---
+title: "Linear mixed model analysis for length"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+```{r, include=FALSE}
+require(tidyverse)
+require(car)
+require(MASS)
+require(lmerTest)
+require(lme4)
+require(lsmeans)
+```
+
+
+The data is not normally distributed (log normal distribution). 
+
+SEE: https://stats.stackexchange.com/questions/181034/post-hoc-test-of-interaction-factor-in-binomial-glmm-with-proportions
+https://cran.r-project.org/web/packages/lsmeans/vignettes/using-lsmeans.pdf
+
+Read in and tidy the data
+```{r}
+# The two data sets, one containing measuresments, the other tow information
+data <- read_csv("../../data/ichthyoplankton-measurements.csv")
+data.tow <- read_csv("../../data/ichthyoplankton-tow.csv")
+
+# Select relevant columns
+data <- filter(data, family != "bothid" & family != "triglid")
+data <- filter(data, is.na(not_calibrated), is.na(damaged))
+data <- dplyr::select(data, -subgroup, -photo_id, -damaged, -not_calibrated)
+
+# Create factors (tibble does not import as factors)
+data$stage <- factor(data$stage, levels = c("PRE", "FLE", "POS"))
+data$family <- as.factor(data$family)
+data$net <- as.factor(data$net)
+data$depth <- as.factor(data$depth)
+data$preservation_method <- as.factor(data$preservation_method)
+data$feature <- as.factor(data$feature)
+data$location <- as.factor(data$location)
+data$station <- as.factor(data$station)
+data$site <- as.factor(data$site)
+data.tow$net <- as.factor(data.tow$net_number)
+data.tow$feature <- as.factor(data.tow$feature)
+data.tow$feature_name <- as.factor(data.tow$feature_name)
+data.tow$location <- as.factor(data.tow$location)
+data.tow$site <- as.factor(data.tow$site)
+data.tow$station <- as.factor(data.tow$station)
+
+data.length.raw <- mutate(data, total_length = standard_length + caudal_fin_length)
+data.length.sum <- summarize(group_by(data.length.raw, location, feature, depth, family), length_mean = mean(total_length), length_sd = sd(total_length), length_se = length_sd/n())
+
+```
+
+
+# The Model
+
+The factors chosen:
+- Location. They were at different latitudes, so there are sst / salinty / chlorophyll differences (and I'm sure more variables)
+- Feature. The water type was either from coastal source water or from inside an eddy
+- Station. 3 stations within a feature
+- Depth. The three depths the fish were caught at.
+- Stage. The three stages of ontogeny the fish were measured at
+
+
+| Independent factors | Type   | Levels | Nested | Values                             |
+|:--------------------|:-------|:-------|:-------|:-----------------------------------|
+| location            | random | 2      | no     | NA                                 |
+| feature             | fixed  | 2      | no     | coastal, eddy                      |
+| station             | random | 3      | yes    | NA                                 |
+| depth               | fixed  | 3      | no     | 0, 25, 75                          |
+
+
+Unit of replication = 2 (net)
+
+| Dependent factor | Transformation | Units |
+|:-----------------|:---------------|:------|
+| Length    | log(x)       | mm |
+
+Transformation as per Underwood for concentration data. Also x1000 to get concentrations at 250m^3. The idea of increasing it was get large enough values so the logarithm transformation was monotomic. Plotting the mean and sd before and after the log transformation.
+
+
+# Labrid
+
+```{r}
+labrid.data <- filter(data.length.raw, family == "labridae")
+```
+
+
+## Distribution
+```{r}
+qqp(labrid.data$total_length, "norm")
+```
+## Model
+```{r}
+labrid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=labrid.data)
+summary(labrid.lme)
+```
+
+## Anova
+```{r}
+Anova(labrid.lme, type="III")
+```
+
+## Interaction diagram
+```{r}
+lsmip(labrid.lme, feature ~ depth)
+```
+
+## Post-hoc tests
+
+### Feature x Depth Interaction
+```{r}
+lsmeans(labrid.lme, ~ feature*depth)
+summary(pairs(lsmeans(labrid.lme, ~ feature*depth)), type = "response")
+```
+
+# Mullid
+```{r}
+mullid.data <- filter(data.length.raw, family == "mullidae")
+```
+
+## Distribution
+```{r}
+qqp(mullid.data$total_length, "norm")
+```
+
+## Model
+```{r}
+mullid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=mullid.data)
+summary(mullid.lme)
+```
+
+## Anova
+```{r}
+Anova(mullid.lme, type="III")
+```
+
+## Interaction diagram (although no interation)
+```{r}
+lsmip(mullid.lme, feature ~ depth)
+```
+
+## Post-hoc tests
+
+### Depth
+```{r}
+lsmeans(mullid.lme, ~ depth)
+summary(pairs(lsmeans(mullid.lme, ~ depth)), type = "response")
+```
+
+### Feature
+```{r}
+lsmeans(mullid.lme, ~ feature)
+summary(pairs(lsmeans(mullid.lme, ~ feature)), type = "response")
+```
+
+
+# Pomacentridae
+```{r}
+pomacentrid.data <- filter(data.length.raw, family == "pomacentridae")
+```
+
+## Distribution
+```{r}
+qqp(pomacentrid.data$total_length, "lnorm")
+```
+
+## Model
+```{r}
+pomacentrid.glmm <- glmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), family=gaussian(link="log"), data=pomacentrid.data)
+summary(pomacentrid.glmm)
+```
+
+## Anova
+```{r}
+Anova(pomacentrid.glmm, type="III")
+```
+
+## Interaction diagram (although no interaction)
+```{r}
+lsmip(pomacentrid.glmm, feature ~ depth)
+```
+
+## Post-hoc tests
+
+### Feature
+```{r}
+lsmeans(pomacentrid.glmm, ~ feature)
+summary(pairs(lsmeans(pomacentrid.glmm, ~ feature)), type = "response")
+```
+
+### Depth
+```{r}
+lsmeans(pomacentrid.glmm, ~ depth)
+summary(pairs(lsmeans(pomacentrid.glmm, ~ depth)), type = "response")
+```
+
+# Scaridae
+```{r}
+scarid.data <- filter(data.length.raw, family == "scaridae")
+```
+
+## Distribution
+```{r}
+qqp(scarid.data$total_length, "lnorm")
+```
+
+## Model
+```{r}
+scarid.glmm <- glmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), family=gaussian(link="log"),data=scarid.data)
+summary(scarid.glmm)
+```
+
+## Anova
+```{r}
+Anova(scarid.glmm, type = "III")
+```
+
+## Interaction diagram (although no significant interaction)
+```{r}
+lsmip(scarid.glmm, feature ~ depth)
+```
+
+## Post-hoc tests
+
+### Stage
+```{r}
+lsmeans(scarid.glmm, ~ feature)
+summary(pairs(lsmeans(scarid.glmm, ~ feature)), type = "response")
+```
+
+# Scorpionfish
+```{r}
+scorpaenid.data <- filter(data.length.raw, family == "scorpaenidae")
+```
+
+## Distribution
+```{r}
+qqp(scorpaenid.data$total_length, "norm")
+```
+## Model
+```{r}
+scorpaenid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=scorpaenid.data)
+summary(scorpaenid.lme)
+```
+
+## Anova
+```{r}
+Anova(scorpaenid.lme, type="III")
+```
+
+## Interaction diagram
+```{r}
+lsmip(scorpaenid.lme, feature ~ depth)
+```
+
+## Post-hoc tests
+
+### Feature
+```{r}
+lsmeans(scorpaenid.lme, ~ feature)
+summary(pairs(lsmeans(scorpaenid.lme, ~ feature)), type = "response")
+```
+
+# Lizardfish
+```{r}
+synodontid.data <- filter(data.length.raw, family == "synodontidae")
+```
+
+## Distribution
+```{r}
+qqp(synodontid.data$total_length, "norm")
+```
+## Model
+```{r}
+synodontid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=synodontid.data)
+summary(synodontid.lme)
+```
+
+## Anova
+```{r}
+Anova(synodontid.lme, type="III")
+```
+
+## Interaction diagram
+```{r}
+lsmip(synodontid.lme, feature ~ depth)
+```
+
+
+# Parrotfish
+```{r}
+serranid.data <- filter(data.length.raw, family == "serranidae")
+```
+
+## Distribution
+```{r}
+qqp(serranid.data$total_length, "norm")
+```
+## Model
+```{r}
+serranid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=serranid.data)
+summary(serranid.lme)
+```
+
+## Anova
+```{r}
+Anova(serranid.lme, type="III")
+```
+
+## Interaction diagram
+```{r}
+lsmip(serranid.lme, feature ~ depth)
+```
+
+## Post-hoc tests
+
+### Depth 
+```{r}
+lsmeans(serranid.lme, ~ depth)
+summary(pairs(lsmeans(serranid.lme, ~ depth)), type = "response")
+```
+### Feature 
+```{r}
+lsmeans(serranid.lme, ~ feature)
+summary(pairs(lsmeans(serranid.lme, ~ feature)), type = "response")
+```
