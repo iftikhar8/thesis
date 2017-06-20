@@ -90,17 +90,24 @@ labrid.data <- filter(data.length.raw, family == "labridae")
 
 ## Distribution
 ```{r}
+hist(labrid.data$total_length)
 qqp(labrid.data$total_length, "norm")
 ```
 ## Model
 ```{r}
-labrid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=labrid.data)
+labrid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=labrid.data, REML=FALSE)
 summary(labrid.lme)
 ```
 
 ## Anova
 ```{r}
 Anova(labrid.lme, type="III")
+```
+
+## Model test
+```{r}
+labrid.null <-  lmer(total_length ~ feature + depth + (1 | location) + (1 | feature : station), data=labrid.data, REML=FALSE)
+anova(labrid.lme, labrid.null)
 ```
 
 ## Interaction diagram
