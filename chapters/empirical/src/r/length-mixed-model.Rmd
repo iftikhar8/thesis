@@ -6,6 +6,7 @@ output:
 ---
 
 ```{r, include=FALSE}
+setwd("~/Documents/PhD/Thesis/chapters/empirical/src/r")
 require(tidyverse)
 require(car)
 require(MASS)
@@ -104,7 +105,7 @@ qqp(labrid.data$total_length, "norm")
 ```
 ## Model
 ```{r}
-labrid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=labrid.data, REML = FALSE)
+labrid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=labrid.data)
 summary(labrid.lme)
 ```
 
@@ -115,21 +116,24 @@ Anova(labrid.lme, type="III")
 
 ## Model test
 ```{r}
+labrid.model <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=labrid.data, REML = FALSE)
 labrid.null <-  lmer(total_length ~ feature + depth + (1 | location) + (1 | feature : station), data=labrid.data, REML=FALSE)
-anova(labrid.lme, labrid.null)
+anova(labrid.null, labrid.model)
 ```
 
 ## Interaction diagram
 ```{r}
 lsmip(labrid.lme, feature ~ depth)
+lsmip(labrid.lme, ~ depth)
+lsmip(labrid.lme, ~ feature)
 ```
 
 ## Post-hoc tests
 
-### Feature x Depth Interaction
+### Depth post-hoc
 ```{r}
-lsmeans(labrid.lme, ~ feature*depth)
-summary(pairs(lsmeans(labrid.lme, ~ feature*depth)), type = "response")
+lsmeans(labrid.lme, ~ depth)
+summary(pairs(lsmeans(labrid.lme, ~ depth)), type = "response")
 ```
 
 # Mullid
@@ -153,12 +157,15 @@ summary(mullid.lme)
 Anova(mullid.lme, type="III")
 ```
 
-## Interaction diagram (although no interation)
+## Interaction diagram (although no significant interaction?)
 ```{r}
 lsmip(mullid.lme, feature ~ depth)
+lsmip(mullid.lme, ~ feature)
+lsmip(mullid.lme, ~ depth)
 ```
 
 ## Post-hoc tests
+
 
 ### Depth
 ```{r}
@@ -189,14 +196,11 @@ pomacentrid.glmm <- glmer(total_length ~ feature * depth + (1 | location) + (1 |
 summary(pomacentrid.glmm)
 ```
 
-## Anova
-```{r}
-Anova(pomacentrid.glmm, type="III")
-```
-
 ## Interaction diagram (although no interaction)
 ```{r}
 lsmip(pomacentrid.glmm, feature ~ depth)
+lsmip(pomacentrid.glmm, ~ depth)
+lsmip(pomacentrid.glmm, ~ feature)
 ```
 
 ## Post-hoc tests
@@ -237,15 +241,25 @@ Anova(scarid.glmm, type = "III")
 ## Interaction diagram (although no significant interaction)
 ```{r}
 lsmip(scarid.glmm, feature ~ depth)
+lsmip(scarid.glmm, ~ depth)
+lsmip(scarid.glmm, ~ feature)
 ```
 
 ## Post-hoc tests
+### Feature * Depth Interaction
+```{r}
+lsmeans(scarid.glmm, ~ feature*depth)
+summary(pairs(lsmeans(scarid.glmm, ~ feature*depth)), type = "response")
+```
 
-### Stage
+### Feature 
 ```{r}
 lsmeans(scarid.glmm, ~ feature)
 summary(pairs(lsmeans(scarid.glmm, ~ feature)), type = "response")
 ```
+
+
+
 
 # Scorpionfish
 ```{r}
@@ -270,6 +284,8 @@ Anova(scorpaenid.lme, type="III")
 ## Interaction diagram
 ```{r}
 lsmip(scorpaenid.lme, feature ~ depth)
+lsmip(scorpaenid.lme, ~ depth)
+lsmip(scorpaenid.lme, ~ feature)
 ```
 
 ## Post-hoc tests
@@ -278,6 +294,12 @@ lsmip(scorpaenid.lme, feature ~ depth)
 ```{r}
 lsmeans(scorpaenid.lme, ~ feature)
 summary(pairs(lsmeans(scorpaenid.lme, ~ feature)), type = "response")
+```
+
+### Depth
+```{r}
+lsmeans(scorpaenid.lme, ~ depth)
+summary(pairs(lsmeans(scorpaenid.lme, ~ depth)), type = "response")
 ```
 
 # Lizardfish
@@ -303,6 +325,8 @@ Anova(synodontid.lme, type="III")
 ## Interaction diagram
 ```{r}
 lsmip(synodontid.lme, feature ~ depth)
+lsmip(synodontid.lme, ~ depth)
+lsmip(synodontid.lme, ~ feature)
 ```
 
 
@@ -313,33 +337,35 @@ serranid.data <- filter(data.length.raw, family == "serranidae")
 
 ## Distribution
 ```{r}
-qqp(serranid.data$total_length, "norm")
+qqp(serranid.data$total_length, "lnorm")
 ```
 ## Model
 ```{r}
-serranid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=serranid.data)
-summary(serranid.lme)
+serranid.glmm <- glmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), family=gaussian(link="log"), data=serranid.data)
+summary(serranid.glmm)
 ```
 
 ## Anova
 ```{r}
-Anova(serranid.lme, type="III")
+Anova(serranid.glmm, type="III")
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(serranid.lme, feature ~ depth)
+lsmip(serranid.glmm, feature ~ depth)
+lsmip(serranid.glmm, ~ depth)
+lsmip(serranid.glmm, ~ feature)
 ```
 
 ## Post-hoc tests
 
 ### Depth 
 ```{r}
-lsmeans(serranid.lme, ~ depth)
-summary(pairs(lsmeans(serranid.lme, ~ depth)), type = "response")
+lsmeans(serranid.glmm, ~ depth)
+summary(pairs(lsmeans(serranid.glmm, ~ depth)), type = "response")
 ```
 ### Feature 
 ```{r}
-lsmeans(serranid.lme, ~ feature)
-summary(pairs(lsmeans(serranid.lme, ~ feature)), type = "response")
+lsmeans(serranid.glmm, ~ feature)
+summary(pairs(lsmeans(serranid.glmm, ~ feature)), type = "response")
 ```
