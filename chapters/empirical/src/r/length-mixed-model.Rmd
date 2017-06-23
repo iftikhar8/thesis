@@ -6,7 +6,6 @@ output:
 ---
 
 ```{r, include=FALSE}
-setwd("~/Documents/PhD/Thesis/chapters/empirical/src/r")
 require(tidyverse)
 require(car)
 require(MASS)

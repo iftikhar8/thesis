@@ -57,7 +57,7 @@ data.spread <- spread(data.stage, key=stage, value=count, drop =FALSE, fill = 0)
 data.gather <- gather(data.spread, key=stage, value=count, PRE, FLE, POS,  na.rm = FALSE)
 
 # Calculate the concetration as 1000 cubic metres and balance the data
-data.conc <- data.gather %>% left_join(data.tow) %>% mutate(conc = count/volume * 250)
+data.conc <- data.gather %>% left_join(data.tow) %>% mutate(conc = count/volume *250)
 #data.conc$stage <- as.factor(data$data.conc, levels = c("PRE", "FLE", "POS"))
 
 # Transform the data by log(x + 1) as there are zeros, and add depth column for net
@@ -99,44 +99,31 @@ Transformation as per Underwood for concentration data. Also x1000 to get concen
 
 ```{r}
 labrid.data <- filter(data.conc, family == "labridae")
-qqp(labrid.data$conc, "norm")
+qqp(labrid.data$conc.t, "lnorm")
 ```
 
 ## Model
 ```{r}
-labrid.lme <- lmer(conc_log ~ feature * depth * stage + (1 | location) + (1 | feature : station), data=labrid.data)
-summary(labrid.lme)
+labrid.glmm <- glmer(conc.t ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=gaussian(link="log"), control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)), data=labrid.data)
+summary(labrid.glmm)
 ```
 
 ## Anova
 ```{r}
-Anova(labrid.lme)
+Anova(labrid.glmm)
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(labrid.lme, stage ~ depth | feature)
-lsmip(labrid.lme, stage ~ feature)
-lsmip(labrid.lme, depth ~ feature)
-lsmip(labrid.lme, stage ~ depth)
+lsmip(labrid.glmm, stage ~ depth | feature)
+lsmip(labrid.glmm, stage ~ feature)
+lsmip(labrid.glmm, depth ~ feature)
+lsmip(labrid.glmm, stage ~ depth)
 ```
 
 ## Post-hoc tests
 
-So there was no interaction driven by stage and depth. There were interactions, driven by the differences between feature. Most labrids tend to live in the top 50m. The was in increase of concentration of pre-flexion and flexion labrids in the eddy.
-
-### Feature x Stage Interaction
-```{r}
-lsmeans::lsmeans(labrid.lme, ~ feature*stage)
-summary(pairs(lsmeans::lsmeans(labrid.lme, ~ feature*stage)), type = "response")
-```
-
-####Feature x Depth Interaction
-```{r}
-lsmeans(labrid.lme, ~ feature*depth)
-summary(pairs(lsmeans(labrid.lme, ~ feature*depth)), type = "response")
-```
-
+No post-hoc tests as no significance. 
 
 # Mullid
 ```{r}
@@ -145,43 +132,35 @@ mullid.data <- filter(data.conc, family == "mullidae")
 
 ## Model
 ```{r}
-mullid.lme <- glmer(conc.t ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=gaussian(link="log"), data=mullid.data, REML = FALSE)
-summary(mullid.lme)
-```
-## Anova
-```{r}
-Anova(mullid.lme)
+mullid.glmm <- glmer(conc.t ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=gaussian(link="log"), control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)), data=mullid.data)
+summary(mullid.glmm)
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(mullid.lme, stage ~ depth | feature)
-lsmip(mullid.lme, stage ~ depth)
-lsmip(mullid.lme, stage ~ feature)
+lsmip(mullid.glmm, stage ~ depth | feature)
+lsmip(mullid.glmm, stage ~ depth)
+lsmip(mullid.glmm, stage ~ feature)
 ```
 
 ## Post-hoc tests
 
 ### Depth x Stage
 ```{r}
-lsmeans(mullid.lme, ~ stage * depth)
-summary(pairs(lsmeans(mullid.lme, ~ stage * depth)), type = "response")
+lsmeans(mullid.glmm, ~ stage * depth * feature)
+summary(pairs(lsmeans(mullid.glmm, ~ stage * depth)), type = "response")
 ```
 
-### Feature x Stage
-```{r}
-lsmeans(mullid.lme, ~ stage * feature)
-summary(pairs(lsmeans(mullid.lme, ~ stage * feature)), type = "response")
-```
 
 # Pomacentridae
 ```{r}
 pomacentrid.data <- filter(data.conc, family == "pomacentridae")
+qqp(pomacentrid.data$conc.t, "norm")
 ```
 
 ## Model
 ```{r}
-pomacentrid.lme <- lmer(conc_log ~ feature * depth * stage + (1 | location) + (1 | feature : station), data=pomacentrid.data, REML = FALSE)
+pomacentrid.lme <- lmer(conc_log ~ feature * depth * stage + (1 | location) + (1 | feature : station), data=pomacentrid.data)
 summary(pomacentrid.lme)
 ```
 
@@ -214,22 +193,23 @@ summary(pairs(lsmeans(pomacentrid.lme, ~ depth)), type = "response")
 # Scaridae
 ```{r}
 scarid.data <- filter(data.conc, family == "scaridae")
+qqp(scarid.data$conc.t, "lnorm")
 ```
 
 ## Model
 ```{r}
-scarid.lme <- lmer(conc_log ~ feature * depth * stage + (1 | location) + (1 | feature : station), data=scarid.data, REML=FALSE)
-summary(scarid.lme)
+scarid.glmm <- glmer(conc.t ~ feature * depth * stage + (1 | location) + (1 | feature : station), gaussian(link="log"), control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)), data=scarid.data)
+summary(scarid.glmm)
 ```
 
 ## Anova
 ```{r}
-Anova(scarid.lme)
+Anova(scarid.glmm)
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(scarid.lme, stage ~ depth | feature)
+lsmip(scarid.glmm, stage ~ depth | feature)
 ```
 
 ## Post-hoc tests
@@ -247,7 +227,6 @@ scorpaenid.data <- filter(data.conc, family == "scorpaenidae")
 
 ## Distribution
 ```{r}
-scorpaenid.data$conc.t <- scorpaenid.data$conc + 1
 qqp(scorpaenid.data$conc.t, "lnorm")
 ```
 
@@ -265,7 +244,7 @@ Anova(scorpaenid.glmm)
 ## Interaction diagram
 ```{r}
 lsmip(scorpaenid.glmm, stage ~ depth | feature)
-lsmip(scorpaenid.glmm, stage ~ feature)
+lsmip(scorpaenid.glmm, stage ~ depth)
 ```
 
 ## Post-hoc tests
@@ -279,53 +258,55 @@ summary(pairs(lsmeans(scorpaenid.glmm, ~ feature*depth*stage)), type = "response
 # Lizardfish
 ```{r}
 synodontid.data <- filter(data.conc, family == "synodontidae")
+qqp(scorpaenid.data$conc.t, "lnorm")
 ```
 
 ## Model
 ```{r}
-synodontid.lme <- lmer(conc_log ~ feature * depth * stage + (1 | location) + (1 | feature : station), data=synodontid.data, REML=FALSE)
-summary(synodontid.lme)
+synodontid.glmm <- glmer(conc.t ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=gaussian(link="log"), data=synodontid.data, control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)))
+summary(synodontid.glmm)
 ```
 
 ## Anova
 ```{r}
-Anova(synodontid.lme)
+Anova(synodontid.glmm)
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(synodontid.lme, stage ~ feature)
-lsmip(synodontid.lme, stage ~ depth)
+lsmip(synodontid.glmm, stage ~ feature)
+lsmip(synodontid.glmm, stage ~ depth)
 ```
 
 ## Post-hoc tests
 
 ### Feature x Stage Interaction
 ```{r}
-lsmeans(synodontid.lme, ~ feature*stage)
-summary(pairs(lsmeans(synodontid.lme, ~ feature*stage)), type = "response")
+lsmeans(synodontid.glmm, ~ feature*stage)
+summary(pairs(lsmeans(synodontid.glmm, ~ feature*stage)), type = "response")
 ```
 
 # Parrotfish
 ```{r}
 serranid.data <- filter(data.conc, family == "serranidae")
+qqp(serranid.data$conc.t, "lnorm")
 ```
 
 
 ## Model
 ```{r}
-serranid.lme <- lmer(conc_log ~ feature * depth * stage + (1 | location) + (1 | feature : station), data=serranid.data, REML = FALSE)
-summary(serranid.lme)
+serranid.glmm <- lmer(conc.t ~ feature * depth * stage + (1 | location) + (1 | feature : station), data=serranid.data)
+summary(serranid.glmm)
 ```
 
 ## Anova
 ```{r}
-Anova(serranid.lme)
+Anova(serranid.glmm)
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(serranid.lme, stage ~ depth)
+lsmip(serranid.glmm, stage ~ depth)
 ```
 
 ## Post-hoc tests
