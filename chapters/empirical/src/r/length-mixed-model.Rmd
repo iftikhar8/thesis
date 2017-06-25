@@ -54,6 +54,23 @@ data.length.depth <- summarize(group_by(data.length.raw, depth, family), length_
 
 ```
 
+```{r}
+overdispersed <- function(model) {
+  ## number of variance parameters in 
+  ##   an n-by-n variance-covariance matrix
+  vpars <- function(m) {
+    nrow(m)*(nrow(m)+1)/2
+  }
+  model.df <- sum(sapply(VarCorr(model),vpars))+length(fixef(model))
+  rdf <- nrow(model.frame(model))-model.df
+  rp <- residuals(model,type="pearson")
+  Pearson.chisq <- sum(rp^2)
+  prat <- Pearson.chisq/rdf
+  pval <- pchisq(Pearson.chisq, df=rdf, lower.tail=FALSE)
+  c(chisq=Pearson.chisq,ratio=prat,rdf=rdf,p=pval)
+}
+```
+
 
 # The Model
 
@@ -79,8 +96,7 @@ Unit of replication = 2 (net)
 |:-----------------|:---------------|:------|
 | Length    | log(x)       | mm |
 
-Transformation as per Underwood for concentration data. Also x1000 to get concentrations at 250m^3. The idea of increasing it was get large enough values so the logarithm transformation was monotomic. Plotting the mean and sd before and after the log transformation.
-
+Transformation as per Underwood for concentration data. Also x1000 to get concentrations at 250m^3. The idea of increasing it was get large enough values so the logarithm transformation was monotomic. Plotting the mean and sd before and after the log transformation.exce
 
 # Labrid
 
@@ -98,15 +114,31 @@ ggplot(data=labrid.sum, aes(y=length_mean, x=depth)) + geom_line() + geom_errorb
 
 
 ## Distribution
+
+None are a good fit for the labrid data
 ```{r}
 hist(labrid.data$total_length)
+labrid.data$total_length.t <- labrid.data$total_length + 1
 qqp(labrid.data$total_length, "norm")
+poisson <- fitdistr(labrid.data$total_length, "Poisson")
+qqp(labrid.data$total_length, "pois", poisson$estimate)
+gamma <- fitdistr(labrid.data$total_length, "gamma")
+qqp(labrid.data$total_length, "gamma", shape=gamma$estimate[[1]], rate = gamma$estimate[[2]])
 ```
+## Distribution (Transformed data)
+
+Only when we transform the data using log do we get a good quantile fit for a LM
+```{r}
+labrid.data <- mutate(labrid.data, length_log = log(total_length))
+qqp(labrid.data$length_log, "norm")
+```
+
 ## Model
 ```{r}
-labrid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=labrid.data)
+labrid.lme <- lmer(length_log ~ feature * depth + (1 | location) + (1 | feature : station),  data=labrid.data)
 summary(labrid.lme)
 ```
+
 
 ## Anova
 ```{r}
@@ -140,15 +172,18 @@ summary(pairs(lsmeans(labrid.lme, ~ depth)), type = "response")
 mullid.data <- filter(data.length.raw, family == "mullidae")
 ```
 
-## Distribution
+
+# Distribution
 ```{r}
-qqp(mullid.data$total_length, "norm")
+mullid.data <- mutate(mullid.data, length_log = log(total_length))
+qqp(mullid.data$length_log, "norm")
 ```
 
 ## Model
 ```{r}
-mullid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=mullid.data)
+mullid.lme <- lmer(length_log ~ feature * depth + (1 | location) + (1 | feature : station), data=mullid.data)
 summary(mullid.lme)
+overdispersed(mullid.lme)
 ```
 
 ## Anova
@@ -308,26 +343,41 @@ synodontid.data <- filter(data.length.raw, family == "synodontidae")
 
 ## Distribution
 ```{r}
-qqp(synodontid.data$total_length, "norm")
+qqp(synodontid.data$total_length, "lnorm")
+synodontid.data <- mutate(synodontid.data, length_log = log(total_length))
+qqp(synodontid.data$length_log, "norm")
 ```
 ## Model
 ```{r}
-synodontid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=synodontid.data)
-summary(synodontid.lme)
+synodontid.lmer <- lmer(length_log ~ feature * depth + (1 | location) + (1 | feature : station), data=synodontid.data)
+summary(synodontid.lmer)
 ```
 
 ## Anova
 ```{r}
-Anova(synodontid.lme, type="III")
+Anova(synodontid.lmer, type="III")
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(synodontid.lme, feature ~ depth)
-lsmip(synodontid.lme, ~ depth)
-lsmip(synodontid.lme, ~ feature)
+lsmip(synodontid.lmer, feature ~ depth)
+lsmip(synodontid.lmer, ~ depth)
+lsmip(synodontid.lmer, ~ feature)
 ```
 
+## Post-hoc tests
+
+### Feature
+```{r}
+lsmeans(synodontid.lmer, ~ feature)
+summary(pairs(lsmeans(synodontid.lmer, ~ feature)), type = "response")
+```
+
+### Depth
+```{r}
+lsmeans(synodontid.lmer, ~ depth)
+summary(pairs(lsmeans(synodontid.lmer, ~ depth)), type = "response")
+```
 
 # Parrotfish
 ```{r}
@@ -336,12 +386,17 @@ serranid.data <- filter(data.length.raw, family == "serranidae")
 
 ## Distribution
 ```{r}
+serranid.data <- mutate(serranid.data, length_log = log(total_length))
+qqp(serranid.data$length_log, "norm")
+qqp(serranid.data$total_length, "norm")
 qqp(serranid.data$total_length, "lnorm")
+gamma <- fitdistr(serranid.data$total_length, "gamma")
+qqp(serranid.data$total_length, "gamma", shape=gamma$estimate[[1]], rate = gamma$estimate[[2]])
 ```
 ## Model
 ```{r}
-serranid.glmm <- glmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), family=gaussian(link="log"), data=serranid.data)
-summary(serranid.glmm)
+serranid.lmer <- lmer(length_log ~ feature * depth + (1 | location) + (1 | feature : station), data=serranid.data)
+summary(serranid.lmer)
 ```
 
 ## Anova
