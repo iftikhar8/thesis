@@ -14,7 +14,7 @@ library("grid")
 ##library("readxl")
 #load data
 ##df <- read_excel("data/lit_review.xlsx",sheet=1,col_names=TRUE,na="NA")
-data.all <- read_csv("../data/lit_review.csv")
+data.all <- read_csv("../../data/lit_review.csv")
 ```
 
 ```{r include=FALSE}
@@ -50,7 +50,7 @@ data.papers.published <- data.all.comparisons %>% select(Paper_ID,Published,Beha
 data.papers.published <- filter(data.papers.published,Implemented == TRUE)
 ggplot(data.papers.published, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers")
 
-ggsave("figs/years.png")
+ggsave("../../figs/years.png")
 
 
 data.papers.published.fish <- filter(data.papers.published,Species_type == 'Fish')

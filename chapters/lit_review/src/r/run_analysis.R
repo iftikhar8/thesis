@@ -20,7 +20,7 @@ source("multiplot.R")
 CLEAN <- FALSE
 
 # Load the dataset
-data.all <- read_csv("../data/lit_review.csv")
+data.all <- read_csv("../../data/lit_review.csv")
 
 # Make column headers lowercase
 colnames(data.all) <- tolower(colnames(data.all))
@@ -35,19 +35,19 @@ data.all$published <- as.factor(data.all$published)
 years.data <- data.all %>% select(paper_id, published) %>% distinct(paper_id, published)
 years.plot <- ggplot(years.data,aes(published),fill=gray) + geom_bar() +
   labs(x="Years of publication", y="Number of studies")
-ggsave("../figs/years.png", plot=years.plot, width=5, height=4, dpi=100)
+ggsave("../../figs/years.png", plot=years.plot, width=5, height=4, dpi=100)
 
 
 taxa.plot <- ggplot(data=data.all,aes(sort_factor(species_type))) + 
-  geom_bar() + coord_flip() + ylab("Number of models using the taxa") + xlab("Taxa") + 
+  geom_bar() + coord_flip() + ylab("Number of models") + xlab("Model taxa") + 
   scale_x_discrete(labels = c("Cnidarian","Gastropod","Macroalgae","Echinoderm","Polychaete","Coral","Crustacean","Mollusc","Bivalvia","Fish","Generic"))
-ggsave("../figs/taxa.png", plot=taxa.plot, width=6, height=2.5, dpi=100)
+ggsave("../../figs/taxa.png", plot=taxa.plot, width=6, height=2.5, dpi=100)
 
 # Motivations
 data.all$motivation <- as.factor(data.all$motivation)
 motivations.data <- data.all %>% select(paper_id, motivation) %>% distinct(paper_id, motivation)
 motivations.prop <- get_factor_proportion(motivations.data$motivation)
-motivations.plot <- ggplot(motivations.data,aes(motivation),fill=gray) + geom_bar() +
+motivations.plot <- ggplot(motivations.data,aes(motivation)) + geom_bar() +
   labs(x="Categories of review motivations", y="Number of studies")
 ggsave("../figs/motivations.png",plot=motivations.plot)
 
@@ -63,8 +63,8 @@ data.all$geographical_zone <- as.factor(data.all$geographical_zone)
 regions.data <- data.all %>% select(paper_id,oceanic_region,geographical_zone) %>% distinct(paper_id,oceanic_region,geographical_zone)
 regions.prop <- get_factor_proportion(regions.data$oceanic_region)
 regions.zoneprop <- get_factor_proportion(regions.data$geographical_zone)
-regions.plot <- ggplot(regions.data,aes(sort_factor(oceanic_region)),fill=gray) + geom_bar() + coord_flip() + xlab("Oceanic region") + ylab("Number of papers per region")
-ggsave("../figs/oceanic_region.png",plot=regions.plot)
+regions.plot <- ggplot(regions.data,aes(sort_factor(oceanic_region))) + geom_bar() + coord_flip() + xlab("Model oceanic region") + ylab("Number of studies")
+ggsave("../../figs/oceanic_region.png",plot=regions.plot)
 rm(regions.data)
 
 # Models used
