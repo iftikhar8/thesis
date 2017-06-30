@@ -48,7 +48,9 @@ data.tow$location <- as.factor(data.tow$location)
 data.tow$site <- as.factor(data.tow$site)
 data.tow$station <- as.factor(data.tow$station)
 
+
 data.length.raw <- mutate(data, total_length = standard_length + caudal_fin_length)
+data.length.raw <- data.length.raw %>% left_join(data.tow)
 data.length.feature <- summarize(group_by(data.length.raw, feature, family), length_mean = mean(total_length), length_sd = sd(total_length), length_se = length_sd/n())
 data.length.depth <- summarize(group_by(data.length.raw, depth, family), length_mean = mean(total_length), length_sd = sd(total_length), length_se = length_sd/n())
 
@@ -135,8 +137,8 @@ qqp(labrid.data$length_log, "norm")
 
 ## Model
 ```{r}
-labrid.lme <- lmer(length_log ~ feature * depth + (1 | location) + (1 | feature : station),  data=labrid.data)
-summary(labrid.lme)
+labrid.lm <- lm(length_log ~ feature * depth + temperature + salinity + chlorophyll_fluorescence,  data=labrid.data)
+summary(labrid.lm)
 ```
 
 
@@ -176,14 +178,14 @@ mullid.data <- filter(data.length.raw, family == "mullidae")
 # Distribution
 ```{r}
 mullid.data <- mutate(mullid.data, length_log = log(total_length))
-qqp(mullid.data$length_log, "norm")
+qqp(mullid.data$total_length, "lnorm")
 ```
 
 ## Model
 ```{r}
-mullid.lme <- lmer(length_log ~ feature * depth + (1 | location) + (1 | feature : station), data=mullid.data)
-summary(mullid.lme)
-overdispersed(mullid.lme)
+mullid.glm <- glm(total_length ~ feature * depth + temperature + salinity + chlorophyll_fluorescence, data=mullid.data)
+summary(mullid.glm)
+overdispersed(mullid.glm)
 ```
 
 ## Anova
@@ -226,8 +228,8 @@ qqp(pomacentrid.data$total_length, "lnorm")
 
 ## Model
 ```{r}
-pomacentrid.glmm <- glmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), family=gaussian(link="log"), data=pomacentrid.data)
-summary(pomacentrid.glmm)
+pomacentrid.glm <- glm(total_length ~ feature * depth + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=pomacentrid.data)
+summary(pomacentrid.glm)
 ```
 
 ## Interaction diagram (although no interaction)

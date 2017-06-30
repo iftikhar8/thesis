@@ -65,7 +65,7 @@ data.conc <- mutate(data.conc, conc_log = log(conc + 1),
       depth = if_else(net == 'N1' || net == 'N2', 0, if_else(net == 'M5' || net == 'M4', 25 ,75)))
 data.conc$depth <- as.factor(data.conc$depth)
 data.conc <- mutate(data.conc, conc.t = conc + 1)
-data.conc <- mutate(data.conc, presence = ifelse(conc > 0, 1 , 0))
+data.conc <- mutate(data.conc, presence = ifelse(conc > 0, TRUE , FALSE))
 ```
 
 
@@ -104,12 +104,20 @@ labrid.data.nonzero <- filter(labrid.data, conc > 0)
 qqp(labrid.data.nonzero$conc, "lnorm")
 ```
 
-## Model
+## Model GLMM
 ```{r}
 labrid.glmm.nonzero <- glmer(conc ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=gaussian(link="log"),control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)), data=labrid.data.nonzero)
 labrid.glmm.bernoulli <- glmer(presence ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=binomial, data=labrid.data)
 summary(labrid.glmm.nonzero)
 summary(labrid.glmm.bernoulli)
+```
+
+## Model GLM
+```{r}
+labrid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=labrid.data.nonzero)
+labrid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=labrid.data)
+summary(labrid.glm.nonzero)
+summary(labrid.glm.zero)
 ```
 
 ## Anova
@@ -137,15 +145,15 @@ mullid.data.nonzero <- filter(mullid.data, conc > 0)
 
 # Distribution
 ```{r}
-qqp(mullid.data.real$conc, "lnorm")
+qqp(mullid.data.nonzero$conc, "lnorm")
 ```
 
 ## Model
 ```{r}
-mullid.glmm.nonzero <- glmer(conc ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=gaussian(link="log"), control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)), data=mullid.data.nonzero)
-mullid.glmm.bernoulli <- glmer(presence ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=binomial(link="logit"), control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)), data=mullid.data)
-summary(mullid.glmm.nonzero)
-summary(mullid.glmm.bernoulli)
+mullid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=mullid.data.nonzero)
+mullid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=mullid.data)
+summary(mullid.glm.nonzero)
+summary(mullid.glm.zero)
 ```
 
 ## Anova
@@ -181,13 +189,14 @@ summary(pairs(lsmeans(mullid.glmm.nonzero, ~ stage * depth)), type = "response")
 pomacentrid.data <- filter(data.conc, family == "pomacentridae")
 pomacentrid.data.nonzero <- filter(pomacentrid.data, conc > 0)
 qqp(pomacentrid.data.nonzero$conc, "lnorm")
-qqp(pomacentrid.data$conc_log, "norm")
 ```
 
 ## Model
 ```{r}
-pomacentrid.glmm.nonzero <- glmer(conc ~ feature + depth + stage + (1 | location) + (1 | feature : station), family=gaussian(link="log"), control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)), data=pomacentrid.data.nonzero)
-pomacentrid.glmm.bernoulli <- glmer(presence ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=binomial(link="logit"), control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)), data=pomacentrid.data)
+pomacentrid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=pomacentrid.data.nonzero)
+pomacentrid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=pomacentrid.data)
+summary(pomacentrid.glm.nonzero)
+summary(pomacentrid.glm.zero)
 ```
 
 ## Anova
@@ -219,14 +228,16 @@ summary(pairs(lsmeans(pomacentrid.lme, ~ depth)), type = "response")
 # Scaridae
 ```{r}
 scarid.data <- filter(data.conc, family == "scaridae" & conc != "NA")
-qqp(scarid.data$conc.t, "lnorm")
-qqp(scarid.data$conc_log, "norm")
+scarid.data.nonzero <- filter(scarid.data, conc > 0)
+qqp(scarid.data.nonzero$conc, "lnorm")
 ```
 
 ## Model
 ```{r}
-scarid.glmm <- glmer(conc.t ~ feature * depth * stage + (1 | location) + (1 | feature : station), gaussian(link="log"), control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)), data=scarid.data)
-summary(scarid.glmm)
+scarid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=scarid.data.nonzero)
+scarid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=scarid.data)
+summary(scarid.glm.nonzero)
+summary(scarid.glm.zero)
 ```
 
 ## Anova
@@ -250,6 +261,8 @@ summary(pairs(lsmeans(scarid.lme, ~ stage * depth * feature)), type = "response"
 # Scorpionfish
 ```{r}
 scorpaenid.data <- filter(data.conc, family == "scorpaenidae")
+scorpaenid.data.nonzero <- filter(scorpaenid.data, conc > 0)
+qqp(scorpaenid.data.nonzero$conc, "lnorm")
 ```
 
 ## Distribution
@@ -260,8 +273,10 @@ qqp(scorpaenid.data$conc_log, "norm")
 
 ## Model
 ```{r}
-scorpaenid.glmm <- glmer(conc.t ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=gaussian(link="log"), data=scorpaenid.data, control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)))
-summary(scorpaenid.glmm)
+scorpaenid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=scorpaenid.data.nonzero)
+scorpaenid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=scorpaenid.data)
+summary(scorpaenid.glm.nonzero)
+summary(scorpaenid.glm.zero)
 ```
 
 ## Anova
@@ -286,13 +301,16 @@ summary(pairs(lsmeans(scorpaenid.glmm, ~ feature*depth*stage)), type = "response
 # Lizardfish
 ```{r}
 synodontid.data <- filter(data.conc, family == "synodontidae")
-qqp(scorpaenid.data$conc.t, "lnorm")
+synodontid.data.nonzero <- filter(synodontid.data, conc > 0)
+qqp(synodontid.data.nonzero$conc, "lnorm")
 ```
 
 ## Model
 ```{r}
-synodontid.glmm <- glmer(conc.t ~ feature * depth * stage + (1 | location) + (1 | feature : station), family=gaussian(link="log"), data=synodontid.data, control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)))
-summary(synodontid.glmm)
+synodontid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=synodontid.data.nonzero)
+synodontid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=synodontid.data)
+summary(synodontid.glm.nonzero)
+summary(synodontid.glm.zero)
 ```
 
 ## Anova
@@ -317,19 +335,22 @@ summary(pairs(lsmeans(synodontid.glmm, ~ feature*stage)), type = "response")
 # Parrotfish
 ```{r}
 serranid.data <- filter(data.conc, family == "serranidae" & conc.t != "NA")
-qqp(serranid.data$conc.t, "lnorm")
+serranid.data.nonzero <- filter(serranid.data, conc > 0)
+qqp(serranid.data.nonzero$conc, "lnorm")
 ```
 
 
 ## Model
 ```{r}
-serranid.glmm <- lmer(conc.t ~ feature * depth * stage + (1 | location) + (1 | feature : station), data=serranid.data)
-summary(serranid.glmm)
+serranid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=serranid.data.nonzero)
+serranid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=serranid.data)
+summary(serranid.glm.nonzero)
+summary(serranid.glm.zero)
 ```
 
 ## Anova
 ```{r}
-Anova(serranid.glmm)
+Anova(serranid.glm.nonzero)
 ```
 
 ## Interaction diagram
