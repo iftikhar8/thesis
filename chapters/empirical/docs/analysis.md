@@ -1,7 +1,17 @@
 # Summary of the analysis
 
 ## Length data
-Performed linear mixed models
+Performed mix of linear mixed models and generalized linear models
+
+Family     | FD  | D   | F   | T   | S   | C   | Patterns
+-----------|-----|-----|-----|-----|-----|-----|----------------------------
+Labrid     | Yes | Yes | Yes | Yes | Yes | Yes | Eddy > Coastal, 25 < 0 < 75
+Mullid     | Yes | Yes | Yes | Yes | Yes | No  | Eddy > Coastal, 25 < 0 < 75
+Poms       | No  | Yes | Yes | Yes | Yes | No  | Eddy > Coastal, 0 < 25 < 75
+Scarid     | No  | No  | No  | No  | No  | No  | No diff
+Scorp      | No  | No  | No  | No  | Yes | No  | No diff
+Synodontid | No  | Yes | No  | No  | No  | No  | 0 = 25 < 75
+Serranid   | No  | Yes | Yes | Yes | No  | No  | Eddy > Coastal, 0 = 25 < 75
 
 ### Labrid
 Difficult distribution, had to log-transform the data and the analyse it using a LM.
@@ -140,15 +150,6 @@ Feature
 Depth
 * No significant differences between depth
 
-Family     | FD  | D   | F   | T   | S   | C   | Patterns
------------|-----|-----|-----|-----|-----|-----|----------------------------
-Labrid     | Yes | Yes | Yes | Yes | Yes | Yes | Eddy > Coastal, 25 < 0 < 75
-Mullid     | Yes | Yes | Yes | Yes | Yes | No  | Eddy > Coastal, 25 < 0 < 75
-Poms       | No  | Yes | Yes | Yes | Yes | No  | Eddy > Coastal, 0 < 25 < 75
-Scarid     | No  | No  | No  | No  | No  | No  | No diff
-Scorp      | No  | No  | No  | No  | Yes | No  | No diff
-Synodontid | No  | Yes | No  | No  | No  | No  | 0 = 25 < 75
-Serranid   | No  | Yes | Yes | Yes | No  | No  | Eddy > Coastal, 0 = 25 < 75
 
 Family  | FD  | D  | F  | T | S | C | Patterns
 --|---|---|---|---|---|---|---
