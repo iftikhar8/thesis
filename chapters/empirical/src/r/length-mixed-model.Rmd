@@ -77,18 +77,18 @@ overdispersed <- function(model) {
 # The Model
 
 The factors chosen:
-- Location. They were at different latitudes, so there are sst / salinty / chlorophyll differences (and I'm sure more variables)
+- Location. They were at different latitudes, so there are temperature / salinty / chlorophyll differences (and I'm sure more variables)
 - Feature. The water type was either from coastal source water or from inside an eddy
-- Station. 3 stations within a feature
+- Station. 4 stations within a feature (removed and used location variable)
 - Depth. The three depths the fish were caught at.
-- Stage. The three stages of ontogeny the fish were measured at
 
 
 | Independent factors | Type   | Levels | Nested | Values                             |
 |:--------------------|:-------|:-------|:-------|:-----------------------------------|
-| location            | random | 2      | no     | NA                                 |
+| temperate            | fixed | continuous      | no     | NA                                 |
+| salinity            | fixed | continuous      | no     | NA                                 |
+| chlorophyll            | fixed | continuous      | no     | NA                                 |
 | feature             | fixed  | 2      | no     | coastal, eddy                      |
-| station             | random | 3      | yes    | NA                                 |
 | depth               | fixed  | 3      | no     | 0, 25, 75                          |
 
 
@@ -96,9 +96,8 @@ Unit of replication = 2 (net)
 
 | Dependent factor | Transformation | Units |
 |:-----------------|:---------------|:------|
-| Length    | log(x)       | mm |
+| Total length    | none     | mm |
 
-Transformation as per Underwood for concentration data. Also x1000 to get concentrations at 250m^3. The idea of increasing it was get large enough values so the logarithm transformation was monotomic. Plotting the mean and sd before and after the log transformation.exce
 
 # Labrid
 
@@ -133,40 +132,34 @@ Only when we transform the data using log do we get a good quantile fit for a LM
 ```{r}
 labrid.data <- mutate(labrid.data, length_log = log(total_length))
 qqp(labrid.data$length_log, "norm")
+qqp(log(labrid.data$total_length), "norm")
 ```
 
 ## Model
 ```{r}
-labrid.lm <- lm(length_log ~ feature * depth + temperature + salinity + chlorophyll_fluorescence,  data=labrid.data)
+labrid.lm <- lm(log(total_length) ~ feature * depth + temperature + salinity + chlorophyll_fluorescence,  data=labrid.data)
 summary(labrid.lm)
 ```
 
 
 ## Anova
 ```{r}
-Anova(labrid.lme, type="III")
-```
-
-## Model test
-```{r}
-labrid.model <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=labrid.data, REML = FALSE)
-labrid.null <-  lmer(total_length ~ feature + depth + (1 | location) + (1 | feature : station), data=labrid.data, REML=FALSE)
-anova(labrid.null, labrid.model)
+Anova(labrid.lm, type="III")
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(labrid.lme, feature ~ depth)
-lsmip(labrid.lme, ~ depth)
-lsmip(labrid.lme, ~ feature)
+lsmip(labrid.lm, feature ~ depth)
+lsmip(labrid.lm, ~ depth)
+lsmip(labrid.lm, ~ feature)
 ```
 
 ## Post-hoc tests
 
 ### Depth post-hoc
 ```{r}
-lsmeans(labrid.lme, ~ depth)
-summary(pairs(lsmeans(labrid.lme, ~ depth)), type = "response")
+lsmeans(labrid.lm, ~ depth)
+summary(pairs(lsmeans(labrid.lm, ~ depth)), type = "response")
 ```
 
 # Mullid
@@ -179,25 +172,27 @@ mullid.data <- filter(data.length.raw, family == "mullidae")
 ```{r}
 mullid.data <- mutate(mullid.data, length_log = log(total_length))
 qqp(mullid.data$total_length, "lnorm")
+qqp(log(mullid.data$total_length), "norm")
+qqp(mullid.data$length_log, "norm")
 ```
 
 ## Model
 ```{r}
-mullid.glm <- glm(total_length ~ feature * depth + temperature + salinity + chlorophyll_fluorescence, data=mullid.data)
+mullid.lm <- lm(log(total_length) ~ feature * depth + temperature + salinity + chlorophyll_fluorescence, data=mullid.data)
 summary(mullid.glm)
-overdispersed(mullid.glm)
+overdispersed(mullid.lm)
 ```
 
 ## Anova
 ```{r}
-Anova(mullid.lme, type="III")
+Anova(mullid.lm, type="III")
 ```
 
 ## Interaction diagram (although no significant interaction?)
 ```{r}
-lsmip(mullid.lme, feature ~ depth)
-lsmip(mullid.lme, ~ feature)
-lsmip(mullid.lme, ~ depth)
+lsmip(mullid.lm, feature ~ depth)
+lsmip(mullid.lm, ~ feature)
+lsmip(mullid.lm, ~ depth)
 ```
 
 ## Post-hoc tests
@@ -205,14 +200,14 @@ lsmip(mullid.lme, ~ depth)
 
 ### Depth
 ```{r}
-lsmeans(mullid.lme, ~ depth)
-summary(pairs(lsmeans(mullid.lme, ~ depth)), type = "response")
+lsmeans(mullid.lm, ~ depth)
+summary(pairs(lsmeans(mullid.lm, ~ depth)), type = "response")
 ```
 
 ### Feature
 ```{r}
-lsmeans(mullid.lme, ~ feature)
-summary(pairs(lsmeans(mullid.lme, ~ feature)), type = "response")
+lsmeans(mullid.lm, ~ feature)
+summary(pairs(lsmeans(mullid.lm, ~ feature)), type = "response")
 ```
 
 
@@ -234,23 +229,23 @@ summary(pomacentrid.glm)
 
 ## Interaction diagram (although no interaction)
 ```{r}
-lsmip(pomacentrid.glmm, feature ~ depth)
-lsmip(pomacentrid.glmm, ~ depth)
-lsmip(pomacentrid.glmm, ~ feature)
+lsmip(pomacentrid.glm, feature ~ depth)
+lsmip(pomacentrid.glm, ~ depth)
+lsmip(pomacentrid.glm, ~ feature)
 ```
 
 ## Post-hoc tests
 
 ### Feature
 ```{r}
-lsmeans(pomacentrid.glmm, ~ feature)
-summary(pairs(lsmeans(pomacentrid.glmm, ~ feature)), type = "response")
+lsmeans(pomacentrid.glm, ~ feature)
+summary(pairs(lsmeans(pomacentrid.glm, ~ feature)), type = "response")
 ```
 
 ### Depth
 ```{r}
-lsmeans(pomacentrid.glmm, ~ depth)
-summary(pairs(lsmeans(pomacentrid.glmm, ~ depth)), type = "response")
+lsmeans(pomacentrid.glm, ~ depth)
+summary(pairs(lsmeans(pomacentrid.glm, ~ depth)), type = "response")
 ```
 
 # Scaridae
@@ -265,33 +260,33 @@ qqp(scarid.data$total_length, "lnorm")
 
 ## Model
 ```{r}
-scarid.glmm <- glmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), family=gaussian(link="log"),data=scarid.data)
-summary(scarid.glmm)
+scarid.glm <- glm(total_length ~ feature * depth + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"),data=scarid.data)
+summary(scarid.glm)
 ```
 
 ## Anova
 ```{r}
-Anova(scarid.glmm, type = "III")
+Anova(scarid.glm, type = "III")
 ```
 
 ## Interaction diagram (although no significant interaction)
 ```{r}
-lsmip(scarid.glmm, feature ~ depth)
-lsmip(scarid.glmm, ~ depth)
-lsmip(scarid.glmm, ~ feature)
+lsmip(scarid.glm, feature ~ depth)
+lsmip(scarid.glm, ~ depth)
+lsmip(scarid.glm, ~ feature)
 ```
 
 ## Post-hoc tests
 ### Feature * Depth Interaction
 ```{r}
-lsmeans(scarid.glmm, ~ feature*depth)
-summary(pairs(lsmeans(scarid.glmm, ~ feature*depth)), type = "response")
+lsmeans(scarid.glm, ~ feature*depth)
+summary(pairs(lsmeans(scarid.glm, ~ feature*depth)), type = "response")
 ```
 
 ### Feature 
 ```{r}
-lsmeans(scarid.glmm, ~ feature)
-summary(pairs(lsmeans(scarid.glmm, ~ feature)), type = "response")
+lsmeans(scarid.glm, ~ feature)
+summary(pairs(lsmeans(scarid.glm, ~ feature)), type = "response")
 ```
 
 
@@ -308,34 +303,34 @@ qqp(scorpaenid.data$total_length, "norm")
 ```
 ## Model
 ```{r}
-scorpaenid.lme <- lmer(total_length ~ feature * depth + (1 | location) + (1 | feature : station), data=scorpaenid.data)
-summary(scorpaenid.lme)
+scorpaenid.lm <- lm(total_length ~ feature * depth + temperature + salinity + chlorophyll_fluorescence, data=scorpaenid.data)
+summary(scorpaenid.lm)
 ```
 
 ## Anova
 ```{r}
-Anova(scorpaenid.lme, type="III")
+Anova(scorpaenid.lm, type="III")
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(scorpaenid.lme, feature ~ depth)
-lsmip(scorpaenid.lme, ~ depth)
-lsmip(scorpaenid.lme, ~ feature)
+lsmip(scorpaenid.lm, feature ~ depth)
+lsmip(scorpaenid.lm, ~ depth)
+lsmip(scorpaenid.lm, ~ feature)
 ```
 
 ## Post-hoc tests
 
 ### Feature
 ```{r}
-lsmeans(scorpaenid.lme, ~ feature)
-summary(pairs(lsmeans(scorpaenid.lme, ~ feature)), type = "response")
+lsmeans(scorpaenid.lm, ~ feature)
+summary(pairs(lsmeans(scorpaenid.lm, ~ feature)), type = "response")
 ```
 
 ### Depth
 ```{r}
-lsmeans(scorpaenid.lme, ~ depth)
-summary(pairs(lsmeans(scorpaenid.lme, ~ depth)), type = "response")
+lsmeans(scorpaenid.lm, ~ depth)
+summary(pairs(lsmeans(scorpaenid.lm, ~ depth)), type = "response")
 ```
 
 # Lizardfish
@@ -351,33 +346,33 @@ qqp(synodontid.data$length_log, "norm")
 ```
 ## Model
 ```{r}
-synodontid.lmer <- lmer(length_log ~ feature * depth + (1 | location) + (1 | feature : station), data=synodontid.data)
-summary(synodontid.lmer)
+synodontid.lm <- lm(log(total_length) ~ feature * depth + temperature + salinity + chlorophyll_fluorescence, data=synodontid.data)
+summary(synodontid.lm)
 ```
 
 ## Anova
 ```{r}
-Anova(synodontid.lmer, type="III")
+Anova(synodontid.lm, type="III")
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(synodontid.lmer, feature ~ depth)
-lsmip(synodontid.lmer, ~ depth)
-lsmip(synodontid.lmer, ~ feature)
+lsmip(synodontid.lm, feature ~ depth)
+lsmip(synodontid.lm, ~ depth)
+lsmip(synodontid.lm, ~ feature)
 ```
 
 ## Post-hoc tests
 
 ### Feature
 ```{r}
-lsmeans(synodontid.lmer, ~ feature)
+lsmeans(synodontid.lm, ~ feature)
 summary(pairs(lsmeans(synodontid.lmer, ~ feature)), type = "response")
 ```
 
 ### Depth
 ```{r}
-lsmeans(synodontid.lmer, ~ depth)
+lsmeans(synodontid.lm, ~ depth)
 summary(pairs(lsmeans(synodontid.lmer, ~ depth)), type = "response")
 ```
 
@@ -397,31 +392,31 @@ qqp(serranid.data$total_length, "gamma", shape=gamma$estimate[[1]], rate = gamma
 ```
 ## Model
 ```{r}
-serranid.lmer <- lmer(length_log ~ feature * depth + (1 | location) + (1 | feature : station), data=serranid.data)
-summary(serranid.lmer)
+serranid.lm <- lm(log(total_length) ~ feature * depth + temperature + salinity + chlorophyll_fluorescence, data=serranid.data)
+summary(serranid.lm)
 ```
 
 ## Anova
 ```{r}
-Anova(serranid.glmm, type="III")
+Anova(serranid.lm, type="III")
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(serranid.glmm, feature ~ depth)
-lsmip(serranid.glmm, ~ depth)
-lsmip(serranid.glmm, ~ feature)
+lsmip(serranid.lm, feature ~ depth)
+lsmip(serranid.lm, ~ depth)
+lsmip(serranid.lm, ~ feature)
 ```
 
 ## Post-hoc tests
 
 ### Depth 
 ```{r}
-lsmeans(serranid.glmm, ~ depth)
-summary(pairs(lsmeans(serranid.glmm, ~ depth)), type = "response")
+lsmeans(serranid.lm, ~ depth)
+summary(pairs(lsmeans(serranid.lm, ~ depth)), type = "response")
 ```
 ### Feature 
 ```{r}
-lsmeans(serranid.glmm, ~ feature)
-summary(pairs(lsmeans(serranid.glmm, ~ feature)), type = "response")
+lsmeans(serranid.lm, ~ feature)
+summary(pairs(lsmeans(serranid.lm, ~ feature)), type = "response")
 ```

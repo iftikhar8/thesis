@@ -4,7 +4,7 @@
 Performed linear mixed models
 
 ### Labrid
-Difficult distribution, had to log-transform the data and the analyse it using a LMM.
+Difficult distribution, had to log-transform the data and the analyse it using a LM.
 
 Random variables
 * There was no differences in length by location
@@ -35,7 +35,7 @@ Feature
 * There was a significant difference between the features. The mullids in the eddy (11.83 mm) were about 8.07 mm larger in size than the mullids in the coastal waters (3.77).
 
 Depth
-* The size of the fish at the surface (7.61 mm; p<0.05) and the 75m (10.45 mm; p<0.05) were both significantly larger than the fish in the 25m zone (5.33 mm).
+* The size of the fish at the surface (7.61 mm; p/<0.05) and the 75m (10.45 mm; p<0.05) were both significantly larger than the fish in the 25m zone (5.33 mm).
 
 ### Pomacentrid
 Quantiles followed a log normal distribution, used a GLMM with a log link function
@@ -140,10 +140,19 @@ Feature
 Depth
 * No significant differences between depth
 
+Family     | FD  | D   | F   | T   | S   | C   | Patterns
+-----------|-----|-----|-----|-----|-----|-----|----------------------------
+Labrid     | Yes | Yes | Yes | Yes | Yes | Yes | Eddy > Coastal, 25 < 0 < 75
+Mullid     | Yes | Yes | Yes | Yes | Yes | No  | Eddy > Coastal, 25 < 0 < 75
+Poms       | No  | Yes | Yes | Yes | Yes | No  | Eddy > Coastal, 0 < 25 < 75
+Scarid     | No  | No  | No  | No  | No  | No  | No diff
+Scorp      | No  | No  | No  | No  | Yes | No  | No diff
+Synodontid | No  | Yes | No  | No  | No  | No  | 0 = 25 < 75
+Serranid   | No  | Yes | Yes | Yes | No  | No  | Eddy > Coastal, 0 = 25 < 75
 
-Family  | FDS  | DS  | FS  |  Patterns
---|---|---|---|---
-Labrid  | No  | No  | Yes  |  POSeddy > POScoastal
+Family  | FD  | D  | F  | T | S | C | Patterns
+--|---|---|---|---|---|---|---
+Labrid  | No  | No  | Yes  |
   |   |   |   |
   |   |   |   |
   |   |   |   |
