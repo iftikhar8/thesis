@@ -47,7 +47,7 @@ Searched connectivity, model* and marine, querying the online search engines ISI
 * Found 77 studies published in 34 journals
 * Looking at marine species with a pelagic larval stage and sedentary adult phase
 ---
-# Connectivity terms
+# Common connectivity metrics
 | Term                | Definition                                                                                                                                                                                      |
 |---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Self-recruitment    | The percentage of settlers to a site, that (regardless of their origin site) were natal to that site.                                                                                           |
@@ -59,25 +59,32 @@ Searched connectivity, model* and marine, querying the online search engines ISI
 ---
 # Yearly trends
 
-Show the years graph.
+[INSERT YEARS GRAPH]
 
 ???
-As you can see it peaked in 2012 and has been declining since for reasons unclear. Hopefully model validation.
-Similar yearly trends as the Miller review, consistent publications.
+As you can see it peaked in 2012 and has been declining since for reasons unclear.
+Similar yearly trends as the Miller's review, consistent publications.
 ---
 # Taxa
-Use graph
+[INSERT TAXA GRAPH]
 * 47 species from 10 taxa
-* Most modelled a generic species (not enough information, or want to cover their bases)
+* Most modelled a generic species (40%), then fish (39%)
 ---
 # Oceans regions studied
-Use graph
+[INSERT OCEAN REGIONS GRAPH]
+Focused on high industrial fishing regions. Most studies were in temperate regions, same as Miller's study, but tropical regions increased from 4 to 32 %.
 ---
-Talk about studies versus models.
+# Years modelled
+(INSERT YEARS MODELLED GRAPH)
+* Median years modelled was 3.
+* 27% used a single year
 ---
-# Physical parameters.
-
-
+# Physical parameters (part 1)
+* Oceanographic model depends on the study region
+* ROMS (26%) and HYCOM (17%) most popular now (Miller had FEM and HANSOM)
+* Some used nested ciruclation models for caputring in-shore complexity
+* Mean resolution was 5.6 km^2 (Miller's review had 10.8 km^2)
+* Time-step tracking ranged from 60 seconds to 24 hours (median 1 hour, same as Miller's review)
 ---
 # Biological behaviours implemented
 
@@ -91,3 +98,26 @@ Talk about studies versus models.
 | Sensory ability              | 58.3            |
 | Orientation                  | 2.6             |
 | Swimming behaviours          | 25.7            |
+
+---
+# Pelagic larval duration
+
+
+
+
+
+---
+# Influence of modelling decisions on connectivity values
+---
+# Physical parameters
+---
+# Particle model choice
+[Use the graph of the four metrics]
+* Implementation matters?
+* Wide spread of values
+---
+# Model resolution
+---
+# Model design
+---
+# Study system
