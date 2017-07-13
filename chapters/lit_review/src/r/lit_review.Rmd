@@ -48,16 +48,16 @@ data.all <- data.all %>% mutate(movement =
 data.all.comparisons <- data.all %>% gather(Behaviours, Implemented,Passive_movement,movement,Orientation,settlement)
 data.papers.published <- data.all.comparisons %>% select(Paper_ID,Published,Behaviours,Implemented,Species_type) %>% distinct(Paper_ID,Published,Behaviours,Implemented,Species_type)
 data.papers.published <- filter(data.papers.published,Implemented == TRUE)
-ggplot(data.papers.published, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers")
+ggplot(data.papers.published, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers") + theme_economist() + scale_colour_economist()
 
 ggsave("../../figs/years.png")
 
 
 data.papers.published.fish <- filter(data.papers.published,Species_type == 'Fish')
-fish.total <- ggplot(data.papers.published.fish, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers", title = "Proportion of total papers with implemented fish behaviours by year")
+fish.total <- ggplot(data.papers.published.fish, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers") + theme_few() + scale_fill_few(breaks=c("Passive_movement","movement","settlement","Orientation"), labels = c("passive", "movement", "settlement", "orientation"))
 
 data.papers.published.invert <- filter(data.papers.published,Species_type != 'Fish' & Species_type != 'Generic' & Species_type != 'Macroalgae')
-invert.total <-ggplot(data.papers.published.invert, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers", title = "Proportion of total papers with implemented invertebrate behaviours by year")
+invert.total <-ggplot(data.papers.published.invert, aes(Published)) + geom_bar(aes(fill = Behaviours)) +labs( x = "Publication year", y = "Number of papers")+ theme_few() + scale_fill_few(breaks=c("Passive_movement","movement","settlement"),labels = c("passive", "movement", "sensory"))
 
 data.papers.published.invert <- data.papers.published.invert %>%
   group_by(Published, Behaviours) %>%
@@ -69,13 +69,13 @@ data.papers.published.fish <- data.papers.published.fish %>%
   summarise (n = n()) %>%
   mutate(freq = n / sum(n))
 
-invert.prop <- ggplot(data.papers.published.invert, aes(x=Published,y=freq, group=Behaviours, colour=Behaviours)) + geom_line() + labs(title = "Proportion of total papers with implemented invertebrate behaviours by year")
+invert.prop <- ggplot(data.papers.published.invert, aes(x=Published,y=freq, group=Behaviours, colour=Behaviours)) +labs( x = "Publication year", y = "Proportion") + geom_line() + theme_few() + scale_colour_few(breaks=c("Passive_movement","movement","settlement"), labels = c("passive", "movement", "settlement"))
 
-fish.prop <- ggplot(data.papers.published.fish, aes(x=Published,y=freq, group=Behaviours, colour=Behaviours)) + geom_line()
+fish.prop <- ggplot(data.papers.published.fish, aes(x=Published,y=freq, group=Behaviours, colour=Behaviours)) +labs( x = "Publication year", y = "Proportion")+ geom_line()+ theme_few() + scale_colour_few(breaks=c("Passive_movement","movement","settlement","Orientation"), labels = c("passive", "movement", "settlement", "orientation"))
 
-p <- grid.arrange(fish.total,fish.prop)
+grid.arrange(fish.total,fish.prop,invert.total,invert.prop)
 #ggsave("figs/fish_prop.png",plot=p)
-p <- grid.arrange(invert.total,invert.prop)
+#p <- grid.arrange(
 #ggsave("figs/invert_prop.png",plot=p)
 
 ```

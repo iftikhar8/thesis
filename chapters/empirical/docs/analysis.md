@@ -3,15 +3,15 @@
 ## Length data
 Performed mix of linear mixed models and generalized linear models
 
-Family     | FD  | D   | F   | T   | S   | C   | Patterns
------------|-----|-----|-----|-----|-----|-----|----------------------------
-Labrid     | Yes | Yes | Yes | Yes | Yes | Yes | Eddy > Coastal, 25 < 0 < 75
-Mullid     | Yes | Yes | Yes | Yes | Yes | No  | Eddy > Coastal, 25 < 0 < 75
-Poms       | No  | Yes | Yes | Yes | Yes | No  | Eddy > Coastal, 0 < 25 < 75
-Scarid     | No  | No  | No  | No  | No  | No  | No diff
-Scorp      | No  | No  | No  | No  | Yes | No  | No diff
-Synodontid | No  | Yes | No  | No  | No  | No  | 0 = 25 < 75
-Serranid   | No  | Yes | Yes | Yes | No  | No  | Eddy > Coastal, 0 = 25 < 75
+Family     | FD | D | F | T | S | C | Patterns
+-----------|----|---|---|---|---|---|----------------------------
+Labrid     | X  | X | X | X | X | X | Eddy > Coastal, 25 < 0 < 75
+Mullid     | X  | X | X | X | X | - | Eddy > Coastal, 25 < 0 < 75
+Poms       | -  | X | X | X | X | - | Eddy > Coastal, 0 < 25 < 75
+Scarid     | -  | - | - | - | - | - | - diff
+Scorp      | -  | - | - | - | X | - | - diff
+Synodontid | -  | X | - | - | - | - | 0 = 25 < 75
+Serranid   | -  | X | X | X | - | - | Eddy > Coastal, 0 = 25 < 75
 
 ### Labrid
 Difficult distribution, had to log-transform the data and the analyse it using a LM.
@@ -150,13 +150,30 @@ Feature
 Depth
 * No significant differences between depth
 
+# Ontogeny data
 
-Family  | FD  | D  | F  | T | S | C | Patterns
---|---|---|---|---|---|---|---
-Labrid  | No  | No  | Yes  |
-  |   |   |   |
-  |   |   |   |
-  |   |   |   |
-Scorpaenid  | Yes  | Yes  | Yes |
-  |   |   |   |
-  |   |   |   |
+Performed mix of linear mixed models and generalized linear models
+
+## Presence absence data
+
+Family     | FDS | FD | DS | F | D | S | T | Salt | C | Patterns
+-----------|-----|----|----|---|---|---|---|------|---|--------------------------------------------------
+Labrid     | -   | -  | -  | - | - | - | - | -    | - |
+Mullid     | -   | -  | -  | - | X | - | - | -    | X | More present when chloro decreases, and increases as depth
+Poms       | -   | -  | -  | - | X | - | X | -    | X | Less at depth 75m
+Scarid     | -   | -  | -  | - | X | - | X | X    | - | 0 < 25 = 75, conc up when salin decreases, temp increases
+Scorp      | -   | X  | X  | - | X | - | X | -    | - | 0 = 25 < 75m, Pos0 < Pos25 = Pos75
+Synodontid | -   | -  | X  | - | X | - | X | -    | - | 0 = 25 < 75m, Temp increase, Pre75 < Pre0 = Pre25
+Serranid   | -   | -  | -  | - | - | - | X | -    | X |
+
+## Non-zero data
+
+Family     | FDS | FD | DS | F | D | S | T | Salt | C | Patterns
+-----------|-----|----|----|---|---|---|---|------|---|---------------------------------------------------
+Labrid     | -   | -  | -  | - | - | - | X | -    | - | Conc increased with temp
+Mullid     | -   | -  | -  | - | - | - | - | -    | X |
+Poms       | -   | -  | -  | - | - | - | - | -    | X |
+Scarid     | -   | X  | -  | - | - | - | - | X    | X | conc up when salin decreases and less POS in eddy
+Scorp      | -   | -  | -  | - | - | - | - | -    | - |
+Synodontid | -   | -  | -  | - | - | - | - | -    | - |
+Serranid   | -   | -  | X  | - | X | X | X | X    | X | 0 = 25 < 75, PRE > POS = FLE, Pre75 < Pre25 = PreS

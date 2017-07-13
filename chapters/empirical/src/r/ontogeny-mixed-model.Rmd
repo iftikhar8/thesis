@@ -116,8 +116,8 @@ summary(labrid.glmm.bernoulli)
 ```{r}
 labrid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=labrid.data.nonzero)
 labrid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=labrid.data)
-summary(labrid.glm.nonzero)
 summary(labrid.glm.zero)
+summary(labrid.glm.nonzero)
 ```
 
 ## Anova
@@ -152,8 +152,8 @@ qqp(mullid.data.nonzero$conc, "lnorm")
 ```{r}
 mullid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=mullid.data.nonzero)
 mullid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=mullid.data)
-summary(mullid.glm.nonzero)
 summary(mullid.glm.zero)
+summary(mullid.glm.nonzero)
 ```
 
 ## Anova
@@ -195,8 +195,8 @@ qqp(pomacentrid.data.nonzero$conc, "lnorm")
 ```{r}
 pomacentrid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=pomacentrid.data.nonzero)
 pomacentrid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=pomacentrid.data)
-summary(pomacentrid.glm.nonzero)
 summary(pomacentrid.glm.zero)
+summary(pomacentrid.glm.nonzero)
 ```
 
 ## Anova
@@ -236,8 +236,8 @@ qqp(scarid.data.nonzero$conc, "lnorm")
 ```{r}
 scarid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=scarid.data.nonzero)
 scarid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=scarid.data)
-summary(scarid.glm.nonzero)
 summary(scarid.glm.zero)
+summary(scarid.glm.nonzero)
 ```
 
 ## Anova
@@ -247,15 +247,17 @@ Anova(scarid.glmm)
 
 ## Interaction diagram
 ```{r}
-lsmip(scarid.glmm, stage ~ depth | feature)
+lsmip(scarid.glm.zero, stage ~ depth)
+lsmip(scarid.glm.nonzero, stage ~ depth)
+lsmip(scarid.glm.nonzero, stage ~ feature)
 ```
 
 ## Post-hoc tests
 
 ### 3-way interaction
 ```{r}
-lsmeans(scarid.lme, ~ stage * depth * feature)
-summary(pairs(lsmeans(scarid.lme, ~ stage * depth * feature)), type = "response")
+lsmeans(scarid.glm.zero, ~ depth)
+summary(pairs(lsmeans(scarid.glm.zero, ~ depth)), type = "response")
 ```
 
 # Scorpionfish
@@ -275,8 +277,8 @@ qqp(scorpaenid.data$conc_log, "norm")
 ```{r}
 scorpaenid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=scorpaenid.data.nonzero)
 scorpaenid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=scorpaenid.data)
-summary(scorpaenid.glm.nonzero)
 summary(scorpaenid.glm.zero)
+summary(scorpaenid.glm.nonzero)
 ```
 
 ## Anova
@@ -286,8 +288,10 @@ Anova(scorpaenid.glmm)
 
 ## Interaction diagram
 ```{r}
-lsmip(scorpaenid.glmm, stage ~ depth | feature)
-lsmip(scorpaenid.glmm, stage ~ depth)
+lsmip(scorpaenid.glm.zero, stage ~ depth | feature)
+lsmip(scorpaenid.glm.zero, stage ~ depth)
+lsmip(scorpaenid.glm.nonzero, stage ~ depth | feature)
+lsmip(scorpaenid.glm.nonzero, stage ~ depth)
 ```
 
 ## Post-hoc tests
@@ -309,8 +313,8 @@ qqp(synodontid.data.nonzero$conc, "lnorm")
 ```{r}
 synodontid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=synodontid.data.nonzero)
 synodontid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=synodontid.data)
-summary(synodontid.glm.nonzero)
 summary(synodontid.glm.zero)
+summary(synodontid.glm.nonzero)
 ```
 
 ## Anova
@@ -344,24 +348,25 @@ qqp(serranid.data.nonzero$conc, "lnorm")
 ```{r}
 serranid.glm.nonzero <- glm(conc ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=gaussian(link="log"), data=serranid.data.nonzero)
 serranid.glm.zero <- glm(presence ~ feature * depth * stage + temperature + salinity + chlorophyll_fluorescence, family=binomial, data=serranid.data)
-summary(serranid.glm.nonzero)
 summary(serranid.glm.zero)
+summary(serranid.glm.nonzero)
 ```
 
 ## Anova
 ```{r}
-Anova(serranid.glm.nonzero)
+Anova(serranid.glm.nonzero, type = "3")
 ```
 
 ## Interaction diagram
 ```{r}
-lsmip(serranid.glmm, stage ~ depth)
+lsmip(serranid.glm.zero, stage ~ depth)
+lsmip(serranid.glm.nonzero, stage ~ depth)
 ```
 
 ## Post-hoc tests
 
 ### Depth x Stage Interaction
 ```{r}
-lsmeans(serranid.lme, ~ depth*stage)
-summary(pairs(lsmeans(serranid.lme, ~ depth*stage)), type = "response")
+lsmeans(serranid.glm.zero, ~ depth*stage)
+summary(pairs(lsmeans(serranid.glm.zero, ~ depth*stage)), type = "response")
 ```
