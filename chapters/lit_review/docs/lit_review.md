@@ -172,16 +172,11 @@ As indicated above, much of the variation observed in connectivity values and pa
 
 There is no clear effect of either BDM or physical model choice on the resulting connectivity metrics (see Supplementary Materials). For example for the BDMs, the Connectivity Modelling System (CMS) had consistent reported values of self-recruitment between studies, but variable settlement success. Studies using HYCOM and POM had the largest ranges amongst the metrics. ROMS and HANSOM had the least variation of metrics for the common hydrodynamic models.
 
-*Note: Potentially reduce these graphs to the most popular models (put the cut-off at 5%?) Model other after this. Don't start a figure legend with "How...". Also need to fix up axes labels. Though I'd recommend figure 6 and 7 go as supplement.*
-
-=== Can you make a multi panel fig to show each metric as a function of: Model resolution PLD Competency window
-
-So it could be 4 cols (each metric) by three rows (for each parameter above. Scatter plots with fitted line where sig. They would be small that that should be ok.
-==================================================================================================================================================================
-
 ### Model resolution
 
-There was a significant positive predictive relationship between the resolution of the hydrodynamic model and local retention (r^2^ = 0.82, F(1,17) = 79.11, p \< 0.05), but no relationship between model resolution and the other metrics of self-recruitment (r^2^ = 0.05, F(1,57) = 2.75, p > 0.05), settlement success (r^2^ = 0.01, F(1,64) = 0.77, p > 0.05) or dispersal distance (r^2^ = 0.01, F(1,51) = 0.69, p > 0.05). This was unexpected, given that the increased resolution captures more sub-mesoscale processes to influence the trajectory of the larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs. Local retention increases as model resolution gets coarser, which is difficult to explain in absence of no relationship with self-recruitment or settlement success and model resolution.
+There was a significant positive predictive relationship between the resolution of the hydrodynamic model and local retention (r^2^ = 0.82, F(1,17) = 79.11, p \< 0.05l @fig:metrics_panel), but no relationship between model resolution and the other metrics of self-recruitment (r^2^ = 0.05, F(1,57) = 2.75, p > 0.05), settlement success (r^2^ = 0.01, F(1,64) = 0.77, p > 0.05) or dispersal distance (r^2^ = 0.01, F(1,51) = 0.69, p > 0.05). This was unexpected, given that the increased resolution captures more sub-mesoscale processes to influence the trajectory of the larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs. Local retention increases as model resolution gets coarser, which is difficult to explain in absence of no relationship with self-recruitment or settlement success and model resolution.
+
+![METRICS PANEL](../figs/metrics_panel.png){#fig:metrics_panel}
 
 #### Nesting hydrodynamic models
 
