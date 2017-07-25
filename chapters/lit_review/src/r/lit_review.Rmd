@@ -12,6 +12,9 @@ library("grid")
 library("gridExtra")
 library("tidyverse")
 library("ggthemes")
+library("lsmeans")
+library("multcompView")
+library("car")
 
 # Load external functions
 source("sort_factor.R")
