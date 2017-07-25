@@ -334,16 +334,16 @@ ggsave("../../figs/metrics_panel.png",plot=p,width = 169, height=150, units="mm"
 Figure for mortality comparisons with metrics
 ```{r}
 mortality.prop <- data.all %>% filter(mortality == TRUE) %>% group_by(mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-mort1 <- ggplot(data.all, aes(mortality, self_recruitment_mean)) + geom_boxplot() + geom_jitter(width = 0.1)+ 
+mort1 <- ggplot(data.all, aes(mortality, self_recruitment_mean)) + geom_boxplot() + #geom_jitter(width = 0.1)+ 
   labs(x="", y="Self-recruitment")+ theme_few() + scale_fill_grey() +
   scale_y_continuous(limits = c(0, 1.0)) + scale_x_discrete(labels=c("None","Included"))
-mort2 <- ggplot(data.all, aes(mortality, local_retention_mean)) + geom_boxplot()+ geom_jitter(width = 0.1) +
+mort2 <- ggplot(data.all, aes(mortality, local_retention_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   labs(x="", y="Local retention")+ theme_few() + scale_fill_few() +
   scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("None","Included"))
-mort3 <- ggplot(data.all, aes(mortality, settlement_success_mean)) + geom_boxplot()+ geom_jitter(width = 0.1) +
+mort3 <- ggplot(data.all, aes(mortality, settlement_success_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   labs(x="Mortality", y="Settlement success")+ theme_few() + scale_fill_few() +
   scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("None","Included"))
-mort4 <- ggplot(data.all, aes(mortality, distance_travelled_mean)) + geom_boxplot()+ geom_jitter(width = 0.1) +
+mort4 <- ggplot(data.all, aes(mortality, distance_travelled_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   labs(x="Mortality", y="Dispersal distance (km)")+ theme_few() + scale_fill_few()+ scale_x_discrete(labels=c("None","Included"))
 p <- grid.arrange(mort1,mort2,mort3,mort4)
 ggsave("../../figs/mortality.png",plot=p,width = 169, height=120, units="mm",dpi=96)
@@ -365,34 +365,100 @@ Figure for the movement behaviours with metrics
 
 ```{r}
 behaviour.data <- data.all %>% mutate(settlement = sensory_ability & passive_movement & !orientation) %>% 
-  mutate(move_orien = movement & orientation & !sensory_ability) %>% 
   mutate(orien_settle = orientation & sensory_ability) %>% 
   mutate(move_settle = sensory_ability & movement & !orientation) %>% 
   mutate(no_behav = passive_movement == TRUE & sensory_ability == FALSE & orientation == FALSE) %>% 
   mutate(orien = orientation == TRUE & sensory_ability == FALSE & passive_movement == FALSE) %>% 
   mutate(move = passive_movement == FALSE & sensory_ability == FALSE & orientation == FALSE)
 
-behaviour.data <- behaviour.data %>% gather(behaviours, implemented, no_behav,move,orien,settlement,move_orien,orien_settle,move_settle) %>% filter(implemented == TRUE)
-behaviour.data$behaviours <- factor(behaviour.data$behaviours,levels = c('no_behav','move','settlement','move_settle','orien','orien_move','orien_settle'),ordered=TRUE)
+behaviour.data <- behaviour.data %>% 
+  gather(behaviours, implemented,no_behav,move,orien,settlement,orien_settle,move_settle) %>% 
+  filter(implemented == TRUE)
+behaviour.data$behaviours <- factor(behaviour.data$behaviours,levels = c('no_behav','move','settlement','move_settle','orien','orien_settle'),ordered=TRUE)
 
 
-behaviour1 <- ggplot(behaviour.data,aes(behaviours,self_recruitment_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.1) + 
-  scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien','orien_move','orien_settle'),
-                   labels=c("P","M","S","MS","O","OM","OS")) + theme_few() + scale_fill_few() +labs(x="", y="Self-recruitment") +
+behaviour1 <- ggplot(behaviour.data,aes(behaviours,self_recruitment_mean)) + 
+  geom_boxplot(na.rm = TRUE) + 
+  #geom_jitter(width=0.1) + 
+  scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien','orien_settle'), labels=c("P","M","S","MS","O","OS")) + 
+  theme_few() + 
+  scale_fill_few() +
+  labs(x="", y="Self-recruitment") +
   scale_y_continuous(limits = c(0, 1.0))
-behaviour2 <- ggplot(behaviour.data,aes(behaviours,local_retention_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.1) +
-  scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien','orien_move','orien_settle'),
-                   labels=c("P","M","S","MS","O","OM","OS")) + theme_few() + scale_fill_few() +labs(x="", y="Local retention") +
+
+behaviour2 <- ggplot(behaviour.data,aes(behaviours,local_retention_mean)) + 
+  geom_boxplot(na.rm = TRUE) + 
+  #geom_jitter(width=0.1) +
+  scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien','orien_settle'),labels=c("P","M","S","MS","O","OS")) + 
+  theme_few() + 
+  scale_fill_few() +
+  labs(x="", y="Local retention") +
   scale_y_continuous(limits = c(0, 1.0))
-behaviour3 <- ggplot(behaviour.data,aes(behaviours,settlement_success_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.1) +
-  scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien','orien_move','orien_settle'),
-                   labels=c("P","M","S","MS","O","OM","OS")) + theme_few() + scale_fill_few()+labs(x="Behaviour", y="Settlement success") +
+
+behaviour3 <- ggplot(behaviour.data,aes(behaviours,settlement_success_mean)) + 
+  geom_boxplot(na.rm = TRUE) + 
+  #geom_jitter(width=0.1) +
+  scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien','orien_settle'), labels=c("P","M","S","MS","O","OS")) + 
+  theme_few() + 
+  scale_fill_few()+
+  labs(x="Behaviour", y="Settlement success") +
   scale_y_continuous(limits = c(0, 1.0))
-behaviour4 <- ggplot(behaviour.data,aes(behaviours,distance_travelled_mean)) + geom_boxplot(na.rm = TRUE) + geom_jitter(width=0.1) +
-  scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien','orien_move','orien_settle'),
-                   labels=c("P","M","S","MS","O","OM","OS")) + theme_few() + scale_fill_few() +labs(x="Behaviour", y="Dispersal distance (km)")
+
+behaviour4 <- ggplot(behaviour.data,aes(behaviours,distance_travelled_mean)) + 
+  geom_boxplot(na.rm = TRUE) + 
+  #geom_jitter(width=0.1) +
+  scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien','orien_settle'), labels=c("P","M","S","MS","O","OS")) + 
+  theme_few() + 
+  scale_fill_few() +
+  labs(x="Behaviour", y="Dispersal distance (km)")
+
+
 p <- grid.arrange(behaviour1,behaviour2,behaviour3,behaviour4)
-
 ggsave("../../figs/behaviours.png",plot=p,width = 169, height=120, units="mm",dpi=96)
 ```
+
+Statistics for behaviour
+
+Self-recruitment
+```{r}
+behaviour.data <- mutate(behaviour.data, sr_t = self_recruitment_mean + 1)
+qqp(behaviour.data$self_recruitment_mean,"lnorm")
+glm.sr <- glm(sr_t ~ behaviours, family=gaussian(link="log"), data=behaviour.data)
+lsmeans.sr <- lsmeans(glm.sr, ~ behaviours)
+summary(pairs(lsmeans(glm.sr, ~ behaviours)), type = "response")
+cld(lsmeans.sr,alpha = 0.05, Letters = letters, adjust="tukey")
+```
+
+Local retention
+```{r}
+qqp(behaviour.data$local_retention_mean,"norm")
+lm.lr <- lm(local_retention_mean ~ behaviours, data=behaviour.data)
+lsmeans.lm <- lsmeans(lm.lr, ~ behaviours)
+summary(pairs(lsmeans(lm.lr, ~ behaviours)), type = "response")
+cld(lsmeans.lm,alpha = 0.05, Letters = letters, adjust="tukey")
+```
+
+Settlement success
+
+```{r}
+behaviour.data <- mutate(behaviour.data, ss_t = settlement_success_mean + 1)
+qqp(behaviour.data$settlement_success_mean,"lnorm")
+glm.ss <- glm(ss_t ~ behaviours, family=gaussian(link="log"), data=behaviour.data)
+lsmeans.ss <- lsmeans(glm.ss, ~ behaviours)
+summary(pairs(lsmeans(glm.ss, ~ behaviours)), type = "response")
+cld(lsmeans.ss,alpha = 0.05, Letters = letters, adjust="tukey")
+```
+
+
+
+Dispersal distance
+```{r}
+# Dispersal distance
+qqp(behaviour.data$distance_travelled_mean,"lnorm")
+glm.dist <- glm(distance_travelled_mean ~ behaviours, family=gaussian(link="log"), data=behaviour.data)
+lsmeans.dist <- lsmeans(glm.dist, ~ behaviours)
+summary(pairs(lsmeans(glm.dist, ~ behaviours)), type = "response")
+cld(lsmeans.dist,alpha = 0.05, Letters = letters, adjust="tukey")
+```
+
 
