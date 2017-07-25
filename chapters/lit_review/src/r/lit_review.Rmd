@@ -206,6 +206,7 @@ resolution1 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_
 resolution2 <- ggplot(resolution.data,aes(model_resolution_min,local_retention_mean)) + 
   geom_point() + 
   labs(x="", y="Local retention (%)") +
+  geom_smooth(method = lm,colour='black',linetype = "dashed") + 
   theme_few() + 
   scale_colour_few()+ 
   scale_y_continuous(limits = c(0, 1.0)) +
