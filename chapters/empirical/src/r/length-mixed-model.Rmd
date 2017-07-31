@@ -179,7 +179,7 @@ qqp(mullid.data$length_log, "norm")
 ## Model
 ```{r}
 mullid.lm <- lm(log(total_length) ~ feature * depth + temperature + salinity + chlorophyll_fluorescence, data=mullid.data)
-summary(mullid.glm)
+summary(mullid.lm)
 overdispersed(mullid.lm)
 ```
 
