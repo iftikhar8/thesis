@@ -61,7 +61,7 @@ Ten specific and one generic marine taxonomic groups were identified in the stud
 
 Most of the connectivity studies used an existing BDM (82.6%), the rest either build a BDM to answer the study question (16.0%) or information about the BDM was missing from the methods (1.4%). This high model reuse suggests an increasing maturity in the model output and the ease of adoption for end-users. The three most popular BDMs used amongst the reviewed studies were Ichthyop (18.7%) [@Lett:2008fo], Connectivity Modelling System (12.0%) [@Paris:2013fs], & MGET (8.0%) [@Roberts:2010df]. Twenty-one different BDMs were used amongst the studies, although we were unable to identify the exact particle tracking model used for 22.7% of the studies. The studies all used forecasting for their models, except for one hindcast solution (whereby the larvae are initially tracked from settlement sites to determine their natal sites) [@Wren:2016gu].
 
-The overwhelming motivation for using a BDM was to answer questions about dispersal and settlement (68.0%). Dispersal models without settlement (13.3%) and studies motivated by investigating marine park connectivity (12.0%) occurred in roughly equal frequencies. Theoretical based studies (4.0%) and studies investigating how climate change effects connectivity (2.7%) were more sporadic motivations. A handful of studies used a purely theoretical approach to understanding the biology that influences connectivity, although within another applied context, e.g. using different species in a study that have varied behaviours or traits, studies indirectly accomplished this.
+The overwhelming motivation for using a BDM was to answer questions about dispersal and settlement (68.0%). Dispersal models without settlement (13.3%) and studies motivated by investigating marine park connectivity (12.0%) occurred less frequently. Theoretical based studies (4.0%) and studies investigating how climate change effects connectivity (2.7%) were more sporadic motivations. A handful of studies used a purely theoretical approach to understanding the biology that influences connectivity, although within another applied context, e.g. using different species in a study that have varied behaviours or traits, studies indirectly accomplished this.
 
 The studies in this review used hydrodynamic models covering 20 different oceanographic regions across the world, of which two studies investigated connectivity patterns at a global scale. As observed in Miller's (2007) [-@Miller:2007iu] review, modelling effort concentrated on highly industrialised fishing regions, such as the North-East Atlantic and the Mediterranean Sea and most studies were of temperate regions (64.9%), though the number of studies in tropical oceanic regions increased from 4.0% to 32.4%. The early-life histories of tropical marine species are commonly researched, and thus increased focus on tropical connectivity patterns is not unexpected.
 
@@ -92,7 +92,7 @@ The biological parameters implemented were not consistent across studies, apart 
 
 #### Pelagic larval duration
 
-The studies we reviewed exhibited two different approaches when implementing the pelagic larval duration. The standard approach (87.9% of models) was to make the PLD value fixed for each larva. If the individual larva reaches this time, it either must settle (if possible) or it is considered dead. The other approach was to implement variability in the PLD (6.3% of models), either using a Gaussian distribution (based on knowledge of the population) or instead of using time, make the PLD dependent on ocean temperature. A combination of the two strategies was used in 4.9% of the models. The fixed PLD values ranged from a concise two days up to a duration of 420 days, with a median of 30 days. The PLDs were taken from published values for species or taxonomic family where available, with the longest PLDs occurring for invertebrate species e.g. the long duration (~400 days) for the phyllosoma larval stage of lobsters [@Butler:2011wu; @Kough:2013fa].
+The studies we reviewed exhibited two different approaches when implementing the pelagic larval duration. The standard approach (87.9% of models) was to make the PLD value fixed for each larva. If the individual larva reaches this time, it either must settle (if possible) or it is considered dead. The other approach was to implement variability in the PLD (6.3% of models), either using a Gaussian distribution (based on knowledge of the population) or instead of using time, make the PLD dependent on another variable, i.e. temperature. A combination of the two strategies was used in 4.9% of the models. The fixed PLD values ranged from a concise two days up to a duration of 420 days, with a median of 30 days. The PLDs were taken from published values for species or taxonomic family where available, with the longest PLDs occurring for invertebrate species e.g. the long duration (~400 days) for the phyllosoma larval stage of lobsters [@Butler:2011wu; @Kough:2013fa].
 
 #### Spawning strategies
 
@@ -171,7 +171,7 @@ As indicated above, much of the variation observed in connectivity values and pa
 
 #### Model choice
 
-There is no clear effect of either BDM or physical model choice on the resulting connectivity metrics (see Supplementary Materials). For example for the BDMs, the Connectivity Modelling System (CMS) had consistent reported values of self-recruitment between studies, but variable settlement success. Studies using HYCOM and POM had the largest ranges amongst the metrics. ROMS and HANSOM had the least variation of metrics for the common hydrodynamic models.
+There is no clear effect of either BDM or physical model choice on the resulting connectivity metrics (see Supplementary Materials S1). For example for the BDMs, the Connectivity Modelling System (CMS) had consistent reported values of self-recruitment between studies, but variable settlement success. Studies using HYCOM and POM had the largest ranges amongst the metrics. ROMS and HANSOM had the least variation of metrics for the common hydrodynamic models.
 
 ### Model resolution
 
@@ -191,7 +191,7 @@ There was no evidence that the geographic openness of the ocean system being mod
 
 #### Pelagic larval duration
 
-Local retention to the natal site showed a significant positive relationship with the length of PLD (r^2^ = 0.57, F(1,16) = 20.95, p \< 0.05), although this relationship is based on limited data (n=?). There was no relationship with either self-recruitment (r^2^ = 0.02, F(1,54) = 1.12, p > 0.05) or settlement success (r^2^ = 0.05, F(1,59) = 3.08, p > 0.05). Dispersal distance also had no strong relationship with PLD (r^2^ = 0.02, F(1,43) = 1.10, p > 0.05). This is supported by studies that have shown there is no easily defined relationship between dispersal distance and PLD [@Mora:2012kn], although other studies have found a positive relationship [@Corell:2012id](which is the intuitive result).
+Local retention to the natal site showed a significant positive relationship with the length of PLD (r^2^ = 0.57, F(1,16) = 20.95, p \< 0.05), although this relationship is based on limited data (n=?). There was no relationship with either self-recruitment (r^2^ = 0.02, F(1,54) = 1.12, p > 0.05) or settlement success (r^2^ = 0.05, F(1,59) = 3.08, p > 0.05). Dispersal distance also had no strong relationship with PLD (r^2^ = 0.02, F(1,43) = 1.10, p > 0.05). This is supported by studies that have shown there is no easily defined relationship between dispersal distance and PLD [@Mora:2012kn], although other studies have found a positive relationship [@Corell:2012id]; which is the intuitive result).
 
 #### Settlement competency window
 
@@ -212,9 +212,18 @@ The inclusion of orientated swimming and combining orientated swimming with the 
 Conclusion and recommendations
 ------------------------------
 
+(Trend towards implementing behaviour)
 The popularity of BDMs as a connectivity research tool has been on a downward trend since 2012. However, the implementation of these models are getting more complex, especially for ichthyoplankton, where 2016 marked the first time more BDMs implemented movement behaviours, instead of purely passive larvae. The proportion of studies using settlement sensory strategies was consistent across the review period for models of either fish or invertebrate species, not keeping up with the trend seen in implementing movement. Researchers appear to be heeding the recommendations of publications such as the ICES manual and other research showing the importance of movement in influencing connectivity patterns.
 
+(Surprising amount of variability in the metrics data)
+
 The current state of the field feels like is not moving forward as coherently it should be in the eight years since the ICES manual of recommended practices was published [@North:2009tx]. A significant reason for this is the absence of published data on the early-life history of many marine species, highlighting a key area of required future research. Without data, it is difficult to justify introduce behaviour into models, as robust models aim to minimise assumptions. This review has also highlighted the lack of unity in both input parameters and metrics to describe the output of the BDMs. There appears to be no consensus on what biological parameters to choose when implementing a model, i.e. what behaviours are required in a BDM to accurately estimate the connectivity for a reef fish species. The large variation seen in connectivity metrics produced from these BDMs was unexpected. Variability is most likely driven due to the non-trivial number of parameter choices made, both physical and biological, in BDMs, many of which are optional or species specific. BDMs are non-trivial models, making it difficult to standardise the output in order to produce simple comparisons. Although agreement about common metrics and consistent metrics reporting would help alleviate some of these issues. Standardisation of metrics will also assist in validating the estimated patterns of connectivity with empirical studies, providing important model validation.
+
+(No obvious (or easy) patterns between parameter choice and metrics)
+
+(More model validation required!)
+
+(End goal -> better models = better outcomes)
 
 References
 ----------
