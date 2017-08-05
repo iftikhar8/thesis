@@ -69,7 +69,7 @@ require(lsmeans))
 - Statistical tests
 
 #### Ontogeny
-The ontogeny count data was standardised by the flow to a concentration (250m^3).
+The ontogeny count data was standardised by the flow to a concentration (250 m^3).
 Due to the excessive zero count for the ontogeny data, we separated it the analysis in to a generalised linear model (GLM) on the presence/absence data using a binomial distribution and a GLM on the data excluding all zero observations using a log normal distribution. The GLM model included four continuous variables to describe each location (temperature, salinity, oxygen and flurosence).
 
 #### Length
@@ -80,15 +80,17 @@ The length data was
 ### General Fish results
 The most common reef fish families caught were Pomcentridae,
 
-Family | Pre-flexion | Flexion | Post-flexion | Total | Length (mm) |
--------|------------|---------|---------------|-------|-------------|--
-Mullidae | 1          | 2       | 3             | 6     | 4(2)        |
-Pomacentridae       |            |         |               |       |             |
-Synodontidae       |            |         |               |       |             |
-Serranidae       |            |         |               |       |             |
-Labridae       |            |         |               |       |             |
-Scaridae       |            |         |               |       |             |
-Scorpaenidae       |            |         |               |       |             |
+2827
+
+Family        | Preflexion | Flexion | Postflexion | Total | Length (mm)  |
+--------------|------------|---------|-------------|-------|--------------|--
+Labridae      | 273        | 383     | 596         | 1252  | 5.91 (2.79)  |
+Mullidae      | 123        | 61      | 60          | 244   | 7.44 (6.31)  |
+Pomacentridae | 102        | 84      | 8           | 194   | 3.88 (1.50)  |
+Scaridae      | 9          | 126     | 93          | 228   | 5.90 (1.75)  |
+Scorpaenidae  | 50         | 56      | 70          | 176   | 5.15 (2.16)  |
+Serranidae    | 469        | 107     | 17          | 593   | 3.32 (1.47)  |
+Synodontidae  | 63         | 39      | 38          | 140   | 10.35 (6.53) |
 
 ### Site variation
 
