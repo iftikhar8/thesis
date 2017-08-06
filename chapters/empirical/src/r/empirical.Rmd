@@ -16,11 +16,6 @@ library(mapdata)
 ```
 
 
-Study site and station locations
-```{r}
-map("worldHires", "Australia", xlim=c(140,160), ylim=c(-35,-20), col="gray90", fill=TRUE)
-```
-
 Read in data
 ```{r}
 data.measure <- read_csv("../../data/ichthyoplankton-measurements.csv")
@@ -51,6 +46,16 @@ data.tow$station <- as.factor(data.tow$station)
 data.measure <- mutate(data.measure, total_length = standard_length + caudal_fin_length)
 ```
 
+Study site and station locations
+```{r}
+australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), col="gray90", fill=TRUE)
+#coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
+centre <- geocode("Sydney, AU")
+coast <- get_map(c(lon=centre$lon, lat=centre$lat), zoom = 5)
+sites <- dplyr::select(data.tow, site, latitude, longitude) %>% distinct()
+australia <- ggmap(coast)
+australia + geom_point(aes(x=longitude, y=latitude, group=site),size=0.1, data=sites)
+```
 
 Generate table of fish data
 ```{r}
@@ -63,7 +68,200 @@ summarize(group_by(data.measure), count=n())
 
 Check for correlations between dissolved oxygen and cholophyll fluroescne
 ```{r}
-data.environment <- select(data.tow, temperature, salinity, chlorophyll_fluorescence, oxygen)
+library("corrr")
+data.environment <- dplyr::select(data.tow, temperature, salinity, chlorophyll_fluorescence, dissolved_oxygen)
 correlate(data.environment)
 ```
 
+## Ontogeny
+Setup ontogeny data
+```{r}
+data.ontogeny <- summarize(group_by(data.measure, location, station, feature, net, family, stage), count = n())
+
+# Organise the data to have zero counts where there was no data
+data.ontogeny <- data.ontogeny %>% spread( key=stage, value=count, drop =FALSE, fill = 0) %>% gather(key=stage, value=count, PRE, FLE, POS,  na.rm = FALSE) %>% left_join(data.tow) %>% mutate(conc = count/volume) %>% mutate(conc.t = conc + 1,
+      depth = if_else(net == 'N1' || net == 'N2', 0, if_else(net == 'M5' || net == 'M4', 25 ,75))) %>% mutate(presence = ifelse(conc > 0, TRUE , FALSE))
+
+data.ontogeny$depth <- as.factor(data.ontogeny$depth)
+```
+
+Patterns
+```{r}
+data.ontogeny.summary <- na.omit(data.ontogeny) 
+data.ontogeny.summary.family <-  summarize(group_by(data.ontogeny.summary, family, depth,stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.summary.all <-  summarize(group_by(data.ontogeny.summary, depth, stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
+
+plot.ontogeny.all <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.all) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1)
+ggsave("../../figs/ontogeny-all.png",plot=plot.ontogeny.all,width = 169, height=120, units="mm",dpi=96)
+
+plot.ontogeny.family <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.family) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_wrap(~family, scales = "free") 
+ggsave("../../figs/ontogeny-family.png",plot=plot.ontogeny.family,width = 169, height=120, units="mm",dpi=96)
+#data.ontogeny.complete <- na.omit(data.ontogeny)
+#ggplot(aes(y=conc, x=depth), data=data.ontogeny.complete) + geom_violin(aes(colour=stage))
+
+
+```
+
+
+Labridae
+```{r}
+data.ontogeny.labrid.all <- filter(data.ontogeny, family == "labridae")
+data.ontogeny.labrid.nonzero <- filter(data.ontogeny.labrid.all, conc > 0)
+qqp(data.ontogeny.labrid.nonzero$conc, "lnorm")
+
+glm.presence.labrid <- glm(presence ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=binomial, data=data.ontogeny.labrid.all)
+glm.nonzero.labrid <- glm(conc ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=gaussian(link="log"), data.ontogeny.labrid.nonzero)
+
+summary(glm.presence.labrid)
+summary(glm.nonzero.labrid)
+```
+
+Mullidae
+```{r}
+data.ontogeny.mullid.all <- filter(data.ontogeny, family == "mullidae")
+data.ontogeny.mullid.nonzero <- filter(data.ontogeny.mullid.all, conc > 0)
+qqp(data.ontogeny.mullid.nonzero$conc, "lnorm")
+
+glm.presence.mullid <- glm(presence ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=binomial, data=data.ontogeny.mullid.all)
+glm.nonzero.mullid <- glm(conc ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=gaussian(link="log"), data.ontogeny.mullid.nonzero)
+
+summary(glm.presence.mullid)
+summary(glm.nonzero.mullid)
+```
+
+Pomacentridae
+```{r}
+data.ontogeny.pomacentrid.all <- filter(data.ontogeny, family == "pomacentridae")
+data.ontogeny.pomacentrid.nonzero <- filter(data.ontogeny.pomacentrid.all, conc > 0)
+qqp(data.ontogeny.pomacentrid.nonzero$conc, "lnorm")
+
+glm.presence.pomacentrid <- glm(presence ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=binomial, data=data.ontogeny.pomacentrid.all)
+glm.nonzero.pomacentrid <- glm(conc ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=gaussian(link="log"), data.ontogeny.pomacentrid.nonzero)
+
+summary(glm.presence.pomacentrid)
+summary(glm.nonzero.pomacentrid)
+```
+
+Scaridae
+```{r}
+data.ontogeny.scarid.all <- filter(data.ontogeny, family == "scaridae")
+data.ontogeny.scarid.nonzero <- filter(data.ontogeny.scarid.all, conc > 0)
+qqp(data.ontogeny.scarid.nonzero$conc, "lnorm")
+
+glm.presence.scarid <- glm(presence ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=binomial, data=data.ontogeny.scarid.all)
+glm.nonzero.scarid <- glm(conc ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=gaussian(link="log"), data.ontogeny.scarid.nonzero)
+
+summary(glm.presence.scarid)
+summary(glm.nonzero.scarid)
+```
+
+Scorpaenidae
+```{r}
+data.ontogeny.scorpaenid.all <- filter(data.ontogeny, family == "scorpaenidae")
+data.ontogeny.scorpaenid.nonzero <- filter(data.ontogeny.scorpaenid.all, conc > 0)
+qqp(data.ontogeny.scorpaenid.nonzero$conc, "lnorm")
+
+glm.presence.scorpaenid <- glm(presence ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=binomial, data=data.ontogeny.scorpaenid.all)
+glm.nonzero.scorpaenid <- glm(conc ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=gaussian(link="log"), data.ontogeny.scorpaenid.nonzero)
+
+summary(glm.presence.scorpaenid)
+summary(glm.nonzero.scorpaenid)
+```
+
+Serranidae
+```{r}
+data.ontogeny.serranid.all <- filter(data.ontogeny, family == "serranidae")
+data.ontogeny.serranid.nonzero <- filter(data.ontogeny.serranid.all, conc > 0)
+qqp(data.ontogeny.serranid.nonzero$conc, "lnorm")
+
+glm.presence.serranid <- glm(presence ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=binomial, data=data.ontogeny.serranid.all)
+glm.nonzero.serranid <- glm(conc ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=gaussian(link="log"), data.ontogeny.serranid.nonzero)
+
+summary(glm.presence.serranid)
+summary(glm.nonzero.serranid)
+```
+
+Synodontidae
+```{r}
+data.ontogeny.synodontid.all <- filter(data.ontogeny, family == "synodontidae")
+data.ontogeny.synodontid.nonzero <- filter(data.ontogeny.synodontid.all, conc > 0)
+qqp(data.ontogeny.synodontid.nonzero$conc, "lnorm")
+
+glm.presence.synodontid <- glm(presence ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=binomial, data=data.ontogeny.synodontid.all)
+glm.nonzero.synodontid <- glm(conc ~ feature * depth * stage + temperature + salinity + dissolved_oxygen, family=gaussian(link="log"), data.ontogeny.synodontid.nonzero)
+
+summary(glm.presence.synodontid)
+summary(glm.nonzero.synodontid)
+```
+
+## Length data
+
+Setup length data
+```{r}
+data.length <- data.measure %>% left_join(data.tow)
+#data.length <- summarize(group_by(data.length, feature, family), length.mean = mean(total_length), length.sd = sd(total_length), length.se = length_sd/n())
+#data.length.depth <- summarize(group_by(data.length.raw, depth, family), length_mean = mean(total_length), length_sd = sd(total_length), length_se = length_sd/n())
+
+```
+Patterns
+```{r}
+#data.ontogeny.summary <- na.omit(data.ontogeny) 
+data.length.summary.family <-  summarize(group_by(data.length, family, depth), length.mean = mean(total_length), length.se = sd(total_length)/n())
+data.length.summary.all <-  summarize(group_by(data.length, depth, stage), length.mean = mean(total_length), length.se = sd(total_length)/n())
+
+plot.length.all <- ggplot(aes(y=log(total_length), x=depth), data=data.length) + geom_boxplot()
+ggsave("../../figs/length-all.png",plot=plot.length.all,width = 169, height=120, units="mm",dpi=96)
+
+plot.length.family <- ggplot(aes(y=log(total_length), x=depth), data=data.length) + geom_boxplot() + facet_grid(.~family)
+ggsave("../../figs/length-family.png",plot=plot.length.family,width = 169, height=75, units="mm",dpi=96) 
+```
+
+Labridae
+```{r}
+data.length.labrid <- filter(data.length, family == "labridae")
+qqp(data.length.labrid$total_length, "lnorm")
+qqp(log(data.length.labrid$total_length), "norm")
+lm.length.labrid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen,  data=data.length.labrid)
+summary(lm.length.labrid)
+```
+
+Mullid
+```{r}
+data.length.mullid <- filter(data.length, family == "mullidae")
+qqp(data.length.mullid$total_length, "norm")
+qqp(log(data.length.mullid$total_length), "norm")
+lm.length.mullid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen,  data=data.length.mullid)
+summary(lm.length.mullid)
+```
+
+Pomacentridae
+```{r}
+data.length.pomacentrid <- filter(data.length, family == "pomacentridae")
+qqp(data.length.pomacentrid$total_length, "lnorm")
+glm.length.pomacentrid <- glm(total_length ~ feature * depth + temperature + salinity + dissolved_oxygen,  family=gaussian(link="log"), data=data.length.pomacentrid)
+summary(glm.length.pomacentrid)
+```
+
+Scorpaenidae
+```{r}
+data.length.scorpaenid <- filter(data.length, family == "scorpaenidae")
+qqp(log(data.length.scorpaenid$total_length), "norm")
+lm.length.scorpaenid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen, data=data.length.scorpaenid)
+summary(lm.length.scorpaenid)
+```
+
+Serranid
+```{r}
+data.length.serranid <- filter(data.length, family == "serranidae")
+qqp(log(data.length.serranid$total_length), "norm")
+lm.length.serranid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen, data=data.length.serranid)
+summary(lm.length.serranid)
+```
+
+Synodontid
+```{r}
+data.length.synodontid <- filter(data.length, family == "synodontidae")
+qqp(log(data.length.synodontid$total_length), "norm")
+lm.length.synodontid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen, data=data.length.synodontid)
+summary(lm.length.synodontid)
+```
