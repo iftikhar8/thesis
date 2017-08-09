@@ -90,12 +90,20 @@ Patterns
 data.ontogeny.summary <- na.omit(data.ontogeny) 
 data.ontogeny.summary.family <-  summarize(group_by(data.ontogeny.summary, family, depth,stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
 data.ontogeny.summary.all <-  summarize(group_by(data.ontogeny.summary, depth, stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.summary.feature.all <-  summarize(group_by(data.ontogeny.summary, feature, depth, stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.summary.feature.family <-  summarize(group_by(data.ontogeny.summary, feature, family, depth,stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
 
 plot.ontogeny.all <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.all) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1)
 ggsave("../../figs/ontogeny-all.png",plot=plot.ontogeny.all,width = 169, height=120, units="mm",dpi=96)
 
 plot.ontogeny.family <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.family) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_wrap(~family, scales = "free") 
 ggsave("../../figs/ontogeny-family.png",plot=plot.ontogeny.family,width = 169, height=120, units="mm",dpi=96)
+
+plot.ontogeny.feature.all <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.feature.all) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_wrap(~feature) 
+ggsave("../../figs/ontogeny-feature-all.png",plot=plot.ontogeny.feature.all,width = 169, height=75, units="mm",dpi=96)
+
+plot.ontogeny.feature.family <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.feature.family) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_grid(family~feature, scales = "free") 
+ggsave("../../figs/ontogeny-feature-family.png",plot=plot.ontogeny.feature.family,width = 169, height=200, units="mm",dpi=96)
 #data.ontogeny.complete <- na.omit(data.ontogeny)
 #ggplot(aes(y=conc, x=depth), data=data.ontogeny.complete) + geom_violin(aes(colour=stage))
 
@@ -206,15 +214,75 @@ data.length <- data.measure %>% left_join(data.tow)
 Patterns
 ```{r}
 #data.ontogeny.summary <- na.omit(data.ontogeny) 
-data.length.summary.family <-  summarize(group_by(data.length, family, depth), length.mean = mean(total_length), length.se = sd(total_length)/n())
-data.length.summary.all <-  summarize(group_by(data.length, depth, stage), length.mean = mean(total_length), length.se = sd(total_length)/n())
+data.length.summary.family <-  summarize(group_by(data.length, family, depth), length.mean = mean(total_length), length.se = sd(total_length)/n(), count = n())
+data.length.summary.all <-  summarize(group_by(data.length, depth), length.mean = mean(total_length), length.se = sd(total_length)/n(), count = n())
+
+data.length.summary.family.feature <-  summarize(group_by(data.length, family, feature, depth), length.mean = mean(total_length), length.se = sd(total_length)/n())
+data.length.summary.all.feature <-  summarize(group_by(data.length, feature, depth), length.mean = mean(total_length), length.se = sd(total_length)/n())
 
 plot.length.all <- ggplot(aes(y=log(total_length), x=depth), data=data.length) + geom_boxplot()
-ggsave("../../figs/length-all.png",plot=plot.length.all,width = 169, height=120, units="mm",dpi=96)
+ggsave("../../figs/length-all.png",plot=plot.length.all,width = 90, height=120, units="mm",dpi=96)
 
 plot.length.family <- ggplot(aes(y=log(total_length), x=depth), data=data.length) + geom_boxplot() + facet_grid(.~family)
 ggsave("../../figs/length-family.png",plot=plot.length.family,width = 169, height=75, units="mm",dpi=96) 
+
+plot.length.feature.all <- ggplot(aes(y=log(total_length), x=depth), data=data.length) + geom_boxplot() + facet_grid(.~feature)
+ggsave("../../figs/length-feature-all.png",plot=plot.length.feature.all,width = 169, height=75, units="mm",dpi=96) 
+
+plot.length.feature.family <- ggplot(aes(y=log(total_length), x=depth), data=data.length) + geom_boxplot() + facet_grid(feature~family)
+ggsave("../../figs/length-feature-family.png",plot=plot.length.feature.family,width = 169, height=120, units="mm",dpi=96) 
 ```
+
+General patterns
+
+```{r}
+data.length %>% group_by(family) %>% do(tidy(lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen, .)))
+```
+
+
+Overall
+```{r}
+qqp(data.length$total_length, "lnorm")
+qqp(log(data.length$total_length), "norm")
+lm.length.all <- lm(log(total_length) ~ depth, data = data.length)
+summary(lm.length.all)
+anova.length.all <- Anova(lm.length.all, type=3)
+anova.length.all
+lm.length.all.lsm <- lsmeans(lm.length.all, ~ depth)
+lm.length.all.lsm
+summary(pairs(lm.length.all.lsm, type = "response"))
+cld(lm.length.all.lsm, alpha = 0.1)
+```
+
+By family
+```{r}
+lm.length.family <- lm(log(total_length) ~ depth + family, data = data.length)
+summary(lm.length.family)
+anova.length.family <- Anova(lm.length.family, type=3)
+anova.length.family
+```
+
+Feature x all
+```{r}
+lm.length.feature.all <- lm(log(total_length) ~ feature * depth, data = data.length)
+summary(lm.length.feature.all)
+anova.length.feature.all <- Anova(lm.length.feature.all, type=3)
+anova.length.feature.all
+lm.length.feature.all.lsm <- lsmeans(lm.length.feature.all, ~ feature*depth)
+lm.length.feature.all.lsm
+lsmip(lm.length.feature.all, feature ~ depth)
+summary(pairs(lm.length.feature.all.lsm, type = "response"))
+cld(lm.length.feature.all.lsm, alpha = 0.1)
+```
+
+Feature x family
+```{r}
+lm.length.feature.family <- lm(log(total_length) ~ feature * depth * family, data = data.length)
+summary(lm.length.feature.family)
+anova.length.feature.family <- Anova(lm.length.feature.family, type=3)
+anova.length.feature.family
+```
+
 
 Labridae
 ```{r}
@@ -223,6 +291,15 @@ qqp(data.length.labrid$total_length, "lnorm")
 qqp(log(data.length.labrid$total_length), "norm")
 lm.length.labrid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen,  data=data.length.labrid)
 summary(lm.length.labrid)
+anova.data.length.labrid <- Anova(lm.length.labrid, type=3)
+anova.data.length.labrid
+lm.length.labrid.lsm <- lsmeans(lm.length.labrid, ~ feature*depth)
+lm.length.labrid.lsm
+png("../../figs/labrid-length-interaction.png")
+lsmip(lm.length.labrid, feature ~ depth)
+dev.off()
+summary(pairs(lm.length.labrid.lsm, type = "response"))
+cld(lm.length.labrid.lsm, alpha = 0.1)
 ```
 
 Mullid
@@ -232,6 +309,15 @@ qqp(data.length.mullid$total_length, "norm")
 qqp(log(data.length.mullid$total_length), "norm")
 lm.length.mullid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen,  data=data.length.mullid)
 summary(lm.length.mullid)
+anova.data.length.mullid <- Anova(lm.length.mullid, type=3)
+anova.data.length.mullid
+lm.length.mullid.lsm <- lsmeans(lm.length.mullid, ~ feature*depth)
+lm.length.mullid.lsm
+png("../../figs/mullid-length-interaction.png")
+lsmip(lm.length.mullid, feature ~ depth)
+dev.off()
+summary(pairs(lm.length.mullid.lsm, type = "response"))
+cld(lm.length.mullid.lsm, alpha = 0.1)
 ```
 
 Pomacentridae
@@ -240,7 +326,34 @@ data.length.pomacentrid <- filter(data.length, family == "pomacentridae")
 qqp(data.length.pomacentrid$total_length, "lnorm")
 glm.length.pomacentrid <- glm(total_length ~ feature * depth + temperature + salinity + dissolved_oxygen,  family=gaussian(link="log"), data=data.length.pomacentrid)
 summary(glm.length.pomacentrid)
+
+anova.data.length.pomacentrid <- Anova(glm.length.pomacentrid, type=3)
+anova.data.length.pomacentrid
+glm.length.pomacentrid.lsm <- lsmeans(glm.length.pomacentrid, ~ feature*depth)
+glm.length.pomacentrid.lsm
+summary(pairs(glm.length.pomacentrid.lsm, type = "response"))
+cld(glm.length.pomacentrid.lsm, alpha = 0.1)
 ```
+
+
+Scaridae
+```{r}
+data.length.scarid <- filter(data.length, family == "scaridae")
+qqp(data.length.scarid$total_length, "lnorm")
+qqp(log(data.length.scarid$total_length), "norm")
+lm.length.scarid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen,  data=data.length.scarid)
+summary(lm.length.scarid)
+anova.data.length.scarid <- Anova(lm.length.scarid, type=3)
+anova.data.length.scarid
+lm.length.scarid.lsm <- lsmeans(lm.length.scarid, ~ feature*depth)
+lm.length.scarid.lsm
+png("../../figs/scarid-length-interaction.png")
+lsmip(lm.length.scarid, feature ~ depth)
+dev.off()
+summary(pairs(lm.length.scarid.lsm, type = "response"))
+cld(lm.length.scarid.lsm, alpha = 0.1)
+```
+
 
 Scorpaenidae
 ```{r}
@@ -248,6 +361,16 @@ data.length.scorpaenid <- filter(data.length, family == "scorpaenidae")
 qqp(log(data.length.scorpaenid$total_length), "norm")
 lm.length.scorpaenid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen, data=data.length.scorpaenid)
 summary(lm.length.scorpaenid)
+
+anova.data.length.scorpaenid <- Anova(lm.length.scorpaenid, type=3)
+anova.data.length.scorpaenid
+png("../../figs/scorpaenid-length-interaction.png")
+lsmip(lm.length.scorpaenid, feature ~ depth)
+dev.off()
+lm.length.scorpaenid.lsm <- lsmeans(lm.length.scorpaenid, ~ feature*depth)
+lm.length.scorpaenid.lsm
+summary(pairs(lm.length.scorpaenid.lsm, type = "response"))
+cld(lm.length.scorpaenid.lsm, alpha = 0.1)
 ```
 
 Serranid
@@ -256,6 +379,16 @@ data.length.serranid <- filter(data.length, family == "serranidae")
 qqp(log(data.length.serranid$total_length), "norm")
 lm.length.serranid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen, data=data.length.serranid)
 summary(lm.length.serranid)
+
+anova.data.length.serranid <- Anova(lm.length.serranid, type=3)
+anova.data.length.serranid
+png("../../figs/serranid-length-interaction.png")
+lsmip(lm.length.serranid, feature ~ depth)
+dev.off()
+lm.length.serranid.lsm <- lsmeans(lm.length.serranid, ~ feature*depth)
+lm.length.serranid.lsm
+summary(pairs(lm.length.serranid.lsm, type = "response"))
+cld(lm.length.serranid.lsm, alpha = 0.1)
 ```
 
 Synodontid
@@ -264,4 +397,14 @@ data.length.synodontid <- filter(data.length, family == "synodontidae")
 qqp(log(data.length.synodontid$total_length), "norm")
 lm.length.synodontid <- lm(log(total_length) ~ feature * depth + temperature + salinity + dissolved_oxygen, data=data.length.synodontid)
 summary(lm.length.synodontid)
+
+anova.data.length.synodontid <- Anova(lm.length.synodontid, type=3)
+anova.data.length.synodontid
+png("../../figs/synodontid-length-interaction.png")
+lsmip(lm.length.synodontid, feature ~ depth)
+dev.off()
+lm.length.synodontid.lsm <- lsmeans(lm.length.synodontid, ~ feature*depth)
+lm.length.synodontid.lsm
+summary(pairs(lm.length.synodontid.lsm, type = "response"))
+cld(lm.length.synodontid.lsm, alpha = 0.1)
 ```

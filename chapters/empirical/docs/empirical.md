@@ -61,7 +61,7 @@ Synodontidae  | 63         | 39      | 38          | 140   |  10.35 (±6.53)
 
 #### Patterns
 
-The general pattern was that the highest larval concentrations were found in the 5-50 m, with the lowest concentrations found in the bottom 50-100m layer (@fig:ontogeny-all). At the surface most larvae were preflexion, 30% more abundant than postflexion larvae, and twice as abundant as flexion larvae. In the 5-50 m depth bin, the concentration on preflexion was at its highest, flexion larvae became twice as abundant as the surface, and postflexion larvae also increased in abundance although now found in lower concentrations than preflexion larvae. In the lowest depth range, 50-100 m, pre-flexion larvae were found in small concentrations, 7.6 times lower than in the 5-50 m bin. Postflexion larvae were the most common ontogenetic stage in this depth bin, and along with flexion, were found at concentrations lower than the other depths. Each family displayed varying patterns of ontogeny by depth (@fig:ontogeny-family). The most consistent pattern of preflexion was that higher concentrations were found at the surface and in the 5-50 m bin and low numbers in the 50-100 m depth bin, seen in every family except Scaridae where concentration of preflexion larvae did not change much between depths. Most flexion larvae were caught in the 5-50 m bin, except for Mullidae which were found in the surface. For post-flexion larvae, generally they were found at the highest concentration in the 5-50 m depth bin, excpet for the families Mullidae (surface), Labridae (surface and 5-50 m), and Scorpaenidae (5-50 m and 50-100 m) and Serranidae (equal between depths).
+The general pattern was that the highest larval concentrations were found in the 5-50 m, with the lowest concentrations found in the bottom 50-100m layer (@fig:ontogeny-all). At the surface most larvae were preflexion, 30% more abundant than postflexion larvae, and twice as abundant as flexion larvae. In the 5-50 m depth bin, the concentration on preflexion was at its highest, flexion larvae became twice as abundant as the surface, and postflexion larvae also increased in abundance although now found in lower concentrations than preflexion larvae. In the lowest depth range, 50-100 m, pre-flexion larvae were found in small concentrations, 7.6 times lower than in the 5-50 m bin. Postflexion larvae were the most common ontogenetic stage in this depth bin, and along with flexion, were found at concentrations lower than the other depths. Each family displayed varying patterns of ontogeny by depth (@fig:ontogeny-family). The most consistent pattern of preflexion was that higher concentrations were found at the surface and in the 5-50 m bin and low numbers in the 50-100 m depth bin, seen in every family except Scaridae where concentration of preflexion larvae did not change much between depths. Most flexion larvae were caught in the 5-50 m bin, except for Mullidae which were found in the surface. For post-flexion larvae, generally they were found at the highest concentration in the 5-50 m depth bin, except for the families Mullidae (surface), Labridae (surface and 5-50 m), and Scorpaenidae (5-50 m and 50-100 m) and Serranidae (equal between depths).
 
 ![The mean concentration (per m^3) of the abundant temperate reef fish larvae at three depth ranges (0, 5-50 m, 50-100 m) by ontogenetic stage (preflexion, flexion, postflexion; ± S.E.)](../figs/ontogeny-all.png){#fig:ontogeny-all}
 
@@ -82,27 +82,27 @@ When comparing across features (between coastal and eddy waters), there are diff
 
 #### Concentration (non-zero data)
 
-#### Labridae
+#### Labridae ontogeny
 
 The presence of Labridae was driven by depth, with odds of Labridae being present at the 50-100 m depth range (p = 0.040) higher than the upper 50 m or surface. Temperature was also an indicator of presence, with more present as the temperature increased (p = 0.018). For the non-zero data, the concentration was also driven by the temperature, increasing as temperature increased (p = 0.031).
 
-#### Mullidae
+#### Mullidae ontogeny
 
 The presence of Mullidae was driven by the dissolved oxygen (p = 0.049). Although when looking at the non-zero data, no significant predictors of concentration were found.
 
-#### Pomacentridae
+#### Pomacentridae ontogeny
 
 Pomacentrid presence was negatively predicted by an increase in temperature (p = 0.041). There were no significant predictors of concentration when only looking at the non-zero data.
 
-#### Scaridae
+#### Scaridae ontogeny
 
-The presence of scarids was strongly predicted by the temperature (p < 0.001), but also the salinity (p = 0.039). Depth was also a predictor, with increasing odds of presence in the 5-50 m range (p = 0.033) and more again in 50-100 m range (p = 0.018). When looking at the non-zero data, only the environmental salinity was a predictor of concentration (p = 0.023).
+The presence of Scaridae was strongly predicted by the temperature (p < 0.001), but also the salinity (p = 0.039). Depth was also a predictor, with increasing odds of presence in the 5-50 m range (p = 0.033) and more again in 50-100 m range (p = 0.018). When looking at the non-zero data, only the environmental salinity was a predictor of concentration (p = 0.023).
 
-#### Scorpaenidae
+#### Scorpaenidae ontogeny
 
 Temperature was again a strong predictor of the presence of scorpionfish (p < 0.001). There was an increase of presence at the depth 5-50 m inside an eddy (p = 0.045). The was also a decrease in presence of preflexion larval fish at the 50-100 m depth range (p = 0.029). There were no significant predictors for concentration.
 
-#### Serranidae
+#### Serranidae ontogeny
 
 The presence of Serranid was predicted by dissolved oxygen (p = 0.008). There were no predictors of concentration.
 
@@ -162,8 +162,6 @@ Serranidae had a significant regression equation (F(8,584) = 31.74), p < 0.001, 
 
 Synodontidae had a significant regression equation (F(8,131) = 31.74), p < 0.001, r^2 = 0.29), although there were no significant predictor variables for length in the model.
 
-
-
 ## Discussion
 
 - Interpretation (in light of what is already known)
@@ -171,28 +169,55 @@ Synodontidae had a significant regression equation (F(8,131) = 31.74), p < 0.001
 - What new understandings have we got?
 - What would be the next steps
 
-- ## Use the same structure as the results
-
 ### Ontogeny
+
+NOTE: For our hypothesis to be true - stage x depth interaction needs to be significant. To interpret it feature x stage x depth needs to be significant.
+
+Stage x Depth = Only scorpaenidae!
+
+- Is the stage a good indication of depth for these species? No, at least for these coarse depths (surface, 5-50, 50-100). There are many other factors?
+-
+
+#### Environmental drivers
+Temperature positive predicator of increased concentration of Labridae, Scaridae, Scorpaenidae, negative predicator of Pomacentridae.
+
+Salinity - Scaridae only.
+
+Dissolved oxygen - Synodontidae (negative), Mullidae (positive), and Serranidae (positive).
 
 ### Length
 
 
 #### Environmental drivers
 
-Temperature was a positive predictor
+Temperature was a positive predictor of length in Labridae, Mullidae, Pomacentridae and Serranidae.
+- Tropical rather than temperate species perhaps?
 
 Salinity had a positive relationship on the length of Pomacentridae larvae, but negative relationships with Scorpaenidae, Mullidae, Labridae.
 - Some species are more saline tolerant
 
-
+Dissolve oxygen had a negative relationship with the length of the Pomacentridae.
+- Plankton relationship to DO?
 
 ### Limitations
 
-* Only 3 depths, perhaps too coarse to capture the initial
+- Only 3 depths, perhaps too coarse to capture the initial
+  - What about that middle 50m range, can be evenly split?
+- Issues with sampling
+  - Mortality means catch more preflexion
+  - Larger fish are better at evading the nets (through swimming and detection)
+  - Is 16 stations enough over such a huge area? Could be large environmental variation, shown that there are environmental drivers. Some low r^2 even with all the variables in - other things driving this behaviour = complicated story.
+  - Perhaps sampling design was too low - too many zeros in the dataset to get a good distribution.
 
 ### Future directions
+
+- Costly exercise - are there better ways?
+- Difficult data collection means how do we ensure better results?
+- Use the data to parametise models that require early-life history data.
+
 
 ### Conclusion
 
 ## References
+
+## Supplement
