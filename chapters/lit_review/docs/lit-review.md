@@ -1,7 +1,5 @@
-Title
-=====
-
 Making the right choices: a meta-analysis of connectivity metrics derived from ichthyoplankton biophysical dispersal models
+=====
 
 Introduction
 ------------
