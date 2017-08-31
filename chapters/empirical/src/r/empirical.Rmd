@@ -11,12 +11,12 @@ require(MASS)
 require(lmerTest)
 require(lme4)
 require(lsmeans)
-library(maps)
-library(mapdata)
-library(rgdal)
-library(ggmap)
-library(broom)
-library(multcompView)
+require(maps)
+require(mapdata)
+require(rgdal)
+require(ggmap)
+require(broom)
+require(multcompView)
 ```
 
 
@@ -91,7 +91,7 @@ data.ontogeny$depth <- as.factor(data.ontogeny$depth)
 
 Patterns
 ```{r}
-data.ontogeny.summary <- na.omit(data.ontogeny) 
+data.ontogeny.summary <- na.omit(data.ontogeny)
 data.ontogeny.summary.family <-  summarize(group_by(data.ontogeny.summary, family, depth,stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
 data.ontogeny.summary.all <-  summarize(group_by(data.ontogeny.summary, depth, stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
 data.ontogeny.summary.feature.all <-  summarize(group_by(data.ontogeny.summary, feature, depth, stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
@@ -100,13 +100,13 @@ data.ontogeny.summary.feature.family <-  summarize(group_by(data.ontogeny.summar
 plot.ontogeny.all <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.all) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1)
 ggsave("../../figs/ontogeny-all.png",plot=plot.ontogeny.all,width = 169, height=120, units="mm",dpi=96)
 
-plot.ontogeny.family <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.family) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_wrap(~family, scales = "free") 
+plot.ontogeny.family <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.family) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_wrap(~family, scales = "free")
 ggsave("../../figs/ontogeny-family.png",plot=plot.ontogeny.family,width = 169, height=120, units="mm",dpi=96)
 
-plot.ontogeny.feature.all <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.feature.all) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_wrap(~feature) 
+plot.ontogeny.feature.all <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.feature.all) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_wrap(~feature)
 ggsave("../../figs/ontogeny-feature-all.png",plot=plot.ontogeny.feature.all,width = 169, height=75, units="mm",dpi=96)
 
-plot.ontogeny.feature.family <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.feature.family) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_grid(family~feature, scales = "free") 
+plot.ontogeny.feature.family <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.feature.family) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_grid(family~feature, scales = "free")
 ggsave("../../figs/ontogeny-feature-family.png",plot=plot.ontogeny.feature.family,width = 169, height=200, units="mm",dpi=96)
 #data.ontogeny.complete <- na.omit(data.ontogeny)
 #ggplot(aes(y=conc, x=depth), data=data.ontogeny.complete) + geom_violin(aes(colour=stage))
@@ -217,7 +217,7 @@ data.length <- data.measure %>% left_join(data.tow)
 ```
 Patterns
 ```{r}
-#data.ontogeny.summary <- na.omit(data.ontogeny) 
+#data.ontogeny.summary <- na.omit(data.ontogeny)
 data.length.summary.family <-  summarize(group_by(data.length, family, depth), length.mean = mean(total_length), length.se = sd(total_length)/n(), count = n())
 data.length.summary.all <-  summarize(group_by(data.length, depth), length.mean = mean(total_length), length.se = sd(total_length)/n(), count = n())
 
@@ -228,13 +228,13 @@ plot.length.all <- ggplot(aes(y=log(total_length), x=depth), data=data.length) +
 ggsave("../../figs/length-all.png",plot=plot.length.all,width = 90, height=120, units="mm",dpi=96)
 
 plot.length.family <- ggplot(aes(y=log(total_length), x=depth), data=data.length) + geom_boxplot() + facet_grid(.~family)
-ggsave("../../figs/length-family.png",plot=plot.length.family,width = 169, height=75, units="mm",dpi=96) 
+ggsave("../../figs/length-family.png",plot=plot.length.family,width = 169, height=75, units="mm",dpi=96)
 
 plot.length.feature.all <- ggplot(aes(y=log(total_length), x=depth), data=data.length) + geom_boxplot() + facet_grid(.~feature)
-ggsave("../../figs/length-feature-all.png",plot=plot.length.feature.all,width = 169, height=75, units="mm",dpi=96) 
+ggsave("../../figs/length-feature-all.png",plot=plot.length.feature.all,width = 169, height=75, units="mm",dpi=96)
 
 plot.length.feature.family <- ggplot(aes(y=log(total_length), x=depth), data=data.length) + geom_boxplot() + facet_grid(feature~family)
-ggsave("../../figs/length-feature-family.png",plot=plot.length.feature.family,width = 169, height=120, units="mm",dpi=96) 
+ggsave("../../figs/length-feature-family.png",plot=plot.length.feature.family,width = 169, height=120, units="mm",dpi=96)
 ```
 
 General patterns
