@@ -6,11 +6,11 @@
   </inputFiles>
   <spawn>
     <spawningLocation>
-      <name>wollongong-one</name>
-      <patchNumber>681</patchNumber>
+      <name>merimbula-one</name>
+      <patchNumber>844</patchNumber>
       <site>
-        <longitude>151.101</longitude>
-        <latitude>-34.313</latitude>
+        <longitude>150.201</longitude>
+        <latitude>-36.449</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -21,11 +21,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>wollongong-two</name>
-      <patchNumber>692</patchNumber>
+      <name>merimbula-two</name>
+      <patchNumber>859</patchNumber>
       <site>
-        <longitude>151.101</longitude>
-        <latitude>-34.465</latitude>
+        <longitude>150.201</longitude>
+        <latitude>-36.669</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -36,11 +36,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>wollongong-three</name>
-      <patchNumber>706</patchNumber>
+      <name>merimbula-three</name>
+      <patchNumber>864</patchNumber>
       <site>
-        <longitude>150.901</longitude>
-        <latitude>-34.638</latitude>
+        <longitude>150.101</longitude>
+        <latitude>-36.751</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -51,11 +51,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>wollongong-four</name>
-      <patchNumber>724</patchNumber>
+      <name>merimbula-four</name>
+      <patchNumber>872</patchNumber>
       <site>
-        <longitude>150.901</longitude>
-        <latitude>-34.972</latitude>
+        <longitude>150.101</longitude>
+        <latitude>-36.885</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -109,7 +109,7 @@
       <includeLarvaeHistory>true</includeLarvaeHistory>
       <saveOutputFilePath>/srv/zissou/output/theoretical/passive</saveOutputFilePath>
       <percentage>5</percentage>
-      <prefix>P-NSW12</prefix>
+      <prefix>P-NSW16</prefix>
       <logLevel>info</logLevel>
       <logFile>/var/log/zissou.log</logFile>
     </output>

@@ -101,13 +101,13 @@
     <habitat>
       <buffer>
         <isBuffered>true</isBuffered>
-        <settlement>5</settlement>
-        <olfactory>10</olfactory>
+        <settlement>10</settlement>
+        <olfactory>15</olfactory>
       </buffer>
     </habitat>
     <output>
       <includeLarvaeHistory>true</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output</saveOutputFilePath>
+      <saveOutputFilePath>/srv/zissou/output/theoretical/passive</saveOutputFilePath>
       <percentage>5</percentage>
       <prefix>P-NSW09</prefix>
       <logLevel>info</logLevel>

@@ -6,11 +6,11 @@
   </inputFiles>
   <spawn>
     <spawningLocation>
-      <name>port-stephens-one</name>
-      <patchNumber>522</patchNumber>
+      <name>newcastle-one</name>
+      <patchNumber>573</patchNumber>
       <site>
-        <longitude>152.701</longitude>
-        <latitude>-32.418</latitude>
+        <longitude>151.901</longitude>
+        <latitude>-32.902</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -21,11 +21,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>port-stephens-two</name>
-      <patchNumber>536</patchNumber>
+      <name>newcastle-two</name>
+      <patchNumber>588</patchNumber>
       <site>
-        <longitude>152.601</longitude>
-        <latitude>-32.546</latitude>
+        <longitude>151.801</longitude>
+        <latitude>-33.120</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -36,11 +36,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>port-stephens-three</name>
-      <patchNumber>547</patchNumber>
+      <name>newcastle-three</name>
+      <patchNumber>606</patchNumber>
       <site>
-        <longitude>152.401</longitude>
-        <latitude>-32.626</latitude>
+        <longitude>151.601</longitude>
+        <latitude>-33.403</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -51,11 +51,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>port-stephens-four</name>
-      <patchNumber>562</patchNumber>
+      <name>newcastle-four</name>
+      <patchNumber>612</patchNumber>
       <site>
-        <longitude>152.301</longitude>
-        <latitude>-32.792</latitude>
+        <longitude>151.601</longitude>
+        <latitude>-33.490</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -101,13 +101,13 @@
     <habitat>
       <buffer>
         <isBuffered>true</isBuffered>
-        <settlement>5</settlement>
-        <olfactory>10</olfactory>
+        <settlement>10</settlement>
+        <olfactory>15</olfactory>
       </buffer>
     </habitat>
     <output>
       <includeLarvaeHistory>true</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output</saveOutputFilePath>
+      <saveOutputFilePath>/srv/zissou/output/theoretical/passive</saveOutputFilePath>
       <percentage>5</percentage>
       <prefix>P-NSW10</prefix>
       <logLevel>info</logLevel>
