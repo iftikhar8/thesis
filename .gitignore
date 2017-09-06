@@ -7,8 +7,8 @@
 # History files
 .Rhistory
 .Rapp.history
-.Rproj
-.nb.html
+*.Rproj
+*.nb.html
 
 # Session Data files
 .RData
