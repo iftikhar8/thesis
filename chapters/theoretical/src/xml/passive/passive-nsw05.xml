@@ -24,7 +24,7 @@
       <name>solitary-islands-two</name>
       <patchNumber>320</patchNumber>
       <site>
-        <longitude>153.401/<longitude>
+        <longitude>153.401</longitude>
         <latitude>-29.917</latitude>
         <depth>5</depth>
       </site>
@@ -106,9 +106,9 @@
       </buffer>
     </habitat>
     <output>
-      <includeLarvaeHistory>true</includeLarvaeHistory>
+      <includeLarvaeHistory>false</includeLarvaeHistory>
       <saveOutputFilePath>/srv/zissou/output/theoretical/passive</saveOutputFilePath>
-      <percentage>5</percentage>
+      <percentage>15</percentage>
       <prefix>P-NSW05</prefix>
       <logLevel>info</logLevel>
       <logFile>/var/log/zissou.log</logFile>

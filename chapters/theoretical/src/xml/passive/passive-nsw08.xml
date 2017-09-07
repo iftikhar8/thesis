@@ -106,9 +106,9 @@
       </buffer>
     </habitat>
     <output>
-      <includeLarvaeHistory>true</includeLarvaeHistory>
+      <includeLarvaeHistory>false</includeLarvaeHistory>
       <saveOutputFilePath>/srv/zissou/output/theoretical/passive</saveOutputFilePath>
-      <percentage>5</percentage>
+      <percentage>15</percentage>
       <prefix>P-NSW08</prefix>
       <logLevel>info</logLevel>
       <logFile>/var/log/zissou.log</logFile>
