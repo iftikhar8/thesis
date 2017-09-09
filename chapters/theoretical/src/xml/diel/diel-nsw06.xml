@@ -7,11 +7,11 @@
   </inputFiles>
   <spawn>
     <spawningLocation>
-      <name>port-macquarie-one</name>
-      <patchNumber>417</patchNumber>
+      <name>nambucca-one</name>
+      <patchNumber>363</patchNumber>
       <site>
         <longitude>153.201</longitude>
-        <latitude>-31.055</latitude>
+        <latitude>-30.446</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -22,26 +22,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>port-macquarie-two</name>
-      <patchNumber>419</patchNumber>
-      <site>
-        <longitude>153.201</longitude>
-        <latitude>-31.190</latitude>
-        <depth>5</depth>
-      </site>
-      <numberOfLarvae>1000</numberOfLarvae>
-      <releasePeriod>
-        <start>2010-07-01T00:00:00</start>
-        <end>2011-07-01T00:00:00</end>
-      </releasePeriod>
-      <interval>7</interval>
-    </spawningLocation>
-    <spawningLocation>
-      <name>port-macquarie-three</name>
-      <patchNumber>431</patchNumber>
+      <name>nambucca-two</name>
+      <patchNumber>373</patchNumber>
       <site>
         <longitude>153.101</longitude>
-        <latitude>-31.309</latitude>
+        <latitude>-30.610</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -52,11 +37,26 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>port-macquarie-four</name>
-      <patchNumber>448</patchNumber>
+      <name>nambucca-three</name>
+      <patchNumber>379</patchNumber>
       <site>
-        <longitude>153.001</longitude>
-        <latitude>-31.529</latitude>
+        <longitude>153.101</longitude>
+        <latitude>-30.694</latitude>
+        <depth>5</depth>
+      </site>
+      <numberOfLarvae>1000</numberOfLarvae>
+      <releasePeriod>
+        <start>2010-07-01T00:00:00</start>
+        <end>2011-07-01T00:00:00</end>
+      </releasePeriod>
+      <interval>7</interval>
+    </spawningLocation>
+    <spawningLocation>
+      <name>nambucca-four</name>
+      <patchNumber>400</patchNumber>
+      <site>
+        <longitude>153.201</longitude>
+        <latitude>-30.944</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -82,36 +82,50 @@
     <swimming>
       <ability>Passive</ability>
     </swimming>
-      <pelagicLarvalDuration>
-        <mean>18.3</mean>
-        <stdev>1.5</stdev>
-        <distribution>Normal</distribution>
-        <pldType>Fixed</pldType>
-      </pelagicLarvalDuration>
-    </fish>
-    <flow>
-      <period>
-        <start>2010-07-01T00:00:00</start>
-        <end>2011-08-31T00:00:00</end>
-      </period>
-      <timeStep>
-        <unit>Hour</unit>
-        <duration>2</duration>
-      </timeStep>
-    </flow>
-    <habitat>
-      <buffer>
-        <isBuffered>true</isBuffered>
-        <settlement>10</settlement>
-        <olfactory>15</olfactory>
-      </buffer>
-    </habitat>
-    <output>
-      <includeLarvaeHistory>false</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output/theoretical/passive</saveOutputFilePath>
-      <percentage>15</percentage>
-      <prefix>P-NSW07</prefix>
-      <logLevel>info</logLevel>
-      <logFile>/var/log/zissou.log</logFile>
-    </output>
-  </simulationVariables>
+    <verticalMigrationDielProbabilities>
+      <verticalMigrationDielProbability>
+        <depthStart>0</depthStart>
+        <depthFinish>50</depthFinish>
+        <day>0.1</day>
+        <night>0.8</night>
+      </verticalMigrationDielProbability>
+      <verticalMigrationDielProbability>
+        <depthStart>50</depthStart>
+        <depthFinish>100</depthFinish>
+        <day>0.9</day>
+        <night>0.2</night>
+      </verticalMigrationDielProbability>
+    </verticalMigrationDielProbabilities>
+    <pelagicLarvalDuration>
+      <mean>18.3</mean>
+      <stdev>1.5</stdev>
+      <distribution>Normal</distribution>
+      <pldType>Fixed</pldType>
+    </pelagicLarvalDuration>
+  </fish>
+  <flow>
+    <period>
+      <start>2010-07-01T00:00:00</start>
+      <end>2011-08-31T00:00:00</end>
+    </period>
+    <timeStep>
+      <unit>Hour</unit>
+      <duration>2</duration>
+    </timeStep>
+  </flow>
+  <habitat>
+    <buffer>
+      <isBuffered>true</isBuffered>
+      <settlement>10</settlement>
+      <olfactory>15</olfactory>
+    </buffer>
+  </habitat>
+  <output>
+    <includeLarvaeHistory>false</includeLarvaeHistory>
+    <saveOutputFilePath>/srv/zissou/output/theoretical/diel</saveOutputFilePath>
+    <percentage>15</percentage>
+    <prefix>D-NSW06</prefix>
+    <logLevel>info</logLevel>
+    <logFile>/var/log/zissou.log</logFile>
+  </output>
+</simulationVariables>

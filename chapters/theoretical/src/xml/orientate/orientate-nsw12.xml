@@ -7,11 +7,11 @@
   </inputFiles>
   <spawn>
     <spawningLocation>
-      <name>port-stephens-one</name>
-      <patchNumber>522</patchNumber>
+      <name>wollongong-one</name>
+      <patchNumber>681</patchNumber>
       <site>
-        <longitude>152.701</longitude>
-        <latitude>-32.418</latitude>
+        <longitude>151.101</longitude>
+        <latitude>-34.313</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -22,11 +22,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>port-stephens-two</name>
-      <patchNumber>536</patchNumber>
+      <name>wollongong-two</name>
+      <patchNumber>692</patchNumber>
       <site>
-        <longitude>152.601</longitude>
-        <latitude>-32.546</latitude>
+        <longitude>151.101</longitude>
+        <latitude>-34.465</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -37,11 +37,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>port-stephens-three</name>
-      <patchNumber>547</patchNumber>
+      <name>wollongong-three</name>
+      <patchNumber>706</patchNumber>
       <site>
-        <longitude>152.401</longitude>
-        <latitude>-32.626</latitude>
+        <longitude>150.901</longitude>
+        <latitude>-34.638</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -52,11 +52,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>port-stephens-four</name>
-      <patchNumber>562</patchNumber>
+      <name>wollongong-four</name>
+      <patchNumber>724</patchNumber>
       <site>
-        <longitude>152.301</longitude>
-        <latitude>-32.792</latitude>
+        <longitude>150.901</longitude>
+        <latitude>-34.972</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -80,7 +80,7 @@
       <postFlexion>8</postFlexion>
     </ontogeny>
     <swimming>
-      <ability>Passive</ability>
+      <ability>orientate</ability>
     </swimming>
       <pelagicLarvalDuration>
         <mean>18.3</mean>
@@ -108,9 +108,9 @@
     </habitat>
     <output>
       <includeLarvaeHistory>false</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output/theoretical/passive</saveOutputFilePath>
+      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate</saveOutputFilePath>
       <percentage>15</percentage>
-      <prefix>P-NSW09</prefix>
+      <prefix>orientate-nsw12</prefix>
       <logLevel>info</logLevel>
       <logFile>/var/log/zissou.log</logFile>
     </output>

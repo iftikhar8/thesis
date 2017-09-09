@@ -7,11 +7,11 @@
   </inputFiles>
   <spawn>
     <spawningLocation>
-      <name>byron-one</name>
-      <patchNumber>227</patchNumber>
+      <name>ballina-one</name>
+      <patchNumber>250</patchNumber>
       <site>
         <longitude>153.701</longitude>
-        <latitude>-28.504</latitude>
+        <latitude>-28.946</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -22,11 +22,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>byron-two</name>
-      <patchNumber>228</patchNumber>
+      <name>ballina-two</name>
+      <patchNumber>256</patchNumber>
       <site>
-        <longitude>153.701</longitude>
-        <latitude>-28.616</latitude>
+        <longitude>153.601</longitude>
+        <latitude>-29.012</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -37,11 +37,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>byron-three</name>
-      <patchNumber>237</patchNumber>
+      <name>ballina-three</name>
+      <patchNumber>258</patchNumber>
       <site>
-        <longitude>153.701</longitude>
-        <latitude>-28.706</latitude>
+        <longitude>153.601</longitude>
+        <latitude>-29.066</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -52,11 +52,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>byron-four</name>
-      <patchNumber>243</patchNumber>
+      <name>ballina-four</name>
+      <patchNumber>261</patchNumber>
       <site>
-        <longitude>153.701</longitude>
-        <latitude>-28.825</latitude>
+        <longitude>153.501</longitude>
+        <latitude>-29.140</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -82,36 +82,50 @@
     <swimming>
       <ability>Passive</ability>
     </swimming>
-      <pelagicLarvalDuration>
-        <mean>18.3</mean>
-        <stdev>1.5</stdev>
-        <distribution>Normal</distribution>
-        <pldType>Fixed</pldType>
-      </pelagicLarvalDuration>
-    </fish>
-    <flow>
-      <period>
-        <start>2010-07-01T00:00:00</start>
-        <end>2011-08-31T00:00:00</end>
-      </period>
-      <timeStep>
-        <unit>Hour</unit>
-        <duration>2</duration>
-      </timeStep>
-    </flow>
-    <habitat>
-      <buffer>
-        <isBuffered>true</isBuffered>
-        <settlement>10</settlement>
-        <olfactory>15</olfactory>
-      </buffer>
-    </habitat>
-    <output>
-      <includeLarvaeHistory>false</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output/theoretical/passive</saveOutputFilePath>
-      <percentage>15</percentage>
-      <prefix>P-NSW02</prefix>
-      <logLevel>info</logLevel>
-      <logFile>/var/log/zissou.log</logFile>
-    </output>
-  </simulationVariables>
+    <verticalMigrationDielProbabilities>
+      <verticalMigrationDielProbability>
+        <depthStart>0</depthStart>
+        <depthFinish>50</depthFinish>
+        <day>0.1</day>
+        <night>0.8</night>
+      </verticalMigrationDielProbability>
+      <verticalMigrationDielProbability>
+        <depthStart>50</depthStart>
+        <depthFinish>100</depthFinish>
+        <day>0.9</day>
+        <night>0.2</night>
+      </verticalMigrationDielProbability>
+    </verticalMigrationDielProbabilities>
+    <pelagicLarvalDuration>
+      <mean>18.3</mean>
+      <stdev>1.5</stdev>
+      <distribution>Normal</distribution>
+      <pldType>Fixed</pldType>
+    </pelagicLarvalDuration>
+  </fish>
+  <flow>
+    <period>
+      <start>2010-07-01T00:00:00</start>
+      <end>2011-08-31T00:00:00</end>
+    </period>
+    <timeStep>
+      <unit>Hour</unit>
+      <duration>2</duration>
+    </timeStep>
+  </flow>
+  <habitat>
+    <buffer>
+      <isBuffered>true</isBuffered>
+      <settlement>10</settlement>
+      <olfactory>15</olfactory>
+    </buffer>
+  </habitat>
+  <output>
+    <includeLarvaeHistory>false</includeLarvaeHistory>
+    <saveOutputFilePath>/srv/zissou/output/theoretical/diel</saveOutputFilePath>
+    <percentage>15</percentage>
+    <prefix>D-NSW03</prefix>
+    <logLevel>info</logLevel>
+    <logFile>/var/log/zissou.log</logFile>
+  </output>
+</simulationVariables>
