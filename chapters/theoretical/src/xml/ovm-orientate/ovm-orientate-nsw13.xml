@@ -129,7 +129,7 @@
   <habitat>
     <buffer>
       <isBuffered>true</isBuffered>
-      <settlement>10</settlement>
+      <settlement>15</settlement>
       <olfactory>15</olfactory>
     </buffer>
   </habitat>
