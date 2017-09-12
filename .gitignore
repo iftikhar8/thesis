@@ -83,4 +83,4 @@ vignettes/*.pdf
 /chapters/*/figs/
 *.docx
 *.pdf
-*/data/models/
+/chapters/*/data/models/
