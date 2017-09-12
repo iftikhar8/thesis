@@ -1,0 +1,17 @@
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw01.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw02.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw03.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw04.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw05.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw06.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw07.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw08.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw09.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw10.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw11.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw12.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw13.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw14.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw15.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw16.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/passive20km/passive-nsw17.xml
