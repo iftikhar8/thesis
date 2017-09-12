@@ -8,7 +8,7 @@
 .Rhistory
 .Rapp.history
 *.Rproj
-*.nb.html
+
 
 # Session Data files
 .RData
@@ -39,6 +39,7 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
+*.nb.html
 
 # Created by https://www.gitignore.io/api/scrivener
 
@@ -82,3 +83,4 @@ vignettes/*.pdf
 /chapters/*/figs/
 *.docx
 *.pdf
+*/data/models/
