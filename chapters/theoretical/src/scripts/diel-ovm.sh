@@ -1,0 +1,17 @@
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw01.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw02.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw03.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw04.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw05.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw06.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw07.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw08.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw09.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw10.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw11.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw12.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw13.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw14.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw15.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw16.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/diel-ovm/diel-ovm-nsw17.xml
