@@ -1,0 +1,17 @@
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw01.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw02.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw03.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw04.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw05.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw06.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw07.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw08.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw09.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw10.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw11.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw12.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw13.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw14.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw15.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw16.xml
+java -Xmx8g -Xmx16g -jar /usr/local/bin/zissou/zissou.jar /srv/zissou/input/config/theoretical/orientate/orientate-nsw17.xml
