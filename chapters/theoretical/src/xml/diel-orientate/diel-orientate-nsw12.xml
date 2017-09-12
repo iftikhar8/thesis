@@ -80,7 +80,11 @@
       <postFlexion>8</postFlexion>
     </ontogeny>
     <swimming>
-      <ability>Passive</ability>
+      <ability>Directed</ability>
+      <criticalSwimmingSpeed>0.463</criticalSwimmingSpeed>
+      <inSituSwimmingPotential>0.25</inSituSwimmingPotential>
+      <endurance>0.5</endurance>
+      <reynoldsEffect>false</reynoldsEffect>
     </swimming>
     <verticalMigrationDielProbabilities>
       <verticalMigrationDielProbability>
