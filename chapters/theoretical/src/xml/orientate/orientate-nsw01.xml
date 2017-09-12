@@ -81,9 +81,9 @@
     </ontogeny>
     <swimming>
       <ability>Directed</ability>
-      <criticalSwimmingSpeed>5.0</criticalSwimmingSpeed>
-      <inSituSwimmingPotential>0.5</inSituSwimmingPotential>
-      <endurance>0.4</endurance>
+      <criticalSwimmingSpeed>0.463</criticalSwimmingSpeed>
+      <inSituSwimmingPotential>0.25</inSituSwimmingPotential>
+      <endurance>0.5</endurance>
       <reynoldsEffect>false</reynoldsEffect>
     </swimming>
       <pelagicLarvalDuration>

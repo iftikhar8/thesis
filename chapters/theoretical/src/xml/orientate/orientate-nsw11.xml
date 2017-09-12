@@ -80,7 +80,11 @@
       <postFlexion>8</postFlexion>
     </ontogeny>
     <swimming>
-      <ability>orientate</ability>
+      <ability>Directed</ability>
+      <criticalSwimmingSpeed>0.463</criticalSwimmingSpeed>
+      <inSituSwimmingPotential>0.25</inSituSwimmingPotential>
+      <endurance>0.5</endurance>
+      <reynoldsEffect>false</reynoldsEffect>
     </swimming>
       <pelagicLarvalDuration>
         <mean>18.3</mean>
