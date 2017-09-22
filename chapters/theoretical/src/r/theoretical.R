@@ -3,63 +3,108 @@ library(vegan)
 
 
 # nMDS Analysis
-headings <- c("id","birthday","region","source","age","recruited","settle")
+##headings <- c("id","birthday","region","source","age","recruited","settle")
 
 # Read is the collection of files
-path <- c("/Users/steve/Documents/PhD/Thesis/chapters/theoretical/data/models/passive")
+path <- c("/Users/steve/Documents/PhD/Thesis/chapters/theoretical/data/model-output/passive")
 setwd(path)
 passive.data <- do.call(rbind,lapply(list.files(pattern="\\connectivity-matrix.csv", recursive = TRUE), read.csv, stringsAsFactors=FALSE))
-colnames(passive.data) <- headings
-passive.data$birthday <- as.Date(passive.data$birthday)
-passive.data$recruited <- as.Date(passive.data$recruited)
+#colnames(passive.data) <- headings
+#passive.data$born <- as.Date(passive.data$born)
+#passive.data$recruited <- as.Date(passive.data$recruited)
 passive.data <- as.tibble(passive.data)
-passive.data <- mutate(passive.data,days = age/86400)
-passive.settlement <- summarize(group_by(passive.data, settle), passive = n())
+#passive.data <- mutate(passive.data,days = age/86400)
+passive.data <- left_join(passive.data, reefs,by=c("settle"="PATCH_NUM"))
+passive.data <- rename(passive.data, settle.region=REGION)
+#diel.connectivity <- summarize(group_by(diel.data,source, settle), count = n())
+passive.settlement <- summarize(group_by(passive.data, settle.region), passive = n())
 
-path <- c("/Users/steve/Documents/PhD/Thesis/chapters/theoretical/data/models/diel")
+path <- c("/Users/steve/Documents/PhD/Thesis/chapters/theoretical/data/model-output/diel")
 setwd(path)
 diel.data <- do.call(rbind,lapply(list.files(pattern="\\connectivity-matrix.csv", recursive = TRUE), read.csv, stringsAsFactors=FALSE))
-colnames(diel.data) <- headings
-diel.data$birthday <- as.Date(diel.data$birthday)
-diel.data$recruited <- as.Date(diel.data$recruited)
+#colnames(diel.data) <- headings
+#diel.data$birthday <- as.Date(diel.data$born)
+#diel.data$recruited <- as.Date(diel.data$recruited)
 diel.data <- as.tibble(diel.data)
-diel.data <- mutate(diel.data,days = age/86400)
-diel.connectivity <- summarize(group_by(diel.data,source, settle), count = n())
-diel.settlement <- summarize(group_by(diel.data, settle), diel = n())
+#diel.data <- mutate(diel.data,days = age/86400)
+diel.data <- left_join(diel.data, reefs,by=c("settle"="PATCH_NUM"))
+diel.data <- rename(diel.data, settle.region=REGION)
+#diel.connectivity <- summarize(group_by(diel.data,source, settle), count = n())
+diel.settlement <- summarize(group_by(diel.data, settle.region), diel = n())
 
-path <- c("/Users/steve/Documents/PhD/Thesis/chapters/theoretical/data/models/ovm")
+path <- c("/Users/steve/Documents/PhD/Thesis/chapters/theoretical/data/model-output/ovm")
 setwd(path)
 ovm.data <- do.call(rbind,lapply(list.files(pattern="\\connectivity-matrix.csv", recursive = TRUE), read.csv, stringsAsFactors=FALSE))
-colnames(ovm.data) <- headings
-ovm.data$birthday <- as.Date(ovm.data$birthday)
+#colnames(ovm.data) <- headings
+ovm.data$birthday <- as.Date(ovm.data$born)
 ovm.data$recruited <- as.Date(ovm.data$recruited)
 ovm.data <- as.tibble(ovm.data)
 ovm.data <- mutate(ovm.data,days = age/86400)
-ovm.connectivity <- summarize(group_by(ovm.data,source, settle), count = n())
-ovm.settlement <- summarize(group_by(ovm.data, settle), ovm = n())
+ovm.data <- left_join(ovm.data, reefs,by=c("settle"="PATCH_NUM"))
+ovm.data <- rename(ovm.data, settle.region=REGION)
+#ovm.connectivity <- summarize(group_by(diel.data,source, settle), count = n())
+ovm.settlement <- summarize(group_by(ovm.data, settle.region), ovm = n())
 
-path <- c("/Users/steve/Documents/PhD/Thesis/chapters/theoretical/data/models/orientate")
+path <- c("/Users/steve/Documents/PhD/Thesis/chapters/theoretical/data/model-output/orientate")
 setwd(path)
 orientate.data <- do.call(rbind,lapply(list.files(pattern="\\connectivity-matrix.csv", recursive = TRUE), read.csv, stringsAsFactors=FALSE))
-colnames(orientate.data) <- headings
-orientate.data$birthday <- as.Date(orientate.data$birthday)
-orientate.data$recruited <- as.Date(orientate.data$recruited)
+#colnames(orientate.data) <- headings
+#orientate.data$birthday <- as.Date(orientate.data$born)
+#orientate.data$recruited <- as.Date(orientate.data$recruited)
 orientate.data <- as.tibble(orientate.data)
-orientate.data <- mutate(orientate.data,days = age/86400)
-orientate.connectivity <- summarize(group_by(orientate.data,source, settle), count = n())
-orientate.settlement <- summarize(group_by(orientate.data, settle), orientate = n())
+#orientate.data <- mutate(orientate.data,days = age/86400)
+#orientate.connectivity <- summarize(group_by(orientate.data,source, settle), count = n())
+#orientate.settlement <- summarize(group_by(orientate.data, settle), orientate = n())
+orientate.data <- left_join(orientate.data, reefs,by=c("settle"="PATCH_NUM"))
+orientate.data <- rename(orientate.data, settle.region=REGION)
+#ovm.connectivity <- summarize(group_by(diel.data,source, settle), count = n())
+orientate.settlement.region <- summarize(group_by(orientate.data, settle.region), orientate = n())
+orientate.settlement.reef <- summarize(group_by(orientate.data, settle.region), orientate = n())
 
 phase1.data <- passive.settlement %>% full_join(diel.settlement) %>% full_join(ovm.settlement) %>% full_join(orientate.settlement)
+phase1.data.reef <- passive.settlement.reef %>% full_join(diel.settlement.reef) %>% full_join(ovm.settlement.reef) %>% full_join(orientate.settlement.reef)
+
+phase1.connectivity <- left_join(phase1.data, reefs,by=c("settle"="PATCH_NUM"))
+phase1.connectivity <- rename(phase1.connectivity, settle.region=REGION)
+#phase1.connectivity$settle.region <- as.factor(phase1.connectivity$settle.region)
+phase1.connectivity2 <- phase1.connectivity %>% select(-HABITAT,-settle)
+
 phase1.community_matrix <- data.matrix(phase1.data)
-row.names(phase1.community_matrix) <- phase1.data$settle
+row.names(phase1.community_matrix) <- phase1.data$settle.region
 phase1.community_matrix <- phase1.community_matrix[,2:5]
 phase1.community_matrix.t <- t(phase1.community_matrix)
 phase1.community_matrix.t[is.na(phase1.community_matrix.t)] <- 0
 
+phase1.connectivity3 <- phase1.connectivity %>% select(-HABITAT,-settle.region)
+phase1.community_matrix2 <- data.matrix(phase1.data)
+row.names(phase1.community_matrix2) <- phase1.data$settle
+phase1.community_matrix2 <- phase1.community_matrix2[,2:5]
+phase1.community_matrix2.t <- t(phase1.community_matrix2)
+phase1.community_matrix2.t[is.na(phase1.community_matrix2.t)] <- 0
+
 # nMDS
-phase1.nmds <- metaMDS(phase1.community_matrix.t, k=2, trymax=100)
+phase1.nmds <- metaMDS(phase1.community_matrix.t, k=2, trymax=200)
 stressplot(phase1.nmds)
 plot(phase1.nmds)
+
+reefs <- read_csv("../../data/reefs.csv")
+#passive.connectivity <- summarize(group_by(passive.data,source, settle), count = n())
+passive.connectivity <- left_join(passive.data, reefs,by=c("settle"="PATCH_NUM"))
+passive.connectivity <- rename(passive.connectivity, settle.region=REGION)
+passive.connectivity <- left_join(passive.connectivity, reefs,by=c("source"="PATCH_NUM"))
+passive.connectivity <- rename(passive.connectivity, source.region=REGION)
+#passive.connectivity <- as.factor(passive.connectivity$source.region)
+passive.region <- summarize(group_by(passive.connectivity, source.region, settle), count = n())
+passive.region_matrix <- data.matrix(passive.region)
+row.names(passive.region_matrix) <- passive.region$source.region
+passive.region_matrix <- passive.region_matrix[,-1]
+#passive.reef_matrix <- summarize(group_by(passive.connectivity,source, settle), count = n())
+
+phase1.nmds <- metaMDS(passive.region_matrix, k=2, trymax=100)
+stressplot(phase1.nmds)
+plot(phase1.nmds)
+
+passive.region <- spread(passive.region,key=settle,value=count)
 
 # Connectivity analysis
 reefs <- read_csv("../../data/reefs.csv")
