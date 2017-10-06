@@ -40,7 +40,7 @@ data.all <- data.all %>% mutate(movement =
                                   vertical_swimming_ability |
                                   horizontal_swimming_ability |
                                   sinking_velocity  | 
-                                  diel_vertical_migration) %>% mutate(settlement = sensory_extent > 0)
+                                  diel_vertical_migration) %>% mutate(sensory_ability = ifelse(buffer_size > 0, TRUE, FALSE)) %>% replace_na(list(sensory_ability = FALSE))
 ```
 
 Summary of all the data
@@ -49,26 +49,66 @@ Summary of all the data
 summary(data.all)
 ```
 
+# Methods
+
+Number of papers and journals
+```{r}
+length(unique(data.all$title))
+length(unique(data.all$journal))
+```
+
 # Current trends in biophysical modelling
 
 Figure 1: Publication years
 ```{r}
 data.all$published <- as.factor(data.all$published)
 years.data <- data.all %>% select(paper_id, published) %>% distinct(paper_id, published)
-years.plot <- ggplot(years.data,aes(published)) + geom_bar() + labs(x="Years of publication", y="Number of studies") + theme_few() + scale_colour_few()
+years.plot <- ggplot(years.data,aes(published)) + geom_bar() + labs(x="Year published", y="Number of studies") + theme_few() + scale_colour_few()
 years.plot
-ggsave("../../figs/years.png", plot=years.plot, width=81, height=70, units="mm", dpi=96)
+ggsave("../../figs/years.png", plot=years.plot, width=162, height=140, units="mm", dpi=96)
 ```
 
 Figure 2: The taxa modelled
 ```{r}
+data.all$species_type <- as.factor(data.all$species_type)
 taxa.plot <- ggplot(data=data.all,aes(sort_factor(species_type))) + 
-  geom_bar() + coord_flip() + ylab("Number of models") + xlab("Modelled taxa") + 
-  scale_x_discrete(labels = c("Cnidarian","Gastropod","Macroalgae","Echinoderm","Polychaete","Coral","Crustacean","Mollusc","Bivalvia","Fish","Generic")) +
+  geom_bar() + coord_flip() + ylab("Number of models") + xlab("Modelled taxa") + scale_x_discrete(labels = c("Cnidarian","Gastropod","Macroalgae","Echinoderm","Polychaete","Coral","Crustacean","Mollusc","Bivalvia","Fish","Generic")) +
   theme_few() + scale_colour_few()
-ggsave("../../figs/taxa.png", plot=taxa.plot, width=81, height=60, units="mm", dpi=96)
+ggsave("../../figs/taxa.png", plot=taxa.plot, width=162, height=120, units="mm", dpi=96)
 taxa.plot
 ```
+
+## Model context
+```{r}
+get_factor_proportion(data.all$species_type)
+data.models <- distinct(select(data.all,title, model_reuse, model_name, motivation, geographical_zone))
+data.models$model_name <- addNA(data.models$model_name)
+data.models$model_reuse <- addNA(data.models$model_reuse)
+get_factor_proportion(data.models$model_reuse)
+get_factor_proportion(data.models$model_name)
+get_factor_proportion(data.models$motivation)
+get_factor_proportion(data.models$geographical_zone)
+get_factor_proportion(data.all$years_total)
+summary(data.all$years_total)
+summary(data.all$date_start)
+summary(data.all$date_end)
+```
+
+## How connectivity studies are parametising the physical model
+```{r}
+data.models <- distinct(select(data.all,title, physical_model, nested_submodels,model_resolution_min, model_integration, model_time_step))
+data.models$physical_model <- addNA(data.models$physical_model)
+data.models$nested_submodels <- addNA(data.models$nested_submodels)
+data.models$model_integration <- addNA(data.models$model_integration)
+get_factor_proportion(data.models$physical_model)
+get_factor_proportion(data.models$nested_submodels)
+summary(data.models$model_resolution_min)
+get_factor_proportion(data.models$model_integration)
+summary(data.models$model_time_step)
+data.models$model_time_step <- addNA(data.models$model_time_step)
+get_factor_proportion(data.models$model_time_step)
+```
+
 
 Table 2: Percentage of biological traits implemented.
 
@@ -107,13 +147,14 @@ growth.percentage
 
 Sensory ability
 ```{r}
-sensory_ability.percentage <- length(which((data.all$sensory_ability))) / length(data.all$sensory_ability) * 100
+#senses <- filter(data.all, buffer_size > 0 | sensory_zone > 0)
+sensory_ability.percentage <- length(which(data.all$buffer_size > 0 | data.all$sensory_zone > 0)) / length(data.all$buffer_size) * 100
 sensory_ability.percentage
 ```
 
 Orientation
 ```{r}
-orientation.percentage <- length(which((data.all$orientation))) / length(data.all$orientation) * 100
+orientation.percentage <- length(which((data.all$directed_swimming))) / length(data.all$directed_swimming) * 100
 orientation.percentage
 ```
 
@@ -148,15 +189,36 @@ Range
 summary(data.all$pld_fixed)
 ```
 
+### Spawning strategies
+
+```{r}
+get_factor_proportion(addNA(data.all$spawning_depth_type))
+#get_factor_proportion(addNA(data.all$spawning_initiation))
+data.all <- mutate(data.all, spawning_diff = (spawning_settlement_sites - spawning_release_sites) == 0)
+get_factor_proportion(addNA(data.all$spawning_diff))
+summary(data.all$particles_spawned_at_individual_site)
+summary(data.all$particles_spawned_total)
+get_factor_proportion(addNA(data.all$particles_spawned_super_individual))
+```
+
+#### Mortality & Growth
+
+```{r}
+get_factor_proportion(data.all$mortality_function)
+summary(filter(data.all,mortality_function == 'Linear')$mortality_rate)
+```
+
+
 #### Movement behaviours
 
 Figure 3: Percentage of models over time (fish and inverts)
 ```{r}
-papers.comparisons <- data.all %>% gather(behaviours, implemented,passive_movement,movement,orientation,settlement)
+data.all$published <- as.factor(data.all$published)
+papers.comparisons <- data.all %>% gather(behaviours, implemented,passive_movement,movement,directed_swimming, sensory_ability)
 papers.comparisons <- papers.comparisons %>% select(paper_id,published,behaviours,implemented,species_type) %>% distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
   mutate(taxa = if_else(is_fish == TRUE & is_invert == FALSE, 'Fish', if_else(is_invert == TRUE, 'Invertebrate', 'NA'))) %>% filter( taxa == 'Fish' | taxa == 'Invertebrate')
 
-comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "Publication year", y = "Number of models") +theme_few()+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","settlement","orientation"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
+comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "Publication year", y = "Number of models") +theme_few()+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("A","B")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
 
 
 papers.comparisons.prop <- papers.comparisons %>%
@@ -164,10 +226,10 @@ papers.comparisons.prop <- papers.comparisons %>%
   summarise (n = n()) %>%
   mutate(freq = n / sum(n))
 
-prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "Publication year", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_few() + theme(legend.title = element_blank(), legend.position = "top",,axis.text.x=element_text(angle=90)) +  scale_colour_grey(breaks=c("passive_movement","movement","settlement","orientation"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","settlement","orientation"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("c","d"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
+prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "Publication year", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_few() + theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_grey(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("C","D"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
 
 p <- grid.arrange(comparisons.plot,prop.plot,ncol=2)
-ggsave("../../figs/comparisons.png",plot=p,width = 169, height=120, units="mm",dpi=96)
+ggsave("../../figs/comparisons.png",plot=p,width = 169, height=120, units="mm",dpi=300)
 #p <- grid.arrange(
 #ggsave("figs/invert_prop.png",plot=p)
 
@@ -184,13 +246,69 @@ passive.percentage <- length(which((data.fish$passive_movement))) / length(data.
 passive.percentage
 ```
 
+```{r}
+data.movement <- filter(data.all,movement)
+get_factor_proportion(data.movement$diel_vertical_migration)
+get_factor_proportion(data.movement$ontogentic_vertical_migration)
+get_factor_proportion(data.movement$horizontal_swimming_ability)
+get_factor_proportion(data.movement$vertical_swimming_ability)
+get_factor_proportion(data.movement$circatidal_migration)
+get_factor_proportion(data.movement$pynocline_migration)
+get_factor_proportion(data.movement$halocline_migration)
+get_factor_proportion(data.movement$sinking_velocity)
+get_factor_proportion(data.movement$egg_buoyancy)
+```
+
+```{r}
+length(senses$passive_movement) / length(data.all$passive_movement) * 100
+get_factor_proportion(addNA(senses$buffer_size))
+summary(senses$buffer_size)
+summary(senses$sensory_zone)
+```
+
+### Metrics used to describe connectivity
+
+```{r}
+get_factor_proportion(data.all$dispersal_kernel)
+
+data.dk <- filter(data.all, dispersal_kernel)
+get_factor_proportion(addNA(data.dk$mean_distance))
+get_factor_proportion(addNA(data.dk$median_distance))
+get_factor_proportion(addNA(data.dk$distance_travelled_max))
+get_factor_proportion(addNA(data.dk$distance_travelled_upper_quantile))
+
+data.all <- mutate(data.all, connectivity_metrics = connectivity_metrics_realised | connectivity_metrics_potential)
+get_factor_proportion(data.all$connectivity_metrics)
+data.cm <- filter(data.all, connectivity_metrics)
+get_factor_proportion(addNA(data.cm$self_recruitment))
+get_factor_proportion(addNA(data.cm$local_retention))
+get_factor_proportion(addNA(data.cm$settlement_success))
+
+get_factor_proportion(data.all$graph_theory)
+get_factor_proportion(addNA(data.all$centre_of_mass))
+get_factor_proportion(addNA(data.all$isotropy))
+get_factor_proportion(addNA(data.all$positive_area))
+get_factor_proportion(addNA(data.all$proportion_sites_settled))
+
+data.cm <- data.cm %>% mutate(sr_values = self_recruitment_mean > 0 | self_recruitment_max > 0) %>% mutate(lr_values = local_retention_mean > 0 | local_retention_max > 0) %>% mutate(ss_values = settlement_success_mean > 0 | settlement_success_min > 0)
+get_factor_proportion(addNA(data.cm$lr_values))
+get_factor_proportion(addNA(data.cm$sr_values))
+get_factor_proportion(addNA(data.cm$ss_values))
+
+summary(data.cm$self_recruitment_mean)
+summary(data.cm$local_retention_mean)
+summary(data.cm$settlement_success_mean)
+summary(data.cm$distance_travelled_mean)
+```
+
+
 ## Influence of modelling decisions on connectivity values
 
 ### Model Resolution
 
 ```{r}
 resolution.data <- data.all %>% select(model_resolution_min,self_recruitment_mean,settlement_success_mean,
-                                       local_retention_mean,distance_travelled_mean)
+                                       local_retention_mean,distance_travelled_mean) %>% filter(model_resolution_min < 20)
 resolution.sr_lm <- lm(model_resolution_min ~ self_recruitment_mean, data = resolution.data)
 resolution.ss_lm <- lm(model_resolution_min ~ settlement_success_mean, data = resolution.data)
 resolution.lr_lm <- lm(model_resolution_min ~ local_retention_mean, data = resolution.data)
@@ -209,7 +327,7 @@ resolution1 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_
 resolution2 <- ggplot(resolution.data,aes(model_resolution_min,local_retention_mean)) + 
   geom_point() + 
   labs(x="", y="Local retention (%)") +
-  geom_smooth(method = lm,colour='black',linetype = "dashed") + 
+  geom_smooth(method = lm,colour='black') + 
   theme_few() + 
   scale_colour_few()+ 
   scale_y_continuous(limits = c(0, 1.0)) +
@@ -257,7 +375,7 @@ pld1 <- ggplot(data.pld, aes(pld_fixed, self_recruitment_mean)) +
 pld2 <- ggplot(data.pld, aes(pld_fixed, local_retention_mean)) + 
   geom_point() + 
   labs(x ="", y = "") +
-  geom_smooth(method = lm,colour='black',linetype = "dashed") + 
+  geom_smooth(method = lm,colour='black') + 
   theme_few() + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
@@ -281,25 +399,25 @@ grid.arrange(pld1, pld2, pld3, pld4)
 
 ### Settlement competency window
 ```{r}
-data.all <- data.all %>% mutate(window=pld_fixed-settlement_competency_type_start)
-window.sr_lm <- lm(window ~ self_recruitment_mean, data = data.all)
-window.ss_lm <- lm(window ~ settlement_success_mean, data = data.all)
-window.lr_lm <- lm(window ~ local_retention_mean, data = data.all)
-window.dd_lm <- lm(window ~ distance_travelled_mean, data = data.all)
+data.sr <- data.all %>% mutate(window=pld_fixed-settlement_competency_type_start) %>% filter(window < 50)
+window.sr_lm <- lm(window ~ self_recruitment_mean, data = data.sr)
+window.ss_lm <- lm(window ~ settlement_success_mean, data = data.sr)
+window.lr_lm <- lm(window ~ local_retention_mean, data = data.sr)
+window.dd_lm <- lm(window ~ distance_travelled_mean, data = data.sr)
 summary(window.sr_lm)
 summary(window.ss_lm)
 summary(window.lr_lm)
 summary(window.dd_lm)
-window1 <- ggplot(data.all,aes(window,self_recruitment_mean)) + 
+window1 <- ggplot(data.sr,aes(window,self_recruitment_mean)) + 
   geom_point() + 
-  geom_smooth(method=lm,colour='black',linetype = "dashed") + 
+  geom_smooth(method=lm,colour='black') + 
   labs(x="", y="")+
   theme_few() + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0))+
   theme(axis.text=element_text(size=8))
 
-window2 <- ggplot(data.all,aes(window,local_retention_mean)) + 
+window2 <- ggplot(data.sr,aes(window,local_retention_mean)) + 
   geom_point() + 
   geom_smooth(method=lm,colour='black',linetype = "dashed")+ 
   labs(x="", y="")+
@@ -308,7 +426,7 @@ window2 <- ggplot(data.all,aes(window,local_retention_mean)) +
   scale_y_continuous(limits = c(0, 1.0))+
   theme(axis.text=element_text(size=8))
 
-window3 <- ggplot(data.all,aes(window,settlement_success_mean)) + 
+window3 <- ggplot(data.sr,aes(window,settlement_success_mean)) + 
   geom_point() + 
   labs(x="", y="")+ 
   theme_few()+
@@ -316,7 +434,7 @@ window3 <- ggplot(data.all,aes(window,settlement_success_mean)) +
   scale_y_continuous(limits = c(0, 1.0)) +
   theme(axis.text=element_text(size=8))
 
-window4 <- ggplot(data.all,aes(window,distance_travelled_mean)) + 
+window4 <- ggplot(data.sr,aes(window,distance_travelled_mean)) + 
   geom_point() + 
   labs(x="Settlement window (days)", y="")+
   theme_few() + 
@@ -367,12 +485,12 @@ t.test(distance_travelled_mean ~ mortality, data=data.all, var.equal=FALSE)
 Figure for the movement behaviours with metrics
 
 ```{r}
-behaviour.data <- data.all %>% mutate(settlement = sensory_ability & passive_movement & !orientation) %>% 
-  mutate(orien_settle = orientation & sensory_ability) %>% 
-  mutate(move_settle = sensory_ability & movement & !orientation) %>% 
-  mutate(no_behav = passive_movement == TRUE & sensory_ability == FALSE & orientation == FALSE) %>% 
-  mutate(orien = orientation == TRUE & sensory_ability == FALSE & passive_movement == FALSE) %>% 
-  mutate(move = passive_movement == FALSE & sensory_ability == FALSE & orientation == FALSE)
+behaviour.data <- data.all %>% mutate(settlement = sensory_ability & passive_movement & !directed_swimming) %>% 
+  mutate(orien_settle = directed_swimming & sensory_ability) %>% 
+  mutate(move_settle = sensory_ability & movement & !directed_swimming) %>% 
+  mutate(no_behav = passive_movement == TRUE & sensory_ability == FALSE & directed_swimming == FALSE) %>% 
+  mutate(orien = directed_swimming == TRUE & sensory_ability == FALSE & passive_movement == FALSE) %>% 
+  mutate(move = passive_movement == FALSE & sensory_ability == FALSE & directed_swimming == FALSE)
 
 behaviour.data <- behaviour.data %>% 
   gather(behaviours, implemented,no_behav,move,orien,settlement,orien_settle,move_settle) %>% 
