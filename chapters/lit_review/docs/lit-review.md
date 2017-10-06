@@ -1,4 +1,4 @@
-taxonomicTitle
+Title
 -----
 Making the right choices: a meta-analysis of connectivity metrics derived from ichthyoplankton biophysical dispersal models
 
@@ -116,15 +116,10 @@ As indicated above, much of the variation observed in connectivity values and pa
 
 ### Modelling environment
 
-#### Model choice
+There is no clear effect of either BDM or physical model choice on the resulting connectivity metrics (see Supplementary Materials S1). For example, the Connectivity Modelling System (CMS) had consistent reported values of self-recruitment between studies, but variable settlement success. Studies using HYCOM and POM had the largest ranges amongst the metrics. ROMS and HANSOM had the least variation of metrics for the common hydrodynamic model. Without knowing the specifics of various BDMs, we expected there to be variation due to the different implementations. However, large variation suggests the effect of implementation is minimal on the resulting connectivity metrics, instead driven by parameter choice - a welcome result. The variation shown between hydrodynamic models also suggests there are other factors, although choice of hydrodynamic models is based on tradeoff between realism and availability.
 
-There is no clear effect of either BDM or physical model choice on the resulting connectivity metrics (see Supplementary Materials S1). For example, the Connectivity Modelling System (CMS) had consistent reported values of self-recruitment between studies, but variable settlement success. Studies using HYCOM and POM had the largest ranges amongst the metrics. ROMS and HANSOM had the least variation of metrics for the common hydrodynamic models.
+There was a significant positive predictive relationship between the resolution of the hydrodynamic model and local retention (r^2^ = 0.82, F(1,17) = 79.11, p \< 0.05; @fig:metrics_panel X), but no relationship between model resolution and the other metrics, self-recruitment (r^2^ = 0.05, F(1,57) = 2.75, p > 0.05; @fig:metrics_panel X), settlement success (r^2^ = 0.01, F(1,64) = 0.77, p > 0.05; @fig:metrics_panel X), or dispersal distance (r^2^ = 0.01, F(1,51) = 0.69, p > 0.05; @fig:metrics_panel X). This was unexpected, given that finer resolutions capture more sub-mesoscale processes to influence the trajectory of the larvae, i.e. increasing self-recruitment as small eddies trap larvae close to natal reefs. While local retention was found to increase as the resolution gets coarser, it is a  relationship driven by one data point at 10 km (@fig:metrics_panel X). This relationship is counter-intuitive, however it could be explained by coarser resolved currents directed towards shore, and not capturing other near-shore processes.
 
-### Model resolution
-
-There was a significant positive predictive relationship between the resolution of the hydrodynamic model and local retention (r^2^ = 0.82, F(1,17) = 79.11, p \< 0.05; @fig:metrics_panel), but no relationship between model resolution and the other metrics, self-recruitment (r^2^ = 0.05, F(1,57) = 2.75, p > 0.05), settlement success (r^2^ = 0.01, F(1,64) = 0.77, p > 0.05), or dispersal distance (r^2^ = 0.01, F(1,51) = 0.69, p > 0.05). This was unexpected, given that the increased resolution captures more sub-mesoscale processes to influence the trajectory of the larvae, e.g. increasing self-recruitment as small eddies trap larvae close to natal reefs. Local retention was found to increase as the resolution gets coarser, although the relationship is driven by one data point at 10 km, thus there is not enough information to infer a relationship.
-
-increases as model resolution gets coarser, which is difficult to explain in absence of no relationship with self-recruitment or settlement success and model resolution.
 
 ![METRICS PANEL](../figs/metrics_panel.png){#fig:metrics_panel}
 
