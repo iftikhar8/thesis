@@ -20,7 +20,7 @@ Introduction
 
 Biophysical dispersal modelling (BDM) has been used to investigate marine dispersal patterns for three decades [@Bartsch:1988vg] — increasingly utilised in the last 10-15 years to estimate marine larval connectivity. BDMs produce potential patterns of connectivity using a physical (i.e. hydrodynamic) model, coupled with a biological model, encapsulating the biology of a marine species, to move the particles within the physical system [@Cowen:2009fm]. These models lend themselves to studies inferring distributional patterns for marine species with two distinct life stages, pelagic larval and contrasting sedentary adult phase. BDMs allow us to investigate questions that are inherently difficult to ask *in situ* [@Cowen:2009fm], from allowing us to investigate potential connectivity patterns over wide spatial scales [@Andrello:2013cc; @Treml:2015bt] and long temporal scales [@Richar:2014cg; @Berglund:2012cr]; to investigating how different early-life history traits (e.g. spawning times, diel migration, and swimming abilities) affect connectivity patterns [@Butler:2011wu; @Staaterman:2012ek].
 
-Complexity and realism in BDMs has increased progressively; likely driven in part by both reduced costs of high performance computing, and increasing open access to high resolution oceanographic flow models and dispersal models. Basic research is also fuelling this trend, as studies are increasingly demonstrating the nektonic ability of pelagic marine larvae [@Leis2010325]. [@Miller:2007iu] evinced this trend in the review of ichthyoplankton biophysical modelling (referred to by Miller as individual-level, coupled physical-biological models), where 43.3% of studies implemented behaviour, predominately age-dependent vertical migration behaviour. This increased focus on the importance of the biology in BDMs has led to important insights about the role of larval behaviour in dispersal. Spawning behaviour (along with the location of the natal site) influences dispersal patterns [@Puckett:2014cx], and vertical movement of larval fish increases retention near the natal site and affect connectivity patterns [@Paris:2004te; @Brochier:2008hd; @Robins:2013ih; @Paris:2007hm]. Horizontal swimming has not been specifically included in BDMs (commonly implemented as a random walk) to the same extent as vertical migration, although combined with the ability for larvae to orientate towards a source, it is expected to influence larval connectivity patterns [@Leis:2007jh]. Directed swimming towards swimming towards settlement sites increases settlement success, including settlement at or near the natal site [@Staaterman:2012ek; @Wolanski:2014eb]. From empirical studies, we know larval fish can achieve considerable swimming speeds, potentially giving the ability to out-swim the surrounding current, and it improves with growth [@Leis:2006kf].
+Complexity and realism in BDMs has increased progressively; likely driven in part by both reduced costs of high performance computing, and increasing open access to high resolution oceanographic flow models and dispersal models. Basic research is also fuelling this trend, as studies are increasingly demonstrating the nektonic ability of pelagic marine larvae [@Leis2010325]. @Miller:2007iu evinced this trend in the review of ichthyoplankton biophysical modelling (referred to by Miller as individual-level, coupled physical-biological models), where 43.3% of studies implemented behaviour, predominately age-dependent vertical migration behaviour. This increased focus on the importance of the biology in BDMs has led to important insights about the role of larval behaviour in dispersal. Spawning behaviour (along with the location of the natal site) influences dispersal patterns [@Puckett:2014cx], and vertical movement of larval fish increases retention near the natal site and affect connectivity patterns [@Paris:2004te; @Brochier:2008hd; @Robins:2013ih; @Paris:2007hm]. Horizontal swimming has not been specifically included in BDMs (commonly implemented as a random walk) to the same extent as vertical migration, although combined with the ability for larvae to orientate towards a source, it is expected to influence larval connectivity patterns [@Leis:2007jh]. Directed swimming towards swimming towards settlement sites increases settlement success, including settlement at or near the natal site [@Staaterman:2012ek; @Wolanski:2014eb]. From empirical studies, we know larval fish can achieve considerable swimming speeds, potentially giving the ability to out-swim the surrounding current, and it improves with growth [@Leis:2006kf].
 
 This previous work has made it clear that the biological components of BDMs can strongly affect connectivity patterns; and this emphasis has been recognised in the ICES publication, "Manual of recommended practices for modelling physical-biological interactions during fish early life", which recommends their inclusion and provides implementation guidance for researchers [@North:2009tx]. Larval behaviour is prominent in published BDM tools, such as the Connectivity Modelling System [CMS; @Paris:2013fs] & Connie3 (<http://www.csiro.au/connie/>). But despite this increasing attention paid to the importance of the biological model, there remains little consensus on the relative importance of different biological parameters. For BDMs to be a robust tool in understanding the connectivity of marine populations, such a consensus is ultimately required. Considerable context dependence to the relative importance of some biological parameters may exist (i.e. the importance of horizontal swimming may depend on the strength of the flow regime or the length of the larval period), while the inclusion of others may always make a large difference to the resulting connectivity patterns.
 
@@ -45,13 +45,19 @@ To address our aim of evaluating the application of biology in BDMs, we summaris
 
 : The definition of terms used when referring to the output of biophysical connectivity studies in this review, definitions were adapted from [@Burgess:2014cf; @Cowen:2009fm] {#tbl:definitions}
 
-| Term | Definition                    |
-|-----|-------------------------------|
-| Self-recruitment | The percentage of settlers to a site, regardless of their origin site, were natal to that site. |
-| Local retention | The percentage of the larvae natal to a site that recruited back to that site. |
-| Settlement success | The percentage of recruits natal to a site that recruit to any site.  |
-| Dispersal kernel | The probability density function of the dispersal distance for the larvae released in the system.  |
-| Connectivity matrix | A matrix with columns specifying *i* natal sites and rows specifying *j*~ settlement sites, showing the probability of a larva spawned at site~*i*~ that settles at site~*j*~ at position~*ij*~. |
+----------------------------------------------------------------------
+Term               Definition
+------------------ ---------------------------------------------------
+Self-recruitment   The percentage of settlers to a site, regardless of  their origin site, were natal to that site.
+
+Local retention    The percentage of the larvae natal to a site that recruited back to that site.
+
+Settlement success The percentage of recruits natal to a site that recruit to any site.
+
+Dispersal kernel   The probability density function of the dispersal distance for the larvae released in the system.
+
+Connectivity matrix  A matrix with columns specifying *i* natal sites and rows specifying *j*~ settlement sites, showing the probability of a larva spawned at site~*i*~ that settles at site~*j*~ at position~*ij*~.
+---------------------------------------------------------------------
 
 
 Current trends in biophysical connectivity modelling
@@ -78,15 +84,15 @@ The biological parameters implemented were not consistent across studies, apart 
 : The percentage of biological traits and behaviours that were implemented in the models of the reviewed connectivity studies. {#tbl:behaviours}
 
 | Functionality                | Implemented (%) |
-|------------------------------|-----------------|
-| Pelagic larval duration      | 99.2            |
-| Spawning strategies          | 92.9            |
-| Sensory ability              | 50.8            |
-| Settlement competency window | 49.7            |
-| Mortality                    | 38.0            |
-| Movement                     | 29.1            |
-| Orientation              | 7.1             |
-| Growth                       | 6.3             |
+|------------------------------|:---------------:|
+| Pelagic larval duration      |      99.2       |
+| Spawning strategies          |      92.9       |
+| Sensory ability              |      50.8       |
+| Settlement competency window |      49.7       |
+| Mortality                    |      38.0       |
+| Movement                     |      29.1       |
+| Orientation                  |       7.1       |
+| Growth                       |       6.3       |
 
 
 The pelagic larval durations (PLD) values ranged from 2-420 days, with a median of 30 days. The PLDs were taken from published values for species or taxonomic family where available, with the longest PLDs occurring for invertebrate species e.g. the long duration (~400 days) for the phyllosoma larval stage of lobsters [@Butler:2011wu; @Kough:2013fa]. PLDs, about half the time, were used in conjunction with a settlement competency window (46.8%; @tbl:behaviours). The settlement competency window gives the marine larvae a period in which they are too young to settle, hence they become competent after a defined period. It is based on their known biology, where possible, incorporating the hypothesis that larvae must sufficiently develop morphological features before the pelagic larval stage can finish. The median start date when the larvae were considered developed enough to settle was nine days.
@@ -153,18 +159,12 @@ Conclusion and recommendations
 
 The current state of the field gives the impression it is not moving forward as coherently it should be in the eight years since the ICES manual of recommended practices was published [@North:2009tx]. A significant reason for this is the absence of published data on the early-life history of many marine species, highlighting a key area of required future research. Without data, it is difficult to justify introduce behaviour into models, as robust models aim to minimise assumptions. The popularity of BDMs as a connectivity research tool has been on a downward trend since 2012. However, the implementations of these models are getting more complex in recent years, especially for ichthyoplankton, now more BDMs implemented larval movement behaviours than without. Other behaviours of settlement sensory strategies and orientation were consistently (or sporadically in the case of orientation) implemented across the review period for models of either fish or invertebrate species, not reflecting the trend of movement. Researchers appear to be heeding the recommendations of publications such as the ICES manual [@North:2009tx] and other research showing the importance of movement in influencing connectivity patterns. Form a biological viewpoint this is encouraging, as it is in keeping with the research showing that biology matters in dispersal.
 
-This review has also highlighted the lack of unity in both input parameters and metrics to describe the output of the BDMs. There appears to be no consensus on what biological parameters to choose when implementing a model, i.e. what behaviours are required in a BDM to accurately estimate the connectivity for a reef fish species. BDMs are non-trivial models, making it difficult to standardise the output in order to produce simple comparisons. Although agreement about common metrics and consistent metrics reporting would help alleviate some of these issues. Standardisation of metrics will also assist in validating the estimated patterns of connectivity with empirical studies (e.g. genetic studies, comparisons long-term known recruitment data and other techniques where appropriate), providing important model validation. Model validation should be an ultimate goal of BDM studies, especially as understanding connectivity is a central tenet of designing marine reserves [@Almany:2009io, @Bode:2016bq].
+This review has also highlighted the lack of unity in both input parameters and metrics to describe the output of the BDMs. There appears to be no consensus on what biological parameters to choose when implementing a model, i.e. what behaviours are required in a BDM to accurately estimate the connectivity for a reef fish species. BDMs are non-trivial models, making it difficult to standardise the output in order to produce simple comparisons. Although agreement about common metrics and consistent metrics reporting would help alleviate some of these issues. Standardisation of metrics will also assist in validating the estimated patterns of connectivity with empirical studies (e.g. genetic studies, comparisons long-term known recruitment data and other techniques where appropriate), providing important model validation. Model validation should be an ultimate goal of BDM studies, especially as understanding connectivity is a central tenet of designing marine reserves [@Almany:2009io; @Bode:2016bq].
 
 The large variation seen in both the model inputs and the connectivity metrics produced from these BDMs was unexpected. Variability of metrics is most likely driven due to the non-trivial number of parameter choices made, both physical and biological, in BDMs, many of which are optional or species specific. There is a grey area when determining what information to include in a model and what level of accuracy and precision is required for biological inputs. Connectivity metrics of self-recruitment, local-retention, and settlement success appear to be affected by different model inputs, which underscores the inherent complexity.
 
 In conclusion, we believe in order for this field to progress further, we need to better understand the relative importance of different behaviours of connectivity for ichthyoplankton and other marine families (potentially species/taxa specific). This understanding will us to generate baseline models for connectivity and highlight areas of knowledge gaps in early-life history that need to be addressed so we can confidently parametrise these BDMs and generate better outcomes.
 
-Supplementary Materials
------------------------
-
-[The bdm models (../figs/bdm-models.png){#fig:bdm-models}]
-
-[The hydrodynamic models (../figs/physical-models.png){#fig:physical-models}]
 
 References
 ----------
