@@ -69,6 +69,13 @@ phase1.nmds <- metaMDS(phase1.community_matrix.t, distance="bray", k=2, trymax=1
 stressplot(phase1.nmds)
 plot(phase1.nmds)
 
+phase1.pca <- prcomp(phase1.community_matrix.t)
+biplot(phase1.pca)
+phase1.rda <- rda(phase1.community_matrix.t, scale = TRUE)
+biplot(phase1.rda, display=c("sites","species"), type=c("text"), scaling =3)
+ordihull(phase1.rda, group=row.names(phase1.community_matrix.t))
+phase1.ca <- cca(phase1.community_matrix.t)
+
 reefs <- read_csv("../../data/reefs.csv")
 #passive.connectivity <- summarize(group_by(passive.data,source, settle), count = n())
 passive.connectivity <- left_join(passive.data, reefs,by=c("settle"="PATCH_NUM"))
