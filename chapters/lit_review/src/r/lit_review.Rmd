@@ -218,7 +218,7 @@ papers.comparisons <- data.all %>% gather(behaviours, implemented,passive_moveme
 papers.comparisons <- papers.comparisons %>% select(paper_id,published,behaviours,implemented,species_type) %>% distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
   mutate(taxa = if_else(is_fish == TRUE & is_invert == FALSE, 'Fish', if_else(is_invert == TRUE, 'Invertebrate', 'NA'))) %>% filter( taxa == 'Fish' | taxa == 'Invertebrate')
 
-comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "Publication year", y = "Number of models") +theme_few()+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("A","B")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
+comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of models") +theme_few()+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("A","B")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
 
 
 papers.comparisons.prop <- papers.comparisons %>%
@@ -226,9 +226,9 @@ papers.comparisons.prop <- papers.comparisons %>%
   summarise (n = n()) %>%
   mutate(freq = n / sum(n))
 
-prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "Publication year", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_few() + theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_grey(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("C","D"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
+prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_few() + theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_grey(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("C","D"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
 
-p <- grid.arrange(comparisons.plot,prop.plot,ncol=2)
+p <- grid.arrange(comparisons.plot,prop.plot,ncol=2, bottom="Publication year")
 ggsave("../../figs/comparisons.png",plot=p,width = 169, height=120, units="mm",dpi=300)
 #p <- grid.arrange(
 #ggsave("figs/invert_prop.png",plot=p)
@@ -379,7 +379,7 @@ summary(resolution.ss_lm)
 summary(resolution.lr_lm)
 summary(resolution.dd_lm)
 resolution1 <- ggplot(resolution.data,aes(model_resolution_min,local_retention_mean)) + 
-  geom_point() + 
+  geom_point(size=1) + 
   labs(x="", y="Local retention (%)") +
   geom_smooth(method = lm,colour='black') + 
   theme_few() + 
@@ -388,7 +388,7 @@ resolution1 <- ggplot(resolution.data,aes(model_resolution_min,local_retention_m
   annotate(geom = "text", x = 12.5, y = 0.95, label = c("A")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution2 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_mean)) +   
-  geom_point() + 
+  geom_point(size=1) + 
   labs(x="", y="Self-recruitment (%)")+
   theme_few() + 
   scale_colour_few() + 
@@ -396,7 +396,7 @@ resolution2 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_
   annotate(geom = "text", x = 12.5, y = 0.95, label = c("B")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution3 <- ggplot(resolution.data,aes(model_resolution_min,settlement_success_mean)) + 
-  geom_point()+ 
+  geom_point(size=1)+ 
   labs(x="", y="Settlement success (%)") +
   theme_few() + 
   scale_colour_few() + 
@@ -404,7 +404,7 @@ resolution3 <- ggplot(resolution.data,aes(model_resolution_min,settlement_succes
   annotate(geom = "text", x = 12.5, y = 0.95, label = c("C")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution4 <- ggplot(resolution.data,aes(model_resolution_min,distance_travelled_mean)) + 
-  geom_point() + 
+  geom_point(size=1) + 
   labs(x="Model resolution (km^2)", y="Dispersal distance (km)") +
   theme_few() + 
   scale_colour_few() + 
@@ -431,7 +431,7 @@ summary(pld.lr_lm)
 summary(pld.ss_lm)
 summary(pld.dd_lm)
 pld1 <- ggplot(data.pld, aes(pld_fixed, local_retention_mean)) + 
-  geom_point() + 
+  geom_point(size=1) + 
   labs(x ="", y = "") +
   geom_smooth(method = lm,colour='black') + 
   theme_few() + 
@@ -440,7 +440,7 @@ pld1 <- ggplot(data.pld, aes(pld_fixed, local_retention_mean)) +
   annotate(geom = "text", x = 120, y = 0.95, label = c("E")) +
   theme(axis.text=element_text(size=8))
 pld2 <- ggplot(data.pld, aes(pld_fixed, self_recruitment_mean)) +
-  geom_point() + 
+  geom_point(size=1)  + 
   labs(x = "", y = "") +
   theme_few() + 
   scale_colour_few() + 
@@ -448,7 +448,7 @@ pld2 <- ggplot(data.pld, aes(pld_fixed, self_recruitment_mean)) +
   annotate(geom = "text", x = 120, y = 0.95, label = c("F")) +
   theme(axis.text=element_text(size=8))
 pld3 <- ggplot(data.pld, aes(pld_fixed, settlement_success_mean)) + 
-  geom_point() + 
+  geom_point(size=1) + 
   labs(x ="", y = "") +
   theme_few() + 
   scale_colour_few() + 
@@ -456,7 +456,7 @@ pld3 <- ggplot(data.pld, aes(pld_fixed, settlement_success_mean)) +
   annotate(geom = "text", x = 120, y = 0.95, label = c("G")) +
   theme(axis.text=element_text(size=8))
 pld4 <- ggplot(data.pld, aes(pld_fixed, distance_travelled_mean)) + 
-  geom_point() + 
+  geom_point(size=1)  + 
   labs(x ="PLD (days)", y = "") +
   geom_smooth(method = lm,colour='black') + 
   theme_few() + 
@@ -489,7 +489,7 @@ summary(window.lr_lm)
 summary(window.dd_lm)
 
 window1 <- ggplot(data.sr,aes(window,local_retention_mean)) + 
-  geom_point() + 
+  geom_point(size=1)  + 
   labs(x="", y="")+
   theme_few() + 
   scale_colour_few() + 
@@ -498,7 +498,7 @@ window1 <- ggplot(data.sr,aes(window,local_retention_mean)) +
   theme(axis.text=element_text(size=8))
 
 window2 <- ggplot(data.sr,aes(window,self_recruitment_mean)) + 
-  geom_point() + 
+  geom_point(size=1)  + 
   geom_smooth(method=lm,colour='black') + 
   labs(x="", y="")+
   theme_few() + 
@@ -508,7 +508,7 @@ window2 <- ggplot(data.sr,aes(window,self_recruitment_mean)) +
   theme(axis.text=element_text(size=8))
 
 window3 <- ggplot(data.sr,aes(window,settlement_success_mean)) + 
-  geom_point() + 
+  geom_point(size=1)  + 
   labs(x="", y="")+ 
   theme_few()+
   scale_colour_few() + 
@@ -517,7 +517,7 @@ window3 <- ggplot(data.sr,aes(window,settlement_success_mean)) +
   theme(axis.text=element_text(size=8))
 
 window4 <- ggplot(data.sr,aes(window,distance_travelled_mean)) + 
-  geom_point() + 
+  geom_point(size=1) + 
   labs(x="Settlement window (days)", y="")+
   theme_few() + 
   scale_colour_few() + 
@@ -539,14 +539,14 @@ Figure for mortality comparisons with metrics
 ```{r}
 mortality.prop <- data.all %>% filter(mortality == TRUE) %>% group_by(mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 mort1 <- ggplot(data.all, aes(mortality, self_recruitment_mean)) + geom_boxplot() + #geom_jitter(width = 0.1)+ 
-  labs(x="", y="Self-recruitment %")+ theme_few() + scale_fill_grey() +
+  labs(x="", y="Self-recruitment (%)")+ theme_few() + scale_fill_grey() +
    #annotate(geom = "text", x=TRUE y = 0.95, label = c("A")) +
   scale_y_continuous(limits = c(0, 1.0)) + scale_x_discrete(labels=c("Immortality","Mortality"))
 mort2 <- ggplot(data.all, aes(mortality, local_retention_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
-  labs(x="", y="Local retention %")+ theme_few() + scale_fill_few() +
+  labs(x="", y="Local retention (%)")+ theme_few() + scale_fill_few() +
   scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("Immortality","Mortality"))
 mort3 <- ggplot(data.all, aes(mortality, settlement_success_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
-  labs(x="", y="Settlement success %")+ theme_few() + scale_fill_few() +
+  labs(x="", y="Settlement success (%)")+ theme_few() + scale_fill_few() +
   scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("Immortality","Mortality"))
 mort4 <- ggplot(data.all, aes(mortality, distance_travelled_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   labs(x="", y="Dispersal distance (km)")+ theme_few() + scale_fill_few()+ scale_x_discrete(labels=c("Immortality","Mortality"))
