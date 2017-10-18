@@ -1,0 +1,122 @@
+---
+title: "Empirical analysis"
+output:
+  word_document: default
+  pdf_document: default
+  html_notebook: default
+---
+
+# The analysis of my empirical chapter - take 3. 
+
+```{r Packages, include=FALSE}
+require(tidyverse)
+library(corrr)
+library(MASS)
+library(lsmeans)
+library(lme4)
+```
+
+```{r Load data, include=FALSE}
+load(file="length.RData")
+load(file="ontogeny.RData")
+```
+
+
+
+
+# Exploratory analysis
+
+## Check for correlations - any correlated enough to remove??? To me DO and Chloro look highly correlated
+```{r}
+data.environment <- data.ontogeny %>% ungroup() %>% dplyr::select(temperature, salinity, chlorophyll_fluorescence, dissolved_oxygen) 
+correlate(data.environment)
+```
+
+## What does the data look like?
+```{r}
+ggplot(data=data.ontogeny, aes(conc)) + 
+  geom_histogram(breaks=seq(0, 0.15, by=0.001)) + facet_wrap(~ family) + labs(x="concentration")
+```
+
+
+```{r Explore ontogeny data}
+#data.ontogeny.summary <- na.omit(data.ontogeny)
+data.ontogeny.interaction_ds <-  summarize(group_by(na.omit(data.ontogeny), family, depth,stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.interaction_fds <-  summarize(group_by(na.omit(data.ontogeny), feature, family, depth,stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.depth <-  summarize(group_by(na.omit(data.ontogeny), family, depth), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.stage <-  summarize(group_by(na.omit(data.ontogeny), family, stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.feature <-  summarize(group_by(na.omit(data.ontogeny), family, feature), conc.mean = mean(conc), conc.se = sd(conc)/n())
+
+ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.interaction_ds) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_wrap(~family, scales = "free")
+
+ggplot(aes(y=conc.mean, x=depth, group=family), data=data.ontogeny.depth) + geom_point(aes(colour=family)) + geom_line(aes(colour=family))
+ggplot(aes(y=conc.mean, x=stage, group=family), data=data.ontogeny.stage) + geom_point(aes(group=family, colour=family)) + geom_line(aes(colour=family))
+ggplot(aes(y=conc.mean, x=feature, group=family), data=data.ontogeny.feature) + geom_point(aes(group=family, colour=family)) + geom_line(aes(colour=family))
+
+ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.interaction_fds) + geom_point() + geom_line() + facet_grid(feature ~ family, scales = "free")
+
+ggplot(data=na.omit(data.ontogeny), aes(y=conc, x=temperature)) + geom_jitter(aes(colour = family)) + stat_smooth(aes(colour=family), method="lm", se=FALSE)
+ggplot(data=na.omit(data.ontogeny), aes(y=conc, x=salinity)) + geom_jitter(aes(colour = family)) + stat_smooth(aes(group=family, colour=family),method="lm",se=FALSE)
+ggplot(data=na.omit(data.ontogeny), aes(y=conc, x=chlorophyll_fluorescence)) + geom_jitter(aes(colour = family)) + stat_smooth(aes(colour=family), method="lm",se=FALSE)
+ggplot(data=na.omit(data.ontogeny), aes(y=conc, x=dissolved_oxygen)) + geom_jitter(aes(colour = family)) + stat_smooth(aes(group=family,colour=family), method="lm",se=FALSE)
+
+```
+
+# Labrid story 
+
+## 1. Only depth x stage
+```{r Labrid ds}
+data.ontogeny.labrid <- filter(data.ontogeny, family =="labridae")
+labrid.nb.ds <- glm.nb(count ~ offset(log(volume)) + depth * stage, data.ontogeny.labrid)
+summary(labrid.nb.ds)
+plot(labrid.nb.ds)
+anova(labrid.nb.ds, test="Chisq")
+# Using lsmeans
+comp <-  lsmeans(labrid.nb.ds, ~ depth*stage)
+summary(comp)
+lsmip(labrid.nb.ds, stage ~ depth)
+summary(pairs(comp, type = "response"))
+cld(comp, alpha = 0.1)
+```
+
+## 2. Feature x depth x stage
+```{r Labrid fds}
+data.ontogeny.labrid <- filter(data.ontogeny, family =="labridae")
+labrid.nb.fds <- glm.nb(count ~ offset(log(volume)) + feature * depth * stage, data.ontogeny.labrid)
+summary(labrid.nb.fds)
+plot(labrid.nb.fds)
+anova(labrid.nb.fds, test="Chisq")
+# Using lsmeans
+comp <-  lsmeans(labrid.nb.fds, ~ depth*stage*feature)
+summary(comp)
+lsmip(labrid.nb.fds, stage ~ depth | feature)
+```
+
+## 3. The whole shebang
+```{r}
+labrid.nb.all <- glm.nb(count ~ offset(log(volume)) + feature * depth * stage + temperature + salinity + chlorophyll_fluorescence + dissolved_oxygen, data.ontogeny.labrid)
+summary(labrid.nb.all)
+plot(labrid.nb.all)
+```
+
+## 4. The whole shebang minus feature
+```{r}
+labrid.nb.all <- glm.nb(count ~ offset(log(volume)) + depth * stage + temperature + salinity + chlorophyll_fluorescence + dissolved_oxygen, data.ontogeny.labrid)
+summary(labrid.nb.all)
+plot(labrid.nb.all)
+```
+
+## 5. Adding site as a random factor (but didn't converge)
+Will need to try the averages solution and see what that does
+```{r}
+labrid.mnb <- glmer.nb(count ~ offset(log(volume)) + (1|site) + depth * stage, control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=100000)), data.ontogeny.labrid)
+summary(labrid.mnb)
+anova(labrid.mnb,labrid.nb.ds)
+```
+
+```{r}
+labrid.mnb.fds <- glmer.nb(count ~ offset(log(volume)) + (1|site) + feature * depth * stage, control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=100000)), data.ontogeny.labrid)
+summary(labrid.mnb.fds)
+anova(labrid.mnb.fds,labrid.nb.fds)
+```
+
