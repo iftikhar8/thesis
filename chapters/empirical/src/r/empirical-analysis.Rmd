@@ -120,3 +120,30 @@ summary(labrid.mnb.fds)
 anova(labrid.mnb.fds,labrid.nb.fds)
 ```
 
+Trying a ZIP model
+```{r}
+ggplot(data.ontogeny.labrid, aes(conc+1)) + geom_histogram() + scale_x_log10()
+
+summary(m1 <- zeroinfl(count ~ offset(log(volume)) + depth * stage, data = data.ontogeny.labrid))
+
+mnull <- update(m1, . ~ 1)
+pchisq(2 * (logLik(m1) - logLik(mnull)), df = 3, lower.tail = FALSE)
+
+summary(p1 <- glm(count ~ offset(log(volume)) + depth * stage, family = poisson, data = data.ontogeny.labrid))
+vuong(p1, m1)
+
+summary(m2 <- zeroinfl(count ~ offset(log(volume)) + depth * stage, dist="negbin",link="logit", data = data.ontogeny.labrid))
+lrtest(m1,m2)
+
+data.ontogeny.labrid.old <- data.ontogeny.labrid
+names(data.ontogeny.labrid)
+data.ontogeny.labrid$obs <- 1:nrow(data.ontogeny.labrid)
+str(data.ontogeny.labrid$obs)
+print(data.ontogeny.labrid$obs)
+plot(data.ontogeny.labrid$obs)
+m3 <- glmer(count ~ offset(log(volume)) * depth * stage + (1|obs), family=poisson(link="log"), data=data.ontogeny.labrid,  method="ML")
+summary(m3)
+lrtest(m1,m2)
+vuong(m1, m2)
+```
+
