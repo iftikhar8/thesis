@@ -540,12 +540,12 @@ str(data.ontogeny.labrid.all)
 dim(data.ontogeny.labrid.all)
 
 # add obs for (OLRE) random model later to account for over dispersion
-data.ontogeny.labrid.all.old <- data.ontogeny.labrid.all
-names(data.ontogeny.labrid.all)
-data.ontogeny.labrid.all$obs <- 1:nrow(data.ontogeny.labrid.all)
-str(data.ontogeny.labrid.all$obs)
-print(data.ontogeny.labrid.all$obs)
-plot(data.ontogeny.labrid.all$obs)
+data.ontogeny.labrid.all.old <- data.ontogeny.labrid
+names(data.ontogeny.labrid)
+data.ontogeny.labrid$obs <- 1:nrow(data.ontogeny.labrid)
+str(data.ontogeny.labrid$obs)
+print(data.ontogeny.labrid$obs)
+plot(data.ontogeny.labrid$obs)
 
 
 # number of 0's
@@ -647,7 +647,7 @@ overdisp_fun(labrid.random)
 
 
 # Use site as Observation level effect.
-labrid.random.obs <- glmer(count ~ offset(log(volume)) + feature * depth * stage + temperature + salinity + dissolved_oxygen + (1|obs), family=poisson(link="log"), data=data.ontogeny.labrid.all,  method="ML")
+labrid.random.obs <- glmer(count ~ offset(log(volume)) + feature * depth * stage + temperature + salinity + dissolved_oxygen + (1|obs), family=poisson(link="log"), data=data.ontogeny.labrid,  method="ML")
 summary(labrid.random.obs)
 anova(labrid.random.obs, test="Chisq")
 
