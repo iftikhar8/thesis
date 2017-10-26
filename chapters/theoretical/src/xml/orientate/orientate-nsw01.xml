@@ -106,14 +106,14 @@
     <habitat>
       <buffer>
         <isBuffered>true</isBuffered>
-        <settlement>15</settlement>
+        <settlement>10</settlement>
         <olfactory>15</olfactory>
       </buffer>
     </habitat>
     <output>
       <includeLarvaeHistory>false</includeLarvaeHistory>
       <saveOutputFilePath>/srv/zissou/output/theoretical/orientate</saveOutputFilePath>
-      <percentage>15</percentage>
+      <percentage>5</percentage>
       <prefix>orientate-nsw01</prefix>
       <logLevel>info</logLevel>
       <logFile>/var/log/zissou.log</logFile>
