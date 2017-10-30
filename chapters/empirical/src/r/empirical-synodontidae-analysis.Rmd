@@ -1,0 +1,289 @@
+---
+title: "synodontidae analysis"
+output:
+  pdf_document: default
+---
+
+```{r Packages, include=FALSE}
+library(tidyverse)
+library(corrr)
+library(MASS)
+library(lsmeans)
+library(lme4)
+library(pscl)
+library(boot)
+library(lmtest)
+```
+
+```{r Load data, include=FALSE}
+load(file="length.RData")
+load(file="ontogeny.RData")
+source("empirical-functions.R")
+data.ontogeny <- filter(data.ontogeny, family == "synodontidae")
+data.length <- filter(data.length, family == "synodontidae")
+data.ontogeny$obs <- 1:nrow(data.ontogeny)
+str(data.ontogeny$obs)
+```
+
+# Ontogeny analysis
+
+## Exploratory analysis
+
+### Histogram of the data
+```{r}
+ggplot(data=data.ontogeny, aes(conc+1)) + geom_histogram(breaks=seq(0, 0.15, by=0.001)) + labs(x="concentration") + scale_x_log10()
+```
+
+### Zero inflated model
+
+```{r}
+get_percentage_zeros(data.ontogeny)
+```
+
+## The model of depth and concentration
+
+As expected, it suggests depth 75 is a negative predictor of concentration
+```{r}
+ggplot(data=data.ontogeny, aes(y=conc, x=depth, fill="red")) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Depth", y="Concentration", title="synodontidae") + theme_classic() + guides(fill="none")
+model.orle.ontogeny.depth <- glmer(count ~ offset(log(volume)) + depth + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10)
+summary(model.orle.ontogeny.depth)
+Anova(model.orle.ontogeny.depth, type="III")
+is_overdispersed(model.orle.ontogeny.depth)
+```
+
+## The model of stage and concentration
+
+The model suggests that stage isnt a predictor of concentration - flexion looks higher, but with greater variation.
+```{r}
+ggplot(data=data.ontogeny, aes(y=conc, x=stage, fill="red")) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Stage", y="Concentration", title="synodontidae") + theme_classic() + guides(fill="none")
+model.ontogeny.stage <- glmer(count ~ offset(log(volume)) + stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10)
+summary(model.ontogeny.stage)
+Anova(model.ontogeny.stage, type="III")
+is_overdispersed(model.ontogeny.stage)
+```
+
+## The model of feature and concentration
+
+Suggests eddy is a positive predictor of concentration of mullids
+```{r}
+ggplot(data=data.ontogeny, aes(y=conc, x=feature, fill="red")) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Feature", y="Concentration", title="synodontidae") + theme_classic() + guides(fill="none")
+model.ontogeny.feature <- glmer(count ~ offset(log(volume)) + feature + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10)
+summary(model.ontogeny.feature)
+is_overdispersed(model.ontogeny.feature)
+```
+
+## The model of temperature and concentration
+
+It finds temperature is a positive predictor of concentration
+```{r}
+ggplot(data=data.ontogeny, aes(y=conc, x=temperature)) + geom_point() + geom_smooth(method=lm) + labs(x="Temperature", y="Concentration", title="synodontidae") + theme_classic()
+summary(lm(formula = conc~temperature, data=data.ontogeny))
+model.ontogeny.temp <- glmer(count ~ offset(log(volume)) + temperature + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+summary(model.ontogeny.temp)
+is_overdispersed(model.ontogeny.temp)
+```
+
+## The model of salinity and concentration
+
+The data for salinity causes some issues - it is all bunched above 35.5 and seems the model isn't a good fit
+```{r}
+ggplot(data=data.ontogeny, aes(y=conc, x=salinity)) + geom_point() + labs(x="Salinity", y="Concentration", title="synodontidae") + theme_classic()
+summary(lm(formula = conc~salinity, data=data.ontogeny))
+model.ontogeny.salt <- glmer(count ~ offset(log(volume)) + salinity + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+summary(model.ontogeny.salt)
+is_overdispersed(model.ontogeny.salt)
+```
+
+## The model of dissolved oxygen and concentration
+
+The data for salinity causes some issues - it is all bunched above 35.5 and seems the model isn't a good fit
+```{r}
+ggplot(data=data.ontogeny, aes(y=conc, x=dissolved_oxygen)) + geom_point() + labs(x="Dissolved Oxygen", y="Concentration", title="synodontidae") + theme_classic()
+summary(lm(formula = conc~dissolved_oxygen, data=data.ontogeny))
+model.ontogeny.do <- glmer(count ~ offset(log(volume)) + dissolved_oxygen + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+summary(model.ontogeny.do)
+is_overdispersed(model.ontogeny.do)
+```
+
+## The model of dissolved oxygen and concentration
+
+The data for salinity causes some issues - it is all bunched above 35.5 and seems the model isn't a good fit
+```{r}
+ggplot(data=data.ontogeny, aes(y=conc, x=chlorophyll_fluorescence)) + geom_point() + labs(x="Chlorophyll", y="Concentration", title="synodontidae") + theme_classic()
+summary(lm(formula = conc~chlorophyll_fluorescence, data=data.ontogeny))
+model.ontogeny.ch <- glmer(count ~ offset(log(volume)) + chlorophyll_fluorescence + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+summary(model.ontogeny.ch)
+is_overdispersed(model.ontogeny.ch)
+```
+
+## Depth x Stage 
+
+So the model found a significant interaction between depth 75 and POS and depth 75 and FLE.
+
+It now find the depth 75 and surface to be different (which is probably driven by the low PRE in 75). The simple model found depth 25 to be different to the surface and 75 and the surface to be the same. 
+There is no difference between the stages (each depth had pos > fle > pre).
+```{r}
+data.ontogeny$stage <- factor(data.ontogeny$stage, levels = c("PRE","FLE","POS"))
+ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="synodontidae") + theme_classic() +coord_flip() +  scale_x_discrete(limits = rev(levels(data.ontogeny$depth)))
+model.ontogeny.depthstage <- glmer(count ~ offset(log(volume)) + depth*stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+summary(model.ontogeny.depthstage)
+is_overdispersed(model.ontogeny.depthstage)
+plot(model.ontogeny.depthstage)
+Anova(model.ontogeny.depthstage, type="III")
+# Using lsmeans
+comp <-  lsmeans(model.ontogeny.depthstage, ~ depth*stage)
+summary(comp)
+summary(pairs(comp), type = "response")
+lsmip(model.ontogeny.depthstage, stage ~ depth)
+```
+
+```{r}
+summary(model.ontogeny.depthstage.zip <- zeroinfl(count ~ offset(log(volume)) + depth*stage, data=data.ontogeny))
+summary(model.ontogeny.depthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + depth*stage,  dist="negbin", link="logit", data=data.ontogeny))
+lrtest(model.ontogeny.depthstage.zip, model.ontogeny.depthstage.zinb)
+#summary(model.ontogeny.depthstage.zip)
+#is_overdispersed(model.ontogeny.depthstage.zip)
+AIC(model.ontogeny.depthstage,model.ontogeny.depthstage.zinb)
+```
+
+
+## Depth x Stage x Feature
+
+So the only predictor was the interaction between depth 75 and stage POS. No significant predictor of feature.
+```{r}
+ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) +facet_grid(~feature) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="synodontidae") + theme_classic()  +  scale_x_discrete(limits = levels(data.ontogeny$depth))
+model.ontogeny.featuredepthstage.olre <- glmer(count ~ offset(log(volume)) + feature*depth*stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+summary(model.ontogeny.featuredepthstage.olre)
+is_overdispersed(model.ontogeny.featuredepthstage.olre)
+plot(model.ontogeny.featuredepthstage.olre)
+```
+
+```{r}
+#summary(model.ontogeny.featuredepthstage.zip <- zeroinfl(count ~ offset(log(volume)) + feature*depth*stage, data=data.ontogeny))
+summary(model.ontogeny.featuredepthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + feature*depth*stage,  dist="negbin", link="logit", data=data.ontogeny))
+lrtest(model.ontogeny.featuredepthstage.zip, model.ontogeny.featuredepthstage.zinb)
+#summary(model.ontogeny.depthstage.zip)
+#is_overdispersed(model.ontogeny.depthstage.zip)
+AIC(model.ontogeny.depthstage,model.ontogeny.depthstage.zip)
+AIC(model.ontogeny.depthstage,model.ontogeny.depthstage.zinb)
+
+nd <- data.frame(expand.grid(depth=unique(data.ontogeny$depth),stage=unique(data.ontogeny$stage)))
+ok <- complete.cases(data.ontogeny)
+actual <- data.ontogeny[ok,]
+zip <- predict(model.ontogeny.featuredepthstage.zip, type="response")
+plot(actual$count ~ zip, ylab="actual")
+abline(a=0,b=1)
+zinb <- predict(model.ontogeny.featuredepthstage.zinb, type="response")
+plot(actual$count ~ zinb, ylab="actual")
+abline(a=0,b=1)
+olre <- predict(model.ontogeny.featuredepthstage.olre, type="response")
+plot(actual$count ~ olre, ylab="actual")
+abline(a=0,b=1)
+```
+
+## The model plus environmental 
+
+The only way I could get it converge was by rescaling the environmental variables. Is this a suitable approach? Including them 
+```{r}
+data.ontogeny$temperature.scale <- scale(data.ontogeny$temperature)
+data.ontogeny$salinity.scale <- scale(data.ontogeny$salinity)
+data.ontogeny$do.scale <- scale(data.ontogeny$dissolved_oxygen)
+data.ontogeny$chloro.scale <- scale(data.ontogeny$chlorophyll_fluorescence)
+model.ontogeny.full.olre <- glmer(count ~ offset(log(volume)) + feature*depth*stage + temperature.scale + salinity.scale + do.scale + chloro.scale + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+summary(model.ontogeny.full.olre)
+plot(model.ontogeny.full.olre)
+
+full.olre <- predict(model.ontogeny.full.olre, type="response")
+plot(actual$count ~ full.olre, ylab="actual")
+abline(a=0,b=1)
+```
+
+# Length analysis
+
+## Histogram of the data
+Left skewed - look more normal after being logged
+```{r}
+ggplot(data=data.length, aes(total_length)) + geom_histogram() + labs(x="length") 
+ggplot(data=data.length, aes(total_length)) + geom_histogram() + labs(x="length") + scale_x_log10()
+```
+
+## The model of depth and length
+
+As expected, it suggests that the depth25 is where the lowest lengths occur and it is significantly different to the surface and the 75 depth. 
+```{r}
+ggplot(data=data.length, aes(y=total_length, x=depth, fill="red")) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Depth", y="Length (mm)", title="synodontidae") + theme_classic() + guides(fill="none")
+summary(model.length.depth <- glm(total_length ~ depth, family = gaussian(link="log"), data=data.length))
+plot(model.length.depth)
+```
+
+## The model of stage and length
+
+This is expected - each stage should be larger than the last 
+```{r}
+ggplot(data=data.length, aes(y=total_length, x=stage, fill="red")) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Stage", y="Length (mm)", title="synodontidae") + theme_classic() + guides(fill="none")
+summary(model.length.stage <- glm(total_length ~ stage, family = gaussian(link="log"), data=data.length))
+plot(model.length.stage)
+```
+## The model of temperature and length
+
+Increasing temps is a negative predictor of length (so shorter ones occur in warmer waters)
+
+```{r}
+ggplot(data=data.length, aes(y=total_length, x=temperature)) + geom_point() + labs(x="Temperature", y="Length (mm)", title="synodontidae") + theme_classic()
+summary(model.length.do <- glm(total_length ~ temperature, family = gaussian(link="log"), data=data.length))
+```
+
+## The model of salinity and length
+
+A relationship
+
+```{r}
+ggplot(data=data.length, aes(y=total_length, x=salinity)) + geom_point() + labs(x="Salinity", y="Length (mm)", title="synodontidae") + theme_classic()
+summary(model.length.do <- glm(total_length ~ salinity, family = gaussian(link="log"), data=data.length))
+```
+
+## The model of salinity and length
+
+No relationship
+
+```{r}
+ggplot(data=data.length, aes(y=total_length, x=chlorophyll_fluorescence)) + geom_point() + geom_smooth(method=lm) + labs(x="Chlorophyll", y="Length (mm)", title="synodontidae") + theme_classic()
+summary(model.length.chloro <- glm(total_length ~ chlorophyll_fluorescence, family = gaussian(link="log"), data=data.length))
+```
+
+## The model of dissolved oxygen and length
+
+No relationship
+
+```{r}
+ggplot(data=data.length, aes(y=total_length, x=dissolved_oxygen)) + geom_point() + labs(x="Dissolved Oxygen", y="Length (mm)", title="synodontidae") + theme_classic()
+summary(model.length.do <- glm(total_length ~ dissolved_oxygen, family = gaussian(link="log"), data=data.length))
+```
+
+
+
+## The model of feature and length
+
+So they were bigger in the eddy
+```{r}
+ggplot(data=data.length, aes(y=total_length, x=feature, fill="red"))  + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Stage", y="Length (mm)", title="synodontidae") + theme_classic() + guides(fill="none")
+summary(model.length.feature <- glm(total_length ~ feature, family = gaussian(link="log"), data=data.length))
+plot(model.length.feature)
+```
+
+## The model of feature and depth for length
+
+So they were bigger in the eddy
+```{r}
+ggplot(data=data.length, aes(y=total_length, x=depth, fill="red")) + facet_grid(~feature)  + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Stage", y="Length (mm)", title="synodontidae") + theme_classic() + guides(fill="none")
+summary(model.length.featuredepth <- glm(total_length ~ feature*depth, family = gaussian(link="log"), data=data.length))
+plot(model.length.featuredepth)
+```
+
+## The model of feature and depth for length
+
+So they were bigger in the eddy
+```{r}
+summary(model.length.full <- glm(total_length ~ depth + temperature + chlorophyll_fluorescence + salinity, family = gaussian(link="log"), data=data.length))
+plot(model.length.full)
+```

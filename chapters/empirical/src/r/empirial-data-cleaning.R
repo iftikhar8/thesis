@@ -1,5 +1,4 @@
-require(tidyverse)
-
+library(tidyverse)
 
 # Read csv ----------------------------------------------------------------
 
@@ -13,7 +12,8 @@ data.measure <- filter(data.measure, is.na(not_calibrated), is.na(damaged))
 data.measure <- dplyr::select(data.measure, -subgroup, -photo_id, -damaged, -not_calibrated)
 
 # Create factors (tibble does not import as factors)
-data.measure$stage <- factor(data.measure$stage, levels = c("PRE", "FLE", "POS"), ordered=TRUE)
+data.measure$stage <- as.factor(data.measure$stage)
+fct_relevel(data.measure$stage, "PRE","FLE","POS")
 data.measure$family <- as.factor(data.measure$family)
 data.measure$net <- as.factor(data.measure$net)
 data.measure$depth <- as.factor(data.measure$depth)
@@ -28,6 +28,9 @@ data.tow$feature_name <- as.factor(data.tow$feature_name)
 data.tow$location <- as.factor(data.tow$location)
 data.tow$site <- as.factor(data.tow$site)
 data.tow$station <- as.factor(data.tow$station)
+
+data.measure$stage <- factor(data.measure$stage, levels=c("PRE","FLE","POS"))
+
 
 
 # Length data -------------------------------------------------------------

@@ -19,7 +19,11 @@
 ### Give the context of early-life history behaviour (e.g. vertical migration) in fish and what has been found before
 
 ### Aims / Hypothesis
-- To see if in temperate species, ontogeny or length are also a driver of vertical position as shown in tropical species
+- Is ontogeny a predictor of depth for temperate reef fish?
+- Is length a predictor of depth for temperate reef fish?
+- Do these relationships change depending on the oceanographic feature?
+
+temperate species, ontogeny or length are also a driver of vertical position as shown in tropical species
 - Why did you choose the experimental design, e.g. utilised other design based on competitive ship time
 
 ## Methods

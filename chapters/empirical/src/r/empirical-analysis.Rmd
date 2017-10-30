@@ -65,11 +65,7 @@ ggplot(data=na.omit(data.ontogeny), aes(y=conc, x=dissolved_oxygen)) + geom_jitt
 ```
 
 ```{r Zero inflated data %}
-data.ontogeny %>%
-  group_by(family, conc) %>%
-  summarise (n = n()) %>%
-  mutate(freq = n / sum(n)) %>%
-  filter(conc == 0)
+get_percentage_zeros(data.ontogeny)
 ```
 
 Function to test for overdispersion in the model
@@ -228,7 +224,7 @@ summary(m1 <- zeroinfl(count ~ offset(log(volume)) + feature * depth * stage + t
 mnull <- update(m1, . ~ 1)
 pchisq(2 * (logLik(m1) - logLik(mnull)), df = 3, lower.tail = FALSE)
 
-summary(p1 <- glm(count ~ offset(log(volume)) + + feature * depth * stage + temperature + salinity + dissolved_oxygen, family = poisson, data = data.ontogeny.labrid))
+summary(p1 <- glm(count ~ offset(log(volume)) + feature * depth * stage + temperature + salinity + dissolved_oxygen, family = poisson, data = data.ontogeny.labrid))
 vuong(p1, m1)
 
 summary(m2 <- zeroinfl(count ~ offset(log(volume)) + depth * stage, dist="negbin",link="logit", data = data.ontogeny.labrid))
