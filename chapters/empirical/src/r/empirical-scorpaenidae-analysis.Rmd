@@ -31,7 +31,7 @@ str(data.ontogeny$obs)
 
 ### Histogram of the data
 ```{r}
-ggplot(data=data.ontogeny, aes(conc+1)) + geom_histogram(breaks=seq(0, 0.15, by=0.001)) + labs(x="concentration") + scale_x_log10()
+ggplot(data=data.ontogeny, aes(conc+1)) + geom_histogram() + labs(x="concentration") + scale_x_log10()
 ```
 
 ### Zero inflated model
@@ -45,7 +45,7 @@ get_percentage_zeros(data.ontogeny)
 Depth 25 is a predictor of concentration
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=depth, fill="red")) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Depth", y="Concentration", title="scorpaenidae") + theme_classic() + guides(fill="none")
-model.orle.ontogeny.depth <- glmer(count ~ offset(log(volume)) + depth + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10)
+model.ontogeny.depth <- glm.nb(count ~ offset(log(volume)) + depth, data=data.ontogeny)
 summary(model.orle.ontogeny.depth)
 Anova(model.orle.ontogeny.depth, type="III")
 is_overdispersed(model.orle.ontogeny.depth)
@@ -56,7 +56,7 @@ is_overdispersed(model.orle.ontogeny.depth)
 The model suggests that stage isnt a predictor of concentration
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=stage, fill="red")) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Stage", y="Concentration", title="scorpaenidae") + theme_classic() + guides(fill="none")
-model.ontogeny.stage <- glmer(count ~ offset(log(volume)) + stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10)
+model.ontogeny.stage <- glm.nb(count ~ offset(log(volume)) + stage,data=data.ontogeny)
 summary(model.ontogeny.stage)
 Anova(model.ontogeny.stage, type="III")
 is_overdispersed(model.ontogeny.stage)
@@ -67,7 +67,7 @@ is_overdispersed(model.ontogeny.stage)
 Suggests eddy is a positive predictor of concentration of scorpionfish
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=feature, fill="red")) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Feature", y="Concentration", title="scorpaenidae") + theme_classic() + guides(fill="none")
-model.ontogeny.feature <- glmer(count ~ offset(log(volume)) + feature + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10)
+model.ontogeny.feature <- glm.nb(count ~ offset(log(volume)) + feature, data=data.ontogeny)
 summary(model.ontogeny.feature)
 is_overdispersed(model.ontogeny.feature)
 ```
@@ -78,20 +78,19 @@ It finds temperature is a positive predictor of concentration
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=temperature)) + geom_point() + geom_smooth(method=lm) + labs(x="Temperature", y="Concentration", title="scorpaenidae") + theme_classic()
 summary(lm(formula = conc~temperature, data=data.ontogeny))
-model.ontogeny.temp <- glmer(count ~ offset(log(volume)) + temperature + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+model.ontogeny.temp <- glm.nb(count ~ offset(log(volume)) + temperature, data=data.ontogeny)
 summary(model.ontogeny.temp)
 is_overdispersed(model.ontogeny.temp)
 ```
 
 ## The model of salinity and concentration
 
-The data for salinity causes some issues - it is all bunched above 35.5 and seems the model isn't a good fit
 Not a predictor
 
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=salinity)) + geom_point() + labs(x="Salinity", y="Concentration", title="scorpaenidae") + theme_classic()
 summary(lm(formula = conc~salinity, data=data.ontogeny))
-model.ontogeny.salt <- glmer(count ~ offset(log(volume)) + salinity + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+model.ontogeny.salt <- glm.nb(count ~ offset(log(volume)) + salinity, data=data.ontogeny)
 summary(model.ontogeny.salt)
 is_overdispersed(model.ontogeny.salt)
 ```
@@ -102,7 +101,7 @@ Dissolved oxygen is not a predictor
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=dissolved_oxygen)) + geom_point() + labs(x="Dissolved Oxygen", y="Concentration", title="scorpaenidae") + theme_classic()
 summary(lm(formula = conc~dissolved_oxygen, data=data.ontogeny))
-model.ontogeny.do <- glmer(count ~ offset(log(volume)) + dissolved_oxygen + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+model.ontogeny.do <- glm.nb(count ~ offset(log(volume)) + dissolved_oxygen, data=data.ontogeny)
 summary(model.ontogeny.do)
 is_overdispersed(model.ontogeny.do)
 ```
@@ -113,7 +112,7 @@ Chlorophyll is not a predictor
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=chlorophyll_fluorescence)) + geom_point() + labs(x="Chlorophyll", y="Concentration", title="scorpaenidae") + theme_classic()
 summary(lm(formula = conc~chlorophyll_fluorescence, data=data.ontogeny))
-model.ontogeny.ch <- glmer(count ~ offset(log(volume)) + chlorophyll_fluorescence + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+model.ontogeny.ch <- glm.nb(count ~ offset(log(volume)) + chlorophyll_fluorescence,data=data.ontogeny)
 summary(model.ontogeny.ch)
 is_overdispersed(model.ontogeny.ch)
 ```
@@ -127,7 +126,7 @@ Concentration is positively predicted by POS and FLE at depth 25.
 ```{r}
 data.ontogeny$stage <- factor(data.ontogeny$stage, levels = c("PRE","FLE","POS"))
 ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="scorpaenidae") + theme_classic() +coord_flip() +  scale_x_discrete(limits = rev(levels(data.ontogeny$depth)))
-model.ontogeny.depthstage <- glmer(count ~ offset(log(volume)) + depth*stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+model.ontogeny.depthstage <- glm.nb(count ~ offset(log(volume)) + depth*stage, data=data.ontogeny)
 summary(model.ontogeny.depthstage)
 is_overdispersed(model.ontogeny.depthstage)
 plot(model.ontogeny.depthstage)
@@ -154,8 +153,8 @@ AIC(model.ontogeny.depthstage,model.ontogeny.depthstage.zinb)
 Seems we didn't catch enough at both features across all bins to really compare
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) +facet_grid(~feature) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="scorpaenidae") + theme_classic()  +  scale_x_discrete(limits = levels(data.ontogeny$depth))
-model.ontogeny.featuredepthstage.olre <- glmer(count ~ offset(log(volume)) + feature*depth*stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
-summary(model.ontogeny.featuredepthstage.olre)
+model.ontogeny.featuredepthstage.nb <- glm.nb(count ~ offset(log(volume)) + feature*depth*stage, data=data.ontogeny)
+summary(model.ontogeny.featuredepthstage.nb)
 is_overdispersed(model.ontogeny.featuredepthstage.olre)
 plot(model.ontogeny.featuredepthstage.olre)
 ```
@@ -191,9 +190,14 @@ data.ontogeny$temperature.scale <- scale(data.ontogeny$temperature)
 data.ontogeny$salinity.scale <- scale(data.ontogeny$salinity)
 data.ontogeny$do.scale <- scale(data.ontogeny$dissolved_oxygen)
 data.ontogeny$chloro.scale <- scale(data.ontogeny$chlorophyll_fluorescence)
-model.ontogeny.full.olre <- glmer(count ~ offset(log(volume)) + depth*stage + temperature.scale + salinity.scale + do.scale + chloro.scale + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
-summary(model.ontogeny.full.olre)
+model.ontogeny.zinb <- zeroinfl(count ~ offset(log(volume)) + depth*stage + temperature.scale, dist="negbin", link="logit", data=data.ontogeny, maxit = 1000)
+
+model.ontogeny.nb <- glm.nb(count ~ offset(log(volume)) + feature*depth*stage + temperature.scale, data=data.ontogeny)
+
+summary(model.ontogeny.zinb)
 plot(model.ontogeny.full.olre)
+
+vuong(model.ontogeny.nb,model.ontogeny.zinb )
 
 full.olre <- predict(model.ontogeny.full.olre, type="response")
 plot(actual$count ~ full.olre, ylab="actual")
@@ -206,7 +210,7 @@ abline(a=0,b=1)
 Left skewed - look more normal after being logged
 ```{r}
 ggplot(data=data.length, aes(total_length)) + geom_histogram() + labs(x="length") 
-ggplot(data=data.length, aes(total_length)) + geom_histogram() + labs(x="length") + scale_x_log10()
+ggplot(data=data.length, aes(total_length)) + geom_histogram() + labs(x="length") + scale_x_sqrt()
 ```
 
 ## The model of depth and length
@@ -231,7 +235,7 @@ plot(model.length.stage)
 Increasing temps is a negative predictor of length (so shorter ones occur in warmer waters)
 
 ```{r}
-ggplot(data=data.length, aes(y=total_length, x=temperature))+ geom_smooth(method=lm) + geom_point() + labs(x="Temperature", y="Length (mm)", title="scorpaenidae") + theme_classic()
+ggplot(data=data.length, aes(y=total_length, x=temperature))+ geom_smooth(method="glm", method.args=list(family = gaussian(link = 'log'))) + geom_point() + labs(x="Temperature", y="Length (mm)", title="scorpaenidae") + theme_classic()
 summary(model.length.do <- glm(total_length ~ temperature, family = gaussian(link="log"), data=data.length))
 ```
 
@@ -258,7 +262,7 @@ summary(model.length.chloro <- glm(total_length ~ chlorophyll_fluorescence, fami
 No relationship
 
 ```{r}
-ggplot(data=data.length, aes(y=total_length, x=dissolved_oxygen)) +geom_smooth(method=lm)+ geom_point() + labs(x="Dissolved Oxygen", y="Length (mm)", title="scorpaenidae") + theme_classic()
+ggplot(data=data.length, aes(y=total_length, x=dissolved_oxygen)) +geom_smooth(method="glm", method.args=list(family = gaussian(link = 'log')))+ geom_point() + labs(x="Dissolved Oxygen", y="Length (mm)", title="scorpaenidae") + theme_classic()
 summary(model.length.do <- glm(total_length ~ dissolved_oxygen, family = gaussian(link="log"), data=data.length))
 ```
 
@@ -286,6 +290,6 @@ plot(model.length.featuredepth)
 
 So they were bigger in the eddy
 ```{r}
-summary(model.length.full <- glm(total_length ~ depth + temperature + dissolved_oxygen, family = gaussian(link="log"), data=data.length))
+summary(model.length.full <- glm(total_length ~ feature+depth, family = gaussian(link="log"), data=data.length))
 plot(model.length.full)
 ```

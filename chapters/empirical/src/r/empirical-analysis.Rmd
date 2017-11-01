@@ -68,177 +68,108 @@ ggplot(data=na.omit(data.ontogeny), aes(y=conc, x=dissolved_oxygen)) + geom_jitt
 get_percentage_zeros(data.ontogeny)
 ```
 
-Function to test for overdispersion in the model
+# Labrid
+## Ontogeny
 ```{r}
-overdispersion_check <- function(model) {
-  # ## number of variance parameters in 
-  # ## an n-by-n variance-covariance matrix
-  # vpars <- function(m) {
-  #   nrow(m)*(nrow(m)+1)/2
-  # }
-  # model.df <- sum(sapply(VarCorr(model),vpars))+length(fixef(model))
-  # rdf <- nrow(model.frame(model))-model.df
-  
-  ## Alternative (newer) number of variance parameters https://github.com/lme4/lme4/issues/220
-  rdf <- df.residual(model)
-  
-  ## Test
-  rp <- residuals(model, type="pearson")
-  Pearson.chisq <- sum(rp^2)
-  prat <- Pearson.chisq/rdf # Dispersion. chris added
-  pval <- pchisq(Pearson.chisq, df=rdf, lower.tail=FALSE)
-  c(chisq=Pearson.chisq,ratio=prat,rdf=rdf,p=pval)
-}
+summary(model.ontogeny.lab <- zeroinfl(count ~ offset(log(volume)) + feature*stage + depth*stage + temperature.scale + chloro.scale,  dist="negbin", link="logit", data=data.ontogeny))
+```
+
+## Length
+```{r}
+summary(model.length.full <- glm(total_length ~ feature*depth + temperature + chlorophyll_fluorescence, family = gaussian(link="log"), data=data.length))
+```
+
+
+# Mullid
+
+## Ontogeny
+```{r}
+summary(model.ontogeny.depthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + depth*stage +  do.scale + temperature.scale,  dist="negbin", link="logit", data=data.ontogeny),control = glm.control(maxit=200))
+```
+
+
+## Length
+```{r}
+summary(model.length.mul <- glm(total_length ~ feature + depth + temperature, family = gaussian(link="log"), data=data.length))
 
 ```
 
 
-# Pomacentrid story 
+# Pomacentidae
 
-## Get the labrid data and add the observation variable
-```{r Pomacentrid data}
-data.ontogeny.pomacentrid <- filter(data.ontogeny, family =="pomacentridae")
-data.ontogeny.pomacentrid$obs <- 1:nrow(data.ontogeny.pomacentrid)
-str(data.ontogeny.pomacentrid$obs)
-```
+## Ontogeny
 
-##
-```{r Depth model}
-model.ontogeny.pomacentrid.d <- glmer(count ~ offset(log(volume)) + depth + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=2)
-overdispersion_check(model.ontogeny.pomacentrid.d)
-summary(model.ontogeny.pomacentrid.d)
-```
-
-```{r Stage model}
-model.ontogeny.pomacentrid.s <- glmer(count ~ offset(log(volume)) + stage + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=2)
-overdispersion_check(model.ontogeny.pomacentrid.s)
-summary(model.ontogeny.pomacentrid.s)
-```
-
-```{r Feature model}
-model.ontogeny.pomacentrid.f <- glmer(count ~ offset(log(volume)) + feature + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=2)
-overdispersion_check(model.ontogeny.pomacentrid.f)
-summary(model.ontogeny.pomacentrid.f)
-```
-
-```{r Pomacentrid temperature model}
-model.ontogeny.pomacentrid.t <- glmer(count ~ offset(log(volume)) + temperature + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=2)
-overdispersion_check(model.ontogeny.pomacentrid.t)
-summary(model.ontogeny.pomacentrid.t)
-```
-
-```{r Pomacentrid salinity model}
-model.ontogeny.pomacentrid.salt <- glmer(count ~ offset(log(volume)) + salinity + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=2)
-overdispersion_check(model.ontogeny.pomacentrid.salt)
-summary(model.ontogeny.pomacentrid.salt)
-```
-
-```{r Pomacentrid dissolved oxygen model}
-model.ontogeny.pomacentrid.o2 <- glmer(count ~ offset(log(volume)) + dissolved_oxygen + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=2)
-overdispersion_check(model.ontogeny.pomacentrid.o2)
-summary(model.ontogeny.pomacentrid.o2)
-```
-
-```{r Pomacentrid chlorophyll model}
-model.ontogeny.pomacentrid.ch <- glmer(count ~ offset(log(volume)) + chlorophyll_fluorescence + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=2)
-overdispersion_check(model.ontogeny.pomacentrid.ch)
-summary(model.ontogeny.pomacentrid.ch)
-```
-
-```{r Pomacentrid depth x stage model}
-model.ontogeny.pomacentrid.ds <- glmer(count ~ offset(log(volume)) + depth * stage + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=10)
-overdispersion_check(model.ontogeny.pomacentrid.ds)
-summary(model.ontogeny.pomacentrid.ds)
-```
-
-```{r Pomacentrid feature x depth model}
-model.ontogeny.pomacentrid.ds <- glmer(count ~ offset(log(volume)) + feature * depth + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=10)
-overdispersion_check(model.ontogeny.pomacentrid.ds)
-summary(model.ontogeny.pomacentrid.ds)
-```
-
-```{r Pomacentrid feature x stage model}
-model.ontogeny.pomacentrid.ds <- glmer(count ~ offset(log(volume)) + feature * stage + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=10)
-overdispersion_check(model.ontogeny.pomacentrid.ds)
-summary(model.ontogeny.pomacentrid.ds)
-```
-
-```{r Pomacentrid feature x depth x stage model}
-model.ontogeny.pomacentrid.ds <- glmer(count ~ offset(log(volume)) + feature * depth * stage + (1|obs), family=poisson(link="log"), data=data.ontogeny.pomacentrid, nAGQ=2, control=glmerControl(optimizer="bobyqa"))
-overdispersion_check(model.ontogeny.pomacentrid.ds)
-summary(model.ontogeny.pomacentrid.ds)
-```
+Seperation in the pomacentrid data, meant we combine the post-flexion and flexion stages
 
 
 ```{r}
-summary(zeroinfl(dist=c("poisson"), count ~ offset(log(volume)) + depth * stage, data=data.ontogeny.pomacentrid))
+
+data.ontogeny$stage.posfle <- data.ontogeny$stage %>% fct_collapse(POSFLE = c("POS","FLE"))
+
+summary(model.ontogeny.pom <- zeroinfl(count ~ offset(log(volume)) + feature + depth*stage.comb + temp.scale + do.scale, dist="negbin", link="logit", data=data.ontogeny))
+
+data.ontogeny.pom.lsmfeature <- lsmeans(model.ontogeny.pom, ~feature, transform="response")
+summary(data.ontogeny.pom.lsmfeature)
+
 ```
 
-## 2. Feature x depth x stage
-```{r Labrid fds}
-data.ontogeny.labrid <- filter(data.ontogeny, family =="labridae")
-labrid.nb.fds <- glm.nb(count ~ offset(log(volume)) + feature * depth * stage, data.ontogeny.labrid)
-summary(labrid.nb.fds)
-plot(labrid.nb.fds)
-anova(labrid.nb.fds, test="Chisq")
-# Using lsmeans
-comp <-  lsmeans(labrid.nb.fds, ~ depth*stage*feature)
-summary(comp)
-lsmip(labrid.nb.fds, stage ~ depth | feature)
-```
-
-## 3. The whole shebang
+## Length
 ```{r}
-labrid.nb.all <- glm.nb(count ~ offset(log(volume)) + feature * depth * stage + temperature + salinity + chlorophyll_fluorescence + dissolved_oxygen, data.ontogeny.labrid)
-summary(labrid.nb.all)
-plot(labrid.nb.all)
+summary(model.length.pom <- glm(total_length ~ feature + depth + dissolved_oxygen, family = gaussian(link="log"), data=data.length))
+model.length.pom.lsdepth <- lsmeans(model.length.pom, ~depth, transform="response")
+summary(model.length.pom.lsdepth)
+pairs(model.length.pom.lsdepth)
+plot(model.length.pom) 
 ```
 
-## 4. The whole shebang minus feature
+# Scaridae
+
+## Ontogeny
 ```{r}
-labrid.nb.all <- glm.nb(count ~ offset(log(volume)) + depth * stage + temperature + salinity + chlorophyll_fluorescence + dissolved_oxygen, data.ontogeny.labrid)
-summary(labrid.nb.all)
-plot(labrid.nb.all)
+summary(model.ontogeny.featuredepthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + feature*depth*stage.prefle + temperature.scale,  dist="negbin", link="logit", data=data.ontogeny))
 ```
 
-## 5. Adding site as a random factor (but didn't converge)
-Will need to try the averages solution and see what that does
+## Length
 ```{r}
-labrid.mnb <- glmer.nb(count ~ offset(log(volume)) + (1|site) + depth * stage, control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=100000)), data.ontogeny.labrid)
-summary(labrid.mnb)
-anova(labrid.mnb,labrid.nb.ds)
+summary(model.length.full <- glm(total_length ~ feature*depth + temperature.scale, family = gaussian(link="log"), data=data.length))
 ```
 
+# Scorpaenidae
+
+## Ontogeny
+
+Not enough caught at both features to test for 
 ```{r}
-labrid.mnb.fds <- glmer.nb(count ~ offset(log(volume)) + (1|site) + feature * depth * stage, control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=100000)), data.ontogeny.labrid)
-summary(labrid.mnb.fds)
-anova(labrid.mnb.fds,labrid.nb.fds)
+model.ontogeny.sco <- zeroinfl(count ~ offset(log(volume)) + depth*stage + temperature.scale, dist="negbin", link="logit", data=data.ontogeny, maxit = 1000)
 ```
 
-Trying a ZIP model
+
+## Length
+
+# Serranidae
+
+## Ontogeny
 ```{r}
-ggplot(data.ontogeny.labrid, aes(conc+1)) + geom_histogram() + scale_x_log10()
-
-summary(m1 <- zeroinfl(count ~ offset(log(volume)) + feature * depth * stage + temperature + salinity + dissolved_oxygen, data = data.ontogeny.labrid))
-
-mnull <- update(m1, . ~ 1)
-pchisq(2 * (logLik(m1) - logLik(mnull)), df = 3, lower.tail = FALSE)
-
-summary(p1 <- glm(count ~ offset(log(volume)) + feature * depth * stage + temperature + salinity + dissolved_oxygen, family = poisson, data = data.ontogeny.labrid))
-vuong(p1, m1)
-
-summary(m2 <- zeroinfl(count ~ offset(log(volume)) + depth * stage, dist="negbin",link="logit", data = data.ontogeny.labrid))
-lrtest(m1,m2)
-
-data.ontogeny.labrid.old <- data.ontogeny.labrid
-names(data.ontogeny.labrid)
-data.ontogeny.labrid$obs <- 1:nrow(data.ontogeny.labrid)
-str(data.ontogeny.labrid$obs)
-print(data.ontogeny.labrid$obs)
-plot(data.ontogeny.labrid$obs)
-m3 <- glmer(count ~ offset(log(volume)) * depth * stage + (1|obs), family=poisson(link="log"), data=data.ontogeny.labrid,  method="ML")
-summary(m3)
-lrtest(m1,m2)
-vuong(m1, m2)
+summary(model.ontogeny.serranid.zinb <- zeroinfl(count ~ offset(log(volume)) + depth*stage + scale(salinity) + scale(dissolved_oxygen),  dist="negbin", link="logit", data=filter(data.ontogeny, family=="serranidae")))
 ```
+
+## Length
+```{r}
+summary(model.length.ser <- glm(total_length ~ feature + depth + scale(temperature), family = gaussian(link="log"), data=filter(data.length, family=="serranidae")))
+```
+
+# Synodontid
+
+## Ontogeny
+```{r}
+summary(model.ontogeny.syd.zinb <- zeroinfl(count ~ offset(log(volume)) + depth*stage +scale(temperature),  dist="negbin", link="logit", data=filter(data.ontogeny, family=="synodontidae")))
+model.ontogeny.syd.lsm <- lsmeans(model.ontogeny.syd.zinb, ~depth*stage)
+```
+
+## Length
+```{r}
+summary(model.length.full <- glm(total_length ~ feature, family = gaussian(link="log"), data=filter(data.length, family=="synodontidae")))
+```
+
+
 

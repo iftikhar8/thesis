@@ -83,7 +83,7 @@ is_overdispersed(model.ontogeny.temp)
 
 ## The model of salinity and concentration
 
-The data for salinity causes some issues - it is all bunched above 35.5 and seems the model isn't a good fit
+Positive predictor
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=salinity)) + geom_point() + geom_smooth(method=lm) + labs(x="Salinity", y="Concentration", title="scaridae") + theme_classic()
 summary(lm(formula = conc~salinity, data=data.ontogeny))
@@ -94,7 +94,7 @@ is_overdispersed(model.ontogeny.salt)
 
 ## The model of dissolved oxygen and concentration
 
-The data for salinity causes some issues - it is all bunched above 35.5 and seems the model isn't a good fit
+DO isn't a predictor
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=dissolved_oxygen)) + geom_point() + labs(x="Dissolved Oxygen", y="Concentration", title="scaridae") + theme_classic()
 summary(lm(formula = conc~dissolved_oxygen, data=data.ontogeny))
@@ -103,9 +103,10 @@ summary(model.ontogeny.do)
 is_overdispersed(model.ontogeny.do)
 ```
 
-## The model of dissolved oxygen and concentration
+## The model of chlorophyll and concentration
 
-The data for salinity causes some issues - it is all bunched above 35.5 and seems the model isn't a good fit
+Not
+
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=chlorophyll_fluorescence)) + geom_point() + labs(x="Chlorophyll", y="Concentration", title="scaridae") + theme_classic()
 summary(lm(formula = conc~chlorophyll_fluorescence, data=data.ontogeny))
@@ -157,7 +158,8 @@ plot(model.ontogeny.featuredepthstage.olre)
 
 ```{r}
 #summary(model.ontogeny.featuredepthstage.zip <- zeroinfl(count ~ offset(log(volume)) + feature*depth*stage, data=data.ontogeny))
-summary(model.ontogeny.featuredepthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + feature*depth*stage,  dist="negbin", link="logit", data=data.ontogeny))
+data.ontogeny$stage.prefle <- data.ontogeny$stage %>% fct_collapse(PREFLE = c("PRE","FLE"))
+summary(model.ontogeny.featuredepthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + feature*depth*stage.prefle,  dist="negbin", link="logit", data=data.ontogeny))
 lrtest(model.ontogeny.featuredepthstage.zip, model.ontogeny.featuredepthstage.zinb)
 #summary(model.ontogeny.depthstage.zip)
 #is_overdispersed(model.ontogeny.depthstage.zip)
@@ -186,7 +188,8 @@ data.ontogeny$temperature.scale <- scale(data.ontogeny$temperature)
 data.ontogeny$salinity.scale <- scale(data.ontogeny$salinity)
 data.ontogeny$do.scale <- scale(data.ontogeny$dissolved_oxygen)
 data.ontogeny$chloro.scale <- scale(data.ontogeny$chlorophyll_fluorescence)
-model.ontogeny.full.olre <- glmer(count ~ offset(log(volume)) + feature*depth*stage + temperature.scale + salinity.scale + do.scale + chloro.scale + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+summary(model.ontogeny.featuredepthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + feature*depth*stage.prefle + temperature.scale,  dist="negbin", link="logit", data=data.ontogeny))
+
 summary(model.ontogeny.full.olre)
 plot(model.ontogeny.full.olre)
 
@@ -239,9 +242,9 @@ ggplot(data=data.length, aes(y=total_length, x=salinity)) + geom_point() + geom_
 summary(model.length.do <- glm(total_length ~ salinity, family = gaussian(link="log"), data=data.length))
 ```
 
-## The model of salinity and length
+## The model of Chlorophyll and length
 
-No relationship
+Sginificant
 
 ```{r}
 ggplot(data=data.length, aes(y=total_length, x=chlorophyll_fluorescence)) + geom_point() + geom_smooth(method=lm) + labs(x="Chlorophyll", y="Length (mm)", title="scaridae") + theme_classic()
@@ -250,7 +253,7 @@ summary(model.length.chloro <- glm(total_length ~ chlorophyll_fluorescence, fami
 
 ## The model of dissolved oxygen and length
 
-No relationship
+Sginficant
 
 ```{r}
 ggplot(data=data.length, aes(y=total_length, x=dissolved_oxygen)) + geom_point() + geom_smooth(method=lm) + labs(x="Dissolved Oxygen", y="Length (mm)", title="scaridae") + theme_classic()
@@ -281,6 +284,10 @@ plot(model.length.featuredepth)
 
 So they were bigger in the eddy
 ```{r}
-summary(model.length.full <- glm(total_length ~ depth + temperature + chlorophyll_fluorescence + salinity, family = gaussian(link="log"), data=data.length))
+data.length$temperature.scale <- scale(data.length$temperature)
+data.length$salinity.scale <- scale(data.length$salinity)
+data.length$do.scale <- scale(data.length$dissolved_oxygen)
+summary(model.length.full <- glm(total_length ~ feature*depth + temperature.scale, family = gaussian(link="log"), data=data.length))
+pairs(lsmeans(model.length.full, ~depth*feature))
 plot(model.length.full)
 ```
