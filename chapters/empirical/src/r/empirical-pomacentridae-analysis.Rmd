@@ -85,10 +85,9 @@ is_overdispersed(model.ontogeny.temp)
 
 ## The model of salinity and concentration
 
-The data for salinity causes some issues - it is all bunched above 35.5 and seems the model isn't a good fit
+Positive predictor
 ```{r}
-ggplot(data=data.ontogeny, aes(y=conc, x=salinity)) + geom_point() + labs(x="Salinity", y="Concentration", title="pomacentridae") + theme_classic()
-summary(lm(formula = conc~salinity, data=data.ontogeny))
+ggplot(data=data.ontogeny, aes(y=conc, x=salinity)) + geom_point() + geom_smooth(method="glm" , method.args = list(family="pi")) +labs(x="Salinity", y="Concentration", title="pomacentridae") + theme_classic()
 model.ontogeny.salt <- glmer(count ~ offset(log(volume)) + salinity + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
 summary(model.ontogeny.salt)
 is_overdispersed(model.ontogeny.salt)
