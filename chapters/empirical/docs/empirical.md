@@ -45,6 +45,11 @@ Each sample was initially sorted to seperate the ichthyoplankton from the genera
 The ontogeny count data was standardised by the flow to a concentration (per m^3^). Due to the excessive zero count for the ontogeny data, we conducted two analyses using generalised linear models (GLM), one GLM on the presence/absence of ontogenetic stages using a binomial distribution and another GLM with a log-normal distribution on the data excluding the zero observations. The larval fish length data was analysed using multiple regression models with log transformation. Where possible ANOVAs were performed using type III sums of squares to account for the unbalanced sample sizes between depths. Post-hoc analysis was performed using least squares means with a Tukey adjustment. As there was there was not enough replication to use a mixed-model GLM with stations as a random factor, instead the stations were described using the measured environmental data at each station; temperature, salinity, and dissolved oxygen.
 All analysis was conducted using R [@RAlanguageanden:wf] with the packages tidyverse [@Wickham:2016te], lme4 [CITE], car [CITE], and lsmeans [CITE] for analysis.
 
+
+Pomacentridae - combined the stages of Post-flexion and flexion to account for separation. Used a ZINB
+
+
+
 ## Results
 
 ### General Fish results
@@ -74,9 +79,7 @@ The general pattern was that the highest larval concentrations were found in the
 
 ![The mean concentration (per m^3^) of the abundant temperate reef fish larvae at three depth ranges (0, 5-50 m, 50-100 m) by ontogenetic stage (preflexion, flexion, postflexion; ± S.E.)](../figs/ontogeny-all.png){#fig:ontogeny-all}
 
-
 ![The mean concentration (per m^3^) of the reef fish larvae, by family, at three depth ranges (0, 5-50 m, 50-100 m) by ontogenetic stage (preflexion, flexion, postflexion; ± S.E.)](../figs/ontogeny-family.png){#fig:ontogeny-family}
-
 
 When comparing across features (between coastal and eddy waters), there are different patterns exhibited. The coastal water has higher concentrations of preflexion larvae at the surface than as seen in the eddies (@fig:ontogeny-feature-all). Flexion larvae were found in similar concentrations in the surface and 50-100 m bin, but the 5-50 m range had a 1.6 times increase in concentration. Postflexion larvae was found in concentrations about twice that as the coastal waters for all ontogenetic stages. It was the most common ontogenetic stage found in both the surface and 50-100m waters depths in the eddy. This trend was consistent across all families, only the postflexion larvae of Labridae, Scaridae, and Scorpaenidae were see in greater concentrations in the eddies (@fig:ontogeny-feature-family). Mullidae preflexion larvae were found at greater concentrations at the surface and 5-50 m depth in the eddy than the coast waters. Scaridae (surface and 5-50 m) and Scorpaenidae (5-50 m) had greater than 2 times increases of flexion larvae in eddies. the only difference between oceanic features for Serranidae was that in the eddy not as many preflexion larvae were found in the surface waters.
 
@@ -87,13 +90,106 @@ When comparing across features (between coastal and eddy waters), there are diff
 
 #### Drivers
 
-- Will use the sub-headings (presence/absence, non-zero data) and combine the data more effectively than family headings
+# Ontogeny
 
-#### Presence / absence data
+# Feature
+Mullidae; No effect of feature.
+Pomcentirdae were more likely to be found in in coastal waters (P < 0.001) - and when found in higher concentrations in coastals waters (P < 0.001).
+Scaridae: Eddy predicted prescence.
 
-#### Concentration (non-zero data)
+Scorp : Eddy was a negaive predictor of presence.
 
-#### Labridae ontogeny
+## Feature x Stage Interaction
+
+Labridae had significant feature interaction (increased POS in eddy and decreased PRE in eddy).
+
+
+
+## Depth
+
+Pomacentrids: Depth 75 was significantly less than 25 and the surface.
+Scairdae : Depth 75 is a negative predictor of presence.
+
+
+## Depth x Stage Interaction
+
+Labridae had a significant interaction at depth and stage - less pre-flexion larvae at depth 75 (p < 0.XXX)
+
+Mullidae had a significant interaction at depth at depth 75 (preflexion lower than surface (P < 0.0118) and 25m (P < 0.0066)). Postflexion was significantly lower in the 75m than the surface (P\<0.02).
+
+Pomacentridae had a significant interaction of feature x stage, while pre flexion were would in higher numbers in the surface and 25, they were found in equal concentration with Flexion and postflexion in 75m.
+
+Scorp : Significant interaction from flexion surface to 25 (rest variation was too large).
+
+Scaridae: Postflexion occurred significantly less in depth 75.
+
+Serranidae: depth x stage interaction of preflexion (a lot lower in the 75m).
+
+Synodontid: significant interaction at depth 75: preflexion lower.
+
+## Feature x Depth x Stage Interaction
+
+Scaridae : postflextion larvae occured significantly more at depth 25 and 75 in an eddy.
+
+## Environmental variables
+
+(Mullidae or Labridae?) Temperature (P\<0.001) and dissolved oxygen (P\<0.05) predicted if they were there at all, and dissolved oxygen predicting is increasing of conecntration (P=0.00509).
+
+Pomcentrid: Dissolved oxygen was both a positive predictor of the presence of pomacentird and a positive predictor of the concentration. Temperature was a negative predictor of both presence and concentration.
+
+Scaridae: Temperature is a positive predictor of presence.
+
+Scorp: Temperature was a positive predictor of absence, but it was a positive predictor of concentration.
+
+Serranid: Dissolved oxygen is a negative predicor of presence.
+
+Synodontid: Temperature was a positive predictor of presence.
+
+# Length
+(../figs/labrid-length.png){#fig:labrid-length}
+
+
+## Depth
+
+Labridae were significantly different at each depth, the smallest sizes were found in the 25m (4.82 mm), compared to the surface (5.36 mm) and the bottom 75m (9.67 mm).
+
+Mullidae: Surface bigger than 25 (P = 0.0036), 25 > 75 (P < 0.001) and surface < 75 (P < 0.001).
+
+Serranidae: Longer 0 < 25 < 75.
+
+Scorp: surface and 75 are shorter, plus 25 and 75. (P < 0.001).
+
+Pomacentridae : Shorter in the surface (no difference between surface and 75 or 25 and 75).
+
+Scaridae: No predictor of depth
+
+## Feature
+There was a signifiant positive predictor of feature on Mullidae (P < 0.001) in the eddy.
+
+Pomacentrids: Eddy was a significant predictor of length (P < 0.001)
+
+Scaridae: Eddy < coastal
+
+Scorpaenids: Eddy > coastal
+
+Serranidae: Eddy > coastal
+
+Synodontid: Eddy > coastal
+
+## Feature x Depth
+
+Labridae: There was an interaction with depth 75 and eddy (t(1251)=-3.239, P\<0.05).
+
+Scaridae: Surface fish were longer in the eddy, whereas the others where the same length.
+
+## Environmental
+
+No environmental variables were significant predictors for Labridae.
+Mullidae: Positive predictor of length by temperature.
+
+Poms - dissolved oxygen was a negative predictor of length.
+
+Temperature positive predictor of length
 
 The presence of Labridae was driven by depth, with odds of Labridae being present at the 50-100 m depth range (p = 0.040) higher than the upper 50 m or surface. Temperature was also an indicator of presence, with more present as the temperature increased (p = 0.018). For the non-zero data, the concentration was also driven by the temperature, increasing as temperature increased (p = 0.031).
 

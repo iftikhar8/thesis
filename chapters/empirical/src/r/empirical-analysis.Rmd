@@ -9,7 +9,7 @@ output:
 # The analysis of my empirical chapter - ORLE methods 
 
 ```{r Packages, include=FALSE}
-require(tidyverse)
+library(tidyverse)
 library(corrr)
 library(MASS)
 library(lsmeans)
@@ -21,6 +21,7 @@ require(boot)
 ```{r Load data, include=FALSE}
 load(file="length.RData")
 load(file="ontogeny.RData")
+source("empirical-functions.R")
 ```
 
 
@@ -65,7 +66,9 @@ ggplot(data=na.omit(data.ontogeny), aes(y=conc, x=dissolved_oxygen)) + geom_jitt
 ```
 
 ```{r Zero inflated data %}
-get_percentage_zeros(data.ontogeny)
+data.ontogeny$stage <- factor(data.ontogeny$stage, levels=c("PRE","FLE","POS"))
+ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) + facet_wrap(~family, scales="free") + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = "mean_cl_boot", geom = "linerange", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration") + theme_classic() 
+ggsave("../../figs/depth-stage-all.png")
 ```
 
 Function to test for overdispersion in the model
@@ -91,6 +94,25 @@ overdispersion_check <- function(model) {
 }
 
 ```
+
+# Mullid final models
+
+# Ontogeny
+```{r}
+summary(model.ontogeny.depthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + depth*stage + temp.scale + do.scale,  dist="negbin", link="logit", data=data.ontogeny),control = glm.control(maxit=200))
+```
+
+
+## Length
+```{r}
+summary(model.length.full <- glm(total_length ~ feature + depth + temp.scale, family = gaussian(link="log"), data=data.length))
+plot(model.length.full)
+```
+
+
+## Length
+
+
 
 
 # Pomacentrid story 
