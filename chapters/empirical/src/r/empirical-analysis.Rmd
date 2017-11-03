@@ -14,8 +14,8 @@ library(corrr)
 library(MASS)
 library(lsmeans)
 library(lme4)
-require(pscl)
-require(boot)
+library(pscl)
+library(boot)
 ```
 
 ```{r Load data, include=FALSE}
@@ -29,16 +29,18 @@ source("empirical-functions.R")
 
 # Exploratory analysis
 
-## Check for correlations - any correlated enough to remove??? To me DO and Chloro look highly correlated
+## Check for correlations. DO and Chloro look highly correlated - so only include one in any model
 ```{r}
 data.environment <- data.ontogeny %>% ungroup() %>% dplyr::select(temperature, salinity, chlorophyll_fluorescence, dissolved_oxygen) 
 correlate(data.environment)
 ```
 
 ## What does the data look like?
+
+Looks like poisson or negative binomial distributions - with perhaps a tendency to be zero-inflated? Some have a lot of zeros in the output.
+
 ```{r}
-ggplot(data=data.ontogeny, aes(conc)) + 
-  geom_histogram(breaks=seq(0, 0.15, by=0.001)) + facet_wrap(~ family) + labs(x="concentration")
+ggplot(data=data.ontogeny, aes(conc)) + geom_histogram() + facet_wrap(~ family, scales="free") + labs(x="count")
 ```
 
 
@@ -74,12 +76,17 @@ ggsave("../../figs/depth-stage-all.png")
 # Labrid
 ## Ontogeny
 ```{r}
-summary(model.ontogeny.lab <- zeroinfl(count ~ offset(log(volume)) + feature*stage + depth*stage + temperature.scale + chloro.scale,  dist="negbin", link="logit", data=data.ontogeny))
+summary(model.ontogeny.lab.nb <- glm.nb(count ~ offset(log(volume)) + feature*depth*stage + scale(temperature) + scale(chlorophyll_fluorescence), data=filter(data.ontogeny, family=="labridae")))
+summary(model.ontogeny.lab.p <- glm(count ~ offset(log(volume)) + feature*stage + depth*stage + scale(temperature) + scale(chlorophyll_fluorescence),  family=poisson, data=filter(data.ontogeny, family=="labridae")))
+summary(model.ontogeny.lab.zinb <- zeroinfl(count ~ offset(log(volume)) + feature + depth*stage + scale(temperature) + scale(chlorophyll_fluorescence),  dist="negbin", link="logit", data=filter(data.ontogeny, family=="labridae")))
+summary(model.ontogeny.lab.zip <- zeroinfl(count ~ offset(log(volume)) + feature*depth*stage + scale(temperature) + scale(chlorophyll_fluorescence), data=filter(data.ontogeny, family=="labridae")))
+
+p.resids <- 
 ```
 
 ## Length
 ```{r}
-summary(model.length.full <- glm(total_length ~ feature*depth + temperature + chlorophyll_fluorescence, family = gaussian(link="log"), data=data.length))
+summary(model.length.full <- glm(total_length ~ feature*depth + temperature + chlorophyll_fluorescence, family = gaussian(link="log"), data=filter(data.ontogeny, family=="labridae")))
 ```
 
 # Mullid final models
