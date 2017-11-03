@@ -87,7 +87,7 @@ is_overdispersed(model.ontogeny.temp)
 
 Positive predictor
 ```{r}
-ggplot(data=data.ontogeny, aes(y=conc, x=salinity)) + geom_point() + geom_smooth(method="glm" , method.args = list(family="pi")) +labs(x="Salinity", y="Concentration", title="pomacentridae") + theme_classic()
+ggplot(data=data.ontogeny, aes(y=conc, x=salinity)) + geom_point() + geom_smooth(method="glm" , method.args = list(family="poisson")) +labs(x="Salinity", y="Concentration", title="pomacentridae") + theme_classic()
 model.ontogeny.salt <- glmer(count ~ offset(log(volume)) + salinity + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
 summary(model.ontogeny.salt)
 is_overdispersed(model.ontogeny.salt)
@@ -95,11 +95,11 @@ is_overdispersed(model.ontogeny.salt)
 
 ## The model of dissolved oxygen and concentration
 
-The data for salinity causes some issues - it is all bunched above 35.5 and seems the model isn't a good fit
+Dissolved oxygen is a positive predictor
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=dissolved_oxygen)) + geom_point() + labs(x="Dissolved Oxygen", y="Concentration", title="pomacentridae") + theme_classic()
 summary(lm(formula = conc~dissolved_oxygen, data=data.ontogeny))
-model.ontogeny.do <- glmer(count ~ offset(log(volume)) + dissolved_oxygen + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+model.ontogeny.do <- glmer(count ~ offset(log(volume)) + dissolved_oxygen, family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
 summary(model.ontogeny.do)
 is_overdispersed(model.ontogeny.do)
 ```
@@ -123,11 +123,27 @@ It now find the depth 75 and surface to be different (which is probably driven b
 There is no difference between the stages (each depth had pos > fle > pre).
 ```{r}
 data.ontogeny$stage <- factor(data.ontogeny$stage, levels = c("PRE","FLE","POS"))
+
 ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="pomacentridae") + theme_classic() +coord_flip() +  scale_x_discrete(limits = rev(levels(data.ontogeny$depth)))
-model.ontogeny.depthstage <- glmer(count ~ offset(log(volume)) + depth*stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
-summary(model.ontogeny.depthstage)
+
+summary(model.ontogeny.depthstage <- glmer(count ~ offset(log(volume)) + depth*stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa")))
+
+summary(model.ontogeny.depthstage.nb <- glm.nb(count ~ offset(log(volume)) + depth*stage, data=data.ontogeny))
+
+
+data.ontogeny$stage.comb <- data.ontogeny$stage %>% fct_collapse(POSFLE = c("POS","FLE"))
+ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage.comb, fill=stage.comb)) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="pomacentridae") + theme_classic() +coord_flip() +  scale_x_discrete(limits = rev(levels(data.ontogeny$depth)))
+
+
+summary(model.ontogeny.depthstage.nb <- glm.nb(count ~ offset(log(volume)) + depth*stage.comb, data=data.ontogeny))
+summary(model.ontogeny.depthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + depth*stage.comb, dist="negbin", link="logit", data=data.ontogeny))
+summary(model.ontogeny.depthstage.olre <- glmer(count ~ offset(log(volume)) + depth*stage.comb + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa")))
+
+vuong(model.ontogeny.depthstage.nb, model.ontogeny.depthstage.zinb)
+lrtest(model.ontogeny.depthstage.nb, model.ontogeny.depthstage.zinb)
+
 is_overdispersed(model.ontogeny.depthstage)
-plot(model.ontogeny.depthstage)
+plot(model.ontogeny.depthstage.nb)
 Anova(model.ontogeny.depthstage, type="III")
 # Using lsmeans
 comp <-  lsmeans(model.ontogeny.depthstage, ~ depth*stage)
@@ -137,12 +153,13 @@ lsmip(model.ontogeny.depthstage, stage ~ depth)
 ```
 
 ```{r}
-summary(model.ontogeny.depthstage.zip <- zeroinfl(count ~ offset(log(volume)) + depth*stage, data=data.ontogeny))
+summary(model.ontogeny.depthstage.zip <- zeroinfl(count ~ offset(log(volume)) + depth*stage.comb, data=data.ontogeny))
 summary(model.ontogeny.depthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + depth*stage,  dist="negbin", link="logit", data=data.ontogeny))
 lrtest(model.ontogeny.depthstage.zip, model.ontogeny.depthstage.zinb)
 #summary(model.ontogeny.depthstage.zip)
 #is_overdispersed(model.ontogeny.depthstage.zip)
-AIC(model.ontogeny.depthstage,model.ontogeny.depthstage.zinb)
+
+vuong(model.ontogeny.depthstage.zip,model.ontogeny.depthstage.zinb)
 ```
 
 
@@ -150,11 +167,15 @@ AIC(model.ontogeny.depthstage,model.ontogeny.depthstage.zinb)
 
 So the only predictor was the interaction between depth 75 and stage POS. No significant predictor of feature.
 ```{r}
-ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) +facet_grid(~feature) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="pomacentridae") + theme_classic()  +  scale_x_discrete(limits = levels(data.ontogeny$depth))
+ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage.comb, fill=stage.comb)) +facet_grid(~feature) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="pomacentridae") + theme_classic()  +  scale_x_discrete(limits = levels(data.ontogeny$depth))
 model.ontogeny.featuredepthstage.olre <- glmer(count ~ offset(log(volume)) + feature*depth*stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
 summary(model.ontogeny.featuredepthstage.olre)
 is_overdispersed(model.ontogeny.featuredepthstage.olre)
 plot(model.ontogeny.featuredepthstage.olre)
+
+summary(model.ontogeny.featuredepthstage.nb <- glm.nb(count ~ offset(log(volume)) + depth*stage.comb, data=data.ontogeny))
+summary(model.ontogeny.depthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + feature+depth*stage.comb, dist="negbin", link="logit", data=data.ontogeny))
+
 ```
 
 ```{r}
@@ -184,14 +205,17 @@ abline(a=0,b=1)
 
 The only way I could get it converge was by rescaling the environmental variables. Is this a suitable approach? Including them 
 ```{r}
-data.ontogeny$temperature.scale <- scale(data.ontogeny$temperature)
-data.ontogeny$salinity.scale <- scale(data.ontogeny$salinity)
+data.ontogeny$temp.scale <- scale(data.ontogeny$temperature)
+data.ontogeny$salt.scale <- scale(data.ontogeny$salinity)
 data.ontogeny$do.scale <- scale(data.ontogeny$dissolved_oxygen)
 data.ontogeny$chloro.scale <- scale(data.ontogeny$chlorophyll_fluorescence)
-model.ontogeny.full.olre <- glmer(count ~ offset(log(volume)) + feature*depth*stage + temperature.scale + salinity.scale + do.scale + chloro.scale + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+model.ontogeny.full.olre <- glmer(count ~ offset(log(volume)) + feature*depth*stage + temp.scale + salt.scale + do.scale + chloro.scale + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
 summary(model.ontogeny.full.olre)
 plot(model.ontogeny.full.olre)
 
+summary(model.ontogeny.nb <- glm.nb(count ~ offset(log(volume)) + feature +depth*stage.comb + temp.scale + do.scale, data=data.ontogeny))
+summary(model.ontogeny.depthstage.zinb <- zeroinfl(count ~ offset(log(volume)) + feature+depth*stage.comb+temp.scale + do.scale, dist="negbin", link="logit", data=data.ontogeny))
+vuong(model.ontogeny.nb,model.ontogeny.depthstage.zinb)
 full.olre <- predict(model.ontogeny.full.olre, type="response")
 plot(actual$count ~ full.olre, ylab="actual")
 abline(a=0,b=1)
@@ -225,7 +249,7 @@ plot(model.length.stage)
 ```
 ## The model of temperature and length
 
-Increasing temps is a negative predictor of length (so shorter ones occur in warmer waters)
+No relationship
 
 ```{r}
 ggplot(data=data.length, aes(y=total_length, x=temperature)) + geom_point() + labs(x="Temperature", y="Length (mm)", title="pomacentridae") + theme_classic()
@@ -234,25 +258,25 @@ summary(model.length.do <- glm(total_length ~ temperature, family = gaussian(lin
 
 ## The model of salinity and length
 
-A relationship
+No relationship
 
 ```{r}
 ggplot(data=data.length, aes(y=total_length, x=salinity)) + geom_point() + labs(x="Salinity", y="Length (mm)", title="pomacentridae") + theme_classic()
 summary(model.length.do <- glm(total_length ~ salinity, family = gaussian(link="log"), data=data.length))
 ```
 
-## The model of salinity and length
+## The model of Chlorophyll and length
 
 No relationship
 
 ```{r}
-ggplot(data=data.length, aes(y=total_length, x=chlorophyll_fluorescence)) + geom_point() + geom_smooth(method=lm) + labs(x="Chlorophyll", y="Length (mm)", title="pomacentridae") + theme_classic()
+ggplot(data=data.length, aes(y=total_length, x=chlorophyll_fluorescence)) + geom_point() + labs(x="Chlorophyll", y="Length (mm)", title="pomacentridae") + theme_classic()
 summary(model.length.chloro <- glm(total_length ~ chlorophyll_fluorescence, family = gaussian(link="log"), data=data.length))
 ```
 
 ## The model of dissolved oxygen and length
 
-No relationship
+Negative predictor
 
 ```{r}
 ggplot(data=data.length, aes(y=total_length, x=dissolved_oxygen)) + geom_point() + labs(x="Dissolved Oxygen", y="Length (mm)", title="pomacentridae") + theme_classic()
@@ -283,6 +307,9 @@ plot(model.length.featuredepth)
 
 So they were bigger in the eddy
 ```{r}
-summary(model.length.full <- glm(total_length ~ depth + temperature + chlorophyll_fluorescence + salinity, family = gaussian(link="log"), data=data.length))
-plot(model.length.full) model.ontogeny.featuredepthstage.olre
+summary(model.length.full <- glm(total_length ~ feature + depth + dissolved_oxygen, family = gaussian(link="log"), data=data.length))
+model.length.full.lsmean <- lsmeans(model.length.full, ~depth, transform="response")
+summary(model.length.full.lsmean, by="depth")
+pairs(model.length.full.lsmean)
+plot(model.length.full) 
 ```

@@ -31,7 +31,7 @@ str(data.ontogeny$obs)
 
 ### Histogram of the data
 ```{r}
-ggplot(data=data.ontogeny, aes(conc+1)) + geom_histogram(breaks=seq(0, 0.15, by=0.001)) + labs(x="concentration") + scale_x_log10()
+ggplot(data=data.ontogeny, aes(conc)) + geom_histogram() + labs(x="concentration")
 ```
 
 ### Zero inflated model
@@ -45,6 +45,7 @@ get_percentage_zeros(data.ontogeny)
 As expected, it suggests that the depth25 is where the higher concentrations occur and it is significantly different to the surface and the 75 depth. 
 ```{r}
 ggplot(data=data.ontogeny, aes(y=conc, x=depth, fill="red")) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Depth", y="Concentration", title="Labridae") + theme_classic() + guides(fill="none")
+model.nb.ontogeny.depth <- glm.nb(count ~ offset(log(volume)) + depth, data=data.ontogeny)
 model.orle.ontogeny.depth <- glmer(count ~ offset(log(volume)) + depth + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10)
 summary(model.orle.ontogeny.depth)
 is_overdispersed(model.orle.ontogeny.depth)
@@ -206,8 +207,11 @@ summary(model.ontogeny.full.nb)
 plot(model.ontogeny.full.olre)
 is_overdispersed(model.ontogeny.full.nb)
 
-model.ontogeny.full.nb <- glm.nb(count ~ offset(log(volume)) + feature*stage + depth*stage + do.scale + temperature, data=data.ontogeny, control = glm.control(maxit=200))
+model.ontogeny.full.nb <- glm.nb(count ~ offset(log(volume)) + feature*stage + depth*stage + do.scale + temperature.scale, data=data.ontogeny, control = glm.control(maxit=200))
 summary(model.ontogeny.full.nb)
+
+model.ontogeny.full.nbmm <- glmer.nb(count ~ offset(log(volume)) + feature*stage + depth*stage + (1|site), data=data.ontogeny, control=glmerControl(optimizer="bobyqa",optCtrl=list(maxfun=1e5)))
+summary(model.ontogeny.full.nbmm)
 
 summary(model.ontogeny.full.zinb <- zeroinfl(count ~ offset(log(volume)) + feature*stage + depth*stage + temperature.scale + chloro.scale,  dist="negbin", link="logit", data=data.ontogeny))
 
