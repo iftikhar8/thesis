@@ -128,6 +128,9 @@ ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) + stat
 
 summary(model.ontogeny.depthstage <- glmer(count ~ offset(log(volume)) + depth*stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa")))
 
+summary(model.ontogeny.depthstage.nb <- glm.nb(count ~ offset(log(volume)) + depth*stage, data=data.ontogeny))
+
+
 data.ontogeny$stage.comb <- data.ontogeny$stage %>% fct_collapse(POSFLE = c("POS","FLE"))
 ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage.comb, fill=stage.comb)) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="pomacentridae") + theme_classic() +coord_flip() +  scale_x_discrete(limits = rev(levels(data.ontogeny$depth)))
 
@@ -206,7 +209,7 @@ data.ontogeny$temp.scale <- scale(data.ontogeny$temperature)
 data.ontogeny$salt.scale <- scale(data.ontogeny$salinity)
 data.ontogeny$do.scale <- scale(data.ontogeny$dissolved_oxygen)
 data.ontogeny$chloro.scale <- scale(data.ontogeny$chlorophyll_fluorescence)
-model.ontogeny.full.olre <- glmer(count ~ offset(log(volume)) + feature*depth*stage + temperature.scale + salinity.scale + do.scale + chloro.scale + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
+model.ontogeny.full.olre <- glmer(count ~ offset(log(volume)) + feature*depth*stage + temp.scale + salt.scale + do.scale + chloro.scale + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
 summary(model.ontogeny.full.olre)
 plot(model.ontogeny.full.olre)
 
