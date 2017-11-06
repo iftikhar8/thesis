@@ -49,6 +49,9 @@ All analysis was conducted using R [@RAlanguageanden:wf] with the packages tidyv
 Pomacentridae - combined the stages of Post-flexion and flexion to account for separation. Used a ZINB
 
 
+Tested for overdispersion and zero-inflated models.
+ 
+
 
 ## Results
 

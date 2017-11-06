@@ -81,7 +81,13 @@ summary(model.ontogeny.lab.p <- glm(count ~ offset(log(volume)) + feature*stage 
 summary(model.ontogeny.lab.zinb <- zeroinfl(count ~ offset(log(volume)) + feature + depth*stage + scale(temperature) + scale(chlorophyll_fluorescence),  dist="negbin", link="logit", data=filter(data.ontogeny, family=="labridae")))
 summary(model.ontogeny.lab.zip <- zeroinfl(count ~ offset(log(volume)) + feature*depth*stage + scale(temperature) + scale(chlorophyll_fluorescence), data=filter(data.ontogeny, family=="labridae")))
 
-p.resids <- 
+p.resids <- simulateResiduals(model.ontogeny.lab.p)
+dispersiontest(model.ontogeny.lab.p)
+testZeroInflation(p.resids)
+nb.resids <- simulateResiduals(model.ontogeny.lab.nb)
+testOverdispersion(nb.resids)
+testZeroInflation(nb.resids)
+vuong(model.ontogeny.lab.nb,model.ontogeny.lab.zinb)
 ```
 
 ## Length
