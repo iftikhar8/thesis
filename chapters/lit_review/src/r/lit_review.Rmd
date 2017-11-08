@@ -15,6 +15,10 @@ library("ggthemes")
 library("lsmeans")
 library("multcompView")
 library("car")
+library("psych")
+library("betareg")
+library("lmtest")
+
 
 # Load external functions
 source("sort_factor.R")
@@ -62,7 +66,7 @@ length(unique(data.all$journal))
 Figure 1: Publication years
 ```{r}
 data.all$published <- as.factor(data.all$published)
-years.data <- data.all %>% select(paper_id, published) %>% distinct(paper_id, published)
+years.data <- data.all  %>% distinct(paper_id, published)
 years.plot <- ggplot(years.data,aes(published)) + geom_bar() + labs(x="Year published", y="Number of studies") + theme_few() + scale_colour_few()
 years.plot
 ggsave("../../figs/years.png", plot=years.plot, width=81, height=70, units="mm", dpi=300)
@@ -81,7 +85,7 @@ taxa.plot
 ## Model context
 ```{r}
 get_factor_proportion(data.all$species_type)
-data.models <- distinct(select(data.all,title, model_reuse, model_name, motivation, geographical_zone))
+data.models <- distinct(data.all,title, model_reuse, model_name, motivation, geographical_zone)
 data.models$model_name <- addNA(data.models$model_name)
 data.models$model_reuse <- addNA(data.models$model_reuse)
 get_factor_proportion(data.models$model_reuse)
@@ -218,7 +222,7 @@ papers.comparisons <- data.all %>% gather(behaviours, implemented,passive_moveme
 papers.comparisons <- papers.comparisons %>% select(paper_id,published,behaviours,implemented,species_type) %>% distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
   mutate(taxa = if_else(is_fish == TRUE & is_invert == FALSE, 'Fish', if_else(is_invert == TRUE, 'Invertebrate', 'NA'))) %>% filter( taxa == 'Fish' | taxa == 'Invertebrate')
 
-comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of models") +theme_few()+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("A","B")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
+comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of models") +theme_few()+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
 
 
 papers.comparisons.prop <- papers.comparisons %>%
@@ -226,7 +230,7 @@ papers.comparisons.prop <- papers.comparisons %>%
   summarise (n = n()) %>%
   mutate(freq = n / sum(n))
 
-prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_few() + theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_grey(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("C","D"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
+prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_few() + theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_grey(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("c","d"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
 
 p <- grid.arrange(comparisons.plot,prop.plot,ncol=2, bottom="Publication year")
 ggsave("../../figs/comparisons.png",plot=p,width = 169, height=120, units="mm",dpi=300)
@@ -385,7 +389,7 @@ resolution1 <- ggplot(resolution.data,aes(model_resolution_min,local_retention_m
   theme_few() + 
   scale_colour_few()+ 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 12.5, y = 0.95, label = c("A")) +
+  annotate(geom = "text", x = 12.5, y = 0.95, label = c("a")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution2 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_mean)) +   
   geom_point(size=1) + 
@@ -393,7 +397,7 @@ resolution2 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_
   theme_few() + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 12.5, y = 0.95, label = c("B")) +
+  annotate(geom = "text", x = 12.5, y = 0.95, label = c("b")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution3 <- ggplot(resolution.data,aes(model_resolution_min,settlement_success_mean)) + 
   geom_point(size=1)+ 
@@ -401,14 +405,14 @@ resolution3 <- ggplot(resolution.data,aes(model_resolution_min,settlement_succes
   theme_few() + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 12.5, y = 0.95, label = c("C")) +
+  annotate(geom = "text", x = 12.5, y = 0.95, label = c("c")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution4 <- ggplot(resolution.data,aes(model_resolution_min,distance_travelled_mean)) + 
   geom_point(size=1) + 
   labs(x="Model resolution (km^2)", y="Dispersal distance (km)") +
   theme_few() + 
   scale_colour_few() + 
-  annotate(geom = "text", x = 12.5, y = 900, label = c("D")) +
+  annotate(geom = "text", x = 12.5, y = 900, label = c("d")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 grid.arrange(resolution1,resolution2,resolution3,resolution4)
 ```
@@ -437,7 +441,7 @@ pld1 <- ggplot(data.pld, aes(pld_fixed, local_retention_mean)) +
   theme_few() + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 120, y = 0.95, label = c("E")) +
+  annotate(geom = "text", x = 120, y = 0.95, label = c("e")) +
   theme(axis.text=element_text(size=8))
 pld2 <- ggplot(data.pld, aes(pld_fixed, self_recruitment_mean)) +
   geom_point(size=1)  + 
@@ -445,7 +449,7 @@ pld2 <- ggplot(data.pld, aes(pld_fixed, self_recruitment_mean)) +
   theme_few() + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 120, y = 0.95, label = c("F")) +
+  annotate(geom = "text", x = 120, y = 0.95, label = c("f")) +
   theme(axis.text=element_text(size=8))
 pld3 <- ggplot(data.pld, aes(pld_fixed, settlement_success_mean)) + 
   geom_point(size=1) + 
@@ -453,7 +457,7 @@ pld3 <- ggplot(data.pld, aes(pld_fixed, settlement_success_mean)) +
   theme_few() + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 120, y = 0.95, label = c("G")) +
+  annotate(geom = "text", x = 120, y = 0.95, label = c("g")) +
   theme(axis.text=element_text(size=8))
 pld4 <- ggplot(data.pld, aes(pld_fixed, distance_travelled_mean)) + 
   geom_point(size=1)  + 
@@ -461,7 +465,7 @@ pld4 <- ggplot(data.pld, aes(pld_fixed, distance_travelled_mean)) +
   geom_smooth(method = lm,colour='black') + 
   theme_few() + 
   scale_colour_few() +
-  annotate(geom = "text", x = 120, y = 625, label = c("H")) +
+  annotate(geom = "text", x = 120, y = 625, label = c("h")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 grid.arrange(pld1, pld2, pld3, pld4)
 
@@ -494,7 +498,7 @@ window1 <- ggplot(data.sr,aes(window,local_retention_mean)) +
   theme_few() + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 40, y = 0.95, label = c("I")) +
+  annotate(geom = "text", x = 40, y = 0.95, label = c("i")) +
   theme(axis.text=element_text(size=8))
 
 window2 <- ggplot(data.sr,aes(window,self_recruitment_mean)) + 
@@ -504,7 +508,7 @@ window2 <- ggplot(data.sr,aes(window,self_recruitment_mean)) +
   theme_few() + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0))+
-  annotate(geom = "text", x = 40, y = 0.95, label = c("J")) +
+  annotate(geom = "text", x = 40, y = 0.95, label = c("j")) +
   theme(axis.text=element_text(size=8))
 
 window3 <- ggplot(data.sr,aes(window,settlement_success_mean)) + 
@@ -513,7 +517,7 @@ window3 <- ggplot(data.sr,aes(window,settlement_success_mean)) +
   theme_few()+
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 40, y = 0.95, label = c("K")) +
+  annotate(geom = "text", x = 40, y = 0.95, label = c("k")) +
   theme(axis.text=element_text(size=8))
 
 window4 <- ggplot(data.sr,aes(window,distance_travelled_mean)) + 
@@ -521,7 +525,7 @@ window4 <- ggplot(data.sr,aes(window,distance_travelled_mean)) +
   labs(x="Settlement window (days)", y="")+
   theme_few() + 
   scale_colour_few() + 
-  annotate(geom = "text", x = 40, y = 900, label = c("L")) +
+  annotate(geom = "text", x = 40, y = 900, label = c("l")) +
   theme(axis.title=element_text(size=9),axis.text=element_text(size=8))
 
 p <- grid.arrange(resolution1, pld1, window1,
@@ -538,17 +542,20 @@ ggsave("../../figs/metrics_panel.png",plot=p,width = 169, height=150, units="mm"
 Figure for mortality comparisons with metrics
 ```{r}
 mortality.prop <- data.all %>% filter(mortality == TRUE) %>% group_by(mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
-mort1 <- ggplot(data.all, aes(mortality, self_recruitment_mean)) + geom_boxplot() + #geom_jitter(width = 0.1)+ 
+mort2 <- ggplot(data.all, aes(mortality, self_recruitment_mean)) + geom_boxplot() + #geom_jitter(width = 0.1)+ 
   labs(x="", y="Self-recruitment (%)")+ theme_few() + scale_fill_grey() +
-   #annotate(geom = "text", x=TRUE y = 0.95, label = c("A")) +
+   annotate(geom = "text", x=2.5, y = 0.95, label = c("b")) +
   scale_y_continuous(limits = c(0, 1.0)) + scale_x_discrete(labels=c("Immortality","Mortality"))
-mort2 <- ggplot(data.all, aes(mortality, local_retention_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
+mort1 <- ggplot(data.all, aes(mortality, local_retention_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   labs(x="", y="Local retention (%)")+ theme_few() + scale_fill_few() +
+  annotate(geom = "text", x = 2.5, y = 0.95, label = c("a")) +
   scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("Immortality","Mortality"))
 mort3 <- ggplot(data.all, aes(mortality, settlement_success_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   labs(x="", y="Settlement success (%)")+ theme_few() + scale_fill_few() +
+  annotate(geom = "text", x = 2.5, y = 0.95, label = c("c")) +
   scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("Immortality","Mortality"))
 mort4 <- ggplot(data.all, aes(mortality, distance_travelled_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
+  annotate(geom = "text", x = 2.5, y = 900, label = c("d")) +
   labs(x="", y="Dispersal distance (km)")+ theme_few() + scale_fill_few()+ scale_x_discrete(labels=c("Immortality","Mortality"))
 p <- grid.arrange(mort1,mort2,mort3,mort4)
 ggsave("../../figs/mortality.png",plot=p,width = 169, height=120, units="mm",dpi=300)
@@ -582,22 +589,24 @@ behaviour.data <- behaviour.data %>%
 behaviour.data$behaviours <- factor(behaviour.data$behaviours,levels = c('no_behav','move','settlement','move_settle','orien'),ordered=TRUE)
 
 
-behaviour1 <- ggplot(behaviour.data,aes(behaviours,self_recruitment_mean)) + 
+behaviour2 <- ggplot(behaviour.data,aes(behaviours,self_recruitment_mean)) + 
   geom_boxplot(na.rm = TRUE) + 
   #geom_jitter(width=0.1) + 
   scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien'), labels=c("P","M","S","MS","O")) + 
   theme_few() + 
   scale_fill_few() +
-  labs(x="", y="Self-recruitment") +
+  labs(x="", y="Self-recruitment (%)") +
+  annotate(geom = "text", x=5.25, y = 0.95, label = c("b")) +
   scale_y_continuous(limits = c(0, 1.0))
 
-behaviour2 <- ggplot(behaviour.data,aes(behaviours,local_retention_mean)) + 
+behaviour1 <- ggplot(behaviour.data,aes(behaviours,local_retention_mean)) + 
   geom_boxplot(na.rm = TRUE) + 
   #geom_jitter(width=0.1) +
   scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien'),labels=c("P","M","S","MS","O")) + 
   theme_few() + 
   scale_fill_few() +
-  labs(x="", y="Local retention") +
+  labs(x="", y="Local retention (%)") +
+  annotate(geom = "text", x=5.25, y = 0.95, label = c("a")) +
   scale_y_continuous(limits = c(0, 1.0))
 
 behaviour3 <- ggplot(behaviour.data,aes(behaviours,settlement_success_mean)) + 
@@ -606,7 +615,8 @@ behaviour3 <- ggplot(behaviour.data,aes(behaviours,settlement_success_mean)) +
   scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien'), labels=c("P","M","S","MS","O")) + 
   theme_few() + 
   scale_fill_few()+
-  labs(x="Behaviour", y="Settlement success") +
+  labs(x= "", y="Settlement success (%)") +
+  annotate(geom = "text", x=5.25, y = 0.95, label = c("c")) +
   scale_y_continuous(limits = c(0, 1.0))
 
 behaviour4 <- ggplot(behaviour.data,aes(behaviours,distance_travelled_mean)) + 
@@ -615,10 +625,11 @@ behaviour4 <- ggplot(behaviour.data,aes(behaviours,distance_travelled_mean)) +
   scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien'), labels=c("P","M","S","MS","O")) + 
   theme_few() + 
   scale_fill_few() +
-  labs(x="Behaviour", y="Dispersal distance (km)")
+  labs(x= "",y="Dispersal distance (km)") +
+  annotate(geom = "text", x=5.25, y = 900, label = c("d"))
 
 
-p <- grid.arrange(behaviour2,behaviour1,behaviour3,behaviour4)
+p <- grid.arrange(behaviour1,behaviour2,behaviour3,behaviour4, bottom="Movement behaviour")
 ggsave("../../figs/behaviours.png",plot=p,width = 169, height=120, units="mm",dpi=300)
 ```
 
@@ -626,32 +637,29 @@ Statistics for behaviour
 
 Self-recruitment
 ```{r}
-behaviour.data <- mutate(behaviour.data, sr_t = self_recruitment_mean + 1)
-qqp(behaviour.data$self_recruitment_mean,"lnorm")
-glm.sr <- glm(sr_t ~ behaviours, family=gaussian(link="log"), data=behaviour.data)
-lsmeans.sr <- lsmeans(glm.sr, ~ behaviours)
-summary(pairs(lsmeans(glm.sr, ~ behaviours)), type = "response")
-cld(lsmeans.sr,alpha = 0.05, Letters = letters, adjust="tukey")
+sr.data <- behaviour.data %>% filter(self_recruitment_mean > 0)
+beta.sr <- betareg(self_recruitment_mean ~ behaviours, data=sr.data)
+lsmeans.sr <- lsmeans(beta.sr, pairwise ~ behaviours, adjust="Tukey")
+summary(lsmeans.sr)
+cld(lsmeans.sr, alpha=0.05, Letters=letters, adjust="tukey")
 ```
 
 Local retention
 ```{r}
-qqp(behaviour.data$local_retention_mean,"norm")
-lm.lr <- lm(local_retention_mean ~ behaviours, data=behaviour.data)
-lsmeans.lm <- lsmeans(lm.lr, ~ behaviours)
-summary(pairs(lsmeans(lm.lr, ~ behaviours)), type = "response")
-cld(lsmeans.lm,alpha = 0.05, Letters = letters, adjust="tukey")
+lr.data <- behaviour.data %>% filter(local_retention_mean > 0)
+beta.lr <- betareg(local_retention_mean ~ behaviours, data=lr.data)
+Anova(beta.lr,type="II")
 ```
 
 Settlement success
 
 ```{r}
-behaviour.data <- mutate(behaviour.data, ss_t = settlement_success_mean + 1)
-qqp(behaviour.data$settlement_success_mean,"lnorm")
-glm.ss <- glm(ss_t ~ behaviours, family=gaussian(link="log"), data=behaviour.data)
-lsmeans.ss <- lsmeans(glm.ss, ~ behaviours)
-summary(pairs(lsmeans(glm.ss, ~ behaviours)), type = "response")
-cld(lsmeans.ss,alpha = 0.05, Letters = letters, adjust="tukey")
+ss.data <- behaviour.data %>% filter(settlement_success_mean > 0)
+beta.ss <- betareg(settlement_success_mean ~ behaviours, data=ss.data)
+Anova(beta.ss,type="II")
+lsmeans.ss <- lsmeans(beta.ss, pairwise ~ behaviours, adjust="Tukey")
+summary(lsmeans.ss)
+cld(lsmeans.ss, alpha=0.05, Letters=letters, adjust="tukey")
 ```
 
 
@@ -659,8 +667,9 @@ cld(lsmeans.ss,alpha = 0.05, Letters = letters, adjust="tukey")
 Dispersal distance
 ```{r}
 # Dispersal distance
-qqp(behaviour.data$distance_travelled_mean,"lnorm")
-glm.dist <- glm(distance_travelled_mean ~ behaviours, family=gaussian(link="log"), data=behaviour.data)
+qqp(behaviour.data$distance_travelled_mean,"norm")
+dd.data <- behaviour.data %>% filter(distance_travelled_mean > 0)
+glm.dist <- glm(distance_travelled_mean ~ behaviours, family=gaussian(link="log"), data=dd.data)
 lsmeans.dist <- lsmeans(glm.dist, ~ behaviours)
 summary(pairs(lsmeans(glm.dist, ~ behaviours)), type = "response")
 cld(lsmeans.dist,alpha = 0.05, Letters = letters, adjust="tukey")

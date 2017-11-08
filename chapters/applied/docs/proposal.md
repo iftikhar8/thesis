@@ -3,6 +3,13 @@
 ## Summary
 Investigate how the Commonwealth marine parks (particularly the Temperate East Commonwealth Marine Reserves Network) assist in the connectivity of the threatened black cod (*Epinephelus daemelii*). Do the current marine parks fulfil the goal of protecting this vulnerable species or are we missing important connectivity to larval settling areas.
 
+AIMS:
+1. investigate larval connectivity between Australian marine park locations
+2. 
+- unsure whether to release more in area with greater numbers?
+
+
+
 ## Conservation status
 Listed as vulnerable in August 2012 by the the Environment Minister. It has been protected since 1983 under NSW fisheries legislation. Therefore this is an **important** fish in the scheme of things. Interesting results could be good for outreach, e.g. conversation articles, blog posts.
 
@@ -17,7 +24,7 @@ The larvae recruit to coastal rockpools (the juveniles later move into estuaries
 ### Distribution
 Found in warm temperate to temperate waters of south-eastern Australia, from southern Queensland to Mallacoota, Victoria (rarely further westwards), Tasman Sea islands and seamounts – Norfolk Island, Elizabeth and Middleton Reefs, Lord Howe Island, to New Zealand – the Kermadec Islands, the North Island and the Poor Knights Islands. Depth range 1-50 m.
 Inhabits caves, gutters and crevices usually to depths of 50 m, although individuals have been collected from below 100 m. Juveniles are found inshore, often in coastal rockpools and estuaries.
-Black Rockcod are very territorial and individuals have relatively small home ranges. Smaller individuals are regularly seen in caves and gutters around Lord Howe Island. Are abundant at Middleton and Elizabeth reefs, in the Lord Howe marine protected area. They are also found 
+Black Rockcod are very territorial and individuals have relatively small home ranges. Smaller individuals are regularly seen in caves and gutters around Lord Howe Island. Are abundant at Middleton and Elizabeth reefs, in the Lord Howe marine protected area. They are also found
 at Norfolk island.
 Black cod are known to occur to some degree in all six NSW Marine Parks – Lord Howe, Cape Byron, Solitary Island, Port Stephens, Jervis Bay and Batemans Bay.
 
