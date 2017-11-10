@@ -42,15 +42,18 @@ Each sample was initially sorted to seperate the ichthyoplankton from the genera
 
 ### Data analysis
 
-The ontogeny count data was standardised by the flow to a concentration (per m^3^). Due to the excessive zero count for the ontogeny data, we conducted two analyses using generalised linear models (GLM), one GLM on the presence/absence of ontogenetic stages using a binomial distribution and another GLM with a log-normal distribution on the data excluding the zero observations. The larval fish length data was analysed using multiple regression models with log transformation. Where possible ANOVAs were performed using type III sums of squares to account for the unbalanced sample sizes between depths. Post-hoc analysis was performed using least squares means with a Tukey adjustment. As there was there was not enough replication to use a mixed-model GLM with stations as a random factor, instead the stations were described using the measured environmental data at each station; temperature, salinity, and dissolved oxygen.
-All analysis was conducted using R [@RAlanguageanden:wf] with the packages tidyverse [@Wickham:2016te], lme4 [CITE], car [CITE], and lsmeans [CITE] for analysis.
+The ontogeny count data was standardised by the flow to a concentration (per m^3^). The ontogeny data was analysed using negative binomial GLMs, to account for overdisperson in the poisson models. An offset was used to model the concentration within the negative binomial distribution. Zero-inflation was checked for due to the high number of zeros and none of the negative binomial models were found to be zero-inflated.
+
+Due to the excessive zero count for the ontogeny data, we conducted two analyses using generalised linear models (GLM), one GLM on the presence/absence of ontogenetic stages using a binomial distribution and another GLM with a log-normal distribution on the data excluding the zero observations. The larval fish length data was analysed using multiple regression models with log transformation. Where possible ANOVAs were performed using type III sums of squares to account for the unbalanced sample sizes between depths. Post-hoc analysis was performed using least squares means with a Tukey adjustment. As there was there was not enough replication to use a mixed-model GLM with stations as a random factor, instead the stations were described using the measured environmental data at each station; temperature, salinity, and dissolved oxygen.
+
+All analysis was conducted using the R programming language [@RAlanguageanden:wf]. The package MASS was used for negative binomial GLMs [CITE], the packages car [CITE] and DHARMa were used for model checking, and the packages lsmeans [CITE] and multcomp [CITE] were used for GLM post-hoc analysis. All figures were made using the package tidyverse [CITE].
 
 
 Pomacentridae - combined the stages of Post-flexion and flexion to account for separation. Used a ZINB
 
 
 Tested for overdispersion and zero-inflated models.
- 
+
 
 
 ## Results
@@ -94,6 +97,9 @@ When comparing across features (between coastal and eddy waters), there are diff
 #### Drivers
 
 # Ontogeny
+
+
+
 
 # Feature
 Mullidae; No effect of feature.
@@ -274,6 +280,9 @@ Serranidae had a significant regression equation (F~8,584~ = 31.74, p < 0.001, r
 #### Synodontidae length
 
 Synodontidae had a significant regression equation (F~8,131~ = 31.74, p < 0.001, r^2^ = 0.29), although there were no significant predictor variables for length in the model.
+
+
+
 
 ## Discussion
 

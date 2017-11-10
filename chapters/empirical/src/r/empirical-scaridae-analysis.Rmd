@@ -123,7 +123,7 @@ It now find the depth 75 and surface to be different (which is probably driven b
 There is no difference between the stages (each depth had pos > fle > pre).
 ```{r}
 data.ontogeny$stage <- factor(data.ontogeny$stage, levels = c("PRE","FLE","POS"))
-ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="scaridae") + theme_classic() +coord_flip() +  scale_x_discrete(limits = rev(levels(data.ontogeny$depth)))
+ggplot(data=data.scarid.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="scaridae") + theme_classic() +coord_flip() +  scale_x_discrete(limits = rev(levels(data.scarid.ontogeny$depth))) +facet_wrap(~feature)
 model.ontogeny.depthstage <- glmer(count ~ offset(log(volume)) + depth*stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
 summary(model.ontogeny.depthstage)
 is_overdispersed(model.ontogeny.depthstage)
