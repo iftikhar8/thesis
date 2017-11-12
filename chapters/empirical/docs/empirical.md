@@ -79,6 +79,70 @@ Synodontidae  | 63         | 39      | 38          | 140   |  10.35 (±6.53)
 
 ### Ontogeny results
 
+     | Lab | Mul | Pom | Scar | Scorp | Serr | Syno
+-----|-----|-----|-----|------|-------|------|-----
+F    | X   | X   |     | X    |       |      |
+D    | X   | X   | X   | X    |       |      |
+S    |     |     |     | X    | X     | X    | X
+**DS | X   | X   |     |      | X     | X    | X**
+DF   | X   |     | X   |      |       |      |
+FS   | X   | X   |     |      | X     |      | X
+FDS  |     |     |     |      |       |      |
+T    | +   |     | -   | +    | X     |      | X
+Sa   |     |     |     | X    |       |      |
+C    |     | -   | X   |      |       |      |
+Do   |     |     |     | X    |       | X    |
+
+### Length results
+
+    | Lab | Mul | Pom | Scar | Scorp | Serr | Syno
+----|-----|-----|-----|------|-------|------|-----
+F   | X   | X   | X   |      | X     | X    | X
+**D | X   | X   | X   | X    | X     | X    | X**
+DF  |     |     |     |      |       |      |
+T   | X   | X   | X   |      |       | X    |
+Sa  |     |     | X   | X    | X     |      |
+C   | X   |     |     |      |       |      |
+Do  |     |     | X   |      |       |      |
+
+
+## Ontogentic vertical migration
+
+Five of the families exhibited patterns of ontogenetic vertical migration across the 3 depths.
+
+(Labridae)
+Labridae pre-flexion larvae were found to be lower at 75 m than 25 m (p < 0.001). Flexion (p = 0.011) and flexion (p = 0.017) larvae were predicted to be significantly higher in the 25 m than the surface waters. Post-flexion larvae were found to occur in equal concentrations across the three depths. At 75m, pre-flexion larvae were significantly less than flexion p = 0.001) and post-flexion (p < 0.001).
+
+(Mullidae)
+All ontogenetic stages of Mullidae larvae were found to be significantly lower in concentrations at 75 m; pre-flexion (p^0^ < 0.001, p^25^ < 0.001), flexion (p^0-75^ = 0.002, p^25-75^ < 0.001), and post-flexion (p^0-75^ < 0.001). The three stages occur in equal numbers (with high variation) in the surface waters and at 75 m. At the 25 m depth, pre-flexion was five times more abundant as post-flexion larvae (p = 0.016).
+
+(Scorpaenidae)
+
+
+(Serranidae)
+
+
+(Synodontidae)
+
+
+(Pomacentridae)
+
+
+(Scaridae)
+
+
+## Temperature
+
+For four of the families (Labridae, Scaridae, Scopraenidae, and Synodontidae) temperature was a significant positive predictor of
+
+Positive: Labridae, Scar, Scorp, Syndo.
+Negative: Pom
+
+
+(Discussion)
+The two that did not exhibit OVM, Scaridae and Pomcentridae both had  low numbers of one ontogenetic stage (pre-flexion and post-flexion respectively), leading to difficulties in analysis.
+
+
 #### Patterns
 
 The general pattern was that the highest larval concentrations were found in the 5-50 m, with the lowest concentrations found in the bottom 50-100m layer (@fig:ontogeny-all). At the surface most larvae were preflexion, 30% more abundant than postflexion larvae, and twice as abundant as flexion larvae. In the 5-50 m depth bin, the concentration on preflexion was at its highest, flexion larvae became twice as abundant as the surface, and postflexion larvae also increased in abundance although now found in lower concentrations than preflexion larvae. In the lowest depth range, 50-100 m, pre-flexion larvae were found in small concentrations, 7.6 times lower than in the 5-50 m bin. Postflexion larvae were the most common ontogenetic stage in this depth bin, and along with flexion, were found at concentrations lower than the other depths. Each family displayed varying patterns of ontogeny by depth (@fig:ontogeny-family). The most consistent pattern of preflexion was that higher concentrations were found at the surface and in the 5-50 m bin and low numbers in the 50-100 m depth bin, seen in every family except Scaridae where concentration of preflexion larvae did not change much between depths. Most flexion larvae were caught in the 5-50 m bin, except for Mullidae which were found in the surface. For post-flexion larvae, generally they were found at the highest concentration in the 5-50 m depth bin, except for the families Mullidae (surface), Labridae (surface and 5-50 m), and Scorpaenidae (5-50 m and 50-100 m) and Serranidae (equal between depths).

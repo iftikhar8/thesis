@@ -87,8 +87,8 @@ data.labrid.length <- filter(data.length, family=="labridae")
 
 ## Ontogeny
 ```{r}
-summary(model.ontogeny.labrid.nb <- glm.nb(count ~ feature + depth + stage + feature:depth + 
-    feature:stage + depth:stage+ scale(temperature) + offset(log(volume)),data=data.labrid.ontogeny))
+summary(model.ontogeny.labrid.nb <- glm.nb(count ~ feature + feature:depth + 
+    feature:stage + depth*stage+ scale(temperature) + offset(log(volume)),data=data.labrid.ontogeny))
 
 
 #p.resids <- simulateResiduals(model.ontogeny.labrid.p)
@@ -98,6 +98,19 @@ model.ontogeny.labrid.resids <- simulateResiduals(model.ontogeny.labrid.nb)
 testOverdispersion(model.ontogeny.labrid.resids)
 testZeroInflation(model.ontogeny.labrid.resids)
 ```
+
+### Post-hoc
+```{r}
+Anova(model.ontogeny.labrid.nb, type="II", test="Wald")
+
+data.ontogeny.labrid.posthoc.ds1 <- pairs(lsmeans(model.ontogeny.labrid.nb, ~ stage|depth,type="response"))
+data.ontogeny.labrid.posthoc.ds2 <- pairs(lsmeans(model.ontogeny.labrid.nb, ~ depth|stage,type="response"))
+rbind(data.ontogeny.labrid.posthoc.ds1,data.ontogeny.labrid.posthoc.ds2, adjust="Tukey")
+
+lsmip(model.ontogeny.labrid.nb, stage ~ depth, type="response")
+lsmip(lsmeans(model.ontogeny.labrid.nb, ~ depth | stage, cov.reduce=FALSE),stage ~ depth, type="response", ylab="observed")
+```
+
 
 ## Length
 ```{r}
@@ -114,13 +127,22 @@ data.mullid.length <- filter(data.length, family=="mullidae")
 
 # Ontogeny
 ```{r}
-summary(model.ontogeny.mullid.nb <- glm.nb(count ~ offset(log(volume)) + feature +  feature:depth + feature:stage + depth*stage + scale(chlorophyll_fluorescence), data=data.mullid.ontogeny))
+summary(model.ontogeny.mullid.nb <- glm.nb(count ~ offset(log(volume)) + feature  + feature:stage + depth*stage + scale(chlorophyll_fluorescence), data=data.mullid.ontogeny))
 drop1(model.ontogeny.mullid.nb)
 gof <- 1 - pchisq(summary(model.ontogeny.mullid.nb)$deviance, summary(model.ontogeny.mullid.nb)$df.residual)
-pander(model.ontogeny.mullid.nb)
+#pander(model.ontogeny.mullid.nb)
+
 
 ```
 
+### Post-hoc
+```{r}
+Anova(model.ontogeny.mullid.nb, type="II", test="Wald")
+
+data.ontogeny.mullid.posthoc.ds1 <- pairs(lsmeans(model.ontogeny.mullid.nb, ~ stage|depth,type="response"))
+data.ontogeny.mullid.posthoc.ds2 <- pairs(lsmeans(model.ontogeny.mullid.nb, ~ depth|stage,type="response"))
+rbind(data.ontogeny.mullid.posthoc.ds1,data.ontogeny.mullid.posthoc.ds2, adjust="tukey")
+```
 
 ## Length
 ```{r}
@@ -187,6 +209,9 @@ model.ontogeny.scarid.resids <- simulateResiduals(model.ontogeny.scarid.nb)
 testOverdispersion(model.ontogeny.scarid.resids)
 testZeroInflation(model.ontogeny.scarid.resids)
 ```
+```{r}
+
+```
 
 ## Length
 ```{r}
@@ -212,6 +237,14 @@ summary(model.ontogeny.scorpaenid.nb <- glm.nb(count ~ offset(log(volume)) + fea
 model.ontogeny.scorpaenid.resids <- simulateResiduals(model.ontogeny.scorpaenid.nb)
 testOverdispersion(model.ontogeny.scorpaenid.resids)
 testZeroInflation(model.ontogeny.scorpaenid.resids)
+```
+
+```{r}
+lsmip(lsmeans())
+data.ontogeny.scorpaenid.posthoc.ds1 <- pairs(lsmeans(model.ontogeny.scorpaenid.nb, ~ stage|depth,type="response"))
+data.ontogeny.scorpaenid.posthoc.ds2 <- pairs(lsmeans(model.ontogeny.scorpaenid.nb, ~ depth|stage,type="response"))
+rbind(data.ontogeny.scorpaenid.posthoc.ds1,data.ontogeny.scorpaenid.posthoc.ds2, adjust="Tukey")
+
 ```
 
 ## Length
