@@ -132,22 +132,29 @@ Synodontidae post-hoc analysis showed there were no clear difference between the
 # Length
 
 Labridae
-
+The length of the Labridae larvae at the surface and 25 m were not significantly different. At 75 m, the length of the Labridae larvae was more than double both the surface (p < 0.001) and 25 m (p < 0.001).
 
 Mullidae
+Similar to the Labridae, Mullidae larvae were longer at 75 m, compared to the surface (p < 0.001) and 25 m (p < 0.001), although this difference was three times with Mullidae larvae.
 
 
 Pomacentirdae
+Pomacntrides were not really that different .
+
 
 Scaridae
+Scarids were not found to be different
+
 
 Scopraenidae
+Longer at 75 m (compared to surface p < 0.001) and compared to 25 m (p < 0.001)
+
 
 Serranidae
-
+Serranids are also longer at 75 m, but also slightly longer at 25 m than the surface (p = 0.001)
 
 Synodontidae
-
+synodontid showed similar patterns with 
 
 
 ## Temperature

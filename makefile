@@ -15,10 +15,10 @@ lit-review:
 lit-review-pdf:
 	pandoc --filter pandoc-crossref --filter pandoc-citeproc -H $(pdf-template) -V fontsize=12pt --bibliography=$(bibliography) --csl=$(csl) chapters/lit_review/docs/lit-review.md -o out/lit-review.pdf
 
-empirical-stats:
-	pandoc -s -o out/statistics.pdf chapters/empirical/docs/statistics.md
 
-
+thesis:
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc -H $(pdf-template) -V fontsize=12pt --bibliography=$(bibliography) --csl=$(csl) chapters/lit_review/docs/lit-review.md -o out/lit-review.pdf
+	
 clean:
 	rm out/*.docx
 	rm out/*.pdf
