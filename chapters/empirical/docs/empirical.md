@@ -42,17 +42,10 @@ Each sample was initially sorted to seperate the ichthyoplankton from the genera
 
 ### Data analysis
 
-The ontogeny count data was standardised by the flow to a concentration (per m^3^). The ontogeny data was analysed using negative binomial GLMs, to account for overdisperson in the poisson models. An offset was used to model the concentration within the negative binomial distribution. Zero-inflation was checked for due to the high number of zeros and none of the negative binomial models were found to be zero-inflated.
-
-Due to the excessive zero count for the ontogeny data, we conducted two analyses using generalised linear models (GLM), one GLM on the presence/absence of ontogenetic stages using a binomial distribution and another GLM with a log-normal distribution on the data excluding the zero observations. The larval fish length data was analysed using multiple regression models with log transformation. Where possible ANOVAs were performed using type III sums of squares to account for the unbalanced sample sizes between depths. Post-hoc analysis was performed using least squares means with a Tukey adjustment. As there was there was not enough replication to use a mixed-model GLM with stations as a random factor, instead the stations were described using the measured environmental data at each station; temperature, salinity, and dissolved oxygen.
-
-All analysis was conducted using the R programming language [@RAlanguageanden:wf]. The package MASS was used for negative binomial GLMs [CITE], the packages car [CITE] and DHARMa were used for model checking, and the packages lsmeans [CITE] and multcomp [CITE] were used for GLM post-hoc analysis. All figures were made using the package tidyverse [CITE].
+The ontogeny count data was standardised by the flow to a concentration (per m^3^). The ontogeny data was analysed using negative binomial generalised linear models (GLM), to account for over-dispersion in the Poisson distribution. Models were constructed using a bottom-up approach, building simple models of single factors and including predicators that were significant until a complete model was constructed which represented the data. The model was then reduced where possible to exclude non-significant interaction predictors. Instead of modelling station as a random factor, each station was described using four measured environmental variables from CTDs, temperature, salinity, dissolved oxygen and chlorophyll fluorescence. Dissolved oxygen and chlorophyll fluorescence were correlated with each other (r^2^ = 0.73), and therefore only one was included in a model. An offset was used to model the concentration within the negative binomial distribution. Even though the data contained a large number of zero observations, none of the models appeared to be zero-inflated after comparing the expected zeros of the negative binomial distribution and AIC comparisons with zero-inflated negative binomial models. The larval fish length data were analysed using GLMs with a Gamma distribution, with model construction using the same bottom up approach. Post-hoc analysis was performed using pairwise tests on the least squares means with a Tukey adjustment. All analysis was conducted using the R programming language [@RAlanguageanden:wf]. The package MASS was used for negative binomial GLMs [CITE], the packages car [CITE] and DHARMa were used for model checking, and the packages lsmeans [CITE] and multcomp [CITE] were used for GLM post-hoc analysis. All figures were made using the package tidyverse [CITE] and < insert table package here >.
 
 
 Pomacentridae - combined the stages of Post-flexion and flexion to account for separation. Used a ZINB
-
-
-Tested for overdispersion and zero-inflated models.
 
 
 
@@ -111,24 +104,50 @@ Do  |     |     | X   |      |       |      |
 Five of the families exhibited patterns of ontogenetic vertical migration across the 3 depths.
 
 (Labridae)
-Labridae pre-flexion larvae were found to be lower at 75 m than 25 m (p < 0.001). Flexion (p = 0.011) and flexion (p = 0.017) larvae were predicted to be significantly higher in the 25 m than the surface waters. Post-flexion larvae were found to occur in equal concentrations across the three depths. At 75m, pre-flexion larvae were significantly less than flexion p = 0.001) and post-flexion (p < 0.001).
+## OVM - depth x Stage
+Labridae pre-flexion larvae were predicted to be in the surface 41% less than at 25 m (p = 0.020), but 3.8 times more in the surface than at 75 m (p = 0.011). Pre-flexion larvae were predicted to be 9.2 times more abundant at 25 m than 75 m (p < 0.001). Flexion larvae were also found 40% less at the surface than 25 m (p = 0.017). Post-flexion larvae trended towards deeper water, but the predicted counts were not significantly different. Between depths, each stage was predicted to be in in similar numbers at the surface and at 25 m, but at 75 m pre-flexion larvae were in significantly lower numbers than both flexion (p < 0.001) and post-flexion (p < 0.001).
 
 (Mullidae)
-All ontogenetic stages of Mullidae larvae were found to be significantly lower in concentrations at 75 m; pre-flexion (p^0^ < 0.001, p^25^ < 0.001), flexion (p^0-75^ = 0.002, p^25-75^ < 0.001), and post-flexion (p^0-75^ < 0.001). The three stages occur in equal numbers (with high variation) in the surface waters and at 75 m. At the 25 m depth, pre-flexion was five times more abundant as post-flexion larvae (p = 0.016).
-
-(Scorpaenidae)
-
-
-(Serranidae)
-
-
-(Synodontidae)
-
+For Mullidae, post-hoc tests suggests each stage had similar concentrations at the surface and 25 m and then significantly lower concentrations at 75 m. The predicted means showed that while flexion slightly increased from the surface down to 25 m, post-flexion larvae decreased, although this was non-significant. At the surface there were no differences in the predicted abundance of each stage, but at 25 m pre-flexion larvae were 5.3 times more abundant than post-flexion larvae (p = 0.003) and at 75 m post-flexion larvae occurred about 7.6 times more than pre-flexion larvae (noting the mean counts at 75 m were low compared to the other depths; p = 0.045).
 
 (Pomacentridae)
-
+Pomacentirdae and scaridae did not exhibit a significant interaction of depth and stage.
 
 (Scaridae)
+NS
+
+
+(Scorpaenidae)
+Scorpaenidae pre-flexion larvae were found to exist in equal numbers across the depths. Flexion and post-flexion larvae were found to be higher at both 25 m (p^flexion^ = 0.029; p^post-flexion^ = 0.025) and 75 m (p^flexion^ = 0.011; p^post-flexion^ < 0.001) than the surface waters.
+At the surface, pre-flexion larvae was 6 times more abundant that post-flexion larvae (p = 0.044). This pattern was reversed at 75 m, whereby post-flexion larvae were 6 times more abundant than pre-flexion larvae (p = 0.030). At 25 m the each larval stage was found in equal amounts.
+
+(Serranidae)
+Post-flexion Serranidae larvae were found to occur more at 75m than the surface (p = 0.042). All other stages were found to be similar across the depths. At the surface each stage was found to occur in different abundances, with pre-flexion being the highest at 8.5 times flexion larvae (p < 0.001) and 170 times post-flexion larvae (p < 0.001), and flexion larvae occuring 20 times more than post-flexion larvae (p = 0.021). A similar pattern occurred at 25 m, with pre-flexion larvae occuring 6.2 times more than flexion (p < 0.001) and 52 times more than post-flexion (p < 0.001). At the deepest depth of 75 m, pre-flexion and flexion occured in similar numbers, and both were significantly greater than post-flexion larvae (p^pre-flexion^ = 0.021; p^flexion^ = 0.034). It should be noted this analysis was on only 17 post-flexion larvae, so caution should be applied to the ratios of abundance.
+
+(Synodontidae)
+Synodontidae post-hoc analysis showed there were no clear difference between the predicted means of each stage at each depth. Synodontidae pre-flexion larvae at the surface occurred in greater numbers than the post-flexion larvae (p = 0.018). At the other depths, there were no differences found between predicted abundances.
+
+
+
+# Length
+
+Labridae
+
+
+Mullidae
+
+
+Pomacentirdae
+
+Scaridae
+
+Scopraenidae
+
+Serranidae
+
+
+Synodontidae
+
 
 
 ## Temperature
