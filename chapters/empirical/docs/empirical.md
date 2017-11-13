@@ -131,35 +131,40 @@ Synodontidae post-hoc analysis showed there were no clear difference between the
 
 # Length
 
-Labridae
-The length of the Labridae larvae at the surface and 25 m were not significantly different. At 75 m, the length of the Labridae larvae was more than double both the surface (p < 0.001) and 25 m (p < 0.001).
+## Depth
 
-Mullidae
-Similar to the Labridae, Mullidae larvae were longer at 75 m, compared to the surface (p < 0.001) and 25 m (p < 0.001), although this difference was three times with Mullidae larvae.
+For each of the seven fish families, depth was a significant predictor of length (@table_lengths). The length of the Labridae larvae at the surface and 25 m were not significantly different. The Labridae larvae at 75 m, it was predicted the larvae were twice as long compared to the surface (p < 0.001) and at 25 m (p < 0.001). Similar to the Labridae, Mullidae larvae were longer at 75 m, compared to the surface (p < 0.001) and 25 m (p < 0.001), although this difference was three times with Mullidae larvae. The Pomacentridae larvae are predicted to be on average 0.58 mm longer at 25 m than the surface (p = 0.026). Scaridae larvae were predicted in the model to be longer in the surface than 25 m (p = 0.027), although post-hoc analysis found no difference between the least-squares means at each depth. Scorpaenidae larvae were significantly longer 75 m, on average 2.72 mm longer than the surface (p < 0.001) and 1.44 mm longer than the larvae at 25 m (p < 0.001). The surface and 25 m larvae were found to not significantly differ in size in the post-hoc analysis, even though the model did predict the length at depth 25 m to be longer than the surface larvae. Serranidae larvae were significantly different at each depth, only 0.36 mm larger at 25 m than the surface (p = 0.001), but 3.91 mm longer at 75 m than the surface (p < 0.001). Synodontidae larvae were predicted from the model to be longer at 75 m than the surface, however post-hoc analysis did not find any differences between the predicted means at each depth.
 
+Length Depth Patterns
+Larger in 75m = labridae, mullidae, scorpaneidae, serranidae
+Same = Poms, scarids, synodontids.
 
-Pomacentirdae
-Pomacntrides were not really that different .
+Feature
 
+Positive
+Labridae (15%), Mullidae ()
 
-Scaridae
-Scarids were not found to be different
-
-
-Scopraenidae
-Longer at 75 m (compared to surface p < 0.001) and compared to 25 m (p < 0.001)
+Negative
 
 
-Serranidae
-Serranids are also longer at 75 m, but also slightly longer at 25 m than the surface (p = 0.001)
+## Environmental variables - length
 
-Synodontidae
-synodontid showed similar patterns with 
+Temp
+Labridae +
+Mullid - ( p < 0.001)
+Pomacentrid - ( p < 0.001)
 
 
-## Temperature
+Chloro
+Labridae - (p < 0.001)
 
-For four of the families (Labridae, Scaridae, Scopraenidae, and Synodontidae) temperature was a significant positive predictor of
+
+DO
+Pomacentrid +
+
+Salt
+Pomacentrid -
+
 
 Positive: Labridae, Scar, Scorp, Syndo.
 Negative: Pom
