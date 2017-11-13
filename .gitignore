@@ -78,6 +78,9 @@ vignettes/*.pdf
 # LibreOffice locks
 .~lock.*#
 
+### Makefiles ###
+makefile
+
 # Output directories
 /chapters/*/out/
 /chapters/*/figs/
