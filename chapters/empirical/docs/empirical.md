@@ -16,7 +16,30 @@
 
 ### Why are we doing it? Was is it? Background
 
-### Give the context of early-life history behaviour (e.g. vertical migration) in fish and what has been found before
+
+Ontogenetic vertical migration in fish - does it exist?
+
+### Give the context of early-life history behaviour (e.g. vertical migration) in fish and what has been found before.
+
+
+
+
+
+Eddys
+
+We know eddies retain larval fish (reference Mullany and Suthers), restricting dispersal.
+
+We have to be careful as spawning times are unknown and predation rates.
+
+From Mullaney and Suthers: Sardine larvae were not growing significantly faster in the eddy compared to the shelf—they were only older and larger on average. However, growth rates can be a function of the slower growing larvae being removed by differential mortality (Tian et al. 2007). Perhaps predation on larval fish was less in the eddy compared to the shelf waters.
+
+Do we see ontogoentic or length differences in anticyclonic eddies different from those in cyclonic eddies??
+
+Theoretical studies (on plankton) predicated that warm-core eddies retained larvae, but also that there were differences with depth.
+ - discussion time-scales (17 days above, 24 days below)
+ -
+
+
 
 ### Aims / Hypothesis
 - Is ontogeny a predictor of depth for temperate reef fish?
@@ -26,13 +49,21 @@
 temperate species, ontogeny or length are also a driver of vertical position as shown in tropical species
 - Why did you choose the experimental design, e.g. utilised other design based on competitive ship time
 
+Hypothesis:
+- Rentention of both longer and older larvae in the eddies (there should be longer larvae in the top 50m)
+
+
+
+
+
+
 ## Methods
 
 Sixteen stations were sampled along the eastern coast of Australia on Australian Marine National Facility RV _Investigator_ (<http://www.csiro.au/en/Research/Facilities/Marine-National-Facility>) RV _Investigator_ (2-18 June 2015, voyage IN2013_V03). We sampled stations within two coastal regions and two frontal eddies in the Eastern Australian Current (EAC) [CITE study figure]. The location of the frontal eddies were calculated onboard using real time data and novel techniques [CITE Moninya's paper].
 
 - Create graphic of study area with station locations
 
-At each station we sampled for larval fish using two different net types, a multiple opening/closing net and environmental sensing system (MOCNESS) and Neuston net. Both nets consisted of 1 m^2 mouth areas with 500 &mu;m mesh sizes. The MOCNESS system sampled at two different depths 5-50 m and 50-100 m, conducting two 10 minute tows over each depth range (four tows per station). The Neuston net captured larval fish at the near surface level and was deployed for two 10 minute tows per station. Neuston and MOCNESS nets were deployed at the same time and all tows were conducted between sunset and sunrise. Conductivity, temperature, and depth (CTD) measurements, including dissolved oxygen, were taken on the MOCNESS net at each station. Each net had a flow sensor, enabling concentrations of larval fish per cubic metre to be calculated. Plankton samples per station were split 50:50 between preserved in 90% ethanol or a 10% buffered formalin solution. Ethanol was used in case genetic or otolith analysis was required later on some of the larval fish.
+At each station we sampled for larval fish using two different net types, a multiple opening/closing net and environmental sensing system (MOCNESS) and Neuston net. Both nets consisted of 1 m^2 mouth areas with 500 &mu;nm mesh sizes. The MOCNESS system sampled at two different depths 5-50 m and 50-100 m, conducting two 10 minute tows over each depth range (four tows per station). The Neuston net captured larval fish at the near surface level and was deployed for two 10 minute tows per station. Neuston and MOCNESS nets were deployed at the same time and all tows were conducted between sunset and sunrise. Conductivity, temperature, and depth (CTD) measurements, including dissolved oxygen, were taken on the MOCNESS net at each station. Each net had a flow sensor, enabling concentrations of larval fish per cubic metre to be calculated. Plankton samples per station were split 50:50 between preserved in 90% ethanol or a 10% buffered formalin solution. Ethanol was used in case genetic or otolith analysis was required later on some of the larval fish.
 
 ### Data processing
 
@@ -42,12 +73,7 @@ Each sample was initially sorted to seperate the ichthyoplankton from the genera
 
 ### Data analysis
 
-The ontogeny count data was standardised by the flow to a concentration (per m^3^). The ontogeny data was analysed using negative binomial generalised linear models (GLM), to account for over-dispersion in the Poisson distribution. Models were constructed using a bottom-up approach, building simple models of single factors and including predicators that were significant until a complete model was constructed which represented the data. The model was then reduced where possible to exclude non-significant interaction predictors. Instead of modelling station as a random factor, each station was described using four measured environmental variables from CTDs, temperature, salinity, dissolved oxygen and chlorophyll fluorescence. Dissolved oxygen and chlorophyll fluorescence were correlated with each other (r^2^ = 0.73), and therefore only one was included in a model. An offset was used to model the concentration within the negative binomial distribution. Even though the data contained a large number of zero observations, none of the models appeared to be zero-inflated after comparing the expected zeros of the negative binomial distribution and AIC comparisons with zero-inflated negative binomial models. The larval fish length data were analysed using GLMs with a Gamma distribution, with model construction using the same bottom up approach. Post-hoc analysis was performed using pairwise tests on the least squares means with a Tukey adjustment. All analysis was conducted using the R programming language [@RAlanguageanden:wf]. The package MASS was used for negative binomial GLMs [CITE], the packages car [CITE] and DHARMa were used for model checking, and the packages lsmeans [CITE] and multcomp [CITE] were used for GLM post-hoc analysis. All figures were made using the package tidyverse [CITE] and < insert table package here >.
-
-
-Pomacentridae - combined the stages of Post-flexion and flexion to account for separation. Used a ZINB
-
-
+The ontogeny count data was standardised by the flow to a concentration (per m^3^). The ontogeny data was analysed using negative binomial generalised linear models (GLM), to account for over-dispersion in the Poisson distribution. Models were constructed using a bottom-up approach, building simple models of single factors and including predicators that were significant until a complete model was constructed which represented the data. The model was then reduced where possible to exclude non-significant interaction predictors. Instead of modelling station as a random factor, each station was described using four measured environmental variables from CTDs, temperature, salinity, dissolved oxygen and chlorophyll fluorescence. Dissolved oxygen and chlorophyll fluorescence were correlated with each other (r^2^ = 0.73), and therefore only one was included in a model. An offset was used to model the concentration within the negative binomial distribution. Even though the data contained a large number of zero observations, none of the models appeared to be zero-inflated after comparing the expected zeros of the negative binomial distribution and AIC comparisons with zero-inflated negative binomial models. The larval fish length data were analysed using GLMs with a Gamma distribution and log link function, with model construction using the same bottom up approach. Post-hoc analysis was performed using pairwise tests on the least squares means with a Tukey adjustment. All analysis was conducted using the R programming language [@RAlanguageanden:wf]. The package MASS was used for negative binomial GLMs [CITE], the packages car [CITE] and DHARMa were used for model checking, and the packages lsmeans [CITE] and multcomp [CITE] were used for GLM post-hoc analysis. Figures and tables were made using the package tidyverse [CITE] and stargazer [CITE] respectively.
 
 ## Results
 
@@ -70,307 +96,145 @@ Synodontidae  | 63         | 39      | 38          | 140   |  10.35 (±6.53)
 
 - Include graph on the environmental variation for each variable by site (Y axis is depth, X is variable)
 
-### Ontogeny results
 
-     | Lab | Mul | Pom | Scar | Scorp | Serr | Syno
------|-----|-----|-----|------|-------|------|-----
-F    | X   | X   |     | X    |       |      |
-D    | X   | X   | X   | X    |       |      |
-S    |     |     |     | X    | X     | X    | X
-**DS | X   | X   |     |      | X     | X    | X**
-DF   | X   |     | X   |      |       |      |
-FS   | X   | X   |     |      | X     |      | X
-FDS  |     |     |     |      |       |      |
-T    | +   |     | -   | +    | X     |      | X
-Sa   |     |     |     | X    |       |      |
-C    |     | -   | X   |      |       |      |
-Do   |     |     |     | X    |       | X    |
+## Ontogenetic vertical migration
 
-### Length results
-
-    | Lab | Mul | Pom | Scar | Scorp | Serr | Syno
-----|-----|-----|-----|------|-------|------|-----
-F   | X   | X   | X   |      | X     | X    | X
-**D | X   | X   | X   | X    | X     | X    | X**
-DF  |     |     |     |      |       |      |
-T   | X   | X   | X   |      |       | X    |
-Sa  |     |     | X   | X    | X     |      |
-C   | X   |     |     |      |       |      |
-Do  |     |     | X   |      |       |      |
-
-
-## Ontogentic vertical migration
+![Mean concentration (m^3^) of ontogenetic larval stages (PRE = preflexion, FLE = flexion, POS = postflexion) for nine temperate reef families (Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae) at three depths (0 = surface, 25 = 5-50 metres, 75 = 50-100 metres), sampled from 16 different stations along the NSW coast. 95% confidence intervals are shown.](../figs/depth-stage-all.png){#fig:ovm}
 
 Five of the families exhibited patterns of ontogenetic vertical migration across the 3 depths.
 
 (Labridae)
-## OVM - depth x Stage
+## OVM - Depth x Stage
 Labridae pre-flexion larvae were predicted to be in the surface 41% less than at 25 m (p = 0.020), but 3.8 times more in the surface than at 75 m (p = 0.011). Pre-flexion larvae were predicted to be 9.2 times more abundant at 25 m than 75 m (p < 0.001). Flexion larvae were also found 40% less at the surface than 25 m (p = 0.017). Post-flexion larvae trended towards deeper water, but the predicted counts were not significantly different. Between depths, each stage was predicted to be in in similar numbers at the surface and at 25 m, but at 75 m pre-flexion larvae were in significantly lower numbers than both flexion (p < 0.001) and post-flexion (p < 0.001).
 
-(Mullidae)
 For Mullidae, post-hoc tests suggests each stage had similar concentrations at the surface and 25 m and then significantly lower concentrations at 75 m. The predicted means showed that while flexion slightly increased from the surface down to 25 m, post-flexion larvae decreased, although this was non-significant. At the surface there were no differences in the predicted abundance of each stage, but at 25 m pre-flexion larvae were 5.3 times more abundant than post-flexion larvae (p = 0.003) and at 75 m post-flexion larvae occurred about 7.6 times more than pre-flexion larvae (noting the mean counts at 75 m were low compared to the other depths; p = 0.045).
 
-(Pomacentridae)
-Pomacentirdae and scaridae did not exhibit a significant interaction of depth and stage.
-
-(Scaridae)
-NS
-
-
-(Scorpaenidae)
 Scorpaenidae pre-flexion larvae were found to exist in equal numbers across the depths. Flexion and post-flexion larvae were found to be higher at both 25 m (p^flexion^ = 0.029; p^post-flexion^ = 0.025) and 75 m (p^flexion^ = 0.011; p^post-flexion^ < 0.001) than the surface waters.
 At the surface, pre-flexion larvae was 6 times more abundant that post-flexion larvae (p = 0.044). This pattern was reversed at 75 m, whereby post-flexion larvae were 6 times more abundant than pre-flexion larvae (p = 0.030). At 25 m the each larval stage was found in equal amounts.
 
-(Serranidae)
-Post-flexion Serranidae larvae were found to occur more at 75m than the surface (p = 0.042). All other stages were found to be similar across the depths. At the surface each stage was found to occur in different abundances, with pre-flexion being the highest at 8.5 times flexion larvae (p < 0.001) and 170 times post-flexion larvae (p < 0.001), and flexion larvae occuring 20 times more than post-flexion larvae (p = 0.021). A similar pattern occurred at 25 m, with pre-flexion larvae occuring 6.2 times more than flexion (p < 0.001) and 52 times more than post-flexion (p < 0.001). At the deepest depth of 75 m, pre-flexion and flexion occured in similar numbers, and both were significantly greater than post-flexion larvae (p^pre-flexion^ = 0.021; p^flexion^ = 0.034). It should be noted this analysis was on only 17 post-flexion larvae, so caution should be applied to the ratios of abundance.
+Post-flexion Serranidae larvae were found to occur more at 75m than the surface (p = 0.042). All other stages were found to be similar across the depths. At the surface each stage was found to occur in different abundances, with pre-flexion being the highest at 8.5 times flexion larvae (p < 0.001) and 170 times post-flexion larvae (p < 0.001), and flexion larvae occurring 20 times more than post-flexion larvae (p = 0.021). A similar pattern occurred at 25 m, with pre-flexion larvae occurring 6.2 times more than flexion (p < 0.001) and 52 times more than post-flexion (p < 0.001). At the deepest depth of 75 m, pre-flexion and flexion occurred in similar numbers, and both were significantly greater than post-flexion larvae (p^pre-flexion^ = 0.021; p^flexion^ = 0.034). It should be noted this analysis was on only 17 post-flexion larvae, so caution should be applied to the ratios of abundance.
 
-(Synodontidae)
 Synodontidae post-hoc analysis showed there were no clear difference between the predicted means of each stage at each depth. Synodontidae pre-flexion larvae at the surface occurred in greater numbers than the post-flexion larvae (p = 0.018). At the other depths, there were no differences found between predicted abundances.
 
-
-
-# Length
-
-Labridae
-The length of the Labridae larvae at the surface and 25 m were not significantly different. At 75 m, the length of the Labridae larvae was more than double both the surface (p < 0.001) and 25 m (p < 0.001).
-
-Mullidae
-Similar to the Labridae, Mullidae larvae were longer at 75 m, compared to the surface (p < 0.001) and 25 m (p < 0.001), although this difference was three times with Mullidae larvae.
-
-
-Pomacentirdae
-Pomacntrides were not really that different .
-
-
-Scaridae
-Scarids were not found to be different
-
-
-Scopraenidae
-Longer at 75 m (compared to surface p < 0.001) and compared to 25 m (p < 0.001)
-
-
-Serranidae
-Serranids are also longer at 75 m, but also slightly longer at 25 m than the surface (p = 0.001)
-
-Synodontidae
-synodontid showed similar patterns with 
-
-
-## Temperature
-
-For four of the families (Labridae, Scaridae, Scopraenidae, and Synodontidae) temperature was a significant positive predictor of
-
-Positive: Labridae, Scar, Scorp, Syndo.
-Negative: Pom
-
-
-(Discussion)
-The two that did not exhibit OVM, Scaridae and Pomcentridae both had  low numbers of one ontogenetic stage (pre-flexion and post-flexion respectively), leading to difficulties in analysis.
-
-
-#### Patterns
-
-The general pattern was that the highest larval concentrations were found in the 5-50 m, with the lowest concentrations found in the bottom 50-100m layer (@fig:ontogeny-all). At the surface most larvae were preflexion, 30% more abundant than postflexion larvae, and twice as abundant as flexion larvae. In the 5-50 m depth bin, the concentration on preflexion was at its highest, flexion larvae became twice as abundant as the surface, and postflexion larvae also increased in abundance although now found in lower concentrations than preflexion larvae. In the lowest depth range, 50-100 m, pre-flexion larvae were found in small concentrations, 7.6 times lower than in the 5-50 m bin. Postflexion larvae were the most common ontogenetic stage in this depth bin, and along with flexion, were found at concentrations lower than the other depths. Each family displayed varying patterns of ontogeny by depth (@fig:ontogeny-family). The most consistent pattern of preflexion was that higher concentrations were found at the surface and in the 5-50 m bin and low numbers in the 50-100 m depth bin, seen in every family except Scaridae where concentration of preflexion larvae did not change much between depths. Most flexion larvae were caught in the 5-50 m bin, except for Mullidae which were found in the surface. For post-flexion larvae, generally they were found at the highest concentration in the 5-50 m depth bin, except for the families Mullidae (surface), Labridae (surface and 5-50 m), and Scorpaenidae (5-50 m and 50-100 m) and Serranidae (equal between depths).
-
-![The mean concentration (per m^3^) of the abundant temperate reef fish larvae at three depth ranges (0, 5-50 m, 50-100 m) by ontogenetic stage (preflexion, flexion, postflexion; ± S.E.)](../figs/ontogeny-all.png){#fig:ontogeny-all}
-
-![The mean concentration (per m^3^) of the reef fish larvae, by family, at three depth ranges (0, 5-50 m, 50-100 m) by ontogenetic stage (preflexion, flexion, postflexion; ± S.E.)](../figs/ontogeny-family.png){#fig:ontogeny-family}
-
-When comparing across features (between coastal and eddy waters), there are different patterns exhibited. The coastal water has higher concentrations of preflexion larvae at the surface than as seen in the eddies (@fig:ontogeny-feature-all). Flexion larvae were found in similar concentrations in the surface and 50-100 m bin, but the 5-50 m range had a 1.6 times increase in concentration. Postflexion larvae was found in concentrations about twice that as the coastal waters for all ontogenetic stages. It was the most common ontogenetic stage found in both the surface and 50-100m waters depths in the eddy. This trend was consistent across all families, only the postflexion larvae of Labridae, Scaridae, and Scorpaenidae were see in greater concentrations in the eddies (@fig:ontogeny-feature-family). Mullidae preflexion larvae were found at greater concentrations at the surface and 5-50 m depth in the eddy than the coast waters. Scaridae (surface and 5-50 m) and Scorpaenidae (5-50 m) had greater than 2 times increases of flexion larvae in eddies. the only difference between oceanic features for Serranidae was that in the eddy not as many preflexion larvae were found in the surface waters.
-
-![The mean concentration (per m^3^) of the abundant temperate reef fish larvae at three depth ranges (0, 5-50 m, 50-100 m) by ontogenetic stage (preflexion, flexion, postflexion) at different water features (coastal and frontal eddy; ± S.E.)](../figs/ontogeny-feature-all.png){#fig:ontogeny-feature-all}
-
-![The mean concentration (per m^3^) of the reef fish larvae, by taxonomic family, at three depth ranges (0, 5-50 m, 50-100 m) by ontogenetic stage (preflexion, flexion, postflexion) at different water features (coastal and frontal eddy; ± S.E.)](../figs/ontogeny-feature-all.png){#fig:ontogeny-feature-family}
-
-
-#### Drivers
-
-# Ontogeny
-
-
-
-
-# Feature
-Mullidae; No effect of feature.
-Pomcentirdae were more likely to be found in in coastal waters (P < 0.001) - and when found in higher concentrations in coastals waters (P < 0.001).
-Scaridae: Eddy predicted prescence.
-
-Scorp : Eddy was a negaive predictor of presence.
-
-## Feature x Stage Interaction
-
-Labridae had significant feature interaction (increased POS in eddy and decreased PRE in eddy).
-
-
-
-## Depth
-
-Pomacentrids: Depth 75 was significantly less than 25 and the surface.
-Scairdae : Depth 75 is a negative predictor of presence.
-
-
-## Depth x Stage Interaction
-
-Labridae had a significant interaction at depth and stage - less pre-flexion larvae at depth 75 (p < 0.XXX)
-
-Mullidae had a significant interaction at depth at depth 75 (preflexion lower than surface (P < 0.0118) and 25m (P < 0.0066)). Postflexion was significantly lower in the 75m than the surface (P\<0.02).
-
-Pomacentridae had a significant interaction of feature x stage, while pre flexion were would in higher numbers in the surface and 25, they were found in equal concentration with Flexion and postflexion in 75m.
-
-Scorp : Significant interaction from flexion surface to 25 (rest variation was too large).
-
-Scaridae: Postflexion occurred significantly less in depth 75.
-
-Serranidae: depth x stage interaction of preflexion (a lot lower in the 75m).
-
-Synodontid: significant interaction at depth 75: preflexion lower.
-
-## Feature x Depth x Stage Interaction
-
-Scaridae : postflextion larvae occured significantly more at depth 25 and 75 in an eddy.
-
-## Environmental variables
-
-(Mullidae or Labridae?) Temperature (P\<0.001) and dissolved oxygen (P\<0.05) predicted if they were there at all, and dissolved oxygen predicting is increasing of conecntration (P=0.00509).
-
-Pomcentrid: Dissolved oxygen was both a positive predictor of the presence of pomacentird and a positive predictor of the concentration. Temperature was a negative predictor of both presence and concentration.
-
-Scaridae: Temperature is a positive predictor of presence.
-
-Scorp: Temperature was a positive predictor of absence, but it was a positive predictor of concentration.
-
-Serranid: Dissolved oxygen is a negative predicor of presence.
-
-Synodontid: Temperature was a positive predictor of presence.
-
-# Length
-(../figs/labrid-length.png){#fig:labrid-length}
-
-
-## Depth
-
-Labridae were significantly different at each depth, the smallest sizes were found in the 25m (4.82 mm), compared to the surface (5.36 mm) and the bottom 75m (9.67 mm).
-
-Mullidae: Surface bigger than 25 (P = 0.0036), 25 > 75 (P < 0.001) and surface < 75 (P < 0.001).
-
-Serranidae: Longer 0 < 25 < 75.
-
-Scorp: surface and 75 are shorter, plus 25 and 75. (P < 0.001).
-
-Pomacentridae : Shorter in the surface (no difference between surface and 75 or 25 and 75).
-
-Scaridae: No predictor of depth
-
-## Feature
-There was a signifiant positive predictor of feature on Mullidae (P < 0.001) in the eddy.
-
-Pomacentrids: Eddy was a significant predictor of length (P < 0.001)
-
-Scaridae: Eddy < coastal
-
-Scorpaenids: Eddy > coastal
-
-Serranidae: Eddy > coastal
-
-Synodontid: Eddy > coastal
-
-## Feature x Depth
-
-Labridae: There was an interaction with depth 75 and eddy (t(1251)=-3.239, P\<0.05).
-
-Scaridae: Surface fish were longer in the eddy, whereas the others where the same length.
-
-## Environmental
-
-No environmental variables were significant predictors for Labridae.
-Mullidae: Positive predictor of length by temperature.
-
-Poms - dissolved oxygen was a negative predictor of length.
-
-Temperature positive predictor of length
-
-The presence of Labridae was driven by depth, with odds of Labridae being present at the 50-100 m depth range (p = 0.040) higher than the upper 50 m or surface. Temperature was also an indicator of presence, with more present as the temperature increased (p = 0.018). For the non-zero data, the concentration was also driven by the temperature, increasing as temperature increased (p = 0.031).
-
-#### Mullidae ontogeny
-
-The presence of Mullidae was driven by the dissolved oxygen (p = 0.049). Although when looking at the non-zero data, no significant predictors of concentration were found.
-
-#### Pomacentridae ontogeny
-
-Pomacentridae presence was negatively predicted by an increase in temperature (p = 0.041). There were no significant predictors of concentration when only looking at the non-zero data.
-
-#### Scaridae ontogeny
-
-The presence of Scaridae was strongly predicted by the temperature (p < 0.001), but also the salinity (p = 0.039). Depth was also a predictor, with increasing odds of presence in the 5-50 m range (p = 0.033) and more again in 50-100 m range (p = 0.018). When looking at the non-zero data, only the environmental salinity was a predictor of concentration (p = 0.023).
-
-#### Scorpaenidae ontogeny
-
-Temperature was again a strong predictor of the presence of scorpionfish (p < 0.001). There was an increase of presence at the depth 5-50 m inside an eddy (p = 0.045). The was also a decrease in presence of preflexion larval fish at the 50-100 m depth range (p = 0.029). There were no significant predictors for the concentration of Scorpaenidae.
-
-#### Serranidae ontogeny
-
-The presence of Serranidae was predicted by dissolved oxygen (p = 0.008). There were no predictors of concentration.
-
-#### Synodontidae
-
-The presence of preflexion Synodontidae at 50-100 m was lower (p = 0.033). The environmental variable of temperature increase the presence (p < 0.001) and was decreased by dissolved oxygen (p = 0.040).
-
-### Length
-
-#### Patterns
-
-The mean lengths of the fish were different at the depths (F~2,2824~ = 41.89, p < 0.001; @fig:length-all). The length of the surface (5.81 ± 0.005 mm) was longer than the mean length at 5-50 m range (5.14 ± 0.002; p = 0.001) and shorter to the 50-100 m depth (6.28 ± 0.007 mm; p < 0.001). Fish in the deepest depth were longer than the fish in the 5-50 m depth (p < 0.001). Between taxonomic families, there were different patterns of length exhibited by depth (F~8,2818~ = 205.05, p < 0.001; @fig:length-family), although the trend was for the longest larvae to be in 50-100 m depth bin.
-
-![The length (mm) of the reef fish larvae at three depth ranges (0, 5-50 m, 50-100 m)](../figs/length-family.png){#fig:length-all}
-
-![The length (mm) of the reef fish larvae, by taxonomic grouping, at three depth ranges (0, 5-50 m, 50-100 m)](../figs/length-family.png){#fig:length-family}
-
-
-Comparing across features the larval fish in the eddy were longer when comparing each of the depths (@fig:length-feature-all), although there was a significant interaction between feature and depth (F~2,2821~ = 15.956, p < 0.001). Post-hoc analysis showed the length of the fish at the surface and the 50-100 m of the eddy were the same (p < 0.001), the coastal water at the surface and 5-50 m bin were the same, and the 5-50 m bin of the eddy were the same length as the coastal 50-100 m bin fish. In general, the mean length, and the variation, in the eddies appeared to be larger than the coastal waters (@fig:length-feature-family).
-
-![The length (mm) of the reef fish larvae at three depth ranges (0, 5-50 m, 50-100 m) and by oceanic feature (coastal waters or eddy)](../figs/length-feature-all.png){#fig:length-feature-all}
-
-![The length (mm) of the reef fish larvae, by taxonomic family, at three depth ranges (0, 5-50 m, 50-100 m) and by oceanic feature (coastal waters or eddy)](../figs/length-feature-family.png){#fig:length-feature-family}
-
-#### Labridae length
-
-A significant regression equation was found for Labridae (F~8,1243~ = 46.06, p < 0.001, r^2^ = 0.22). There was a significant interaction between feature and depth (p < 0.001; @fig:labrid-length-interaction). Post-hoc tests showed the length of the larval Labridae in the coastal 50-100 m depth was the same as the Labridae in the 5-50 m and 50-100 m depths of the eddy. From the environmental data, there were negative effects of salinity (p < 0.001) and positive effects of temperature (p = 0.027) on the length of Labridae.
-
-![Labrid interaction plot](../figs/labrid-length-interaction.png){#fig:labrid-length-interaction)
-
-#### Mullidae length
-
-Mullidae had a significant regression equation (F~8,235~ = 27.18, p < 0.001, r^2^ = 0.46), with a significant interaction between feature and the depth 5-50 m, with the coastal length less than the surface length, but the eddy length at this depth greater than the surface waters (@fig:mullid-length-interaction). The environmental variables of temperature (length increased with temperature; p < 0.001), and salinity (length decreased with salinity; p = 0.016).
-
-![Mullid interaction plot](../figs/mullid-length-interaction.png){#fig:mullid-length-interaction)
-
-#### Pomacentridae length
-
-The Pomacentridae were analysed using a general linear model with a gaussian log-link distribution, and showed the Pomacentridae larval fish in the 50-100 m depth were longer than the other two depths (p < 0.001). Pomacentridae were also longer in the eddies that the coastal waters (p < 0.001). There were also significant predicators of length by temperature (0.31 degrees per mm; p < 0.001), salinity (3.74 PSU per mm, p = 0.002), and dissolved oxygen (-1.05 g/L per mm; p < 0.001).
-
-#### Scaridae length
-
-Scaridae had a significant regression equation (F~8,219~ = 3.867, p < 0.001, r^2^ = 0.09), with no significant predictor variables.
-
-#### Scorpaenidae length
-
-Scorpaenidae had a significant regression equation (F~8,167~ = 8.129, p < 0.001, r^2^ = 0.25), with a significant interaction between feature and the depth 5-50 m, with the length at this depth in the eddy higher than in the coastal waters (p = 0.047; @fig:scorpaenid-length-interaction). Salinity was a significant predictor, with a negative relationship with the length of the Scorpaenidae (p = 0.008).
-
-![Scorpaenidae interaction plot](../figs/scorpaenid-length-interaction.png){#fig:scorpaenid-length-interaction)
-
-#### Serranidae length
-
-Serranidae had a significant regression equation (F~8,584~ = 31.74, p < 0.001, r^2^ = 0.29), with a significant interaction between feature and the depth 5-50 m, as the mean length increase (1.6 times) in the 5-50m depth was more than the increase (approx. 1.3 times) in the other depths for the eddy than the coastal waters (p = 0.049;  @fig:serranid-length-interaction). Temperature was also a significant positive predictor of Serranidae length (p < 0.001).
-
-
-![Serranid interaction plot](../figs/serranid-length-interaction.png){#fig:serranid-length-interaction)
-
-
-#### Synodontidae length
-
-Synodontidae had a significant regression equation (F~8,131~ = 31.74, p < 0.001, r^2^ = 0.29), although there were no significant predictor variables for length in the model.
-
+Pomacentridae and Scaridae did not exhibit a significant interaction of depth and stage, even when combining stages to account for low sample sample size.
+
+## Length x Depth
+
+![Length (mm) of larval fish of nine temperate reef families (Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae) at three depths (0 = surface, 25 = 5-50 metres, 75 = 50-100 metres), sampled from 16 different stations along the NSW coast.](../figs/length-depth-all.png){#fig:length-depth}
+
+
+For each of the seven fish families, depth was a significant predictor of length. The length of the Labridae larvae at the surface and 25 m were not significantly different. The Labridae larvae at 75 m, it was predicted the larvae were twice as long compared to the surface (p < 0.001) and at 25 m (p < 0.001). Similar to the Labridae, Mullidae larvae were longer at 75 m, compared to the surface (p < 0.001) and 25 m (p < 0.001), although this difference was three times with Mullidae larvae. The Pomacentridae larvae are predicted to be on average 0.58 mm longer at 25 m than the surface (p = 0.026). Scaridae larvae were predicted in the model to be longer in the surface than 25 m (p = 0.027), although post-hoc analysis found no difference between the least-squares means at each depth. Scorpaenidae larvae were significantly longer 75 m, on average 2.72 mm longer than the surface (p < 0.001) and 1.44 mm longer than the larvae at 25 m (p < 0.001). The surface and 25 m larvae were found to not significantly differ in size in the post-hoc analysis, even though the model did predict the length at depth 25 m to be longer than the surface larvae. Serranidae larvae were significantly different at each depth, only 0.36 mm larger at 25 m than the surface (p = 0.001), but 3.91 mm longer at 75 m than the surface (p < 0.001). Synodontidae larvae were predicted from the model to be longer at 75 m than the surface, however post-hoc analysis did not find any differences between the predicted means at each depth.
+
+Length Depth Patterns
+- Larger in 75m = labridae, mullidae, scorpaneidae, serranidae
+- Same = Poms, scarids, synodontids.
+
+### Environmental variables - length
+The length of Labridae (p < 0.001), Mullidae (p < 0.001), Pomacentridae (p < 0.001) and Serranidae (p < 0.001 all were positively predicted by the water temperature (@tbl:length-glm-output). Labridae larval length was positively predicted by chlorophyll fluorescence (p < 0.001). Salinity was a positive predictor of Pomacentridae (p = 0.030) and Scaridae length (p = 0.001), but a negative predictor of the length of Scorpaenidae larvae (p = 0.039). Dissolved oxygen negatively predicted the length of Pomacentridae larvae (p < 0.001).
+
+
+## Effect of water feature (eddies)
+
+
+
+### Feature on Length
+
+Six of the families were significantly longer in an eddy than the coastal waters, Scaridae being the exception where the eddy had no effect on length (@tbl:length-glm-output). The greatest effect of eddy was on Mullidae, which were on average predicted to be 3.7 times longer than the larvae in the coastal waters (p < 0.001) and the smallest effect was on Labridae which were only 1.2 times longer (p < 0.001). There was no interaction between depth and feature for any of the seven temperature fish families.
+
+## Take home messages for stage based vertical migration
+
+No significant interactions between feature x stage x depth
+  - Therefore pattern of behaviour doesnt seem to be dependent on feature
+
+Five families show distinct patterns of OVM
+  - The two that didn't had low sample sizes for one stage (Poms at post-flexion, Scarids at pre-flexion)
+
+## Take home messages for length vertical migration
+
+Larger larvae were found deeper
+  - Predator avoidance? Changes in prey?
+  - Should we be modelling length instead of ontogeny?
+Larger larvae were found in the eddy
+  - There was no interaction, larvae grow larger in eddies
+  - Expected behaviour as larvae age in eddies
+Temperature was a strong predictor of larvae length
+  - Grow faster in warmer temperatures?
+  - Slopes were gradual. Predator avoidance? (Less nutrient rich water = less predators?!)
+  - Or higher temperatures allow them to use more of the water column?
+  - Labridae length was predicted positively by both temperature and chlorophyll - seems contradictory
+
+
+: The predictors of larvae abundance for the fish families Labridae, Mullidae, Scorpaenidae, Serranidae, and Synodontidae using generalised linear models with negative binomial. The estimate and standard error is given. {#tbl:ontogeny-glm-output}
+
+| Dependent variable:      |                                        |                   |                   |                   |                   |                  |   |   |
+|--------------------------|----------------------------------------|-------------------|-------------------|-------------------|-------------------|------------------|---|---|
+|                          | Count                                  |                   |                   |                   |                   |                  |   |   |
+|                          | Labridae                               | Mullidae          | Scaridae          | Scorpaenidae      | Serranidae        | Synodontidae     |   |   |
+| Feature(Eddy)            | 0.864\*                                | 2.768\***         | 1.531\***         | 0.362             |                   | -0.012           |   |   |
+|                          | (0.401)                                | (0.530)           | (0.300)           | (0.440)           |                   | (0.558)          |   |   |
+| Depth(25)                | 1.316\***                              | 0.048             | 1.125\**          | 0.338             | 0.045             | -0.356           |   |   |
+|                          | (0.389)                                | (0.454)           | (0.355)           | (0.449)           | (0.466)           | (0.461)          |   |   |
+| Depth(75)                | -0.511                                 | -5.750\***        | 1.363             | -0.546            | -0.641            | -1.571           |   |   |
+| (0.503)                  | (0.998)                                | (0.766)           | (0.774)           | (0.687)           | (0.906)           |                  |   |   |
+| Stage(FLE)               | -0.245                                 | -0.022            | 2.952\***         | -2.296\**         | -2.147\***        | -1.895\**        |   |   |
+| (0.426)                  | (0.620)                                | (0.796)           | (0.452)           | (0.528)           | (0.626)           |                  |   |   |
+| Stage(POS)               | -0.551                                 | 0.192             | 2.457\***         | -2.745\***        | -5.143\***        | -2.219\**        |   |   |
+| | (0.431)                  | (0.614)                                | (0.834)           | (0.457)           | (1.103)           | (0.706)           |                  |   |
+| Temperature              | 0.380\**                               |                   | 1.586\***         | 1.029\***         |                   | 0.932\***        |   |   |
+|                          | (0.127)                                |                   | (0.256)           | (0.201)           |                   | (0.200)          |   |   |
+| Chlorophyll              |                                        | -0.911\***        |                   |                   |                   |                  |   |   |
+|                          |                                        | (0.222)           |                   |                   |                   |                  |   |   |
+| Dissolved Oxygen         | 0.635\*                                | -0.570            | -0.511\*          |                   |                   |                  |   |   |
+| (0.266)                  | (0.323)                                | (0.256)           |                   |                   |                   |                  |   |   |
+| Salinity                 |                                        |                   | -0.376\**         |                   |                   |                  |   |   |
+|                          |                                        |                   | (0.126)           |                   |                   |                  |   |   |
+| Feature(Eddy):Depth(25)  | -0.854\*                               |                   |                   |                   |                   | 0.885            |   |   |
+|                          | (0.388)                                |                   |                   |                   |                   | (0.588)          |   |   |
+| Feature(Eddy):Depth(75)  | -1.633\***                             |                   |                   |                   |                   | -0.645           |   |   |
+|                          | (0.425)                                |                   |                   |                   |                   | (0.806)          |   |   |
+| Feature(Eddy):Stage(FLE) | 0.506                                  | -1.803\**         |                   | 1.379\*           | 1.332\*           |                  |   |   |
+|                          | (0.403)                                | (0.642)           |                   | (0.611)           | (0.590)           |                  |   |   |
+| Feature(Eddy):Stage(POS) | 1.887\***                              | -1.471\*          |                   | 1.884\**          | 0.811             |                  |   |   |
+|                          | (0.403)                                | (0.659)           |                   | (0.609)           | (0.596)           |                  |   |   |
+| Depth(25):Stage(FLE)     | 0.024                                  | 0.239             |                   | 1.430             | 0.329             | 0.466            |   |   |
+|                          | (0.469)                                | (0.676)           |                   | (0.824)           | (0.706)           | (0.691)          |   |   |
+| Depth(25):Stage(POS)     | 1.632\**                               | -1.121            |                   | 1.545             | 2.050\**          | 2.138\*          |   |   |
+|                          | (0.551)                                | (0.699)           |                   | (0.848)           | (0.724)           | (0.870)          |   |   |
+| Depth(75):Stage(FLE)     | -0.469                                 | 2.951\**          |                   | 2.828\**          | 1.199             | 1.237            |   |   |
+|                          | (0.470)                                | (1.061)           |                   | (1.020)           | (1.267)           | (0.771)          |   |   |
+| Depth(75):Stage(POS)     | 1.846\***                              | 2.751\**          |                   | 3.577\***         | 3.624\**          | 2.536\**         |   |   |
+|                          | (0.546)                                | (1.039)           |                   | (1.017)           | (1.241)           | (0.946)          |   |   |
+| Constant                 | -6.221\***                             | -6.845\***        | -5.206\***        | -7.829\***        | -4.897\***        | -6.855\***       |   |   |
+|                          | (0.354)                                | (0.436)           | (0.655)           | (0.453)           | (0.386)           | (0.463)          |   |   |
+| Observations             | 276                                    | 276               | 276               | 276               | 276               | 276              |   |   |
+| theta                    | 0.785\*** (0.092)                      | 0.434\*** (0.083) | 0.995\*** (0.278) | 0.826\*** (0.243) | 0.325\*** (0.051) | 1.070\** (0.361) |   |   |
+| Note:                    | \*p < 0.05; \**p < 0.01; \***p < 0.001 |                   |                   |                   |                   |                  |   |   |
+
+
+: The predictors of larvae length for the fish families Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae using generalised linear models with Gamma distributions. The estimate and standard error is given. {#tbl:length-glm-output}
+
+
+|                  |                 | Length (mm)    |               |          |              |            |              |   |
+|------------------|-----------------|----------------|---------------|----------|--------------|------------|--------------|---|
+|                  | Labridae        | Mullidae       | Pomacentridae | Scaridae | Scorpaenidae | Serranidae | Synodontidae |   |
+| Feature (Eddy)   | 0.154\***       | 1.302\***      | 0.886\***     | -0.039   | 0.259\***    | 0.437\***  | 0.403\***    |   |
+|                  | (0.036)         | (0.171)        | (0.177)       | (0.051)  | (0.073)      | (0.085)    | (0.110)      |   |
+| Depth (25 m)     | -0.090\**       | -0.216\*       | 0.144\*       | -0.156   | 0.257\*      | 0.123\***  | 0.201        |   |
+|                  | (0.030)         | (0.094)        | (0.058)       | (0.086)  | (0.118)      | (0.036)    | (0.132)      |   |
+| Depth (75 m)     | 0.574\***       | 1.110\***      | 0.358\*       | -0.127   | 0.529\***    | 0.811***   | 0.789\*      |   |
+|                  | (0.080)         | (0.200)        | (0.157)       | (0.134)  | (0.127)      | (0.066)    | (0.357)      |   |
+| Temperature      | 0.108\***       | 0.613\***      | 0.208***      | -0.084   |              | 0.192\***  |              |   |
+|                  | (0.024)         | (0.074)        | (0.055)       | (0.044)  |              | (0.036)    |              |   |
+| Chlorophyll      | 0.061\***       |                |               |          |              |            |              |   |
+|                  | (0.008)         |                |               |          |              |            |              |   |
+| Salinity         |                 |                | 2.265\*       | 0.168\** | -0.211\*     | -0.197     |              |   |
+|                  |                 |                | (1.033)       | (0.063)  | (0.102)      | (0.199)    |              |   |
+| Dissolved Oxygen |                 |                | -0.888\***    |          |              |            | 0.846        |   |
+|                  |                 |                | (0.248)       |          |              |            | (0.454)      |   |
+| Constant         | -2.324\***      | -12.186\***    | -79.789\*     | -2.179   | 8.654*       | 3.632      | -2.398       |   |
+|                  | (0.695)         | (1.707)        | (36.695)      | (2.094)  | (3.551)      | (7.429)    | (2.324)      |   |
+| Observations     | 1,252           | 244            | 194           | 228      | 176          | 593        | 140          |   |
+| Note:            | \*p < 0.05; \** | p < 0.01; \*** | p < 0.001     |          |              |            |              |   |
 
 
 

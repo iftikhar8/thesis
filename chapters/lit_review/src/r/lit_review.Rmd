@@ -100,7 +100,7 @@ summary(data.all$date_end)
 
 ## How connectivity studies are parametising the physical model
 ```{r}
-data.models <- distinct(select(data.all,title, physical_model, nested_submodels,model_resolution_min, model_integration, model_time_step))
+data.models <- distinct(data.all,title, physical_model, nested_submodels,model_resolution_min, model_integration, model_time_step)
 data.models$physical_model <- addNA(data.models$physical_model)
 data.models$nested_submodels <- addNA(data.models$nested_submodels)
 data.models$model_integration <- addNA(data.models$model_integration)
@@ -219,7 +219,7 @@ Figure 3: Percentage of models over time (fish and inverts)
 ```{r}
 data.all$published <- as.factor(data.all$published)
 papers.comparisons <- data.all %>% gather(behaviours, implemented,passive_movement,movement,directed_swimming, sensory_ability)
-papers.comparisons <- papers.comparisons %>% select(paper_id,published,behaviours,implemented,species_type) %>% distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
+papers.comparisons <- papers.comparisons %>% distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
   mutate(taxa = if_else(is_fish == TRUE & is_invert == FALSE, 'Fish', if_else(is_invert == TRUE, 'Invertebrate', 'NA'))) %>% filter( taxa == 'Fish' | taxa == 'Invertebrate')
 
 comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of models") +theme_few()+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
@@ -372,7 +372,7 @@ ggsave("../../figs/physical-models.png",plot=p,width = 169, height=150, units="m
 ### Model Resolution
 
 ```{r}
-resolution.data <- data.all %>% select(model_resolution_min,self_recruitment_mean,settlement_success_mean,
+resolution.data <- data.all %>% dplyr::select(model_resolution_min,self_recruitment_mean,settlement_success_mean,
                                        local_retention_mean,distance_travelled_mean) %>% filter(model_resolution_min < 20)
 resolution.sr_lm <- lm(model_resolution_min ~ self_recruitment_mean, data = resolution.data)
 resolution.ss_lm <- lm(model_resolution_min ~ settlement_success_mean, data = resolution.data)
