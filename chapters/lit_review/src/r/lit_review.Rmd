@@ -348,19 +348,19 @@ data.models.lr <- filter(data.all, local_retention_mean  > 0)
 data.models.dd <- filter(data.all, distance_travelled_mean  > 0)
 
 
-plot1 <- ggplot(data.models.lr,aes(model_name,local_retention_mean))+ labs(y="Local retention (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip()
-plot2 <- ggplot(data.models.sr,aes(model_name,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip()
-plot3 <- ggplot(data.models.ss,aes(model_name,settlement_success_mean))+ labs(y="Settlement success (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip()
-plot4 <- ggplot(data.models.dd,aes(model_name,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="") + geom_boxplot() + coord_flip()
+plot1 <- ggplot(data.models.lr,aes(model_name,local_retention_mean))+ labs(y="Local retention (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() +annotate(geom = "text", x = 7, y = 0.95, label = c("a")) + theme_few() + scale_fill_few()
+plot2 <- ggplot(data.models.sr,aes(model_name,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() +annotate(geom = "text", x = 16.5, y = 0.95, label = c("b")) + theme_few() + scale_fill_few()
+plot3 <- ggplot(data.models.ss,aes(model_name,settlement_success_mean))+ labs(y="Settlement success (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + annotate(geom = "text", x = 12.5, y = 0.95, label = c("c")) + theme_few() + scale_fill_few()
+plot4 <- ggplot(data.models.dd,aes(model_name,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="") + geom_boxplot() + coord_flip() + annotate(geom = "text", x = 11.5, y = 900, label = c("d")) + theme_few() + scale_fill_few()
 p <- grid.arrange(plot1,plot2,plot3,plot4, left="Biophysical dispersal model")
 ggsave("../../figs/bdm-models.png",plot=p,width = 169, height=150, units="mm",dpi=300)
 
 
 
-plot1 <- ggplot(data.models.lr,aes(physical_model,local_retention_mean))+ labs(y="Local retention (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip()
-plot2 <- ggplot(data.models.sr,aes(physical_model,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip()
-plot3 <- ggplot(data.models.ss,aes(physical_model,settlement_success_mean))+ labs(y="Settlement success (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip()
-plot4 <- ggplot(data.models.dd,aes(physical_model,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="") + geom_boxplot() + coord_flip()
+plot1 <- ggplot(data.models.lr,aes(physical_model,local_retention_mean)) + labs(y="Local retention (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) + coord_flip() + annotate(geom = "text", x = 7, y = 0.95, label = c("a")) + theme_few() + scale_fill_few()
+plot2 <- ggplot(data.models.sr,aes(physical_model,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + annotate(geom = "text", x = 13.5, y = 0.95, label = c("b")) + theme_few() + scale_fill_few()
+plot3 <- ggplot(data.models.ss,aes(physical_model,settlement_success_mean))+ labs(y="Settlement success (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip()+ annotate(geom = "text", x = 9.5, y = 0.95, label = c("c")) + theme_few() + scale_fill_few()
+plot4 <- ggplot(data.models.dd,aes(physical_model,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="") + geom_boxplot() + coord_flip()+ annotate(geom = "text", x = 10.5, y = 900, label = c("d")) + theme_few() + scale_fill_few()
 p <- grid.arrange(plot1,plot2,plot3,plot4, left="Hydrodynamic model")
 ggsave("../../figs/physical-models.png",plot=p,width = 169, height=150, units="mm",dpi=300)
 #png("../figs/oceanic_metrics.png",width = 750, height = 750)
@@ -545,18 +545,18 @@ mortality.prop <- data.all %>% filter(mortality == TRUE) %>% group_by(mortality_
 mort2 <- ggplot(data.all, aes(mortality, self_recruitment_mean)) + geom_boxplot() + #geom_jitter(width = 0.1)+ 
   labs(x="", y="Self-recruitment (%)")+ theme_few() + scale_fill_grey() +
    annotate(geom = "text", x=2.5, y = 0.95, label = c("b")) +
-  scale_y_continuous(limits = c(0, 1.0)) + scale_x_discrete(labels=c("Immortality","Mortality"))
+  scale_y_continuous(limits = c(0, 1.0)) + scale_x_discrete(labels=c("No mortality","Mortality"))
 mort1 <- ggplot(data.all, aes(mortality, local_retention_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   labs(x="", y="Local retention (%)")+ theme_few() + scale_fill_few() +
   annotate(geom = "text", x = 2.5, y = 0.95, label = c("a")) +
-  scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("Immortality","Mortality"))
+  scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("No mortality","Mortality"))+ stat_compare_means(method = "t.test",aes(label = ..p.signif..),label.y = 0.9)
 mort3 <- ggplot(data.all, aes(mortality, settlement_success_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   labs(x="", y="Settlement success (%)")+ theme_few() + scale_fill_few() +
   annotate(geom = "text", x = 2.5, y = 0.95, label = c("c")) +
-  scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("Immortality","Mortality"))
+  scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("No mortality","Mortality"))
 mort4 <- ggplot(data.all, aes(mortality, distance_travelled_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   annotate(geom = "text", x = 2.5, y = 900, label = c("d")) +
-  labs(x="", y="Dispersal distance (km)")+ theme_few() + scale_fill_few()+ scale_x_discrete(labels=c("Immortality","Mortality"))
+  labs(x="", y="Dispersal distance (km)")+ theme_few() + scale_fill_few()+ scale_x_discrete(labels=c("No mortality","Mortality"))
 p <- grid.arrange(mort1,mort2,mort3,mort4)
 ggsave("../../figs/mortality.png",plot=p,width = 169, height=120, units="mm",dpi=300)
 
@@ -638,6 +638,7 @@ Statistics for behaviour
 Self-recruitment
 ```{r}
 sr.data <- behaviour.data %>% filter(self_recruitment_mean > 0)
+bartlett.test(self_recruitment_mean ~ behaviours, data=sr.data)
 beta.sr <- betareg(self_recruitment_mean ~ behaviours, data=sr.data)
 lsmeans.sr <- lsmeans(beta.sr, pairwise ~ behaviours, adjust="Tukey")
 summary(lsmeans.sr)
@@ -647,6 +648,7 @@ cld(lsmeans.sr, alpha=0.05, Letters=letters, adjust="tukey")
 Local retention
 ```{r}
 lr.data <- behaviour.data %>% filter(local_retention_mean > 0)
+bartlett.test(local_retention_mean ~ behaviours, data=lr.data)
 beta.lr <- betareg(local_retention_mean ~ behaviours, data=lr.data)
 Anova(beta.lr,type="II")
 ```
@@ -655,6 +657,7 @@ Settlement success
 
 ```{r}
 ss.data <- behaviour.data %>% filter(settlement_success_mean > 0)
+bartlett.test(settlement_success_mean ~ behaviours, data=ss.data)
 beta.ss <- betareg(settlement_success_mean ~ behaviours, data=ss.data)
 Anova(beta.ss,type="II")
 lsmeans.ss <- lsmeans(beta.ss, pairwise ~ behaviours, adjust="Tukey")
@@ -669,6 +672,7 @@ Dispersal distance
 # Dispersal distance
 qqp(behaviour.data$distance_travelled_mean,"norm")
 dd.data <- behaviour.data %>% filter(distance_travelled_mean > 0)
+bartlett.test(distance_travelled_mean ~ behaviours, data=dd.data)
 glm.dist <- glm(distance_travelled_mean ~ behaviours, family=gaussian(link="log"), data=dd.data)
 lsmeans.dist <- lsmeans(glm.dist, ~ behaviours)
 summary(pairs(lsmeans(glm.dist, ~ behaviours)), type = "response")
