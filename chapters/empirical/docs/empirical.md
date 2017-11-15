@@ -16,7 +16,30 @@
 
 ### Why are we doing it? Was is it? Background
 
-### Give the context of early-life history behaviour (e.g. vertical migration) in fish and what has been found before
+
+Ontogenetic vertical migration in fish - does it exist?
+
+### Give the context of early-life history behaviour (e.g. vertical migration) in fish and what has been found before.
+
+
+
+
+
+Eddys
+
+We know eddies retain larval fish (reference Mullany and Suthers), restricting dispersal.
+
+We have to be careful as spawning times are unknown and predation rates.
+
+From Mullaney and Suthers: Sardine larvae were not growing significantly faster in the eddy compared to the shelf—they were only older and larger on average. However, growth rates can be a function of the slower growing larvae being removed by differential mortality (Tian et al. 2007). Perhaps predation on larval fish was less in the eddy compared to the shelf waters.
+
+Do we see ontogoentic or length differences in anticyclonic eddies different from those in cyclonic eddies??
+
+Theoretical studies (on plankton) predicated that warm-core eddies retained larvae, but also that there were differences with depth.
+ - discussion time-scales (17 days above, 24 days below)
+ -
+
+
 
 ### Aims / Hypothesis
 - Is ontogeny a predictor of depth for temperate reef fish?
@@ -25,6 +48,14 @@
 
 temperate species, ontogeny or length are also a driver of vertical position as shown in tropical species
 - Why did you choose the experimental design, e.g. utilised other design based on competitive ship time
+
+Hypothesis:
+- Rentention of both longer and older larvae in the eddies (there should be longer larvae in the top 50m)
+
+
+
+
+
 
 ## Methods
 
@@ -73,7 +104,7 @@ Synodontidae  | 63         | 39      | 38          | 140   |  10.35 (±6.53)
 Five of the families exhibited patterns of ontogenetic vertical migration across the 3 depths.
 
 (Labridae)
-## OVM - depth x Stage
+## OVM - Depth x Stage
 Labridae pre-flexion larvae were predicted to be in the surface 41% less than at 25 m (p = 0.020), but 3.8 times more in the surface than at 75 m (p = 0.011). Pre-flexion larvae were predicted to be 9.2 times more abundant at 25 m than 75 m (p < 0.001). Flexion larvae were also found 40% less at the surface than 25 m (p = 0.017). Post-flexion larvae trended towards deeper water, but the predicted counts were not significantly different. Between depths, each stage was predicted to be in in similar numbers at the surface and at 25 m, but at 75 m pre-flexion larvae were in significantly lower numbers than both flexion (p < 0.001) and post-flexion (p < 0.001).
 
 For Mullidae, post-hoc tests suggests each stage had similar concentrations at the surface and 25 m and then significantly lower concentrations at 75 m. The predicted means showed that while flexion slightly increased from the surface down to 25 m, post-flexion larvae decreased, although this was non-significant. At the surface there were no differences in the predicted abundance of each stage, but at 25 m pre-flexion larvae were 5.3 times more abundant than post-flexion larvae (p = 0.003) and at 75 m post-flexion larvae occurred about 7.6 times more than pre-flexion larvae (noting the mean counts at 75 m were low compared to the other depths; p = 0.045).
@@ -87,11 +118,10 @@ Synodontidae post-hoc analysis showed there were no clear difference between the
 
 Pomacentridae and Scaridae did not exhibit a significant interaction of depth and stage, even when combining stages to account for low sample sample size.
 
-## Length
+## Length x Depth
 
 ![Length (mm) of larval fish of nine temperate reef families (Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae) at three depths (0 = surface, 25 = 5-50 metres, 75 = 50-100 metres), sampled from 16 different stations along the NSW coast.](../figs/length-depth-all.png){#fig:length-depth}
 
-### Depth
 
 For each of the seven fish families, depth was a significant predictor of length. The length of the Labridae larvae at the surface and 25 m were not significantly different. The Labridae larvae at 75 m, it was predicted the larvae were twice as long compared to the surface (p < 0.001) and at 25 m (p < 0.001). Similar to the Labridae, Mullidae larvae were longer at 75 m, compared to the surface (p < 0.001) and 25 m (p < 0.001), although this difference was three times with Mullidae larvae. The Pomacentridae larvae are predicted to be on average 0.58 mm longer at 25 m than the surface (p = 0.026). Scaridae larvae were predicted in the model to be longer in the surface than 25 m (p = 0.027), although post-hoc analysis found no difference between the least-squares means at each depth. Scorpaenidae larvae were significantly longer 75 m, on average 2.72 mm longer than the surface (p < 0.001) and 1.44 mm longer than the larvae at 25 m (p < 0.001). The surface and 25 m larvae were found to not significantly differ in size in the post-hoc analysis, even though the model did predict the length at depth 25 m to be longer than the surface larvae. Serranidae larvae were significantly different at each depth, only 0.36 mm larger at 25 m than the surface (p = 0.001), but 3.91 mm longer at 75 m than the surface (p < 0.001). Synodontidae larvae were predicted from the model to be longer at 75 m than the surface, however post-hoc analysis did not find any differences between the predicted means at each depth.
 
@@ -99,12 +129,17 @@ Length Depth Patterns
 - Larger in 75m = labridae, mullidae, scorpaneidae, serranidae
 - Same = Poms, scarids, synodontids.
 
-### Feature
-Six of the families were significantly longer in an eddy than the coastal waters, Scaridae being the exception where the eddy had no effect on length (@tbl:length-glm-output). The greatest effect of eddy was on Mullidae, which were on average predicted to be 3.7 times longer than the larvae in the coastal waters (p < 0.001) and the smallest effect was on Labridae which were only 1.2 times longer (p < 0.001).
-
-
 ### Environmental variables - length
 The length of Labridae (p < 0.001), Mullidae (p < 0.001), Pomacentridae (p < 0.001) and Serranidae (p < 0.001 all were positively predicted by the water temperature (@tbl:length-glm-output). Labridae larval length was positively predicted by chlorophyll fluorescence (p < 0.001). Salinity was a positive predictor of Pomacentridae (p = 0.030) and Scaridae length (p = 0.001), but a negative predictor of the length of Scorpaenidae larvae (p = 0.039). Dissolved oxygen negatively predicted the length of Pomacentridae larvae (p < 0.001).
+
+
+## Effect of water feature (eddies)
+
+
+
+### Feature on Length
+
+Six of the families were significantly longer in an eddy than the coastal waters, Scaridae being the exception where the eddy had no effect on length (@tbl:length-glm-output). The greatest effect of eddy was on Mullidae, which were on average predicted to be 3.7 times longer than the larvae in the coastal waters (p < 0.001) and the smallest effect was on Labridae which were only 1.2 times longer (p < 0.001). There was no interaction between depth and feature for any of the seven temperature fish families.
 
 ## Take home messages for stage based vertical migration
 
