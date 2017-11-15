@@ -131,20 +131,24 @@ lsmip(model.ontogeny.labrid.nb, depth ~ feature, type="response")
 
 ## Length
 ```{r}
-summary(model.length.labrid <- glm(total_length ~ feature + depth + scale(temperature) + scale(chlorophyll_fluorescence), family = Gamma, data=filter(data.length, family=="labridae")))
+summary(model.length.labrid.gamma <- glm(total_length ~ feature + depth + temperature + chlorophyll_fluorescence, family = Gamma(link="log"), data=filter(data.length, family=="labridae")))
 ```
 
 ## Length post-hoc analysis
 ```{r}
-Anova(model.length.labrid, type="II", test="Wald")
+Anova(model.length.labrid.gamma, type="II", test="Wald")
 
-model.length.labrid.posthoc <- lsmeans(model.length.labrid, pairwise ~ depth, adjust="Tukey", type="response")
+model.length.labrid.posthoc <- lsmeans(model.length.labrid.gamma, pairwise ~ depth, adjust="Tukey", type="response")
 
 model.length.labrid.posthoc
 
+model.length.labrid.posthoc.feature <- lsmeans(model.length.labrid.gamma, pairwise ~ feature, adjust="Tukey", type="response")
+
+model.length.labrid.posthoc.feature
+
 cld(model.length.labrid.posthoc, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
 
-lsmip(model.length.labrid, ~ depth, type="response")
+lsmip(model.length.labrid.gamma, ~ depth, type="response")
 ```
 
 
@@ -184,22 +188,28 @@ lsmip(model.ontogeny.mullid.nb, stage ~ depth, type="response")
 ## Length
 ```{r}
 #summary(model.length.mullid.norm <- glm(total_length ~ feature + depth + scale(temperature), family = gaussian(link="log"), data=data.mullid.length))
-summary(model.length.mullid.gamma <- glm(total_length ~ feature + depth + temperature, family = Gamma, data=data.mullid.length))
-sjp.glm(model.length.mullid.gamma)
+summary(model.length.mullid.gamma <- glm(total_length ~ feature + depth + temperature, family = Gamma(link="log"), data=data.mullid.length))
+#sjp.glm(model.length.mullid.gamma)
 ```
 
 ## Length post-hoc analysis
 ```{r}
 Anova(model.length.mullid.gamma, type="II", test="Wald")
 
-model.length.mullid.posthoc <- lsmeans(model.length.mullid.gamma, pairwise ~ depth, adjust="Tukey", type="response")
-
-model.length.mullid.posthoc
-
-cld(model.length.mullid.posthoc, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
-
+model.length.mullid.posthoc.depth <- lsmeans(model.length.mullid.gamma, pairwise ~ depth, adjust="Tukey", type="response")
+model.length.mullid.posthoc.depth
+cld(model.length.mullid.posthoc.depth, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
 lsmip(model.length.mullid.gamma, ~ depth, type="response")
 ```
+
+Post-hoc analysis for feature
+```{r}
+model.length.mullid.posthoc.feature <- lsmeans(model.length.mullid.gamma, pairwise ~ feature, adjust="Tukey", type="response")
+model.length.mullid.posthoc.feature
+cld(model.length.mullid.posthoc.feature, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+lsmip(model.length.mullid.gamma, ~ feature, type="response")
+```
+
 
 # Pomacentridae
 
@@ -235,14 +245,14 @@ summary(data.ontogeny.pom.lsmfeature)
 ## Length
 ```{r}
 #summary(model.length.pom <- glm(total_length ~ feature + depth + dissolved_oxygen, family = gaussian(link="log"), data=data.pomacentrid.length))
-summary(model.length.pomacentrid.gamma <- glm(total_length ~ feature + depth + temperature + salinity + dissolved_oxygen, family = Gamma, data=data.pomacentrid.length))
+summary(model.length.pomacentrid.gamma <- glm(total_length ~ feature + depth + temperature + salinity + dissolved_oxygen, family = Gamma(link="log"), data=data.pomacentrid.length))
 ```
 
 ## Length post-hoc analysis
 ```{r}
 Anova(model.length.pomacentrid.gamma, type="II", test="Wald")
 
-model.length.pomacentrid.posthoc <- lsmeans(model.length.pomacentrid.gamma, pairwise ~ depth, adjust="Tukey", type="response")
+model.length.pomacentrid.posthoc <- lsmeans(model.length.pomacentrid.gamma, pairwise ~ depth, type="response")
 
 model.length.pomacentrid.posthoc
 
@@ -260,7 +270,10 @@ data.scarid.length <- filter(data.length, family=="scaridae")
 
 ## Ontogeny
 ```{r}
-summary(model.ontogeny.scarid.nb <- glm.nb(count ~ offset(log(volume)) + feature + depth + stage + scale(temperature) + scale(dissolved_oxygen) +scale(salinity), data=data.scarid.ontogeny))
+data.scarid.ontogeny$stage.prefle <- data.scarid.ontogeny$stage %>% fct_collapse(POSFLE = c("PRE","FLE"))
+#data.scarid.ontogeny$stage.prefle <- factor(data.pomacentrid.ontogeny$stage.posfle, levels = c("PREFLE", "POS"))
+
+summary(model.ontogeny.scarid.nb <- glm.nb(count ~ offset(log(volume)) + feature + depth+ stage + scale(temperature) + scale(dissolved_oxygen) +scale(salinity), data=data.scarid.ontogeny))
 
 model.ontogeny.scarid.resids <- simulateResiduals(model.ontogeny.scarid.nb)
 testOverdispersion(model.ontogeny.scarid.resids)
@@ -271,7 +284,7 @@ testZeroInflation(model.ontogeny.scarid.resids)
 ## Length
 ```{r}
 hist(data.scarid.length$total_length)
-summary(model.length.scarid.gamma <- glm(total_length ~ depth + temperature + salinity, family = Gamma, data=data.scarid.length))
+summary(model.length.scarid.gamma <- glm(total_length ~ depth + temperature + salinity, family = Gamma(link="log"), data=data.scarid.length))
 plot(model.length.scarid.gamma)
 ```
 
@@ -287,6 +300,14 @@ cld(model.length.scarid.posthoc, alpha=0.05, Letters=letters, type="response",ad
 
 lsmip(model.length.scarid.gamma, ~ depth, type="response")
 ```
+
+```{r}
+model.length.scarid.posthoc.feature <- lsmeans(model.length.scarid.gamma, pairwise ~ feature, adjust="Tukey", type="response")
+model.length.scarid.posthoc.feature
+cld(model.length.scarid.posthoc.feature, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+lsmip(model.length.scarid.gamma, ~ feature, type="response")
+```
+
 
 # Scorpaenidae
 
@@ -328,7 +349,7 @@ lsmip(model.ontogeny.scorpaenid.nb, stage ~ depth, type="response")
 ```{r}
 hist(data.scorpaenid.length$total_length)
 summary(model.length.scorpaenid.gauss <- glm(total_length ~ feature*depth + temperature + salinity + dissolved_oxygen, family = gaussian(link="log"), data=data.scorpaenid.length))
-summary(model.length.scorpaenid.gamma <- glm(total_length ~ feature + depth + salinity, family = Gamma, data=data.scorpaenid.length))
+summary(model.length.scorpaenid.gamma <- glm(total_length ~ feature + depth + salinity, family = Gamma(link="log"), data=data.scorpaenid.length))
 plot(model.length.scorpaenid.gamma)
 ```
 
@@ -383,7 +404,7 @@ lsmip(model.ontogeny.serranid.nb, stage ~ depth, type="response")
 ## Length
 ```{r}
 #summary(model.length.serranid.gauss <- glm(total_length ~ feature*depth + temperature + salinity + dissolved_oxygen, family = gaussian(link="log"), data=data.serranid.length))
-summary(model.length.serranid.gamma <- glm(total_length ~ feature + depth + temperature + salinity, family = Gamma, data=data.serranid.length))
+summary(model.length.serranid.gamma <- glm(total_length ~ feature + depth + temperature + salinity, family = Gamma(link="log"), data=data.serranid.length))
 ```
 
 ## Length post-hoc analysis
@@ -411,7 +432,7 @@ data.synodontid.length <- filter(data.length, family=="synodontidae")
 
 #data.synodontid.ontogeny$stage.prefle <- data.synodontid.ontogeny$stage %>% fct_collapse(POSFLE = c("PRE","FLE"))
 
-summary(model.ontogeny.synodontid.nb <- glm.nb(count ~ offset(log(volume)) + feature + feature:depth + feature:stage + depth*stage+ +scale(temperature) + scale(dissolved_oxygen), data=data.synodontid.ontogeny))
+summary(model.ontogeny.synodontid.nb <- glm.nb(count ~ offset(log(volume)) + feature + feature:depth + feature:stage + depth*stage +scale(temperature) + scale(dissolved_oxygen), data=data.synodontid.ontogeny))
 
 model.ontogeny.synodontid.resids <- simulateResiduals(model.ontogeny.synodontid.nb)
 testOverdispersion(model.ontogeny.synodontid.resids)
@@ -436,7 +457,7 @@ lsmip(model.ontogeny.synodontid.nb, stage ~ depth, type="response")
 ## Length
 ```{r}
 #summary(model.length.synodontid.gauss <- glm(total_length ~ feature*depth + temperature + salinity + dissolved_oxygen, family = gaussian(link="log"), data=data.synodontid.length))
-summary(model.length.synodontid.gamma <- glm(total_length ~ feature + depth + dissolved_oxygen, family = Gamma, data=data.synodontid.length))
+summary(model.length.synodontid.gamma <- glm(total_length ~ feature + depth + dissolved_oxygen, family = Gamma(link="log"), data=data.synodontid.length), type="response")
 ```
 ## Length post-hoc analysis
 ```{r}
@@ -466,6 +487,29 @@ pander(model.ontogeny.labrid.nb)
 
 ```{r}
 sjt.glm(model.ontogeny.synodontid.nb,file="table.html")
+```
+
+Stargazer output
+```{r}
+stargazer(model.length.labrid.gamma,model.length.mullid.gamma, model.length.pomacentrid.gamma,model.length.scarid.gamma, model.length.scorpaenid.gamma, model.length.serranid.gamma, model.length.synodontid.gamma, 
+          star.cutoffs = c(0.05,0.01,0.001),
+          dep.var.labels = "Length (mm)",
+          covariate.labels = c("Feature (Eddy)", "Depth (25 m)", "Depth (75 m)", "Temperature", "Chlorophyll", "Salinity", "Dissolved Oxygen"),
+          model.numbers = FALSE,
+          column.labels = c("Labridae", "Mullidae", "Pomacentridae", "Scaridae", "Scorpaenidae", "Serranidae","Synodontidae"),
+          omit.stat = c("aic","ll"),
+          type='text')
+
+stargazer(model.ontogeny.labrid.nb,model.ontogeny.mullid.nb, model.ontogeny.scorpaenid.nb, model.ontogeny.serranid.nb, model.ontogeny.synodontid.nb,
+          star.cutoffs = c(0.05,0.01,0.001),
+          dep.var.labels = "Length (mm)",
+          covariate.labels = c("Feature(Eddy)", "Depth(25)", "Depth(75)","Stage(FLE)", "Stage(POS)", "Temperature","Feature(Eddy):Depth(25)","Feature(Eddy):Depth(75)", "Chlorophyll","Feature(Eddy):Stage(FLE)","Feature(Eddy):Stage(POS)", "Dissolved Oxygen","Depth(25):Stage(FLE)","Depth(25):Stage(POS)","Depth(75):Stage(FLE)","Depth(75):Stage(POS)","Depth(25):Stage(FLE)","Depth(25):Stage(POS)","Depth(75):Stage(FLE)","Depth(75):Stage(POS)"),
+          model.numbers = FALSE,
+          column.labels = c("Labridae", "Mullidae", "Scorpaenidae", "Serranidae","Synodontidae"),
+          omit.stat = c("aic","ll"),
+          type='text')
+
+stargazer(model.ontogeny.pomacentrid.nb, type='text')
 ```
 
 
