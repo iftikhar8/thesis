@@ -32,7 +32,8 @@ data.tow$station <- as.factor(data.tow$station)
 
 data.measure$stage <- factor(data.measure$stage, levels=c("PRE","FLE","POS"))
 
-
+# Tow data -------------------------------------------------------------
+save(data.tow, file="tow.RData")
 
 # Length data -------------------------------------------------------------
 data.measure <- mutate(data.measure, total_length = standard_length + caudal_fin_length)
