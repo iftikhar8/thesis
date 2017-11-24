@@ -25,6 +25,7 @@ library(multcompView)
 ```{r Load data, include=FALSE}
 load(file="length.RData")
 load(file="ontogeny.RData")
+load(file="tow.RData")
 source("empirical-functions.R")
 
 data.ontogeny$stage <- factor(data.ontogeny$stage, levels=c("PRE","FLE","POS"))
@@ -47,6 +48,10 @@ Looks like poisson or negative binomial distributions - with perhaps a tendency 
 
 ```{r}
 ggplot(data=data.ontogeny, aes(conc)) + geom_histogram() + facet_wrap(~ family, scales="free") + labs(x="count")
+```
+
+```{r}
+#ggplot(data=data.tow, aes(temperature~depth)) + geom_bar()
 ```
 
 
@@ -73,9 +78,27 @@ ggplot(data=na.omit(data.ontogeny), aes(y=conc, x=dissolved_oxygen)) + geom_jitt
 
 ```
 
+Environmental data
+```{r}
+# Column graph
+#data.ontogeny <- mutate(data.ontogeny, conc.m = conc*1000)
+#data.ontogeny$stage.r <- factor(data.ontogeny$stage, levels=c("POS","FLE","PRE"))
+#data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
+ggplot(data=data.ontogeny, aes(y=temperature, x=depth.r)) + stat_summary_bin(fun.y="mean", geom="point") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange") + labs(x="Depth", y="Concentration (100m^3)") + theme_classic() + coord_flip()
+ggplot(data=data.ontogeny, aes(y=salinity, x=depth.r)) + stat_summary_bin(fun.y="mean", geom="point") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange") + labs(x="Depth", y="Concentration (100m^3)") + theme_classic() + coord_flip()
+ggplot(data=data.ontogeny, aes(y=dissolved_oxygen, x=depth.r)) + stat_summary_bin(fun.y="mean", geom="point") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange") + labs(x="Depth", y="Concentration (100m^3)") + theme_classic() + coord_flip()
+ggplot(data=data.ontogeny, aes(y=chlorophyll_fluorescence, x=depth.r)) + stat_summary_bin(fun.y="mean", geom="point") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange") + labs(x="Depth", y="Concentration (100m^3)") + theme_classic() + coord_flip()
+ggsave("../../figs/temperature-depth.png")
+```
+
+
 ```{r Zero inflated data %}
-data.ontogeny$stage <- factor(data.ontogeny$stage, levels=c("PRE","FLE","POS"))
-ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) + facet_wrap(~family, scales="free") + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = "mean_cl_boot", geom = "linerange", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration") + theme_classic() 
+# Column graph
+# Column graph
+data.ontogeny <- mutate(data.ontogeny, conc.m = conc*1000)
+data.ontogeny$stage.r <- factor(data.ontogeny$stage, levels=c("POS","FLE","PRE"))
+data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
+ggplot(data=data.ontogeny, aes(y=conc.m, x=depth.r, group=stage.r, fill=stage.r)) + facet_wrap(~family, scales="free", ncol=4, shrink = TRUE) + stat_summary_bin(fun.y="mean", geom="col", position=position_dodge(width=0.95)) + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",position=position_dodge(width=0.95)) + labs(x="Depth (m)", y=expression("Concentration 1000 "~m^{3})) + theme_classic() + coord_flip()
 ggsave("../../figs/depth-stage-all.png")
 ```
 
@@ -183,6 +206,12 @@ data.ontogeny.mullid.posthoc.ovm.depth
 cld(data.ontogeny.mullid.posthoc.ovm.depth, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
 
 lsmip(model.ontogeny.mullid.nb, stage ~ depth, type="response")
+
+data.ontogeny.mullid.posthoc.feature.stage <- lsmeans(model.ontogeny.mullid.nb, pairwise ~ stage|feature, adjust="Tukey", type="response")
+data.ontogeny.mullid.posthoc.feature.stage
+cld(data.ontogeny.mullid.posthoc.feature.stage, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+
+lsmip(model.ontogeny.mullid.nb, stage ~ feature, type="response")
 ```
 
 ## Length
@@ -228,17 +257,38 @@ Seperation in the pomacentrid data, meant we combine the post-flexion and flexio
 data.pomacentrid.ontogeny$stage.posfle <- data.pomacentrid.ontogeny$stage %>% fct_collapse(POSFLE = c("FLE","POS"))
 data.pomacentrid.ontogeny$stage.posfle <- factor(data.pomacentrid.ontogeny$stage.posfle, levels = c("PRE", "POSFLE"))
 
-summary(model.ontogeny.pomacentrid.nb <- glm.nb(count ~ offset(log(volume)) + feature*depth*stage.posfle + scale(temperature) + scale(chlorophyll_fluorescence), data=data.pomacentrid.ontogeny))
+summary(model.ontogeny.pomacentrid.nb <- glm.nb(count ~ offset(log(volume)) + feature * depth * stage.posfle + scale(temperature) + scale(chlorophyll_fluorescence), data=data.pomacentrid.ontogeny))
 
 model.ontogeny.pomacentrid.resids <- simulateResiduals(model.ontogeny.pomacentrid.nb)
 testOverdispersion(model.ontogeny.pomacentrid.resids)
 testZeroInflation(model.ontogeny.pomacentrid.resids)
 
-pander(model.ontogeny.pomacentrid.nb)
+#pander(model.ontogeny.pomacentrid.nb)
 
 data.ontogeny.pom.lsmfeature <- lsmeans(model.ontogeny.pomacentrid.nb, ~feature | depth, transform="response")
 summary(data.ontogeny.pom.lsmfeature)
 
+
+```
+
+```{r}
+Anova(model.ontogeny.pomacentrid.nb, type="II", test="Wald")
+
+data.ontogeny.pomacentrid.posthoc.depth <- lsmeans(model.ontogeny.pomacentrid.nb, pairwise ~ depth, adjust="Tukey", type="response")
+data.ontogeny.pomacentrid.posthoc.depth
+cld(data.ontogeny.pomacentrid.posthoc.depth, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+
+data.ontogeny.pomacentrid.posthoc.ovm.depth <- lsmeans(model.ontogeny.pomacentrid.nb, pairwise ~ depth | stage.posfle, adjust="Tukey", type="response")
+data.ontogeny.pomacentrid.posthoc.ovm.depth
+cld(data.ontogeny.pomacentrid.posthoc.ovm.depth, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+
+lsmip(model.ontogeny.pomacentrid.nb, depth ~ stage.posfle | feature, type="response")
+
+data.ontogeny.pomacentrid.posthoc.feature.depth <- lsmeans(model.ontogeny.pomacentrid.nb, pairwise ~ depth|feature, adjust="Tukey", type="response")
+data.ontogeny.pomacentrid.posthoc.feature.depth
+cld(data.ontogeny.pomacentrid.posthoc.feature.depth, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+
+lsmip(model.ontogeny.pomacentrid.nb, depth ~ feature, type="response")
 
 ```
 
@@ -278,6 +328,23 @@ summary(model.ontogeny.scarid.nb <- glm.nb(count ~ offset(log(volume)) + feature
 model.ontogeny.scarid.resids <- simulateResiduals(model.ontogeny.scarid.nb)
 testOverdispersion(model.ontogeny.scarid.resids)
 testZeroInflation(model.ontogeny.scarid.resids)
+```
+
+```{r}
+Anova(model.ontogeny.scarid.nb, type="II", test="Wald")
+
+data.ontogeny.scarid.posthoc.stage <- lsmeans(model.ontogeny.scarid.nb, pairwise ~ stage, adjust="Tukey", type="response")
+data.ontogeny.scarid.posthoc.stage
+
+data.ontogeny.scarid.posthoc.ovm.stage <- lsmeans(model.ontogeny.scarid.nb, pairwise ~ depth | stage, adjust="Tukey", type="response")
+data.ontogeny.scarid.posthoc.ovm.stage
+cld(data.ontogeny.scarid.posthoc.ovm.depth, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+
+data.ontogeny.scarid.posthoc.ovm.depth <- lsmeans(model.ontogeny.scarid.nb, pairwise ~ stage | depth, adjust="Tukey", type="response")
+data.ontogeny.scarid.posthoc.ovm.depth
+cld(data.ontogeny.scarid.posthoc.ovm.depth, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+
+lsmip(model.ontogeny.scarid.nb, ~ depth, type="response")
 ```
 
 
@@ -341,6 +408,12 @@ data.ontogeny.scorpaenid.posthoc.ovm.depth
 cld(data.ontogeny.scorpaenid.posthoc.ovm.depth, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
 
 lsmip(model.ontogeny.scorpaenid.nb, stage ~ depth, type="response")
+
+data.ontogeny.scorpaenid.posthoc.feature.stage <- lsmeans(model.ontogeny.scorpaenid.nb, pairwise ~ feature | stage, adjust="Tukey", type="response")
+data.ontogeny.scorpaenid.posthoc.feature.stage
+cld(data.ontogeny.scorpaenid.posthoc.feature.stage, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+
+lsmip(model.ontogeny.scorpaenid.nb, stage ~ feature, type="response")
 ```
 
 
@@ -453,6 +526,22 @@ cld(data.ontogeny.synodontid.posthoc.ovm.depth, alpha=0.05, Letters=letters, typ
 lsmip(model.ontogeny.synodontid.nb, stage ~ depth, type="response")
 ```
 
+Feature post-hoc
+```{r}
+Anova(model.ontogeny.synodontid.nb, type="II", test="Wald")
+
+data.ontogeny.synodontid.posthoc.feature <- lsmeans(model.ontogeny.synodontid.nb, pairwise ~ stage | feature, adjust="Tukey", type="response")
+data.ontogeny.synodontid.posthoc.feature
+cld(data.ontogeny.synodontid.posthoc.feature, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+
+lsmip(model.ontogeny.synodontid.nb, stage ~ feature, type="response")
+
+data.ontogeny.synodontid.posthoc.feature.depth <- lsmeans(model.ontogeny.synodontid.nb, pairwise ~ feature|depth, adjust="Tukey", type="response")
+data.ontogeny.synodontid.posthoc.feature.depth
+cld(data.ontogeny.synodontid.posthoc.feature.depth, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+
+lsmip(model.ontogeny.synodontid.nb, depth ~ feature, type="response")
+```
 
 ## Length
 ```{r}

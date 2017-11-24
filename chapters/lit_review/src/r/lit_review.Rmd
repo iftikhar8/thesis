@@ -549,7 +549,7 @@ mort2 <- ggplot(data.all, aes(mortality, self_recruitment_mean)) + geom_boxplot(
 mort1 <- ggplot(data.all, aes(mortality, local_retention_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   labs(x="", y="Local retention (%)")+ theme_few() + scale_fill_few() +
   annotate(geom = "text", x = 2.5, y = 0.95, label = c("a")) +
-  scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("No mortality","Mortality"))+ stat_compare_means(method = "t.test",aes(label = ..p.signif..),label.y = 0.9)
+  scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("No mortality","Mortality")) + stat_compare_means(method = "t.test",aes(label = ..p.signif..),label.y = 0.9)
 mort3 <- ggplot(data.all, aes(mortality, settlement_success_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   labs(x="", y="Settlement success (%)")+ theme_few() + scale_fill_few() +
   annotate(geom = "text", x = 2.5, y = 0.95, label = c("c")) +
@@ -557,8 +557,8 @@ mort3 <- ggplot(data.all, aes(mortality, settlement_success_mean)) + geom_boxplo
 mort4 <- ggplot(data.all, aes(mortality, distance_travelled_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   annotate(geom = "text", x = 2.5, y = 900, label = c("d")) +
   labs(x="", y="Dispersal distance (km)")+ theme_few() + scale_fill_few()+ scale_x_discrete(labels=c("No mortality","Mortality"))
-p <- grid.arrange(mort1,mort2,mort3,mort4)
-ggsave("../../figs/mortality.png",plot=p,width = 169, height=120, units="mm",dpi=300)
+p <- grid.arrange(mort1,mort2,mort3,mort4, heights=unit(c(45,45), c("mm","mm")))
+ggsave("../../figs/mortality.png",plot=p, width = 169, height=120, units="mm",dpi=300)
 
 
 bartlett.test(self_recruitment_mean ~ mortality, data=data.all)
