@@ -58,6 +58,9 @@ Significance
 
 
 ### Aims / Hypothesis
+
+In this chapter our aims are to find if ontogeny and/or length can predict the vertical distribution of temperate reef fish off the coast of New South Wales. We will also examine if either ontogeny or length is affected by an eddy or coastal water. Our hypothesis is that both ontogeny and length with show downward trends of distribution. Also that the larvae of these families entrained in eddies will be both older (more postflexion larvae) and longer within the boundaries of the eddy (top 50 m).
+
 - Is ontogeny a predictor of depth for temperate reef fish?
 - Is length a predictor of depth for temperate reef fish?
 - Do these relationships change depending on the oceanographic feature?
@@ -128,6 +131,20 @@ Pomacentridae, Scaridae and Serranidae occurred equally in surface waters and th
 [OVM]
 Five of the reef fish families (Labridae, Mullidae, Scorpaenidae, Serranidae, and Synodontidae) exhibited patterns of ontogenetic vertical migration across the three depths (surface = 0 m, mid = 5-50 m, deep = 50-100 m), whereby significant differences were found between concentrations of ontogenetic stages at depth. (@fig:ovm). Scorpaenidae showed the strongest downward trends of ontogenetic vertical migration over the 100 m. Labridae and Synodontidae trended downwards from the surface waters to the mid-depth, and Serranidae trended downwards at the deep depth. Mullidae showed a slight upwards pattern of vertical migration, with postflexion preferring the surface waters. Scaridae and Pomacentridae were found to occur in equal numbers.
 
+[Within Depths]
+
+[0m]
+For three families (Scorpaenidae, Serranidae, and Synodontidae) the concentration of preflexion larvae at the surface significantly greater than the concentration of another ontogenetic stage (@fig:ovm). Scorpaenidae preflexion larvae was 6 times more abundant that postflexion larvae (p = 0.044), For Serranidae, the surface waters contained each stage was found to occur in different abundances, with preflexion being the highest at 8.5 times flexion larvae (p < 0.001) and 170 times postflexion larvae (p < 0.001). Synodontidae preflexion larvae at the surface occurred in greater numbers than the postflexion larvae (p = 0.018). Both Labridae and Mullidae larvae were found to occur in equal concentrations per stage in the surface, although there was large variation in concentration of postflexion Labridae larvae (@fig:ovm).
+
+[25m]
+At the 5-50 m depth, all stages of Labridae, Scorpaenidae and Synodontidae occurred in equal abundances. Mullidae preflexion larvae were 5.3 times more abundant than postflexion (p = 0.003). Similar pattern occurred at 25 m, with pre-flexion larvae occurring 6.2 times more than flexion (p < 0.001) and 52 times more than post-flexion (p < 0.001).
+
+[75m]
+Labridae preflexion larvae were in significantly lower numbers than both flexion (p < 0.001) and post-flexion (p < 0.001) at 75 m. Mullidae and Scorpaenidae both both had significant increases in the abundances of postflexion larvae then preflexion larvae; 7.6 times more for Mullidae (p = 0.003) and 5.8 times for Scorpaenidae (p = 0.030). Serranidae followed an different trend, with equal abundances of preflexion and flexion larvae, which were both more than 4 times greater in abundance that postflexion larvae (p = 0.021 and p = 0.034 respectively). Synodontidae occurred in equal abundances at the 75 m depth.
+
+Both Pomacentridae and Scaridae were found in similar proportions at each depth (@fig-ovm). Pomacentridae larvae were found in equal abundances of preflexion and flexion and postflexion combined. There was an effect of depth at 75 m, significantly reducing the overall abundance (p < 0.001; @tbl:pom). For Scaridae larvae, the concentration in the 25 m layer was 3.1 times greater than the surface (p = 0.004). The large variation of larvae concentrations at 75 m meant it was found to not be different to either 25 m or the surface, even though the mean was higher overall. At each depth, flexion and postflexion were found in higher abundance than preflexion.
+
+
 [Between Depths]
 
 [0-25]
@@ -142,18 +159,6 @@ Labridae preflexion larvae was less abundant at 75 m than 25 m (p < 0.001). All 
 [Summary]
 Synodontidae larvae did not differ in abundance by stage between any of the three depths.
 
-[Within Depths]
-
-[0m]
-For three families (Scorpaenidae, Serranidae, and Synodontidae) the concentration of preflexion larvae at the surface significantly greater than the concentration of another ontogenetic stage (@fig:ovm). Scorpaenidae preflexion larvae was 6 times more abundant that postflexion larvae (p = 0.044), For Serranidae, the surface waters contained each stage was found to occur in different abundances, with preflexion being the highest at 8.5 times flexion larvae (p < 0.001) and 170 times postflexion larvae (p < 0.001). Synodontidae preflexion larvae at the surface occurred in greater numbers than the postflexion larvae (p = 0.018). Both Labridae and Mullidae larvae were found to occur in equal concentrations per stage in the surface, although there was large variation in concentration of postflexion Labridae larvae (@fig:ovm).
-
-[25m]
-At the 5-50 m depth, all stages of Labridae, Scorpaenidae and Synodontidae occurred in equal abundances. Mullidae preflexion larvae were 5.3 times more abundant than postflexion (p = 0.003). Similar pattern occurred at 25 m, with pre-flexion larvae occurring 6.2 times more than flexion (p < 0.001) and 52 times more than post-flexion (p < 0.001).
-
-[75m]
-Labridae preflexion larvae were in significantly lower numbers than both flexion (p < 0.001) and post-flexion (p < 0.001) at 75 m. Mullidae and Scorpaenidae both both had significant increases in the abundances of postflexion larvae then preflexion larvae; 7.6 times more for Mullidae (p = 0.003) and 5.8 times for Scorpaenidae (p = 0.030). Serranidae followed an different trend, with equal abundances of preflexion and flexion larvae, which were both more than 4 times greater in abundance that postflexion larvae (p = 0.021 and p = 0.034 respectively). Synodontidae occurred in equal abundances at the 75 m depth.
-
-Both Pomacentridae and Scaridae were found in similar proportions at each depth (@fig-ovm). Pomacentridae larvae were found in equal abundances of preflexion and flexion and postflexion combined. There was an effect of depth at 75 m, significantly reducing the overall abundance (p < 0.001; @tbl:pom). For Scaridae larvae, the concentration in the 25 m layer was 3.1 times greater than the surface (p = 0.004). The large variation of larvae concentrations at 75 m meant it was found to not be different to either 25 m or the surface, even though the mean was higher overall. At each depth, flexion and postflexion were found in higher abundance than preflexion.
 
 [Environmental data]
 The abundance of Labridae, Scaridae, Scorpaenidae, and Synodontidae were all strongly positively predicted with temperature (@tbl:ontogeny-glm-output), whereas Pomacentridae were negatively predicted by temperature (@tbl:ontogeny-glm-pom-output). Chlorophyll fluorescence was negatively associated with abundance for both Pomacentridae and Mullidae. Dissolved oxygen was a positive predictor for Labridae, but a negative predictor for Synodontidae. Salinity was a negative predictor of Scaridae abundance.
@@ -170,7 +175,6 @@ Put depth on y axis.
 Indicate stats on figure.
 
 For each of the seven fish families, depth was a significant predictor of length. The length of the Labridae larvae at the surface and 25 m were not significantly different. The Labridae larvae at 75 were predicted to be twice as long compared to the surface (p < 0.001) and at 25 m (p < 0.001). Similar to the Labridae, Mullidae larvae were longer at 75 m, compared to the surface (p < 0.001) and 25 m (p < 0.001), although this difference was even greater, approximately three times longer. The Pomacentridae larvae are predicted to be on average 0.58 mm longer at 25 m than the surface (p = 0.026). Scaridae larvae were predicted in the model to be longer in the surface than 25 m (p = 0.027), although post-hoc analysis found no difference between the least-squares means at each depth. Scorpaenidae larvae were significantly longer 75 m, on average 2.72 mm longer than the surface (p < 0.001) and 1.44 mm longer than the larvae at 25 m (p < 0.001). The surface and 25 m larvae were found to not significantly differ in size in the post-hoc analysis, even though the model did predict the length at depth 25 m to be longer than the surface larvae. Serranidae larvae were significantly different at each depth, only 0.36 mm larger at 25 m than the surface (p = 0.001), but 3.91 mm longer at 75 m than the surface (p < 0.001). Synodontidae larvae were predicted from the model to be longer at 75 m than the surface, however post-hoc analysis did not find any differences between the predicted means at each depth.
-
 
 
 ### Environmental variables - length
@@ -307,6 +311,8 @@ Temperature was a strong predictor of larvae length
 
 ### Ontogeny Discussion
 
+While we expected to see ontogenetic downward shifts, not all of the families exhibited this pattern. Scorpaenidae showed a clear pattern of downwards ontogenetic trend, with preflexion mostly at the surface, flexion m
+
 - For the hypothesis to be true - stage x depth interaction needs to be significant. To interpret it feature x stage x depth needs to be significant.
 - Is the stage a good indication of depth for these species? No, at least for these coarse depths (surface, 5-50, 50-100). Only Scorps and Synods really showed pattern
 - Obviously a lot of other factors influencing position in the water column
@@ -323,8 +329,34 @@ and Synodontidae were the only families to exhibit an interaction between ontoge
 
 The result was surprising, as we thought the relationship between stage and depth would be clearer as per the literature. For these families, the pattern supported our hypothesis that more developed larvae (in this case flexion and onwards) were more likely to be present at lower depths (50-100 m). For the other species, while we believe ontogenetic vertical migration patterns to exist, our experimental design appeared was perhaps too coarse to tease these relationships out. We can see there are patterns of difference, but the low catch rate of the different ontogenetic stages across all sites meant the analysis made it difficult to get significant predictors.
 
-Environmental factors were also driving the differences in concentration of larvae at depth. Increasing temperature predicted the increased concentration of Labridae, Scaridae, Scorpaenidae, and lowered the odds of presence of Pomacentridae. Salinity was a positive predictor of both presence and concentration of Scaridae. Dissolved oxygen, which was also highly correlated with chlorophyll, has positive presence predictors for Mullidae and Serranidae, suggesting that ichthyoplankton also migrate to where the rest of the plankton are. Although Synodontidae were negatively associated with dissolved oxygen, possibly avoiding predators.
 
+Other factors
+
+Environmental factors were also driving the differences in larval abundance, complicating the reasons for the patterns of vertical migration. As environmental variables were a proxy for site, it explains some of the patchiness in larval fish assemblages seen between sites. Temperature had the strongest effect, seen to predict both abundance and length for several families. This was in general a positive relationship, except for Pomacentridae which were less abundant with increasing temperature, but longer.
+
+[Why would tmeperature predict these?]
+
+Salinity was only a positive predictor of Scaridae abundance, but was a significant predictor of length in four of the families.
+
+[Why would salinity predict length?]
+
+
+
+
+Dissolved oxygen, which was also highly correlated with chlorophyll, has positive presence predictors for Mullidae and Serranidae, suggesting that ichthyoplankton also migrate to where the rest of the plankton are.
+
+Although Synodontidae were negatively associated with dissolved oxygen, possibly avoiding predators.
+
+
+Temperature was a positive predictor of length in Labridae, Mullidae, Pomacentridae and Serranidae.
+- Tropical rather than temperate species perhaps?
+
+Salinity had a positive relationship on the length of Pomacentridae larvae, but negative relationships with Scorpaenidae, Mullidae, Labridae.
+- Some species are more saline tolerant
+
+Dissolve oxygen had a negative relationship with the length of the Pomacentridae.
+- Plankton relationship to DO?
+-
 
 Low concentrations at 75m. Should models be constraining to the top 50?
 
@@ -345,7 +377,16 @@ Surface > Deep (Mullidae)
 Labridae, Serranidae trended downwards
 Pomcentirdae trended upwards
 Found that preflexion was more localised while post-flexion was more spread out.
-In general (when signifiance was found), shift was from surface to deep water
+In general (when significance was found), shift was from surface to deep water
+
+
+[Paris and Cowan 2004] Found a Pomacentridae (Stegastes partitus) to migrate deeper with ontogeny (downward over 60 m).
+
+Environmental variables:
+Light, salinity, tide, temperature, flow and turbulence have all been shown to influence vertical distribution patterns and the influence of some variables changes ontogenetically (e.g., Davis, 2001). Further, some of these factors (e.g., light and temperature) can interact, leading to reversal of behaviour that would be initiated by one factor alone.
+
+Davis, M. W. (2001). Behavioural responses of walleye pollock, Theragra chalco- gramma, larvae to experimental gradients of seawater flow: Implications for verti- cal distribution. Environmental Biology of Fishes 61, 253–260.
+
 
 ### Length
 
@@ -353,14 +394,7 @@ In general (when signifiance was found), shift was from surface to deep water
 
 #### Environmental drivers
 
-Temperature was a positive predictor of length in Labridae, Mullidae, Pomacentridae and Serranidae.
-- Tropical rather than temperate species perhaps?
 
-Salinity had a positive relationship on the length of Pomacentridae larvae, but negative relationships with Scorpaenidae, Mullidae, Labridae.
-- Some species are more saline tolerant
-
-Dissolve oxygen had a negative relationship with the length of the Pomacentridae.
-- Plankton relationship to DO?
 
 ### Better predictor of depth? Length or Ontogeny?
 - Length is a better predictor than ontogeny for these depth ranges
@@ -387,9 +421,9 @@ Leis 2010 : OVM is interpreted as such because larval fish do not seem to have s
 Huebert 2011 argue that perhaps ontogenetic vertical migration is gradual shift and not strict dichomoties. He also argues against strafitied nets for samplign behaviour.
   .e.g Irrison (2010) argues that increases with mean depth with ontoegny mayebe because the range of the fish is shown to increase.
 
-[Leis 2006] - towed studies capture less post-flexion etc as they have the ability to avoid catprue more than little ones - gear avoidance.
+[Leis 2006] - towed studies capture less post-flexion etc as they have the ability to avoid capture more than little ones - gear avoidance.
 
-Ignored eggs of these species. 
+Ignored eggs of these species.
 
 
 

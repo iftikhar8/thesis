@@ -323,7 +323,7 @@ data.scarid.length <- filter(data.length, family=="scaridae")
 data.scarid.ontogeny$stage.prefle <- data.scarid.ontogeny$stage %>% fct_collapse(POSFLE = c("PRE","FLE"))
 #data.scarid.ontogeny$stage.prefle <- factor(data.pomacentrid.ontogeny$stage.posfle, levels = c("PREFLE", "POS"))
 
-summary(model.ontogeny.scarid.nb <- glm.nb(count ~ offset(log(volume)) + feature + depth+ stage + scale(temperature) + scale(dissolved_oxygen) +scale(salinity), data=data.scarid.ontogeny))
+summary(model.ontogeny.scarid.nb <- glm.nb(count ~ offset(log(volume)) + feature + depth+ stage + scale(temperature) + scale(dissolved_oxygen)*depth +scale(salinity)*depth, data=data.scarid.ontogeny))
 
 model.ontogeny.scarid.resids <- simulateResiduals(model.ontogeny.scarid.nb)
 testOverdispersion(model.ontogeny.scarid.resids)
