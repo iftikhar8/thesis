@@ -79,7 +79,7 @@ vignettes/*.pdf
 .~lock.*#
 
 ### Makefiles ###
-makefile
+makefile*
 
 # Output directories
 /chapters/*/out/
