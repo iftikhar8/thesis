@@ -14,7 +14,7 @@
         <latitude>-28.210</latitude>
         <depth>5</depth>
       </site>
-      <numberOfLarvae>4000</numberOfLarvae>
+      <numberOfLarvae>4</numberOfLarvae>
       <releasePeriod>
         <start>2008-04-01T00:00:00</start>
         <end>2008-05-31T00:00:00</end>
@@ -44,7 +44,7 @@
         <latitude>-28.360</latitude>
         <depth>5</depth>
       </site>
-      <numberOfLarvae>4000</numberOfLarvae>
+      <numberOfLarvae>4</numberOfLarvae>
       <releasePeriod>
         <start>2008-04-01T00:00:00</start>
         <end>2008-05-31T00:00:00</end>
@@ -59,7 +59,7 @@
         <latitude>-28.422</latitude>
         <depth>5</depth>
       </site>
-      <numberOfLarvae>4000</numberOfLarvae>
+      <numberOfLarvae>4</numberOfLarvae>
       <releasePeriod>
         <start>2008-04-01T00:00:00</start>
         <end>2008-05-31T00:00:00</end>
