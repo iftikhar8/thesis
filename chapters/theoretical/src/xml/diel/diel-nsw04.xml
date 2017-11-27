@@ -124,7 +124,7 @@
     <includeLarvaeHistory>false</includeLarvaeHistory>
     <saveOutputFilePath>/srv/zissou/output/theoretical/diel</saveOutputFilePath>
     <percentage>5</percentage>
-    <prefix>D-NSW04</prefix>
+    <prefix>diel-nsw04</prefix>
     <logLevel>info</logLevel>
     <logFile>/var/log/zissou.log</logFile>
   </output>
