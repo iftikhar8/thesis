@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <simulationVariables>
   <inputFiles>
-    <flowFilePath>/srv/zissou/input/netcdf/bran</flowFilePath>
+    <flowFilePath>/srv/zissou/input/netcdf/bran/theoretical/theoretical</flowFilePath>
     <habitatFilePath>/srv/zissou/input/habitat/ALLpatches.shp</habitatFilePath>
     <randomSeed>888321123</randomSeed>
   </inputFiles>
