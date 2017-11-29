@@ -55,10 +55,11 @@ Study site and station locations
 australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), col="gray90", fill=TRUE)
 #coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
 centre <- geocode("Sydney, AU")
-coast <- get_map(c(lon=centre$lon, lat=centre$lat), zoom = 5)
-sites <- dplyr::select(data.tow, site, latitude, longitude) %>% distinct()
+coast <- get_map(c(lon=154.5, lat=-30.0), zoom = 7, maptype=c("hybrid"), color=c("bw"), crop = TRUE)
+sites <- dplyr::select(data.tow, site, feature, latitude, longitude) %>% distinct()
 australia <- ggmap(coast)
-australia + geom_point(aes(x=longitude, y=latitude, group=site),size=0.1, data=sites)
+australia + geom_point(aes(x=longitude, y=latitude, group=site, colour=feature, shape=feature),size=1.5, data=sites)
+ggsave("../../figs/stations.png")
 ```
 
 Generate table of fish data

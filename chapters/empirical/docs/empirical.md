@@ -3,122 +3,41 @@
 <!-- lint disable maximum-line-length -->
 <!-- lint disable maximum-heading-length -->
 
-CHAPTER 2: Is length or ontogeny a predictor of the vertical position of temperate reef ichthyoplankton in NSW?
+CHAPTER 2: Do temperate reef ichthyoplankton in NSW exhibit patterns of ontogenetic vertical migration, and does it change for ichthyoplankton entrained in eddies?
 
+# Introduction
 
-Comments attached.  Yes, you probably can get away with just the two figures.  But might be good to have one figure that focuses on showing relationships between your response variables and any physical variables.  But you need a bit more exploration/generalisation of the patterns.  Most importantly for starters though is to more specifically articulate how the various analyses help you address your aims/hypotheses.  And why look at stage abundance as well as length? Do these tell you the same thing about OVM…or not.  Then on the analysis methods, start general and get specific.
 
-On  your results, you don’t say much about the physical variables and stage abundance data..why is that?
+[Ontogenetic vertical migration background]
+Larval fish start life with limited behavioural capabilities, yet over a short period of time, they build up abilities to swim, sense and orientate. Each of which are required in order for larvae to find successfully settle. The ability of larvae to regulate their depth from the time of hatching, is independent of the ability to sense, orientate and swim, behaviours that develop later in life [CITE Leis 2010]. The vertical distribution of larval fish has been well studied [CITE Examples]. Vertical position is known to change through two main drivers, ontogeny and diurnal migrations. It has been shown that changes in vertical position due to ontogeny exists for many species of larval fish [CITE Leis 2006]. In general, patterns show that larval fish get deeper in the water column with ontogeny [CITE Irrison 2010]. Although these pattern have been shown to vary both between species, within individuals of species and also spatially [Leis 2006]. The importance of understanding vertical dispersal patterns is that the vertical distribution fish can indirectly affect their dispersal and connectivity [CITE Paris and Cowan 2004, Sponaugle 2002]. Measuring the vertical migration distributions of reef associated families off the coast of New South Wales will allow us to accurately parameterise biophysical connectivity models to mimic ontogenetic vertical migration behaviour.
 
+[Effect of cyclonic eddies?]
+The eastern coast of Australia has a narrow continental shelf (15-50 km), and a strong current southerly flowing, the East Australian Current (EAC). The EAC often spawns warm-core and cold-core eddies off the coast of New South Wales at any latitude [CITE Suthers EAC paper]. These eddies entrain continental shelf waters, bringing with them both pelagic eggs and newly hatch larval fish and providing nutrient rich environments for them to develop. While not increasing growth rates, cyclonic eddies have been shown to contain older and larger fish larvae than the coastal waters the fish were entrained from [CIE Mullany & Suthers]. In fact for some larval fish assemblages, eddy entrainment is considered essential to their survival [CITE Kasai]. While simulation studies have shown that speed of the eddy and the biological swimming speed of fish [CITE Yu-Lin CHANG] and the the vertical distribution of fish [CITE Condie 2016] can influence the retention time within an eddy, so far no studies to our knowledge have investigated empirically how eddies effect the ontogenetic vertical migration patterns of larval fish.
 
+[How to measure OVM?]
+Several different methods have been used to measure the vertical distribution of fish larvae. The traditional method, and the one used by this study is to investigate the vertical distribution of larvae by plankton tows at different depths in the water column. It must be noted that nets cannot measure the larval behaviour and only provide information on the distribution [CITE Pearce 1979]. A significant drawback of this method is that these towed studies capture fewer postflexion larvae due to increased net avoidance abilities [CITE Leis 2006]. Another method is to obtain vertical migration distributions through observation using divers [CITE Leis 2009]. This method does measure actual behaviour but it is limited by the amount of time divers can spend in the water and how deep they can safely go to make observations. Vertical distribution patterns can also be obtained using larval fish light traps, although like towing they cannot not measure behaviour. The last method is to measure vertical position of larvae in a laboratory setting, which greatly limits the range of depths that can be studied. To measure development you can either measure the ontogeny by depth, classifying the larval fish to ontogenetic stage or using the larval length. In this study we measured both developmental stage and length to determine which pattern showed clearer ontogenetic vertical migration.
 
+[Aims/Hypothesis]
+In this chapter our first aim is to determine if temperate reef fish families off the coast of New South Wales exhibit patterns of ontogenetic vertical migration, either by measuring ontogenetic stage or length. Our hypothesis, is that the reef fish off NSW will show downward trends of ontogenetic vertical migration through distributions patterns measured by both ontogeny and length. Our second aim is to examine if this ontogenetic migration pattern is consistent for larvae retained in eddies. Here we hypothesise that the assemblages of reef fish larvae entrained in eddies will be both older and longer within the eddy, but how that effects the vertical distribution pattern is unknown.
 
-## Introduction
 
-### Why are we doing it? Was is it? Background
+# Methods
 
-[Talk about bipartitie lifestylres]
+Sampling occurred along the eastern coast of Australia on Australian Marine National Facility RV _Investigator_ (<http://www.csiro.au/en/Research/Facilities/Marine-National-Facility>) RV _Investigator_ (2-18 June 2015, voyage IN2013_V03). We sampled 16 stations across two coastal regions and two frontal eddies in the Eastern Australian Current (EAC) [@fig:stations]. The location of the frontal eddies were calculated onboard using real time data and novel techniques [CITE Moninya's paper]. At each station we sampled for larval fish using two different net types, a multiple opening/closing net and environmental sensing system (MOCNESS) and Neuston net. Both nets consisted of 1 m^2^ mouth areas with 500 &mu;m mesh sizes. The MOCNESS system sampled at two different depths 5-50 m and 50-100 m, conducting two 10 minute tows over each depth range (four tows per station). The Neuston net captured larval fish at the near surface level (0-5 m) and was deployed for two 10 minute tows per station. Neuston and MOCNESS nets were deployed at the same time and all tows were conducted between sunset and sunrise. Conductivity, temperature, and depth (CTD) measurements, including dissolved oxygen and chlorophyll fluorescence were taken on the MOCNESS net at each station. Each net had a flow sensor, enabling concentrations of larval fish per cubic metre to be calculated. Plankton samples per station were split 50:50 between preserved in 90% ethanol or a 10% buffered formalin solution. Ethanol was used in case genetic or otolith analysis was required later on some of the larval fish. Both samples were used in the analyses and shrinkage differences between the two solutions were ignored.
 
-Wanted to test on temperate reef fish
+![The sixteen stations sampled off the eastern coast of Australia during June 2016. The coastal water sites are denoted by circles and the eddy sample sites are denoted using triangles.](chapters/empirical/figs/stations.png){#fig:stations}
 
+## Data processing
 
-Vertical migration of fish
-  e.g. ontogenetic, diel, movement through swimming behaviours.
+In the lab each sample was sorted to seperate the ichthyoplankton from the general plankton samples. The larval fish were then sorted by morphological features and identified to family taxonomic level where possible, referring to reference guides and expert help where appropriate [CITE: books CalCOFI, Leis & Calvert, Miskiwiez et al]. For our analysis the most abundant (greater than 100 captured) reef associated fish families were identified from the samples, which were the family groups Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae. For ichthyoplankton, ontogenetic stages can be broadly defined by the beginning of the development of the caudal fin as the notochord bends upwards and fin rays start to develop. For this study we classified the fish into three broad categories of ontogenetic stage, e.g. preflexion, flexion, or postflexion. Each fish was photographed using a calibrated stereo microscope and measured to &mu;m accuracy using the image acquisition software Image-Pro Insight 8 (<http://www.mediacy.com/imageproinsight>).
 
+[Photographs of the three ontogenetic stages examples]
 
-Ontogenetic vertical migration in fish - what is it? does it exist?
+## Data analysis
 
-Larval fish start life with limited behavioural capabilities, yet over a short period of time, build up abilities to swim, sense and orientate. Each of which are required in order for larvae to find successfully settle. The ability of larvae to regulate their depth from the time of hatching, is independent of the ability to sense, orientate and swim, behaviours that develop later in life [CITE Leis 2010]. It has been shown that changes in vertical position due to ontogeny, exists for many species of larval fish [CITE Leis 2006]. In general, patterns seem to show that larval fish get deeper in the water column and this move through the stages of ontogeny [CITE examples]. 
+The data was analysed using general linear models (GLMs) with either length or abundance as the response variable. GLMs for each family were constructed using a bottom-up approach, building models of single factors and including predicators that were significant until a complete model was constructed which represented the data. The model was then reduced where possible to exclude non-significant interaction predictors using Akaike information criterion (AIC). Instead of modelling station as a random factor, to account for the patchiness of the larval assemblages each station was described using four environmental variables measured using from CTDs; temperature (C), salinity (PSI), dissolved oxygen (mg/L), and chlorophyll fluorescence (Volts). Dissolved oxygen and chlorophyll fluorescence were highly correlated with each other (r^2^ = 0.73), and therefore only one was included in any model. The stage-abundance data was analysed using negative binomial GLM with an offset of volume to measure concentration (m^3^). The negative binomial GLM was chosen to account for the over-dispersion of the data. Even though the data contained a large number of zero observations, none of the models appeared to be zero-inflated after comparing the expected zeros of the negative binomial distribution and AIC comparisons with zero-inflated negative binomial models. The larval fish length data were analysed using GLMs with a Gamma distribution and log link function. Post-hoc analysis was performed using pairwise tests on the least squares means with a Tukey adjustment. All analysis was conducted using the R programming language [@RAlanguageanden:wf]. The package MASS was used for negative binomial GLMs [CITE], the packages car [CITE] and DHARMa were used for model checking, and the packages lsmeans [CITE] and multcomp [CITE] were used for GLM post-hoc analysis. Figures and tables were made using the package tidyverse [CITE] and stargazer [CITE] respectively.
 
-Vertical distribution of larval fish has been well studied [CITE Examples], and several different methods have been used. The traditional method, and the one used by this study is to investigate the vertical distribution of larvae by plankton tows at different depths in the water column. It must be noted that nets cannot measure the larval behaviour and only provide information on the distribution [CITE Pearce 1979]. A significant drawback of this method is that these towed studies capture fewer postflexion larvae due to increased net avoidance abilities [CITE LEis 2006]. Another method is to obtain measure vertical migration through observation using divers [CITE Leis 2009]. This method does measure actual behaviour but it is limited by the amount of time divers can spend in the water and how deep they can safely go to make observations. The last method is to measure vertical position of larvae in a laboratory setting, which greatly limits the range of depths that can be studied.
-
-
-
-
-
-
-
-Many tudies have looked at it
-
-Many different patterns
-
-Wanted to look at temeprate species off NSW
-
-
-Ontogenetic vertical migration is defined as changed in the vertical position of ichthyoplankton based on their ontogeny (preflexion, flexion, postflexion). The interpretation
-
-Leis 2010 : OVM is interpreted as such because larval fish do not seem to have sufficient to have the snesory perception and swimming ability t actively regulate their behaviour.
-
-### Give the context of early-life history behaviour (e.g. vertical migration) in fish and what has been found before.
-
-- seen in zooplankton, e.g. copepods [Hays 2003]
-
-This experiment is not measureing the behaviour...
-
-
-
-Eddys
-
-We know eddies retain larval fish (reference Mullany and Suthers), restricting dispersal.
-
-We have to be careful as spawning times are unknown and predation rates.
-
-From Mullaney and Suthers: Sardine larvae were not growing significantly faster in the eddy compared to the shelf—they were only older and larger on average. However, growth rates can be a function of the slower growing larvae being removed by differential mortality (Tian et al. 2007). Perhaps predation on larval fish was less in the eddy compared to the shelf waters.
-
-Do we see ontogenetic or length differences in anticyclonic eddies different from those in cyclonic eddies??
-
-Theoretical studies (on plankton) predicated that warm-core eddies retained larvae, but also that there were differences with depth.
- - discussion time-scales (17 days above, 24 days below)
- -
-
-Significance
-- To be used in modelling
-- Address concerns that while behaviour cannot be used to, input for predictive modelling.
-
-
-### Aims / Hypothesis
-
-In this chapter our aims are to find if ontogeny and/or length can predict the vertical distribution of temperate reef fish off the coast of New South Wales. We will also examine if either ontogeny or length is affected by an eddy or coastal water. Our hypothesis is that both ontogeny and length with show downward trends of distribution. Also that the larvae of these families entrained in eddies will be both older (more postflexion larvae) and longer within the boundaries of the eddy (top 50 m).
-
-- Is ontogeny a predictor of depth for temperate reef fish?
-- Is length a predictor of depth for temperate reef fish?
-- Do these relationships change depending on the oceanographic feature?
-
-temperate species, ontogeny or length are also a driver of vertical position as shown in tropical species
-- Why did you choose the experimental design, e.g. utilised other design based on competitive ship time
-
-Hypothesis:
-- Rentention of both longer and older larvae in the eddies (there should be longer larvae in the top 50m)
-
-- Trends downwards in ontogenetic movement
-
-
-
-
-
-## Methods
-
-Sixteen stations were sampled along the eastern coast of Australia on Australian Marine National Facility RV _Investigator_ (<http://www.csiro.au/en/Research/Facilities/Marine-National-Facility>) RV _Investigator_ (2-18 June 2015, voyage IN2013_V03). We sampled stations within two coastal regions and two frontal eddies in the Eastern Australian Current (EAC) [CITE study figure]. The location of the frontal eddies were calculated onboard using real time data and novel techniques [CITE Moninya's paper].
-
-
-- Create graphic of study area with station locations
-
-
-At each station we sampled for larval fish using two different net types, a multiple opening/closing net and environmental sensing system (MOCNESS) and Neuston net. Both nets consisted of 1 m^2^ mouth areas with 500 &mu;m mesh sizes. The MOCNESS system sampled at two different depths 5-50 m and 50-100 m, conducting two 10 minute tows over each depth range (four tows per station). The Neuston net captured larval fish at the near surface level (0-5 m) and was deployed for two 10 minute tows per station. Neuston and MOCNESS nets were deployed at the same time and all tows were conducted between sunset and sunrise. Conductivity, temperature, and depth (CTD) measurements, including dissolved oxygen and chlorophyll fluorescence were taken on the MOCNESS net at each station. Each net had a flow sensor, enabling concentrations of larval fish per cubic metre to be calculated. Plankton samples per station were split 50:50 between preserved in 90% ethanol or a 10% buffered formalin solution. Ethanol was used in case genetic or otolith analysis was required later on some of the larval fish. Both samples were used in the analyses and shrinkage differences between the two solutions were ignored.
-
-### Data processing
-
-In the lab each sample was sorted to seperate the ichthyoplankton from the general plankton samples. The larval fish were then sorted by morphological features and identified to family taxonomic level where possible, referring to reference guides and expert help where appropriate (CITE: books CalCOFI, Leis & Calvert, Miskiwiez et al.). For our analysis the most abundant (greater than 100 captured) reef associated fish families were identified from the samples, which were the family groups Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae. For ichthyoplankton, ontogenetic stages can be broadly defined by the beginning of the development of the caudal fin as the notochord bends upwards and fin rays start to develop. For this study we classified the fish into three broad categories of ontogenetic stage, e.g. preflexion, flexion, or postflexion. Each fish was photographed using a calibrated stereo microscope and measured to &mu;m accuracy using the image acquisition software Image-Pro Insight 8 (<http://www.mediacy.com/imageproinsight>).
-
-- Photographs of the three ontogenetic stages examples?
-
-### Data analysis
-
-Ontogenetic stage analysis
-
-The ontogeny count data was standardised by the flow to a concentration (per m^3^). The ontogeny data was analysed using negative binomial generalised linear models (GLM), to account for over-dispersion in the Poisson distribution. Models were constructed using a bottom-up approach, building simple models of single factors and including predicators that were significant until a complete model was constructed which represented the data. The model was then reduced where possible to exclude non-significant interaction predictors. Instead of modelling station as a random factor, each station was described using four measured environmental variables from CTDs, temperature, salinity, dissolved oxygen and chlorophyll fluorescence. Dissolved oxygen and chlorophyll fluorescence were correlated with each other (r^2^ = 0.73), and therefore only one was included in a model. An offset was used to model the concentration within the negative binomial distribution. Even though the data contained a large number of zero observations, none of the models appeared to be zero-inflated after comparing the expected zeros of the negative binomial distribution and AIC comparisons with zero-inflated negative binomial models. The larval fish length data were analysed using GLMs with a Gamma distribution and log link function, with model construction using the same bottom up approach. Post-hoc analysis was performed using pairwise tests on the least squares means with a Tukey adjustment. All analysis was conducted using the R programming language [@RAlanguageanden:wf]. The package MASS was used for negative binomial GLMs [CITE], the packages car [CITE] and DHARMa were used for model checking, and the packages lsmeans [CITE] and multcomp [CITE] were used for GLM post-hoc analysis. Figures and tables were made using the package tidyverse [CITE] and stargazer [CITE] respectively.
-
-## Results
+# Results
 
 The seven reef associated families comprised of 2827 fish in total, of which 44.3% came from the family Labridae (@tbl:catch-summary). One surface tow at station 8 was not included in the analysis because there were no flowmeter readings to get concentration, and at station 16 the surface nets were not deployed due to rough conditions. There were differences in catches of ontogenetic stages, with some families such as Serranidae and Mullidae dominated by small preflexion larvae and  Labridae was dominated by postflexion larvae (@tbl:catch-summary). Pomacentridae and Scaridae had low samples of postflexion and preflexion respectively.
 
@@ -136,261 +55,70 @@ Synodontidae  | 63         | 39      | 38          | 140   |  10.35 (±6.53)
 
 [Include graph on the environmental variation for each variable by site (Y axis is depth, X is variable]
 
+## Stage-abundance
 
-
-### Stage-abundance results
-
-I’d put depth on y axis…more intuitive. And maybe express these as percents.
-
-![Mean concentration (1000 m^3^) of ontogenetic larval stages (PRE = preflexion, FLE = flexion, POS = postflexion) for seven temperate reef families (Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae) at three depths (0 = surface, 25 = 5-50 metres, 75 = 50-100 metres), sampled from 16 different stations along the NSW coast. 95% confidence intervals are shown.](../figs/depth-stage-all.png){#fig:ovm}
+![Mean concentration (1000 m^3^) of ontogenetic larval stages (PRE = preflexion, FLE = flexion, POS = postflexion) for seven temperate reef families (Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae) at three depths (0 = surface, 25 = 5-50 metres, 75 = 50-100 metres), sampled from 16 different stations along the NSW coast. 95% confidence intervals are shown.](chapters/empirical/figs/depth-stage-all.png){#fig:ovm}
 
 [Depth patterns]
 Pomacentridae, Scaridae and Serranidae occurred equally in surface waters and the top 50m, while Labridae, Scorpaenidae, and Synodontidae preferred the 5-50m depth. Mullidae larvae preferred the surface waters. Only Scorpaenidae, Scaridae, and Scorpaenidae occurred in any notable numbers at the deepest depth.
 
-[OVM]
-Five of the reef fish families (Labridae, Mullidae, Scorpaenidae, Serranidae, and Synodontidae) exhibited patterns of ontogenetic vertical migration across the three depths (surface = 0 m, mid = 5-50 m, deep = 50-100 m), whereby significant differences were found between concentrations of ontogenetic stages at depth. (@fig:ovm). Scorpaenidae showed the strongest downward trends of ontogenetic vertical migration over the 100 m. Labridae and Synodontidae trended downwards from the surface waters to the mid-depth, and Serranidae trended downwards at the deep depth. Mullidae showed a slight upwards pattern of vertical migration, with postflexion preferring the surface waters. Scaridae and Pomacentridae were found to occur in equal numbers.
+Five of the reef fish families (Labridae, Mullidae, Scorpaenidae, Serranidae, and Synodontidae) exhibited patterns of vertical migration by ontogenetic stage across the three depths (surface = 0 m, mid = 5-50 m, deep = 50-100 m), whereby significant differences were found between concentrations of ontogenetic stages at depth. (@fig:ovm; @tbl:ontogeny-glm-output). Scorpaenidae showed the strongest downward trends of ontogenetic stage vertical migration over the 100 m. Labridae and Synodontidae trended downwards from the surface waters to the mid-depth, and Serranidae trended downwards at the deep depth. Mullidae showed a slight upwards pattern of vertical migration, with postflexion preferring the surface waters. Scaridae and Pomacentridae were found to occur in equal numbers.
 
 *Within depths -* For three families (Scorpaenidae, Serranidae, and Synodontidae) the concentration of preflexion larvae at the surface significantly greater than the concentration of another ontogenetic stage (@fig:ovm). Scorpaenidae preflexion larvae was 6 times more abundant that postflexion larvae (p = 0.044), For Serranidae, the surface waters contained each stage was found to occur in different abundances, with preflexion being the highest at 8.5 times flexion larvae (p < 0.001) and 170 times postflexion larvae (p < 0.001). Synodontidae preflexion larvae at the surface occurred in greater numbers than the postflexion larvae (p = 0.018). Both Labridae and Mullidae larvae were found to occur in equal concentrations per stage in the surface, although there was large variation in concentration of postflexion Labridae larvae (@fig:ovm). At the 5-50 m depth, all stages of Labridae, Scorpaenidae and Synodontidae occurred in equal abundances. Mullidae preflexion larvae were 5.3 times more abundant than postflexion (p = 0.003). Similar pattern occurred at 25 m, with pre-flexion larvae occurring 6.2 times more than flexion (p < 0.001) and 52 times more than post-flexion (p < 0.001). Labridae preflexion larvae were in significantly lower numbers than both flexion (p < 0.001) and post-flexion (p < 0.001) at 75 m. Mullidae and Scorpaenidae both both had significant increases in the abundances of postflexion larvae then preflexion larvae; 7.6 times more for Mullidae (p = 0.003) and 5.8 times for Scorpaenidae (p = 0.030). Serranidae followed an different trend, with equal abundances of preflexion and flexion larvae, which were both more than 4 times greater in abundance that postflexion larvae (p = 0.021 and p = 0.034 respectively). Synodontidae occurred in equal abundances at the 75 m depth.
 
-Both Pomacentridae and Scaridae were found in similar proportions at each depth (@fig-ovm). Pomacentridae larvae were found in equal abundances of preflexion and flexion and postflexion combined. There was an effect of depth at 75 m, significantly reducing the overall abundance (p < 0.001; @tbl:pom). For Scaridae larvae, the concentration in the 25 m layer was 3.1 times greater than the surface (p = 0.004). The large variation of larvae concentrations at 75 m meant it was found to not be different to either 25 m or the surface, even though the mean was higher overall. At each depth, flexion and postflexion were found in higher abundance than preflexion.
-
+Both Pomacentridae and Scaridae were found in similar proportions at each depth (@fig:ovm). Pomacentridae larvae were found in equal abundances of preflexion and flexion and postflexion combined. There was an effect of depth at 75 m, significantly reducing the overall abundance (p < 0.001; @tbl:ontogeny-glm-pom). For Scaridae larvae, the concentration in the 25 m layer was 3.1 times greater than the surface (p = 0.004). The large variation of larvae concentrations at 75 m meant it was found to not be different to either 25 m or the surface, even though the mean was higher overall. At each depth, flexion and postflexion were found in higher abundance than preflexion.
 
 *Between depths -* Mullidae and Serranidae larvae did not differ in abundance by stage between the surface and 25 m depths. Labridae preflexion and flexion larvae were predicted to be in the surface 41% and 40% less respectively than at 25 m (p~preflexion~ = 0.020, p~flexion~ = 0.017), with no difference between the surface and 25 m for postflexion. Both flexion and post-flexion Scorpaenidae larvae increased in the 25 m depth compared to the surface, 5.8 times (p = 0.029) and 6.5 times (p = 0.025) respectively. For each ontogenetic stage, Mullidae abundance was significantly lower at the 75 m depth than the surface (p~preflexion~ < 0.001, p~flexion~ < 0.001, p~postflexion~ < 0.001). Between the surface and 75m, only Labridae preflexion was found in lower abundance (p = 0.011). Scorpaenidae flexion and postflexion larvae were more abundant at 75 m than the surface (p~flexion~ = 0.011; p~postflexion~ < 0.001). Postflexion Serranidae larvae were found to occur more at 75 m than the surface (p = 0.042). Labridae preflexion larvae was less abundant at 75 m than 25 m (p < 0.001). All ontogenetic stages for Mullidae were less abundant at 75 m (p~preflexion~ < 0.001, p~flexion~ < 0.001, p~postflexion~ = 0.023). Scorpaenidae and Serranidae larvae did not change in stage abundance between 25 m and 75 m. Synodontidae larvae did not differ in abundance by stage between any of the three depths.
 
-
 [Environmental data]
-The abundance of Labridae, Scaridae, Scorpaenidae, and Synodontidae were all strongly positively predicted with temperature (@tbl:ontogeny-glm-output), whereas Pomacentridae were negatively predicted by temperature (@tbl:ontogeny-glm-pom-output). Chlorophyll fluorescence was negatively associated with abundance for both Pomacentridae and Mullidae. Dissolved oxygen was a positive predictor for Labridae, but a negative predictor for Synodontidae. Salinity was a negative predictor of Scaridae abundance.
+The abundance of Labridae, Scaridae, Scorpaenidae, and Synodontidae were all strongly positively predicted with temperature (@tbl:ontogeny-glm-output), whereas Pomacentridae were negatively predicted by temperature (@tbl:ontogeny-glm-pom). Chlorophyll fluorescence was negatively associated with abundance for both Pomacentridae and Mullidae. Dissolved oxygen was a positive predictor for Labridae, but a negative predictor for Synodontidae. Salinity was a negative predictor of Scaridae abundance.
 
-## Length vertical migration
+## Length
 
-Length Depth Patterns
-- Larger in 75m = labridae, mullidae, scorpaneidae, serranidae
-- Same = Poms, scarids, synodontids.
-
-L [bac]
-M [aab]
-P [ab(ab)]
-Sco [aab]
-Sca [aaa]
-Syd [aaa]
-Ser [abc]
-
-![Length (mm) of larval fish of nine temperate reef families (Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae) at three depths (0 = surface, 25 = 5-50 metres, 75 = 50-100 metres), sampled from 16 different stations along the NSW coast.](../figs/length-depth-all.png){#fig:length-depth}
-
-Put depth on y axis.
-Indicate stats on figure.
+![Length (mm) of larval fish of nine temperate reef families (Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae) at three depths (0 = surface, 25 = 5-50 metres, 75 = 50-100 metres), sampled from 16 different stations along the NSW coast.](chapters/empirical/figs/length-family.png){#fig:length-depth}
 
 For each of the seven fish families, depth was a significant predictor of length, of which there were three distinct patterns. Mullidae, Scorpaenidae and Serranidae showed increasing length with depth. Mullidae larvae were longer at 75 m, 3.0 times longer compared to the surface (p < 0.001) and 3.8 times longer than the larvae at 25 m (p < 0.001). Scorpaenidae larvae were also longer at 75 m, 1.7 times longer than the surface (p < 0.001) and 1.3 times longer than the larvae at 25 m (p < 0.001). For Serranidae, the length of the larvae was significantly greater with increasing depth, 1.1 times larger at 25 m than the surface (p = 0.002) and twice as long at 75 m than 25 m (p < 0.001). Labridae larvae a unique pattern, where the smallest larvae occurred at 25 m, then 1.1 times longer at the surface waters (p = 0.008) and 1.8 times longer again at 75 m (p < 0.001). No clear pattern emerge for Pomacentridae larvae, which were 1.2 times longer at 25 m than the surface (p = 0.033), but no differences were detected between the lengths of the larvae between the surface and 75 m, and the two deeper depth bins. Scaridae and Synodontidae larvae were found to be of equal lengths over the three depths. Scaridae larvae were predicted in the model to be longer in the surface than 25 m (p = 0.027), but post-hoc analysis using the Tukey method found no difference between the least-squares means at each depth. Synodontidae larvae were predicted from the model to be longer at 75 m than the surface, however similarly, the post-hoc analysis did not find any differences between the predicted means at each depth.
 
-
-### Environmental variables - length
+[Environmental variables]
 The length of Labridae (p < 0.001), Mullidae (p < 0.001), Pomacentridae (p < 0.001) and Serranidae (p < 0.001 all were positively predicted by the water temperature (@tbl:length-glm-output). Labridae larval length was positively predicted by chlorophyll fluorescence (p < 0.001). Salinity was a positive predictor of Pomacentridae (p = 0.030) and Scaridae length (p = 0.001), but a negative predictor of the length of Scorpaenidae larvae (p = 0.039). Dissolved oxygen negatively predicted the length of Pomacentridae larvae (p < 0.001).
 
+## Feature
+*Stage-abundance-* Labridae occurred in equal abundances in the coastal waters, but in the eddy, preflexion larvae were the least abundant, followed by flexion (p~preflexion-flexion~ = 0.016) and postflexion (p~preflexion-postflexion~ < 0.001; p~flexion-postflexion~ < 0. 001) was the most abundant. Scorpaenidae flexion larvae abundance increased 5.7 times (p < 0.001) and postflexion larvae 9.5 times (p < 0.001) in the eddy compared to the coastal waters, while preflexion abundance did not vary. Flexion larvae of Synodontidae were more common in the eddy (p = 0.003). In the coastal waters, Labridae was more abundant at 25 m than the surface, but in the Eddy both the surface and 25 m was more abundant than 75 m (p~0m~ = 0.010; p~25m~ < 0.001). Total Synodontidae abundance increased in the eddy 4.9 times at 25 m, when compared to the coastal waters.
 
-[Features]
+*Length-* Six of the families were significantly longer in an eddy than the coastal waters, Scaridae being the exception where the eddy had no effect on length (@tbl:length-glm-output). The greatest effect of eddy was on Mullidae, which were on average predicted to be 3.7 times longer than the larvae in the coastal waters (p < 0.001) and the smallest effect was on Labridae which were only 1.2 times longer (p < 0.001). There was no interaction between depth and feature for any of the seven temperature fish families.
 
-Overall positive effect of Eddy (Mullidae, Scaridae).
-No effect : Serranidae
+# Discussion
 
-## Effect of stage abundance
-Labridae [a,a,a][a,b,c]
-Scorp [a,a,a][b,a,a]
-Syndod [a,ab,b][a,a,a]
+## Stage-abundance
+Ontogenetic stage distribution patterns were not seen amongst all of the families as predicted, and of the five families that show ontogenetic shifts in distribution, a downward shift pattern was not uniform. Similar downward ontogenetic shifts of the families Labridae, Scorpaenidae and  Serranidae as seen is our results, have been seen before [@Gray:1993et; @Irisson:2010um]. Off the NSW coast, a study of vertical migration also saw upwards shifts for Mullidae and no ontogenetic pattern for Pomacentridae [@Gray:1993et]. Although Pomacentridae in tropical areas have been shown to vertically migrate both downwards [@Paris:2004te] and upwards [@Irisson:2010um] with ontogeny, suggesting strong species-specific trends. In our experiment, the results for Pomacentridae and Scaridae were also hard to analyse due to the low sample numbers for postflexion and preflexion respectively, therefore it is highly possible ontogenetic patterns existed but we could not tease them out. The result was surprising, as we thought the relationship between stage and depth would be clearer as per the literature, especially over the coarse depths we used. For these families, the pattern supported our hypothesis that more developed larvae (in this case flexion and onwards) were more likely to be present at lower depths (50-100 m). For the other species, while we believe ontogenetic vertical migration patterns to exist, our experimental design appeared was perhaps too coarse to tease these relationships out. We can see there are patterns of difference, but the low catch rate of the different ontogenetic stages across all sites meant the analysis made it difficult to get significant predictors.
 
+## Length
+Our hypothesis that fish would increase in size with depth was clearly supported in the families Mullidae, Scorpaenidae and Serranidae and partially supported by Pomacentridae (longer at 5-50 m than the surface) and Labridae (longest at 50-100 m). Synodontidae also showed a trend of being longer at 50-100 m, but it was non-significant. The fish larvae at 50-100 m were also often 2-3 times longer than the other depths, suggesting much older larvae are found in the deeper waters. It has been argued that such a pattern can be seen because that older, larger fish have a increased range and that it is more of a uniform distribution at different length classes than the results suggest [@Irisson:2010um].
 
-Labridae occurred in equal abundances in the coastal waters, but in the eddy, preflexion larvae were the least abundant, followed by flexion (p~preflexion-flexion~ = 0.016) and postflexion (p~preflexion-postflexion~ < 0.001; p~flexion-postflexion~ < 0. 001) was the most abundant. Scorpaenidae flexion larvae abundance increased 5.7 times (p < 0.001) and postflexion larvae 9.5 times (p < 0.001) in the eddy compared to the coastal waters, while preflexion abundance did not vary. Flexion larvae of Synodontidae were more common in the eddy (p = 0.003).
-
-
-## Effect of depth abundance
-Labridae [a,b,ab][b,b,a]
-Pomacentridae [a,a,b][a,b,c]**
-
-In the coastal waters, Labridae was more abundant in at 25 m than the surface, but in the Eddy both the surface and 25 m was more abundant than 75 m (p~0m~ = 0.010; p~25m~ < 0.001). In the eddy, Synodontidae abundance increased 4.9 times at 25 m, when compared to the coastal waters.
-
-
-## Feature on Length
-
-Six of the families were significantly longer in an eddy than the coastal waters, Scaridae being the exception where the eddy had no effect on length (@tbl:length-glm-output). The greatest effect of eddy was on Mullidae, which were on average predicted to be 3.7 times longer than the larvae in the coastal waters (p < 0.001) and the smallest effect was on Labridae which were only 1.2 times longer (p < 0.001). There was no interaction between depth and feature for any of the seven temperature fish families.
-
-## Take home messages for stage based vertical migration
-
-No significant interactions between feature x stage x depth
-  - Therefore pattern of behaviour doesnt seem to be dependent on feature
-
-Five families show distinct patterns of OVM
-  - The two that didn't had low sample sizes for one stage (Poms at post-flexion, Scarids at pre-flexion)
-
-## Take home messages for length vertical migration
-
-Larger larvae were found deeper
-  - Predator avoidance? Changes in prey?
-  - Should we be modelling length instead of ontogeny?
-Larger larvae were found in the eddy
-  - There was no interaction, larvae grow larger in eddies
-  - Expected behaviour as larvae age in eddies
-Temperature was a strong predictor of larvae length
-  - Grow faster in warmer temperatures?
-  - Slopes were gradual. Predator avoidance? (Less nutrient rich water = less predators?!)
-  - Or higher temperatures allow them to use more of the water column?
-  - Labridae length was predicted positively by both temperature and chlorophyll - seems contradictory
-
-
-
-## Discussion
-
-- Interpretation (in light of what is already known)
-- What new understandings have we got?
-- What would be the next steps
-
-[Gray 1996] - Patchy larval distributions? (see Cowen 1993).
-
-
-[Ontogenetic vertical migration]
-Ontogenetic vertical distribution patterns were not seen amongst all of the families as predicted, and of the five families that show ontogenetic shifts in distribution, downward shift pattern was not uniform. Similar downward ontogenetic shifts of the families Labridae, Scorpaenidae and  Serranidae as seen is our results, have been seen before [@Gray:1993et; @Irisson:2010um]. Off the NSW coast, a study of vertical migration also saw upwards shifts for Mullidae and no ontogenetic pattern for Pomacentridae [@Gray:1993et]. Although Pomacentridae in tropical areas have been shown to vertically migrate both downwards [@Paris:2004te] and upwards [@Irisson:2010um] with ontogeny, suggesting strong species-specific trends. In our experiment, the results for Pomacentridae and Scaridae were also hard to analyse due to the low sample numbers for postflexion and preflexion respectively, therefore it is highly possible ontogenetic patterns existed but we could not tease them out.
-
-
-The result was surprising, as we thought the relationship between stage and depth would be clearer as per the literature, especially over the coarse depths we used. For these families, the pattern supported our hypothesis that more developed larvae (in this case flexion and onwards) were more likely to be present at lower depths (50-100 m). For the other species, while we believe ontogenetic vertical migration patterns to exist, our experimental design appeared was perhaps too coarse to tease these relationships out. We can see there are patterns of difference, but the low catch rate of the different ontogenetic stages across all sites meant the analysis made it difficult to get significant predictors.
-
-
-
-
-[Length]
-Our hypothesis that fish would increase in size with depth was clearly supported in the families Mullidae, Scorpaenidae and Serranidae and partially supported by Pomacentridae (longer at 25 m than the surface) and Labridae (longest at 75 m). Synodontidae also showed a trend of being longer at 75 m, but it was non-significant. The fish larvae at 50-100 m were also often 2-3 times longer than the other depths, suggesting much older larvae are found in the deeper waters. It has been argued that such a pattern can be seen because that older, larger fish have a increased range and that it is more of a uniform distribution at different length classes than the results suggest [@Irisson:2010um].
-
-[Contrast Length vs OVM]
-Four of the families showed the same pattern with length as with ontogenetic shift (Labridae, Mullidae, Scaridae and Scorpaenidae). However, three of the families had different results. Pomacentridae was found to get longer between the surface and 25 m, yet no ontogenic differences were found between the depths. This result is most likely due to the most postflexion Pomacentridae larvae caught at 25 m. Serranidae were found to be longer between the surface waters and 25 m, but there were no differences in the abundances of ontogenetic stages. Synodontidae had the opposite result, with ontogenetic changes between depths, but no differences in length.
-(Why?!)
-
-[Are there other factors?]
-Other factors = food deprivation [Vollset]
-
-
-[Feature]
-Feature had a strong effect on the abundance at depth, abundance of ontogenetic stage and the length of the larvae.
-
+## Contrast
+Four of the families (Labridae, Mullidae, Scaridae and Scorpaenidae) supported our hypothesis, exhibiting the same vertical distribution pattern for both length and stage abundance. However , three of the families had divergent patterns for each of the response variables. Pomacentridae was found to get longer between the surface and 25 m, yet no ontogenic differences were found between the depths. This result is most likely explained by the low number of postflexion Pomacentridae larvae sampled at the 5-50 m depth. Serranidae were found to be longer between the surface waters and 25 m, but there were no differences in the abundances of ontogenetic stages. Synodontidae had the opposite result, with ontogenetic changes between depths, but no differences in length. This result suggests that in general, either larval length or ontogenetic stage can be used to measure the ontogenetic vertical distribution of larvae - but there is potential to miss out on patterns due if only one is used due to the patchiness of larval fish assemblages.
 
 [Environmental Factors]
-Environmental factors were also driving the differences in larval abundance, complicating the reasons for the patterns of vertical migration. As environmental variables were a proxy for site, it explains some of the patchiness in larval fish assemblages seen between sites. Although it has been shown that ichthyoplankton distributions are inherently patchy [@Gray:1993et; @Cowen1993uv], with temperature, salinity, light, tide, flow all influencing assemblages [CITE Leis 2006]. Adding to the complexity is that these factors can also interact, such that each single factor has been seen to explain only a small amount of the variability of assemblages [@Cowen1993uv]. Temperature had the strongest effect, seen to predict both abundance and length for several families. It was an especially strong predictor of length in Mullidae, which is not surprising at the many post-flexion are found at the surface waters. This was in general a positive relationship, except for Pomacentridae which were less abundant with increasing temperature, but longer. It could be that there was a mix of tropical and temperate species within each families caught, driving differences in abundance by temperature. Salinity was only a positive predictor of Scaridae abundance, but was a significant predictor of length in four of the families. Dissolved oxygen, which was also highly correlated with chlorophyll, has positive presence predictors for Mullidae and Serranidae, suggesting that ichthyoplankton migrate to areas of increased phytoplankton for feeding. However, this relationship was not consistent suggesting it was perhaps prey / species-specific - Pomacentridae larvae had a negative relationship with dissolved oxygen.
+Environmental factors were also driving the differences in larval abundance, complicating the reasons for the patterns of vertical migration. As environmental variables were a proxy for site, it explains some of the patchiness in larval fish assemblages seen between sites. Although it has been shown that ichthyoplankton distributions are inherently patchy [@Gray:1993et; @Cowen1993uv], with temperature, salinity, light, tide, flow all influencing assemblages [CITE Leis 2006]. Adding to the complexity is that these factors can also interact, such that each single factor has been seen to explain only a small amount of the variability of assemblages [@Cowen1993uv]. Temperature had the strongest effect, seen to predict both abundance and length for several families. It was an especially strong predictor of length in Mullidae, which is not surprising at the many post-flexion are found at the surface waters. This was in general a positive relationship, except for Pomacentridae which were less abundant with increasing temperature, but longer. It could be that there was a mix of tropical and temperate species within each families caught, driving differences in abundance by temperature. Salinity was only a positive predictor of Scaridae abundance, but was a significant predictor of length in four of the families. Dissolved oxygen, which was also highly correlated with chlorophyll, has positive presence predictors for Mullidae and Serranidae, suggesting that ichthyoplankton migrate to areas of increased phytoplankton for feeding. However, this relationship was not consistent, with lower Pomacentridae abundance negatively associated with dissolved oxygen.
+
+## Feature
+We predicted that older and longer larvae would be found in the eddy waters compared to the coastal waters, but we only found the pattern of longer larvae to be consistent (occurring in all but one family). Increased abundance of postflexion larvae was only seen in two families, even though longer larvae were found - suggesting that the water feature has more of an effect on the size of the larvae compared to the development. Interestingly no interactions with feature were found, suggesting that patterns of vertical migration are not impacted by the associated water feature that are in.
+
+## Limitations and future directions
+There were several limitations in the experimental design of this study, as expected from the literature, using the traditional net sampling method under sampled postflexion larvae for several of the families due to the ability to evade the nets (@tbl:catch-summary). Although not only gear avoidance contributes to this under sampling, high larval mortality leads to over representation of younger fish. A future direction would be to also sample for the eggs of ichthyoplankton, which can migrate the water column through buoyancy effects [CITE Sundby 2014]. Another limitation was the coarseness of the nets used, only sampling the surface waters, 5-50 m and 50-100 m layers means finer ontogenetic vertical migration distributional patterns are not captured. Ontogenetic vertical migration it has been argued is a moderate adjustment in the water column and not stratification [CITE Huebert 2011], which is more difficult to capture using our coarser depth scales. It would also be useful to sample for vertical distributions patterns during over different temporal scales, from day/night time scales to seasonal scales and to test the consistency of these ontogenetic vertical distributions. The difficulty is in the cost of sampling by tows is increased over spatial and temporal scales. As a general rule, oceanographic sampling studies suffer from issues over under sampling at both the spatial scale (only 16 stations), and the ability to measure all of the factors affecting assemblages in the water column.
+
+# Conclusion
+In conclusion, ontogenetic vertical migration is not uniform for reef-associated fish families of NSW, and fish that do ontogenetically migration can display contrasting patterns. Even when vertical patterns do exists, it needs to be remembered that a complex number of variables can also effect this distributional pattern, e.g. light, temperature, and food. Larval fish entrainment in eddies does not change these ontogenetic vertical distribution patterns, but there is an effect on the abundance of larval stages and length of larvae at depths within an eddy compared to coastal waters. The ontogenetic vertical patterns described by this study will be useful for parameterising biophysical dispersal models, with the aim of understanding connectivity patterns of NSW reef fish larvae from each of these seven families.
 
 
-[Why would temperature predict these?]
-
-Temperature has been known to be used by larval fish to regulate digestion post feeding, prodivding  an explanation for diel vertical migration. [Neverman]
+# Figures and Tables
 
 
-
-[Why would salinity predict length?]
-
-
-
-
-
-Although Synodontidae were negatively associated with dissolved oxygen, possibly avoiding predators.
-
-
-Temperature was a positive predictor of length in Labridae, Mullidae, Pomacentridae and Serranidae.
-- Tropical rather than temperate species perhaps?
-
-Salinity had a positive relationship on the length of Pomacentridae larvae, but negative relationships with Scorpaenidae, Mullidae, Labridae.
-- Some species are more saline tolerant
-
-Dissolve oxygen had a negative relationship with the length of the Pomacentridae.
-- Plankton relationship to DO?
--
-
-Low concentrations at 75m. Should models be constraining to the top 50?
-
-[What did others find?]
-
-[Gray 1998 - off NSW]
-Labridae pre and post- were found mainly in 25m bin.
-Pomacentidae found mainly in 25m (at 10m)
-
-[Gray 1993] Where deep = 20-30m and surface = 0-2m.
-Deep > Surface (Scorpaenidae, Labridae)
-Deep = Surface (Pomacentirdae)
-Surface > Deep (Mullidae)
-
-
-
-[Irrison 2010]
-Labridae, Serranidae trended downwards
-Pomcentirdae trended upwards
-Found that preflexion was more localised while post-flexion was more spread out.
-In general (when significance was found), shift was from surface to deep water
-
-
-[Paris and Cowan 2004] Found a Pomacentridae (Stegastes partitus) to migrate deeper with ontogeny (downward over 60 m).
-
-Environmental variables:
-
-
-Davis, M. W. (2001). Behavioural responses of walleye pollock, Theragra chalco- gramma, larvae to experimental gradients of seawater flow: Implications for verti- cal distribution. Environmental Biology of Fishes 61, 253–260.
-
-
-### Length
-
-- Length often had a significant interaction with feature and depth (longer in eddies except for scarids and synodontids), suggesting entrainment in eddy with food resources, i.e. plankton
-
-#### Environmental drivers
-
-
-
-### Better predictor of depth? Length or Ontogeny?
-- Length is a better predictor than ontogeny for these depth ranges
-- Longer larvae were found in the 50-100 m depth for 5 families
-- Longer found deeper
-
-
-### Comparison of length vs ontogeny? Why are we seeing differences?
-
-
-
-### Limitations
-
-The experimental limitations
-
-- Only 3 depths, perhaps too coarse to capture the initial
-  - What about that middle 50m range, can be evenly split?
-- Issues with sampling (specifically undersampling)
-  - Mortality means catch more preflexion
-  - Larger fish are better at evading the nets (through swimming and detection)
-  - Is 16 stations enough over such a huge area? Could be large environmental variation, shown that there are environmental drivers. Some low r^2 even with all the variables in - other things driving this behaviour = complicated story.
-  - Perhaps sampling design was too low - too many zeros in the dataset to get a good distribution.
-
-
-
-Huebert 2011 argue that perhaps ontogenetic vertical migration is gradual shift and not strict dichomoties. He also argues against strafitied nets for samplign behaviour.
-  .e.g Irrison (2010) argues that increases with mean depth with ontoegny mayebe because the range of the fish is shown to increase.
-
-
-Ignored eggs of these species.
-
-
-
-### Future directions
-
-- Costly exercise - are there better ways?
-- Difficult data collection means how do we ensure better results?
-- Use the data to parametise models that require early-life history data.
-
-### Conclusion
-
-- Ontogeny was only a predictor of depth for five families
-- Length was a predictor of depth for 5 families
-- Perhaps length is a better predictor of depth position (and also easier to get information and use in modelling?)
-- Different from previous results (but combination of experimental design, and differences amongst families – and presumably within). Even environmental drivers weren’t common amongst fish – lots of variation!
-
-
-
-## Figures and Tables
-
-
-: The predictors of larvae abundance for the fish families Labridae, Mullidae, Scorpaenidae, Serranidae, and Synodontidae using generalised linear models with negative binomial. The estimate and standard error is given. {#tbl:ontogeny-glm-output}
+: The predictors of larvae stage abundance (measured as concentration m^3^) for the fish families Labridae, Mullidae, Scorpaenidae, Serranidae, and Synodontidae using generalised linear models with a negative binomial distribution. The estimate and standard error is given. {#tbl:ontogeny-glm-output}
 
 | Dependent variable:      |                                        |                   |                   |                   |                   |                  |   |   |
 |--------------------------|----------------------------------------|-------------------|-------------------|-------------------|-------------------|------------------|---|---|
-|                          | Count                                  |                   |                   |                   |                   |                  |   |   |
+|                          | Concentration (m^3^)                                  |                   |                   |                   |                   |                  |   |   |
 |                          | Labridae                               | Mullidae          | Scaridae          | Scorpaenidae      | Serranidae        | Synodontidae     |   |   |
 | Feature(Eddy)            | 0.864\*                                | 2.768\***         | 1.531\***         | 0.362             |                   | -0.012           |   |   |
 |                          | (0.401)                                | (0.530)           | (0.300)           | (0.440)           |                   | (0.558)          |   |   |
@@ -431,6 +159,32 @@ Ignored eggs of these species.
 | Observations             | 276                                    | 276               | 276               | 276               | 276               | 276              |   |   |
 | theta                    | 0.785\*** (0.092)                      | 0.434\*** (0.083) | 0.995\*** (0.278) | 0.826\*** (0.243) | 0.325\*** (0.051) | 1.070\** (0.361) |   |   |
 | Note:                    | \*p < 0.05; \**p < 0.01; \***p < 0.001 |                   |                   |                   |                   |                  |   |   |
+
+
+
+: The predictors of larvae stage abundance (measured as concentration m^3^) for Pomacentridae using a generalised linear models with a negative binomial distribution. The estimate and standard error is given. {#tbl:ontogeny-glm-pom}
+
+| Predictors                            | Dependent variable:
+| --------------------------------------|------------------------------------
+|                                       | Concentration (m^3^)
+| Feature(Eddy)                         | -0.033 (0.952)
+| Depth(25)                             | 0.530 (0.776)
+| Depth(75)                             | -4.115\*** (1.171)
+| Stage(FLEPOS)                         | -0.980 (0.757)
+| Temperature                           | -1.274\*** (0.351)
+| Chlorophyll                           | -1.455\*** (0.433)
+| Feature(Eddy):Depth(25)               | 0.362 (1.121)
+| Feature(Eddy):Depth(75)               | -4.014\* (1.782)
+| Feature(Eddy):Stage(FLEPOS)           | -1.214 (1.280)
+| Depth(25):Stage(FLEPOS)               | -0.347 (0.999)
+| Depth(75):Stage(FLEPOS)               | 0.085 (1.104)
+| Feature(Eddy):Depth(25):Stage(FLEPOS) | 1.953 (1.574)
+| Feature(Eddy):Depth(75):Stage(FLEPOS) | 3.807 (1.968)
+| Constant                              | -5.206\*** (0.655)
+| Observations                          | 276
+| theta                                 | 0.276\*** (0.058)
+| Note:                                 | \*p\<0.05; \**p\<0.01; \***p\<0.001
+
 
 
 : The predictors of larvae length for the fish families Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae using generalised linear models with Gamma distributions. The estimate and standard error is given. {#tbl:length-glm-output}
