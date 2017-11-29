@@ -1,7 +1,9 @@
 
 ### Project settings ###
-*/figs/*
-
+chapters/*/figs/
+chapters/*/out/
+chapters/*/data/model-output/
+*/resources/*
 
 # Created by https://www.gitignore.io/api/r,sbt,java,macos,scala
 
@@ -61,9 +63,12 @@ Temporary Items
 .Rhistory
 .Rapp.history
 
+
 # Session Data files
-.RData
-.rda
+chapters/*/src/r/*.RData
+chapters/*/src/r/*.rda
+
+*.nb.html
 
 # Example code in package build process
 *-Ex.R
@@ -118,6 +123,8 @@ project/plugins/project/
 
 ### MicrosoftOffice ###
 *.tmp
+*.docx
+*.pdf
 
 # Word temporary
 ~$*.doc*
