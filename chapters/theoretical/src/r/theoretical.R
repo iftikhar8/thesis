@@ -559,8 +559,44 @@ ordilabel(phase2.regions.rda, display = "sites",priority = priSite, font = 3, fi
 ordilabel(phase2.regions.rda, display = "species",priority = priSpp, font = 2 ,
           scaling = 3)
 
+# SIMPER analysis
 
+## Phase 1
+simper.phase1.names <- c(rep("passive",17),rep("diel",17),rep("ovm",17),rep("orientate",17),
+                         rep("diel-ovm",17),rep("diel-ovm-orientate",17),rep("ovm-orientate",17),
+                         rep("diel-orientate",17))
 
+simper.phase1.data <- bind_rows(as_tibble(passive.conn.regions),
+                                as_tibble(diel.conn.regions),
+                                as_tibble(ovm.conn.regions),
+                                as_tibble(orientate.conn.regions),
+                                as_tibble(diel.ovm.conn.regions),
+                                as_tibble(diel.ovm.orientate.conn.regions),
+                                as_tibble(ovm.orientate.conn.regions),
+                                as_tibble(diel.orientate.conn.regions))
+(simper.phase1 <- with(passive.regions, simper(simper.phase1.data, simper.phase1.names)))
+summary(simper.phase1)
+
+## Phase 2
+simper.phase2.names <- c(rep("labridae",17),rep("mullidae",17),rep("pomacentridae",17),rep("scaridae",17),
+                         rep("scorpaenidae",17),rep("serranidae",17),rep("synodontidae",17))
+simper.phase2.data <- bind_rows(as_tibble(ovm.labrid.conn.regions),
+                                as_tibble(ovm.mullid.conn.regions),
+                                as_tibble(ovm.conn.regions),
+                                as_tibble(ovm.scarid.conn.regions),
+                                as_tibble(ovm.scorpaenidae.conn.regions),
+                                as_tibble(ovm.serranid.conn.regions),
+                                as_tibble(ovm.synodontid.conn.regions))
+(simper.phase2 <- with(passive.regions, simper(simper.phase2.data, simper.phase2.names)))
+summary(simper.phase2)
+
+## Phase 3
+simper.phase3.names <- c(rep("daily",17),rep("timestep",17),rep("stage",17))
+simper.phase3.data <- bind_rows(as_tibble(ovm.daily.conn.regions),
+                                as_tibble(ovm.timestep.conn.regions),
+                                as_tibble(ovm.conn.regions))
+(simper.phase3 <- with(passive.regions, simper(simper.phase3.data, simper.phase3.names)))
+summary(simper.phase3)
 
 
 #passive.connectivity <- summarize(group_by(passive.data,source, settle), count = n())

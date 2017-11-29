@@ -20,6 +20,7 @@ library(DHARMa)
 library(AER)
 library(multcomp)
 library(multcompView)
+library(stargazer)
 ```
 
 ```{r Load data, include=FALSE}
@@ -98,8 +99,14 @@ ggsave("../../figs/temperature-depth.png")
 data.ontogeny <- mutate(data.ontogeny, conc.m = conc*1000)
 data.ontogeny$stage.r <- factor(data.ontogeny$stage, levels=c("POS","FLE","PRE"))
 data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
-ggplot(data=data.ontogeny, aes(y=conc.m, x=depth.r, group=stage.r, fill=stage.r)) + facet_wrap(~family, scales="free", ncol=4, shrink = TRUE) + stat_summary_bin(fun.y="mean", geom="col", position=position_dodge(width=0.95)) + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",position=position_dodge(width=0.95)) + labs(x="Depth (m)", y=expression("Concentration 1000 "~m^{3})) + theme_classic() + coord_flip()
+ggplot(data=data.ontogeny, aes(y=conc.m, x=depth.r, group=stage.r, fill=stage.r)) + facet_wrap(~family, scales="free", ncol=4, shrink = TRUE) + stat_summary_bin(fun.y="mean", geom="col", position=position_dodge(width=0.95)) + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",position=position_dodge(width=0.95)) + labs(x="Depth (m)", y=expression("Concentration per 1000 "~m^{3})) + theme_classic() + coord_flip()
 ggsave("../../figs/depth-stage-all.png")
+```
+
+```{r}
+data.length$depth.r <- factor(data.length$depth, levels=c("75","25","0"))
+ggplot(aes(y=log(total_length), x=depth.r), data=data.length) + geom_boxplot() + facet_wrap(~family, scales="free", ncol=3) + theme_classic() + coord_flip() +labs(x="Depth (m)", y=expression("Log Length (mm)"))
+ggsave("../../figs/length-family.png")
 ```
 
 # Labrid
@@ -598,7 +605,12 @@ stargazer(model.ontogeny.labrid.nb,model.ontogeny.mullid.nb, model.ontogeny.scor
           omit.stat = c("aic","ll"),
           type='text')
 
-stargazer(model.ontogeny.pomacentrid.nb, type='text')
+stargazer(model.ontogeny.pomacentrid.nb, 
+          star.cutoffs = c(0.05,0.01,0.001),
+          dep.var.labels = "Concentration (m3)",
+          covariate.labels = c("Feature(Eddy)", "Depth(25)", "Depth(75)","Stage(FLEPOS)", "Temperature","Chlorophyll","Feature(Eddy):Depth(25)","Feature(Eddy):Depth(75)", "Feature(Eddy):Stage(FLEPOS)", "Depth(25):Stage(FLEPOS)","Depth(75):Stage(FLEPOS)","Feature(Eddy):Depth(25):Stage(FLEPOS)","Feature(Eddy):Depth(75):Stage(FLEPOS)"),
+          omit.stat = c("aic","ll"),
+          type='html')
 ```
 
 

@@ -1,0 +1,34 @@
+---
+title: "Graph theory analysis for my theoreticla chapter"
+output: html_notebook
+---
+
+Packages required
+```{r}
+library(igraph)
+library(NetIndices)
+```
+
+
+Load the data
+```{r,include=FALSE}
+load(file="phase1.rda")
+load(file="phase2.rda")
+load(file="phase3.rda")
+load(file="reefs.rda")
+```
+
+Passive graph analysis
+```{r}
+rownames(passive.conn.regions) <- passive.regions$settle.region
+graph.passive <- graph_from_adjacency_matrix(passive.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.passive, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.passive)$vector
+plot(graph.passive, vertex.size = as*30, main="Authorities")
+
+graph.passive.adj <- get.adjacency(graph.passive, sparse = FALSE)
+graph.passive.ind <- GenInd(graph.passive.adj)
+graph.passive.ind$C
+```
+
