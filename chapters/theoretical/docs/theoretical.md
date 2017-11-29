@@ -23,7 +23,7 @@ Aims:
 
 # Methods
 
-## Model context
+## Model development
 
 [Worth building a flow diagram?]
 
@@ -75,25 +75,11 @@ Sites used for both spawning and settlement are represented as polygons within t
 
 Vertical migration can be implemented as either diel or ontogenetic vertical migration. Both use probabilities of being in depth ranges either at a certain time, i.e. night or day, or in depth ranges defined by their ontogenetic stage (e.g. for ichthyoplankton these would be preflexion, flexion, or postflexion). Ontogenetic stages are specific by lengths of time in seconds, which are given gaussian distributions over the population. The vertical position was changed by applying a probability distribution function to determine which depth the larvae moved too. For diel vertical migration this probability distribution function was applied one hour before sunset or sunrise using an approximation calculated from the larvae position.
 
+The horizontal swimming speed is calculated using known critical swimming speeds, the *in situ* swimming potential and the swimming endurance of the larvae at postflexion. The speed is added to both the *u* and *v* velocities after applying stochasticity. Fish can swim, orientated to the nearest habitat, if they find themselves within a user configured olfactory range.
 
 
 
-
-
-
-
-
-
-### Pelagic larval duration & settlement competency
-
-
-### Orientated horizontal swimming
-
-The horizontal swimming speed is calculated using known critical swimming speeds, the *in situ* swimming potential and the swimming endurance of the larvae at postflexion. The speed is added to both the *u* and *v* velocities after applying stochasticity. Fish can swim, orientated to the nearest habitat, if they find themselves within an olfactory range of 15 km. The *A. vaigiensis* were given a critical swimming speed of 0.463 ms~-1~, *in situ* potential of 0.25, and an endurance of 50% [CITE Leis and Fisher 2006].
-
-
-
-S = C x P x E
+speed = U~crit~ x P~in situ~ x P~endurance~
 
 u = rand * S * cos(theta)
 v = rand * S * sin(theta)
@@ -112,27 +98,13 @@ v = rand * S * sin(theta)
 
 Larvae were spawned from 68 reefs along the NSW coast line using freely available benthic data obtained from NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). The natal reefs were divided into 17 sub-regions, each containing four approximately equally spaced reefs. For each reef 1000 larvae were spawned every 7 days over the period of one year from 1st July 2007 to 31st June 2008. In total 3.5 million larvae were released over the year. No mortality was applied, providing only potential dispersal. Larvae were allowed to settle to reefs or benthic habitat marked as other, as unmapped reefs could be potential settlement sites.
 
-
-
 ### Physical parameterisation
 
-- BRAN reanalysis
-- 15 depth bins between 0-105 m.
--
-
-Time-step was 2 hours
-
-Turbulence values of 0.3 and 0.015.
+The hindcast model used was BRAN3 [Bluelink renalysis, version 3p5; Oke:2013dm], an oceanographic circulation model based on the Ocean Forecasting Australia Model (OFAM). BRAN is a data-assimilating model that aims to resolve mesoscale eddies in 3-dimensions, at the scale of 10 km in the horizontal (0.1° latitude and longitude) and 5-10 m vertically (15 depth bins between 0-105 m). The model consists of mean daily current velocities, sea-level anomaly, sea-surface temperature, and salinity over the period January 1993 to September 2012. An eddy diffusivity value (K) of 300 ms^-1^ was used, as per similar studies in the region [CITE condie, chiswell]. The time-step of the model was 2 hours.
 
 ### Biological parameterisation
 
-For the base model, we used characteristics of the Pomacentridae *Abudefduf vaigiensis*, a common species found off in NSW, and one that we have a lot of information about.
-
-The pelagic larval duration (PLD) was 18.3 (+-1.5) days [CITE Wellington & Victor], and the duration was fixed, meaning that the simulation ran until the larvae reached their PLD (assigned using a gaussian distribution) and settled if there was an available reef. Each larvae was given a sensory zone of 10 km with which to sense reef habitat, while a generous example of sensory abilities, helped overcome the coarseness of the oceanographic model resolution near the coast, limiting the ability to get close to some reefs.
-
-
-
-The larvae were spawned in the preflexion stage (assumed a species with benthic eggs), flexion occured at 5 (+-0.5) days, and postflexion 8 (+-0.5) days [CITE Murphy 2007].
+To populate the parameters of the model, we used characteristics of the small tropical fish, the Indo-Pacific sergeant damselfish *Abudefduf vaigiensis*. It is a common species found all along the coast of  NSW, and one that relatively a lot is known about its early-life history. The larvae were spawned in the preflexion stage (assumed a species with benthic eggs), flexion occurred at 5 (±0.5) days, and postflexion 8 (±0.5) days [CITE Murphy 2007]. The pelagic larval duration (PLD) was 18.3 (±1.5) days [CITE Wellington & Victor], and the duration was fixed, meaning that the simulation ran until the larvae reached their PLD (assigned using a gaussian distribution) and settled if there was an available reef. The larvae were given a sensory zone of 10 km with which to sense settlement reef habitat. This is a generous example of sensory abilities, helped overcome the coarseness of the oceanographic model resolution near the coast, limiting the ability of fish to settle on some reefs. The sensory zone was implemented within the model by finding the distance to the nearest point on a reef polygon to the larvas position. To orientate and swim towards a reef, *A. vaigiensis* were given a olfactory range of 15 km, combined with a critical swimming speed (U~crit~) of 0.463 ms~-1~, *in situ* potential of 0.25, and an endurance rate of 50% [CITE Leis and Fisher 2006 ].
 
 
 #### Comparison of different ichthyoplankton behaviours
