@@ -1,14 +1,61 @@
-.DS_Store
-.Rproj.user
 
-# Created by https://www.gitignore.io/api/r
+# Created by https://www.gitignore.io/api/r,sbt,java,macos,scala
+
+### Java ###
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+### macOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
 ### R ###
 # History files
 .Rhistory
 .Rapp.history
-*.Rproj
-
 
 # Session Data files
 .RData
@@ -39,20 +86,31 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
-*.nb.html
 
-# Created by https://www.gitignore.io/api/scrivener
+### SBT ###
+# Simple Build Tool
+# http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
 
-### Scrivener ###
-/Files/binder.autosave
-/Files/binder.backup
-/Files/search.indexes
-/Files/user.lock
-/Files/Docs/docs.checksum
-/QuickLook/
-/Settings/ui.plist
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+.history
+.cache
+.lib/
 
-# Created by https://www.gitignore.io/api/microsoftoffice
+### Scala ###
+
+# End of https://www.gitignore.io/api/r,sbt,java,macos,scala
+
+
+# Created by https://www.gitignore.io/api/libreoffice,microsoftoffice
+
+### LibreOffice ###
+# LibreOffice locks
+.~lock.*#
 
 ### MicrosoftOffice ###
 *.tmp
@@ -70,20 +128,6 @@ vignettes/*.pdf
 ~$*.ppt*
 
 # Visio autosave temporary files
-*.~vsdx
+*.~vsd*
 
-# Created by https://www.gitignore.io/api/libreoffice
-
-### LibreOffice ###
-# LibreOffice locks
-.~lock.*#
-
-### Makefiles ###
-makefile*
-
-# Output directories
-/chapters/*/out/
-/chapters/*/figs/
-*.docx
-*.pdf
-/chapters/*/data/model-output/
+# End of https://www.gitignore.io/api/libreoffice,microsoftoffice
