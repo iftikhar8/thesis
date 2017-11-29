@@ -62,7 +62,7 @@ get_dispersal_distance_regions <- function(data, reefs) {
 get_regions <- function(reefs, mapping) {
   regions <- left_join(reefs, mapping, by=c("settle"="PATCH_NUM"))
   regions <- rename(regions, settle.region=REGION)
-  regions <- summarize(group_by(regions, settle.region), count=sum(count))
+  regions <- summarize(group_by(regions, settle.region), count =sum(settle))
 }
 
 get_community_matrix <- function(data, is_reef) {
