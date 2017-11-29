@@ -4,6 +4,7 @@ chapters/*/figs/
 chapters/*/out/
 chapters/*/data/model-output/
 */resources/*
+*.html
 
 # Created by https://www.gitignore.io/api/r,sbt,java,macos,scala
 
@@ -147,6 +148,7 @@ project/plugins/project/
 
 ### premake-gmake ###
 Makefile
+makefile
 *.make
 obj/
 
