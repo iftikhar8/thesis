@@ -68,8 +68,8 @@
     </spawningLocation>
   </spawn>
   <turbulence>
-    <horizontalDiffusionCoefficient>0.3</horizontalDiffusionCoefficient>
-    <verticalDiffusionCoefficient>0.015</verticalDiffusionCoefficient>
+    <horizontalDiffusionCoefficient>300</horizontalDiffusionCoefficient>
+    <verticalDiffusionCoefficient>15</verticalDiffusionCoefficient>
     <applyTurbulence>true</applyTurbulence>
     <interval>1</interval>
   </turbulence>
