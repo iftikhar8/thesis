@@ -163,11 +163,11 @@ colnames(phase1.sr) <- names.phase1
 phase1.sr <- gather(phase1.sr)
 colnames(phase1.sr) <- c("model","sr")
 phase1.sr$model <- as.factor(phase1.sr$model)
-phase1.summary <- summarise(group_by(phase1.sr,model), sr.mean=mean(sr), sr.sd=sd(sr), sr.se = sr.sd/n())
-ggplot(data=phase1.summary, aes(y=sr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=sr.mean-sr.sd,ymax=sr.mean+sr.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 1))
+phase1.sr.summary <- summarise(group_by(phase1.sr,model), sr.mean=mean(sr), sr.sd=sd(sr), sr.se = sr.sd/n())
+ggplot(data=phase1.sr.summary, aes(y=sr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=sr.mean-sr.sd,ymax=sr.mean+sr.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 1))
 ggsave("../../figs/phase1-sr.png")
 phase1.glm.sr <- glm(sr ~ model, family = binomial(link="logit"), phase1.sr)
-phase1.summary
+phase1.sr.summary
 ```
 
 Phase1 - settlement success

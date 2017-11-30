@@ -31,7 +31,7 @@ regions.community_matrix <- get_community_matrix(regions.data,FALSE)[,-18]
 Labels for the data
 ```{r}
 model <- c("passive","diel","ovm","orientate","diel.orientate","ovm.orientate","diel.ovm.orientate","diel.ovm","ovm.serranid","ovm.scorpaenid","ovm.scarid","ovm.labrid","ovm.pomacentrid","ovm.synodontid","ovm.mullid","ovm.daily","ovm.timestep","ovm.stage")
-scenarios <- c("group1","group1","group1","group1","group1","group1","group1","group1","group2","group2","group2","group2","group2","group2","group2","group3","group3","group3")
+scenarios <- c("behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-method","ovm-method","ovm-method")
 theoretical <- data.frame(model,scenarios)
 ```
 
@@ -48,16 +48,54 @@ ordihull(reefs.nmds, group=theoretical$scenarios, col=2:4, draw = "polygon", lwd
 
 NMDS using region settlement sites
 ```{r}
-png('../../figs/regions-nmds.png')
+#png('../../figs/regions-nmds.png')
 regions.nmds <- metaMDS(regions.community_matrix,distance="bray", k=2)
 plot(regions.nmds, display="sites")
 #orditorp(regions.nmds,display = "species", col="black", air=0.01)
 #orditorp(regions.nmds,display = "sites", cex=1.25, air=0.01)
-#ordiellipse(regions.nmds, group=theoretical$scenarios, col=2:4, kind = "ehull", lwd=2, label = TRUE)
-ordihull(regions.nmds, group=theoretical$scenarios, col=2:4, draw = "polygon", lwd=2, label=FALSE)
-dev.off()
+ordiellipse(regions.nmds, group=theoretical$scenarios, col=2:4, kind = "ehull", lwd=2, label = TRUE)
+#ordihull(regions.nmds, group=theoretical$scenarios, col=2:4, draw = "polygon", lwd=2, label=FALSE)
+MDS_xy <- data.frame(regions.nmds$points)
+MDS_xy$scenarios <- theoretical$scenarios
+regions.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=scenarios, shape=scenarios)) + geom_jitter(width=0.015,size=3) + theme_bw() + theme(legend.position = "bottom")+ scale_shape(name="")  + scale_color_brewer(name = "", palette = "Paired") 
+save_plot("../../figs/nmds-regions.png", regions.nmds.plot)
+
+#dev.off()
 regions.nmds$stress
 ```
+
+NNDS using all reefs (or regions)
+```{r}
+reefs <- rownames(passive.conn.regions)
+data <- as_tibble(passive.conn.regions)
+data$sites <- reefs
+data$behaviour <- rep(c("passive"))
+data.diel <- as_tibble(diel.conn.regions)
+data.diel$sites <- reefs
+data.diel$behaviour <- rep(c("diel"))
+data.ovm <- as_tibble(ovm.conn.regions)
+data.ovm$sites <- reefs
+data.ovm$behaviour <- rep(c("ovm"))
+data.orientate <- as_tibble(orientate.conn.regions)
+data.orientate$sites <- reefs
+data.orientate$behaviour <- rep(c("orientate"))
+community <- data %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.ovm)
+community_matrix <- select(community, -behaviour, -sites)
+community_matrix[is.na(community_matrix)] <- 0
+
+nmds <- metaMDS(community_matrix,distance="bray", k=2)
+#plot(nmds)
+
+MDS_xy <- data.frame(nmds$points)
+MDS_xy$behaviour <- community$behaviour
+nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour)) + geom_jitter(width=0.015,size=3) + theme_bw() + theme(legend.position = "right")  + scale_color_brewer(name = "", palette = "Paired") +stat_ellipse()
+
+adonis(community_matrix ~ behaviour, community, perm=200)
+
+mod <- with(community, betadisper(vegdist(community_matrix,"bray"), behaviour))
+```
+
+
 
 ```{r}
 

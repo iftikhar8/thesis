@@ -188,19 +188,29 @@ Cluster analysis of the behaviour and OVM strategies scenarios was performed use
 # Results
 
 
+The behavioural scenarios contained the most different patterns of settlement.
+
+The methods
+
 
 ## Phase 1 (Behaviour comparisons)
 
-The most dissimilar settlement pattern of larval behaviour in the cluster analysis was diel vertical migration (@fig:cluster). The rest of the behaviour scenarios were grouped into behaviour with orientation and behaviour without orientation. Diel vertical migration coupled with orientation, and diel vertical migration coupled with both OVM and orientation had the closest connectivity patterns.
+
+The most dissimilar settlement pattern of larval behaviour in the cluster analysis was diel vertical migration (@fig:cluster a). The rest of the behaviour scenarios were grouped into behaviour with orientation and behaviour without orientation. Diel vertical migration coupled with orientation, and diel vertical migration coupled with both OVM and orientation had the closest connectivity patterns.
+
+The highest self-recruitment occurred when only DVM was implemented, and the lowest self-recruitment was when particles were given no behaviour (i.e. passive; @tbl:metrics).
+
 
 ## Phase 2 (OVM comparison)
 
-The cluster analysis for the OVM strategies had Mullidae as the outgroup (i.e. most dissimilar). The two strategies with the most similar patterns of settlement were Pomacentridae and Synodontidae.
+The cluster analysis for the OVM strategies had Mullidae as the outgroup (i.e. most dissimilar; @fig:cluster b). The two strategies with the most similar patterns of settlement were Pomacentridae and Synodontidae. The highest local retention occurred hwne 
 
 ## Phase 3 (Implementation comparison)
 
 
 ### Figures and tables
+: The table with all the values {#tbl:metrics}
+
 
 
              | Scenario      | Richness | Diversity | Connectance | SR       | LR       | SS       | DD
@@ -228,10 +238,14 @@ OVM Method   |               |          |           |             |          |  
              | Stage         | **264**  | **4.75**  | **0.45**    | **0.58** | **0.39** | 0.65     | 143.5
 
 
-![Cluster analysis of the behaviour (a) and ontogenetic vertical migration (OVM) strategies, using a Bray-Curtis dissimilarity measure and clustered using the average-link method.  ](chapters/theoretical/figs/cluster.png){#fig:cluster}
+![nMDS ordination plot using Bray-Curtis dissimilarities between the different settlement patterns for each scenario within each of the treatments; behaviour, OVM strategy, OVM method (2D stress = 0.03)](chapters/theoretical/figs/nmds-regions.png){#fig:nmds}
+
+![Cluster analysis of the behaviour (a) and ontogenetic vertical migration (OVM) strategies, using a Bray-Curtis dissimilarity measure and clustered using the average-link method.](chapters/theoretical/figs/cluster.png){#fig:cluster}
 
 # Discussion
 
+- shows the inlfuence of the currents
+-
 ## Phase 1
 
 ## Phase 2
