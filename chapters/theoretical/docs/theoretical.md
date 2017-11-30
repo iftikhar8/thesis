@@ -45,6 +45,7 @@ The ocean data must be in a Arakawa-A or Arakawa-B grid structure [CITE arakawa 
 The oceanographic data currently only reads in 3-dimensional velocity fields (u, v, w), where w = depth.
 
 [Interpolation]
+
 The particles in a lagrangian system
 
 Runge-Kutta fourth-order integration (RK4) is used to move the particle through space and time, calculating a weighted average of four increments using the chosen model time-step (@eq:rk4). The velocity at any given position in space is interpolated using a tricubic interpolation scheme on the hydrodynamic model, such that the velocity for a given particle in the oceanographic space is interpolated from neighbouring grids using 64 points (4 x 4 x 4). If this is not possible, for example due to boundary conditions, trilinear interpolation using 8 points (2 x 2 x 2) is substituted.
@@ -153,6 +154,7 @@ Comparisons of ontogenetic migration strategies were made using the different pr
 |               | 6-50      | .550       | .550    | .650        |
 |               | 51-100    | .300       | .200    | .200        |
 
+[Should I turn this into figure? Feel like its horrible to read]
 
 #### Implementation strategies
 
@@ -173,6 +175,10 @@ To determine the influence of different behaviour implementations on the dispers
 ### nMDS analysis & SIMPER
 
 
+Cluster analysis of the behaviour and OVM strategies scenarios was performed used a Bray-Curtis dissimilarity measure, and the average-link clustering method.
+
+
+
 ### Metrics
 
 
@@ -185,9 +191,11 @@ To determine the influence of different behaviour implementations on the dispers
 
 ## Phase 1 (Behaviour comparisons)
 
+The most dissimilar settlement pattern of larval behaviour in the cluster analysis was diel vertical migration (@fig:cluster). The rest of the behaviour scenarios were grouped into behaviour with orientation and behaviour without orientation. Diel vertical migration coupled with orientation, and diel vertical migration coupled with both OVM and orientation had the closest connectivity patterns.
 
 ## Phase 2 (OVM comparison)
 
+The cluster analysis for the OVM strategies had Mullidae as the outgroup (i.e. most dissimilar). The two strategies with the most similar patterns of settlement were Pomacentridae and Synodontidae.
 
 ## Phase 3 (Implementation comparison)
 
@@ -219,6 +227,8 @@ OVM Method   |               |          |           |             |          |  
              | Daily         | 263      | 4.72      | **0.45**    | 0.53     | 0.38     | **0.70** | **154.5**
              | Stage         | **264**  | **4.75**  | **0.45**    | **0.58** | **0.39** | 0.65     | 143.5
 
+
+![Cluster analysis of the behaviour (a) and ontogenetic vertical migration (OVM) strategies, using a Bray-Curtis dissimilarity measure and clustered using the average-link method.  ](chapters/theoretical/figs/cluster.png){#fig:cluster}
 
 # Discussion
 

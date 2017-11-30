@@ -141,7 +141,8 @@ hist(phase1.reefs.bray)
 phase1.reefs.cluster <- hclust(phase1.reefs.bray, method="average")
 phase1.reefs.dendrogram <- as.dendrogram(phase1.reefs.cluster) 
 plot(phase1.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-ggdendrogram(phase1.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="Behaviour scenarios", y="Bray-Curtis dissimilarity")
+phase1.plot <- ggdendrogram(phase1.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="Behaviour scenarios", y="Bray-Curtis dissimilarity")
+phase1.plot
 ```
 
 Biodiversity index for Phase 2
@@ -161,7 +162,8 @@ hist(phase2.reefs.bray)
 phase2.reefs.cluster <- hclust(phase2.reefs.bray, method="average")
 phase2.reefs.dendrogram <- as.dendrogram(phase2.reefs.cluster) 
 plot(phase2.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-ggdendrogram(phase2.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM strategies", y="Bray-Curtis dissimilarity")
+phase2.plot <- ggdendrogram(phase2.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM strategies", y="Bray-Curtis dissimilarity")
+phase2.plot
 ```
 
 Biodiversity index for Phase 3
@@ -181,7 +183,13 @@ hist(phase3.reefs.bray)
 phase3.reefs.cluster <- hclust(phase3.reefs.bray, method="average")
 phase3.reefs.dendrogram <- as.dendrogram(phase3.reefs.cluster) 
 plot(phase3.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-ggdendrogram(phase3.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM strategies", y="Bray-Curtis dissimilarity")
+phase3.plot <- ggdendrogram(phase3.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM strategies", y="Bray-Curtis dissimilarity")
+phase3.plot
+```
+
+```{r}
+grid <- plot_grid(phase1.plot,phase2.plot, labels=c("a","b"), align ="h")
+save_plot("../../figs/cluster.png", grid, ncol=2, nrow=1)
 ```
 
 MVABUND
