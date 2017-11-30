@@ -182,6 +182,7 @@ To determine the influence of different behaviour implementations on the dispers
 # Results
 
 
+
 ## Phase 1 (Behaviour comparisons)
 
 
@@ -190,6 +191,33 @@ To determine the influence of different behaviour implementations on the dispers
 
 ## Phase 3 (Implementation comparison)
 
+
+### Figures and tables
+
+
+             | Scenario      | Richness | Diversity | Connectance | SR       | LR       | SS       | DD
+-------------|---------------|----------|-----------|-------------|----------|----------|----------|----------
+Behaviour    |               |          |           |             |          |          |          |
+             | Passive       | 262      | 4.69      | 0.44        | 0.58     | 0.35     | 0.57     | **144.8**
+             | Diel          | 266      | 4.67      | 0.43        | **0.70** | 0.41     | 0.55     | 107.5
+             | OVM           | 264      | 4.75      | 0.45        | 0.58     | 0.39     | 0.65     | 143.5
+             | Or            | 267      | 4.80      | **0.46**    | 0.61     | 0.45     | 0.70     | 105.6
+             | Diel+OVM      | 267      | 4.76      | 0.43        | 0.62     | 0.40     | 0.62     | 129.6
+             | Diel+Or       | **270**  | **4.85**  | **0.46**    | 0.65     | 0.49     | 0.74     | 94.5
+             | Diel+OVM+Or   | 269      | **4.85**  | 0.46        | 0.65     | **0.50** | 0.74     | 94.6
+             | OVM+Or        | 269      | 4.84      | **0.46**    | 0.62     | 0.47     | **0.77** | 103.3
+OVM Strategy |               |          |           |             |          |          |          |
+             | Labridae      | **265**  | 4.75      | **0.45**    | 0.58     | 0.39     | 0.65     | 142.9
+             | Mullidae      | **265**  | 4.71      | **0.45**    | 0.56     | 0.38     | **0.66** | **150.4**
+             | Pomacentridae | 264      | 4.75      | **0.45**    | 0.58     | 0.39     | 0.65     | 143.5
+             | Scaridae      | 263      | 4.76      | 0.44        | 0.60     | 0.39     | 0.64     | 138.8
+             | Scorpaenidae  | 263      | 4.78      | 0.44        | 0.61     | **0.40** | 0.63     | 134.9
+             | Serranidae    | 263      | **4.79**  | **0.45**    | **0.62** | **0.40** | 0.63     | 131.0
+             | Synodontidae  | **265**  | 4.76      | **0.45**    | 0.59     | 0.39     | 0.64     | 141.1
+OVM Method   |               |          |           |             |          |          |          |
+             | Time-step     | 263      | 4.69      | 0.44        | **0.58** | 0.35     | 0.57     | 144.4
+             | Daily         | 263      | 4.72      | **0.45**    | 0.53     | 0.38     | **0.70** | **154.5**
+             | Stage         | **264**  | **4.75**  | **0.45**    | **0.58** | **0.39** | 0.65     | 143.5
 
 
 # Discussion
