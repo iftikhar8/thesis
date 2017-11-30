@@ -126,6 +126,7 @@ project/plugins/project/
 *.tmp
 *.docx
 *.pdf
+*.pptx
 
 # Word temporary
 ~$*.doc*
@@ -153,3 +154,7 @@ makefile
 obj/
 
 # End of https://www.gitignore.io/api/premake-gmake
+
+### Images ###
+*.jpg
+*.png
