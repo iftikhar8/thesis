@@ -79,8 +79,10 @@ Vertical migration can be implemented as either diel or ontogenetic vertical mig
 The horizontal swimming speed is calculated using known critical swimming speeds, the *in situ* swimming potential and the swimming endurance of the larvae at postflexion. The speed is added to both the *u* and *v* velocities after applying stochasticity. Fish can swim, orientated to the nearest habitat, if they find themselves within a user configured olfactory range.
 
 
+$$s = U_{crit}S_{p}E_{p}$${#eq:swim}
 
-speed = U~crit~ x P~in situ~ x P~endurance~
+$$u = u_{c} + X_{[0,1]}scos(theta)$$
+$$v = v_{c} + X_{[0,1]}ssin(theta)$$
 
 u = rand * S * cos(theta)
 v = rand * S * sin(theta)
@@ -172,17 +174,17 @@ To determine the influence of different behaviour implementations on the dispers
 
 ## Data analysis
 
-### nMDS analysis & SIMPER
+### nMDS analysis & MvaBund
 
+Non-metric multidimensional scaling (NMDS) ordination was used to assess settlement patterns between models and within scenarios using Bray-Curtis dissimilarities measures with a square root transform. For this analysis models were treated as sites and settlement regions were treated as species. Regions were used instead of reefs due to non-convergance when analysing the reefs. NMDS was conducted using the r package *vegan*. Cluster analysis of the behaviour and OVM strategies scenarios was performed used a Bray-Curtis dissimilarity measure, and the average-link clustering method. To tests for differences between models with each scenario, generalised linear models (GLMs) using negative binomial distributions were used in conjunction with a site based resampling approach. The r package *mvabund* was used for this analysis.
 
-Cluster analysis of the behaviour and OVM strategies scenarios was performed used a Bray-Curtis dissimilarity measure, and the average-link clustering method.
+### Connectivity Metrics
 
-
-
-### Metrics
-
+The connectivity metrics of self-recruitment, local retention, settlement success and dispersal distance (**FORMAT see definitions**) were calculated for each scenarios. One-way ANOVAs were used to test for differences between models within each scenario, and Student-Newman-Keuls (SNK) post-hoc tests were used to make comparisons between groups if the overall ANOVA was significant. The R package *ConnMattTools* [CITE] was used to obtain connectivity metrics, and the package *agricolae* [CITE] was used to perform SNK tests.
 
 ### Graph theory
+
+To test differences in connectivity patterns for each of the models with a scenrio, we used a graph theory analyses. Connectance, the proportion of the links between natal and settlement sites in a graph compared to the theoretical maximum, was used to compare the models. The r package *igraph* was used for this analysis.
 
 
 # Results
@@ -203,27 +205,28 @@ The highest self-recruitment occurred when only DVM was implemented, and the low
 
 ## Phase 2 (OVM comparison)
 
-The cluster analysis for the OVM strategies had Mullidae as the outgroup (i.e. most dissimilar; @fig:cluster b). The two strategies with the most similar patterns of settlement were Pomacentridae and Synodontidae. The highest local retention occurred hwne 
+The cluster analysis for the OVM strategies had Mullidae as the outgroup (i.e. most dissimilar; @fig:cluster b). The two strategies with the most similar patterns of settlement were Pomacentridae and Synodontidae. The highest local retention occurred hwne
 
 ## Phase 3 (Implementation comparison)
 
 
+
 ### Figures and tables
-: The table with all the values {#tbl:metrics}
+: Metrics measured for each modelling scenario grouped by the three aims (behaviour, OVM strategy, and OVM method). Richness and the Shannon-Weiner diversity were measured using the settlement reefs as a proxy for species. Connectance (%) is a measure of describing the proporiton of all links between the natal and settlement sites that are realised. The mean self-recruitment (SR; %), local-retention (LR; %), settlement success (SS; %) and dispersal distance (DD, km) are metrics of overall connectivity. ^a-b^Means values in a column without a common superscript letter are different using ANOVA with SNK post-hoc tests (p \< 0.05), not superscript letter in a column means the ANOVA was not significant.  {#tbl:metrics}
 
 
 
              | Scenario      | Richness | Diversity | Connectance | SR       | LR       | SS       | DD
 -------------|---------------|----------|-----------|-------------|----------|----------|----------|----------
 Behaviour    |               |          |           |             |          |          |          |
-             | Passive       | 262      | 4.69      | 0.44        | 0.58     | 0.35     | 0.57     | **144.8**
-             | Diel          | 266      | 4.67      | 0.43        | **0.70** | 0.41     | 0.55     | 107.5
-             | OVM           | 264      | 4.75      | 0.45        | 0.58     | 0.39     | 0.65     | 143.5
-             | Or            | 267      | 4.80      | **0.46**    | 0.61     | 0.45     | 0.70     | 105.6
-             | Diel+OVM      | 267      | 4.76      | 0.43        | 0.62     | 0.40     | 0.62     | 129.6
-             | Diel+Or       | **270**  | **4.85**  | **0.46**    | 0.65     | 0.49     | 0.74     | 94.5
-             | Diel+OVM+Or   | 269      | **4.85**  | 0.46        | 0.65     | **0.50** | 0.74     | 94.6
-             | OVM+Or        | 269      | 4.84      | **0.46**    | 0.62     | 0.47     | **0.77** | 103.3
+             | Passive       | 262      | 4.69      | 0.44        | 0.58     | 0.35     | 0.57^a^     | **144.8**
+             | Diel          | 266      | 4.67      | 0.43        | **0.70** | 0.41     | 0.55^a^     | 107.5
+             | OVM           | 264      | 4.75      | 0.45        | 0.58     | 0.39     | 0.65^ab^     | 143.5
+             | Or            | 267      | 4.80      | **0.46**    | 0.61     | 0.45     | 0.70^ab^     | 105.6
+             | Diel+OVM      | 267      | 4.76      | 0.43        | 0.62     | 0.40     | 0.62^ab^     | 129.6
+             | Diel+Or       | **270**  | **4.85**  | **0.46**    | 0.65     | 0.49     | 0.74^ab^     | 94.5
+             | Diel+OVM+Or   | 269      | **4.85**  | 0.46        | 0.65     | **0.50** | 0.74^ab^     | 94.6
+             | OVM+Or        | 269      | 4.84      | **0.46**    | 0.62     | 0.47     | **0.77**^b^ | 103.3
 OVM Strategy |               |          |           |             |          |          |          |
              | Labridae      | **265**  | 4.75      | **0.45**    | 0.58     | 0.39     | 0.65     | 142.9
              | Mullidae      | **265**  | 4.71      | **0.45**    | 0.56     | 0.38     | **0.66** | **150.4**

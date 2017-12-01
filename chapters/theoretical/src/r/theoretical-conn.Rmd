@@ -5,7 +5,18 @@ output: html_notebook
 
 ```{r}
 library(ConnMatTools)
+library(tidyverse)
+library(agricolae)
 ```
+
+```{r}
+load(file="phase1.rda")
+load(file="phase2.rda")
+load(file="phase3.rda")
+load(file="reefs.rda")
+source("theoretical-functions.R")
+```
+
 
 ```{r}
 eggs <- 208000
@@ -168,11 +179,6 @@ ggplot(data=phase1.sr.summary, aes(y=sr.mean, x=model)) + geom_bar(stat="identit
 ggsave("../../figs/phase1-sr.png")
 phase1.glm.sr <- glm(sr ~ model, family = binomial(link="logit"), phase1.sr)
 phase1.sr.summary
-
-phase1.sr.lm <- lm(sr ~ model, data=phase1.sr)
-anova(phase1.sr.lm)
-TukeyHSD(aov(phase1.sr.lm))
-SNK.test(aov(phase1.sr.lm))
 ```
 
 Phase1 - settlement success
@@ -228,7 +234,7 @@ phase2.sr$model <- as.factor(phase2.sr$model)
 phase2.sr.summary <- summarise(group_by(phase2.sr,model), sr.mean=mean(sr), sr.sd=sd(sr), sr.se = sr.sd/n())
 ggplot(data=phase2.sr.summary, aes(y=sr.mean, x=model)) + geom_bar(stat = "identity") + geom_errorbar(aes(ymin=sr.mean-sr.sd,ymax=sr.mean+sr.sd),width=.1) + coord_flip() +scale_y_continuous(limits = c(0, 1))
 ggsave("../../figs/phase2-sr.png")
-summary(phase2.glm.sr <- glm(sr ~ model, family = binomial(link="logit"), phase2.sr))
+
 
 phase2.ss <- as.tibble(t(rbind(ovm.labrid.ss,ovm.mullid.ss,ovm.ss,ovm.scarid.ss,ovm.scorpaenid.ss,ovm.serranid.ss,ovm.synodontid.ss)))
 colnames(phase2.ss) <- names.phase2
@@ -238,7 +244,7 @@ phase2.ss$model <- as.factor(phase2.ss$model)
 phase2.ss.summary <- summarise(group_by(phase2.ss,model), ss.mean=mean(ss), ss.sd=sd(ss), ss.se = ss.sd/n())
 ggplot(data=phase2.ss.summary, aes(y=ss.mean, x=model)) + geom_bar(stat = "identity") + geom_errorbar(aes(ymin=ss.mean-ss.sd,ymax=ss.mean+ss.sd),width=.1) + coord_flip() +scale_y_continuous(limits = c(0, 1))
 ggsave("../../figs/phase2-ss.png")
-summary(phase2.glm.ss <- glm(ss ~ model, family = binomial(link="logit"), phase2.ss))
+
 
 
 phase2.lr <- as.tibble(t(rbind(ovm.labrid.lr,ovm.mullid.lr,ovm.lr,ovm.scarid.lr,ovm.scorpaenid.lr,ovm.serranid.lr,ovm.synodontid.lr)))
@@ -250,7 +256,7 @@ phase2.lr.summary <- summarise(group_by(phase2.lr,model), lr.mean=mean(lr), lr.s
 ggplot(data=phase2.lr.summary, aes(y=lr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=lr.mean-lr.se,ymax=lr.mean+lr.se),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 1))
 ggsave("../../figs/phase2-lr.png")
 summary(phase2.lr.glm <- glm(lr ~ model, family=binomial(link="logit"), phase2.lr))
-plot(phase2.lr.glm)
+
 
 
 phase2.dk <- as.tibble(cbind(ovm.labrid.dk.regions$mean.distance,ovm.mullid.dk.regions$mean.distance,ovm.dk.regions$mean.distance,ovm.scarid.dk.regions$mean.distance,ovm.scorpaenid.dk.regions$mean.distance,ovm.serranid.dk.regions$mean.distance,ovm.synodontid.dk.regions$mean.distance))
@@ -278,7 +284,6 @@ phase3.sr$model <- as.factor(phase3.sr$model)
 phase3.sr.summary <- summarise(group_by(phase3.sr,model), sr.mean=mean(sr), sr.sd=sd(sr), sr.se = sr.sd/n())
 ggplot(data=phase3.sr.summary, aes(y=sr.mean, x=model)) + geom_bar(stat = "identity") + geom_errorbar(aes(ymin=sr.mean-sr.sd,ymax=sr.mean+sr.sd),width=.1) + coord_flip() +scale_y_continuous(limits = c(0, 1))
 ggsave("../../figs/phase3-sr.png")
-summary(phase3.glm.sr <- glm(sr ~ model, family = binomial(link="logit"), phase3.sr))
 
 
 phase3.ss <- as.tibble(t(rbind(ovm.ss,ovm.daily.ss,ovm.timestep.ss)))
@@ -289,7 +294,6 @@ phase3.ss$model <- as.factor(phase3.ss$model)
 phase3.ss.summary <- summarise(group_by(phase3.ss,model), ss.mean=mean(ss), ss.sd=sd(ss), ss.se = ss.sd/n())
 ggplot(data=phase3.ss.summary, aes(y=ss.mean, x=model)) + geom_bar(stat = "identity") + geom_errorbar(aes(ymin=ss.mean-ss.sd,ymax=ss.mean+ss.sd),width=.1) + coord_flip() +scale_y_continuous(limits = c(0, 1))
 ggsave("../../figs/phase3-ss.png")
-summary(phase3.glm.ss <- glm(ss ~ model, family = binomial(link="logit"), phase3.ss))
 
 
 phase3.lr <- as.tibble(t(rbind(ovm.lr,ovm.daily.lr,ovm.timestep.lr)))
@@ -300,7 +304,6 @@ phase3.lr$model <- as.factor(phase3.lr$model)
 phase3.lr.summary <- summarise(group_by(phase3.lr,model), lr.mean=mean(lr), lr.sd=sd(lr), lr.se = lr.sd/n())
 ggplot(data=phase3.lr.summary, aes(y=lr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=lr.mean-lr.sd,ymax=lr.mean+lr.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 1))
 ggsave("../../figs/phase3-lr.png")
-summary(phase3.lr.glm <- glm(lr ~ model, family=binomial(link="logit"), phase3.lr))
 #plot(phase3.lr.glm)
 
 phase3.dk <- as.tibble(cbind(ovm.dk.regions$mean.distance,ovm.daily.dk.regions$mean.distance,ovm.timestep.dk.regions$mean.distance))
@@ -318,4 +321,43 @@ phase3.lr.summary
 phase3.ss.summary
 phase3.dk.summary
 ```
+
+Statistical tests for Phase 1
+```{r}
+phase1.sr.lm <- lm(sr ~ model, data=phase1.sr)
+anova(phase1.sr.lm)
+phase1.lr.lm <- lm(lr ~ model, data=phase1.lr)
+anova(phase1.lr.lm)
+phase1.ss.lm <- lm(ss ~ model, data=phase1.ss)
+anova(phase1.ss.lm)
+print(SNK.test(aov(phase1.ss.lm),"model"))
+phase1.dk.lm <- lm(dk ~ model, data=phase1.dk)
+anova(phase1.dk.lm)
+```
+
+Statistical tests for Phase 2
+```{r}
+phase2.sr.lm <- lm(sr ~ model, data=phase2.sr)
+anova(phase2.sr.lm)
+phase2.lr.lm <- lm(lr ~ model, data=phase2.lr)
+anova(phase2.lr.lm)
+phase2.ss.lm <- lm(ss ~ model, data=phase2.ss)
+anova(phase2.ss.lm)
+phase2.dk.lm <- lm(dk ~ model, data=phase2.dk)
+anova(phase2.dk.lm)
+```
+
+
+Statistical tests for Phase 3
+```{r}
+phase3.sr.lm <- lm(sr ~ model, data=phase3.sr)
+anova(phase3.sr.lm)
+phase3.lr.lm <- lm(lr ~ model, data=phase3.lr)
+anova(phase3.lr.lm)
+phase3.ss.lm <- lm(ss ~ model, data=phase3.ss)
+anova(phase3.ss.lm)
+phase3.dk.lm <- lm(dk ~ model, data=phase3.dk)
+anova(phase3.dk.lm)
+```
+
 

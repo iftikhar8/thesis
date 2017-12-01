@@ -93,8 +93,20 @@ nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour)) + geom_jitter(wid
 adonis(community_matrix ~ behaviour, community, perm=200)
 
 mod <- with(community, betadisper(vegdist(community_matrix,"bray"), behaviour))
+
+
+phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
+anova(phase1.mva.model)
 ```
 
+```{r}
+mva <- mvabund(community[,1:17])
+par(mar=c(2,10,2,2)) # adjusts the margins
+boxplot(community[,1:17],horizontal = TRUE,las=2)
+meanvar.plot(mva)
+p <- plot(mva~community$behaviour, height=9, width=6, cex.axis=0.8, cex=0.8)
+model <- manyglm(mva~community$behaviour)
+```
 
 
 ```{r}
