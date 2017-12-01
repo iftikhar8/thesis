@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <simulationVariables>
   <inputFiles>
-    <flowFilePath>/srv/zissou/input/netcdf/bran</flowFilePath>
+    <flowFilePath>/srv/zissou/input/netcdf/bran/theoretical</flowFilePath>
     <habitatFilePath>/srv/zissou/input/habitat/ALLpatches.shp</habitatFilePath>
     <randomSeed>888321123</randomSeed>
   </inputFiles>
@@ -68,8 +68,8 @@
     </spawningLocation>
   </spawn>
   <turbulence>
-    <horizontalDiffusionCoefficient>0.3</horizontalDiffusionCoefficient>
-    <verticalDiffusionCoefficient>0.015</verticalDiffusionCoefficient>
+    <horizontalDiffusionCoefficient>300</horizontalDiffusionCoefficient>
+    <verticalDiffusionCoefficient>15</verticalDiffusionCoefficient>
     <applyTurbulence>true</applyTurbulence>
     <interval>1</interval>
   </turbulence>
