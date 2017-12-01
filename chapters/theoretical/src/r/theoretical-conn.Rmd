@@ -168,6 +168,11 @@ ggplot(data=phase1.sr.summary, aes(y=sr.mean, x=model)) + geom_bar(stat="identit
 ggsave("../../figs/phase1-sr.png")
 phase1.glm.sr <- glm(sr ~ model, family = binomial(link="logit"), phase1.sr)
 phase1.sr.summary
+
+phase1.sr.lm <- lm(sr ~ model, data=phase1.sr)
+anova(phase1.sr.lm)
+TukeyHSD(aov(phase1.sr.lm))
+SNK.test(aov(phase1.sr.lm))
 ```
 
 Phase1 - settlement success
