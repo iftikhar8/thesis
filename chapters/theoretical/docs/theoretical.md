@@ -174,6 +174,10 @@ To determine the influence of different behaviour implementations on the dispers
 
 ## Data analysis
 
+Richness to Diversity 
+
+[Diversituy, richness]
+
 ### nMDS analysis & MvaBund
 
 Non-metric multidimensional scaling (NMDS) ordination was used to assess settlement patterns between models and within scenarios using Bray-Curtis dissimilarities measures with a square root transform. For this analysis models were treated as sites and settlement regions were treated as species. Regions were used instead of reefs due to non-convergance when analysing the reefs. NMDS was conducted using the r package *vegan*. Cluster analysis of the behaviour and OVM strategies scenarios was performed used a Bray-Curtis dissimilarity measure, and the average-link clustering method. To tests for differences between models with each scenario, generalised linear models (GLMs) using negative binomial distributions were used in conjunction with a site based resampling approach. The r package *mvabund* was used for this analysis.
