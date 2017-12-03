@@ -1,0 +1,363 @@
+---
+title: "Connectivity"
+output: html_notebook
+---
+
+```{r}
+library(ConnMatTools)
+library(tidyverse)
+library(agricolae)
+```
+
+```{r}
+load(file="phase1.rda")
+load(file="phase2.rda")
+load(file="phase3.rda")
+load(file="reefs.rda")
+source("theoretical-functions.R")
+```
+
+
+```{r}
+eggs <- 208000
+```
+
+
+Passive connectivity metrics
+```{r}
+passive.sr <- selfRecruitment(passive.conn.regions/eggs)
+passive.lr <- localRetention(passive.conn.regions/eggs)
+passive.rlr <- relativeLocalRetention(passive.conn.regions/eggs)
+passive.ss <- settlementSuccess(passive.conn.regions/eggs)
+```
+
+Diel connectivity metrics
+```{r}
+diel.sr <- selfRecruitment(diel.conn.regions/eggs)
+diel.lr <- localRetention(diel.conn.regions/eggs)
+diel.rlr <- relativeLocalRetention(diel.conn.regions/eggs)
+diel.ss <- settlementSuccess(diel.conn.regions/eggs)
+```
+
+
+ovm connectivity metrics
+```{r}
+ovm.sr <- selfRecruitment(ovm.conn.regions/eggs)
+ovm.lr <- localRetention(ovm.conn.regions/eggs)
+ovm.rlr <- relativeLocalRetention(ovm.conn.regions/eggs)
+ovm.ss <- settlementSuccess(ovm.conn.regions/eggs)
+```
+
+orientate connectivity metrics
+```{r}
+orientate.conn.regions <- orientate.conn.regions[,-18]
+orientate.sr <- selfRecruitment(orientate.conn.regions/eggs)
+orientate.lr <- localRetention(orientate.conn.regions/eggs)
+orientate.rlr <- relativeLocalRetention(orientate.conn.regions/eggs)
+orientate.ss <- settlementSuccess(orientate.conn.regions/eggs)
+```
+
+diel.ovm connectivity metrics
+```{r}
+diel.ovm.conn.regions <- diel.ovm.conn.regions[,-18]
+diel.ovm.sr <- selfRecruitment(diel.ovm.conn.regions/eggs)
+diel.ovm.lr <- localRetention(diel.ovm.conn.regions/eggs)
+diel.ovm.rlr <- relativeLocalRetention(diel.ovm.conn.regions/eggs)
+diel.ovm.ss <- settlementSuccess(diel.ovm.conn.regions/eggs)
+```
+
+diel.ovm.orientate connectivity metrics
+```{r}
+diel.ovm.orientate.conn.regions <- diel.ovm.orientate.conn.regions[,-18]
+diel.ovm.orientate.sr <- selfRecruitment(diel.ovm.orientate.conn.regions/eggs)
+diel.ovm.orientate.lr <- localRetention(diel.ovm.orientate.conn.regions/eggs)
+diel.ovm.orientate.rlr <- relativeLocalRetention(diel.ovm.orientate.conn.regions/eggs)
+diel.ovm.orientate.ss <- settlementSuccess(diel.ovm.orientate.conn.regions/eggs)
+```
+
+diel.orientate connectivity metrics
+```{r}
+diel.orientate.conn.regions <- diel.orientate.conn.regions[,-18]
+diel.orientate.sr <- selfRecruitment(diel.orientate.conn.regions/eggs)
+diel.orientate.lr <- localRetention(diel.orientate.conn.regions/eggs)
+diel.orientate.rlr <- relativeLocalRetention(diel.orientate.conn.regions/eggs)
+diel.orientate.ss <- settlementSuccess(diel.orientate.conn.regions/eggs)
+```
+
+ovm.orientate connectivity metrics
+```{r}
+ovm.orientate.conn.regions <- ovm.orientate.conn.regions[,-18]
+ovm.orientate.sr <- selfRecruitment(ovm.orientate.conn.regions/eggs)
+ovm.orientate.lr <- localRetention(ovm.orientate.conn.regions/eggs)
+ovm.orientate.rlr <- relativeLocalRetention(ovm.orientate.conn.regions/eggs)
+ovm.orientate.ss <- settlementSuccess(ovm.orientate.conn.regions/eggs)
+```
+
+
+ovm.labrid connectivity metrics
+```{r}
+ovm.labrid.conn.regions <- ovm.labrid.conn.regions[,-18]
+ovm.labrid.sr <- selfRecruitment(ovm.labrid.conn.regions/eggs)
+ovm.labrid.lr <- localRetention(ovm.labrid.conn.regions/eggs)
+ovm.labrid.rlr <- relativeLocalRetention(ovm.labrid.conn.regions/eggs)
+ovm.labrid.ss <- settlementSuccess(ovm.labrid.conn.regions/eggs)
+```
+
+ovm.mullid connectivity metrics
+```{r}
+ovm.mullid.conn.regions <- ovm.mullid.conn.regions[,-18]
+ovm.mullid.sr <- selfRecruitment(ovm.mullid.conn.regions/eggs)
+ovm.mullid.lr <- localRetention(ovm.mullid.conn.regions/eggs)
+ovm.mullid.rlr <- relativeLocalRetention(ovm.mullid.conn.regions/eggs)
+ovm.mullid.ss <- settlementSuccess(ovm.mullid.conn.regions/eggs)
+```
+
+ovm.scarid connectivity metrics
+```{r}
+ovm.scarid.conn.regions <- ovm.scarid.conn.regions[,-18]
+ovm.scarid.sr <- selfRecruitment(ovm.scarid.conn.regions/eggs)
+ovm.scarid.lr <- localRetention(ovm.scarid.conn.regions/eggs)
+ovm.scarid.rlr <- relativeLocalRetention(ovm.scarid.conn.regions/eggs)
+ovm.scarid.ss <- settlementSuccess(ovm.scarid.conn.regions/eggs)
+```
+
+ovm.scorpaenid connectivity metrics
+```{r}
+ovm.scorpaenid.conn.regions <- ovm.scorpaenid.conn.regions[,-18]
+ovm.scorpaenid.sr <- selfRecruitment(ovm.scorpaenid.conn.regions/eggs)
+ovm.scorpaenid.lr <- localRetention(ovm.scorpaenid.conn.regions/eggs)
+ovm.scorpaenid.rlr <- relativeLocalRetention(ovm.scorpaenid.conn.regions/eggs)
+ovm.scorpaenid.ss <- settlementSuccess(ovm.scorpaenid.conn.regions/eggs)
+```
+
+ovm.synodontid connectivity metrics
+```{r}
+ovm.synodontid.conn.regions <- ovm.synodontid.conn.regions[,-18]
+ovm.synodontid.sr <- selfRecruitment(ovm.synodontid.conn.regions/eggs)
+ovm.synodontid.lr <- localRetention(ovm.synodontid.conn.regions/eggs)
+ovm.synodontid.rlr <- relativeLocalRetention(ovm.synodontid.conn.regions/eggs)
+ovm.synodontid.ss <- settlementSuccess(ovm.synodontid.conn.regions/eggs)
+```
+
+ovm.serranid connectivity metrics
+```{r}
+ovm.serranid.conn.regions <- ovm.serranid.conn.regions[,-18]
+ovm.serranid.sr <- selfRecruitment(ovm.serranid.conn.regions/eggs)
+ovm.serranid.lr <- localRetention(ovm.serranid.conn.regions/eggs)
+ovm.serranid.rlr <- relativeLocalRetention(ovm.serranid.conn.regions/eggs)
+ovm.serranid.ss <- settlementSuccess(ovm.serranid.conn.regions/eggs)
+```
+
+ovm.timestep connectivity metrics
+```{r}
+ovm.timestep.conn.regions <- ovm.timestep.conn.regions[,-18]
+ovm.timestep.sr <- selfRecruitment(ovm.timestep.conn.regions/eggs)
+ovm.timestep.lr <- localRetention(ovm.timestep.conn.regions/eggs)
+ovm.timestep.rlr <- relativeLocalRetention(ovm.timestep.conn.regions/eggs)
+ovm.timestep.ss <- settlementSuccess(ovm.timestep.conn.regions/eggs)
+```
+
+ovm.daily connectivity metrics
+```{r}
+ovm.daily.conn.regions <- ovm.daily.conn.regions[,-18]
+ovm.daily.sr <- selfRecruitment(ovm.daily.conn.regions/eggs)
+ovm.daily.lr <- localRetention(ovm.daily.conn.regions/eggs)
+ovm.daily.rlr <- relativeLocalRetention(ovm.daily.conn.regions/eggs)
+ovm.daily.ss <- settlementSuccess(ovm.daily.conn.regions/eggs)
+```
+
+Phase1 - self-recruitment
+```{r}
+names.phase1 <- c("passive","diel","ovm","orientate","diel-ovm","diel-ovm-orientate","ovm-orientate","diel-orientate")
+phase1.sr <- as.tibble(t(rbind(passive.sr, diel.sr, ovm.sr, orientate.sr,diel.ovm.sr, diel.ovm.orientate.sr, ovm.orientate.sr, diel.orientate.sr)))
+colnames(phase1.sr) <- names.phase1
+phase1.sr <- gather(phase1.sr)
+colnames(phase1.sr) <- c("model","sr")
+phase1.sr$model <- as.factor(phase1.sr$model)
+phase1.sr.summary <- summarise(group_by(phase1.sr,model), sr.mean=mean(sr), sr.sd=sd(sr), sr.se = sr.sd/n())
+ggplot(data=phase1.sr.summary, aes(y=sr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=sr.mean-sr.sd,ymax=sr.mean+sr.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 1))
+ggsave("../../figs/phase1-sr.png")
+phase1.glm.sr <- glm(sr ~ model, family = binomial(link="logit"), phase1.sr)
+phase1.sr.summary
+```
+
+Phase1 - settlement success
+```{r}
+phase1.ss <- as.tibble(t(rbind(passive.ss, diel.ss, ovm.ss, orientate.ss,diel.ovm.ss, diel.ovm.orientate.ss, ovm.orientate.ss, diel.orientate.ss)))
+colnames(phase1.ss) <- names.phase1
+phase1.ss <- gather(phase1.ss)
+colnames(phase1.ss) <- c("model","ss")
+phase1.ss$model <- as.factor(phase1.ss$model)
+phase1.ss.summary <- summarise(group_by(phase1.ss,model), ss.mean=mean(ss), ss.sd=sd(ss), ss.se = ss.sd/n())
+ggplot(data=phase1.ss.summary, aes(y=ss.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=ss.mean-ss.sd,ymax=ss.mean+ss.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 1))
+ggsave("../../figs/phase1-ss.png")
+#phase1.glm.ss <- glm(ss ~ model, family = binomial(link="logit"), phase1.ss)
+phase1.ss.summary
+```
+
+```{r}
+phase1.lr <- as.tibble(t(rbind(passive.lr, diel.lr, ovm.lr, orientate.lr,diel.ovm.lr, diel.ovm.orientate.lr, ovm.orientate.lr, diel.orientate.lr)))
+colnames(phase1.lr) <- names.phase1
+phase1.lr <- gather(phase1.lr)
+colnames(phase1.lr) <- c("model","lr")
+phase1.lr$model <- as.factor(phase1.lr$model)
+phase1.lr.summary <- summarise(group_by(phase1.lr,model), lr.mean=mean(lr), lr.sd=sd(lr), lr.se = lr.sd/n())
+ggplot(data=phase1.lr.summary, aes(y=lr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=lr.mean-lr.sd,ymax=lr.mean+lr.sd),width=.1)+coord_flip() +scale_y_continuous(limits = c(0, 1))
+summary(phase1.lr.glm <- glm(lr ~ model, family=binomial(link="logit"), phase1.lr))
+ggsave("../../figs/phase1-lr.png")
+#plot(phase1.lr.glm)
+phase1.lr.summary
+```
+
+Phase 1 - DK
+```{r}
+phase1.dk <- as.tibble(cbind(passive.dk.regions$mean.distance, diel.dk.regions$mean.distance, ovm.dk.regions$mean.distance, orientate.dk.regions$mean.distance,diel.ovm.dk.regions$mean.distance, 
+                   diel.ovm.orientate.dk.regions$mean.distance, ovm.orientate.dk.regions$mean.distance, diel.orientate.dk.regions$mean.distance))
+colnames(phase1.dk) <- names.phase1
+phase1.dk <- gather(phase1.dk)
+colnames(phase1.dk) <- c("model","dk")
+phase1.dk$model <- as.factor(phase1.dk$model)
+phase1.dk.summary <- summarise(group_by(phase1.dk,model), dk.mean=mean(dk), dk.sd=sd(dk), dk.se = dk.sd/n())
+ggplot(data=phase1.dk.summary, aes(y=dk.mean, x=model)) + geom_bar(stat = "identity") + geom_linerange(aes(ymin=dk.mean,ymax=dk.mean+dk.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 500))
+ggsave("../../figs/phase1-dispersal.png")
+#ggplot(data=phase1.dk, aes(y=dk, x=model)) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange")
+phase1.dk.summary
+```
+
+```{r}
+names.phase2 <- c("labridae","mullidae","pomacentridae","scaridae","scorpaenidae","serranidae","synodontidae")
+phase2.sr <- as.tibble(t(rbind(ovm.labrid.sr,ovm.mullid.sr,ovm.sr,ovm.scarid.sr,ovm.scorpaenid.sr,ovm.serranid.sr,ovm.synodontid.sr)))
+colnames(phase2.sr) <- names.phase2
+phase2.sr <- gather(phase2.sr)
+colnames(phase2.sr) <- c("model","sr")
+phase2.sr$model <- as.factor(phase2.sr$model)
+phase2.sr.summary <- summarise(group_by(phase2.sr,model), sr.mean=mean(sr), sr.sd=sd(sr), sr.se = sr.sd/n())
+ggplot(data=phase2.sr.summary, aes(y=sr.mean, x=model)) + geom_bar(stat = "identity") + geom_errorbar(aes(ymin=sr.mean-sr.sd,ymax=sr.mean+sr.sd),width=.1) + coord_flip() +scale_y_continuous(limits = c(0, 1))
+ggsave("../../figs/phase2-sr.png")
+
+
+phase2.ss <- as.tibble(t(rbind(ovm.labrid.ss,ovm.mullid.ss,ovm.ss,ovm.scarid.ss,ovm.scorpaenid.ss,ovm.serranid.ss,ovm.synodontid.ss)))
+colnames(phase2.ss) <- names.phase2
+phase2.ss <- gather(phase2.ss)
+colnames(phase2.ss) <- c("model","ss")
+phase2.ss$model <- as.factor(phase2.ss$model)
+phase2.ss.summary <- summarise(group_by(phase2.ss,model), ss.mean=mean(ss), ss.sd=sd(ss), ss.se = ss.sd/n())
+ggplot(data=phase2.ss.summary, aes(y=ss.mean, x=model)) + geom_bar(stat = "identity") + geom_errorbar(aes(ymin=ss.mean-ss.sd,ymax=ss.mean+ss.sd),width=.1) + coord_flip() +scale_y_continuous(limits = c(0, 1))
+ggsave("../../figs/phase2-ss.png")
+
+
+
+phase2.lr <- as.tibble(t(rbind(ovm.labrid.lr,ovm.mullid.lr,ovm.lr,ovm.scarid.lr,ovm.scorpaenid.lr,ovm.serranid.lr,ovm.synodontid.lr)))
+colnames(phase2.lr) <- names.phase2
+phase2.lr <- gather(phase2.lr)
+colnames(phase2.lr) <- c("model","lr")
+phase2.lr$model <- as.factor(phase2.lr$model)
+phase2.lr.summary <- summarise(group_by(phase2.lr,model), lr.mean=mean(lr), lr.sd=sd(lr), lr.se = lr.sd/n())
+ggplot(data=phase2.lr.summary, aes(y=lr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=lr.mean-lr.se,ymax=lr.mean+lr.se),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 1))
+ggsave("../../figs/phase2-lr.png")
+summary(phase2.lr.glm <- glm(lr ~ model, family=binomial(link="logit"), phase2.lr))
+
+
+
+phase2.dk <- as.tibble(cbind(ovm.labrid.dk.regions$mean.distance,ovm.mullid.dk.regions$mean.distance,ovm.dk.regions$mean.distance,ovm.scarid.dk.regions$mean.distance,ovm.scorpaenid.dk.regions$mean.distance,ovm.serranid.dk.regions$mean.distance,ovm.synodontid.dk.regions$mean.distance))
+colnames(phase2.dk) <- names.phase2
+phase2.dk <- gather(phase2.dk)
+colnames(phase2.dk) <- c("model","dk")
+phase2.dk$model <- as.factor(phase2.dk$model)
+phase2.dd.summary <- summarise(group_by(phase2.dk,model), dk.mean=mean(dk), dk.sd=sd(dk), dk.se = dk.sd/n())
+ggplot(data=phase2.dd.summary, aes(y=dk.mean, x=model)) + geom_bar(stat = "identity") + geom_linerange(aes(ymin=dk.mean,ymax=dk.mean+dk.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 500))
+ggsave("../../figs/phase2-dispersal.png")
+#ggplot(d
+phase2.sr.summary
+phase2.lr.summary
+phase2.ss.summary
+phase2.dd.summary
+```
+
+```{r}
+names.phase3 <- c("stage","daily","timestep")
+phase3.sr <- as.tibble(t(rbind(ovm.sr,ovm.daily.sr,ovm.timestep.sr)))
+colnames(phase3.sr) <- names.phase3
+phase3.sr <- gather(phase3.sr)
+colnames(phase3.sr) <- c("model","sr")
+phase3.sr$model <- as.factor(phase3.sr$model)
+phase3.sr.summary <- summarise(group_by(phase3.sr,model), sr.mean=mean(sr), sr.sd=sd(sr), sr.se = sr.sd/n())
+ggplot(data=phase3.sr.summary, aes(y=sr.mean, x=model)) + geom_bar(stat = "identity") + geom_errorbar(aes(ymin=sr.mean-sr.sd,ymax=sr.mean+sr.sd),width=.1) + coord_flip() +scale_y_continuous(limits = c(0, 1))
+ggsave("../../figs/phase3-sr.png")
+
+
+phase3.ss <- as.tibble(t(rbind(ovm.ss,ovm.daily.ss,ovm.timestep.ss)))
+colnames(phase3.ss) <- names.phase3
+phase3.ss <- gather(phase3.ss)
+colnames(phase3.ss) <- c("model","ss")
+phase3.ss$model <- as.factor(phase3.ss$model)
+phase3.ss.summary <- summarise(group_by(phase3.ss,model), ss.mean=mean(ss), ss.sd=sd(ss), ss.se = ss.sd/n())
+ggplot(data=phase3.ss.summary, aes(y=ss.mean, x=model)) + geom_bar(stat = "identity") + geom_errorbar(aes(ymin=ss.mean-ss.sd,ymax=ss.mean+ss.sd),width=.1) + coord_flip() +scale_y_continuous(limits = c(0, 1))
+ggsave("../../figs/phase3-ss.png")
+
+
+phase3.lr <- as.tibble(t(rbind(ovm.lr,ovm.daily.lr,ovm.timestep.lr)))
+colnames(phase3.lr) <- names.phase3
+phase3.lr <- gather(phase3.lr)
+colnames(phase3.lr) <- c("model","lr")
+phase3.lr$model <- as.factor(phase3.lr$model)
+phase3.lr.summary <- summarise(group_by(phase3.lr,model), lr.mean=mean(lr), lr.sd=sd(lr), lr.se = lr.sd/n())
+ggplot(data=phase3.lr.summary, aes(y=lr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=lr.mean-lr.sd,ymax=lr.mean+lr.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 1))
+ggsave("../../figs/phase3-lr.png")
+#plot(phase3.lr.glm)
+
+phase3.dk <- as.tibble(cbind(ovm.dk.regions$mean.distance,ovm.daily.dk.regions$mean.distance,ovm.timestep.dk.regions$mean.distance))
+colnames(phase3.dk) <- names.phase3
+phase3.dk <- gather(phase3.dk)
+colnames(phase3.dk) <- c("model","dk")
+phase3.dk$model <- as.factor(phase3.dk$model)
+phase3.dk.summary <- summarise(group_by(phase3.dk,model), dk.mean=mean(dk), dk.sd=sd(dk), dk.se = dk.sd/n())
+ggplot(data=phase3.dk.summary, aes(y=dk.mean, x=model)) + geom_bar(stat = "identity") + geom_linerange(aes(ymin=dk.mean,ymax=dk.mean+dk.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 500))
+ggsave("../../figs/phase3-dispersal.png")
+#ggplot(d
+
+phase3.sr.summary
+phase3.lr.summary
+phase3.ss.summary
+phase3.dk.summary
+```
+
+Statistical tests for Phase 1
+```{r}
+phase1.sr.lm <- lm(sr ~ model, data=phase1.sr)
+anova(phase1.sr.lm)
+phase1.lr.lm <- lm(lr ~ model, data=phase1.lr)
+anova(phase1.lr.lm)
+phase1.ss.lm <- lm(ss ~ model, data=phase1.ss)
+anova(phase1.ss.lm)
+print(SNK.test(aov(phase1.ss.lm),"model"))
+phase1.dk.lm <- lm(dk ~ model, data=phase1.dk)
+anova(phase1.dk.lm)
+```
+
+Statistical tests for Phase 2
+```{r}
+phase2.sr.lm <- lm(sr ~ model, data=phase2.sr)
+anova(phase2.sr.lm)
+phase2.lr.lm <- lm(lr ~ model, data=phase2.lr)
+anova(phase2.lr.lm)
+phase2.ss.lm <- lm(ss ~ model, data=phase2.ss)
+anova(phase2.ss.lm)
+phase2.dk.lm <- lm(dk ~ model, data=phase2.dk)
+anova(phase2.dk.lm)
+```
+
+
+Statistical tests for Phase 3
+```{r}
+phase3.sr.lm <- lm(sr ~ model, data=phase3.sr)
+anova(phase3.sr.lm)
+phase3.lr.lm <- lm(lr ~ model, data=phase3.lr)
+anova(phase3.lr.lm)
+phase3.ss.lm <- lm(ss ~ model, data=phase3.ss)
+anova(phase3.ss.lm)
+phase3.dk.lm <- lm(dk ~ model, data=phase3.dk)
+anova(phase3.dk.lm)
+```
+
+

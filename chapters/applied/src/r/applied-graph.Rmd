@@ -1,0 +1,257 @@
+---
+title: "Graph theory analysis for my theoreticla chapter"
+output: html_notebook
+---
+
+Packages required
+```{r, include=FALSE}
+library(igraph)
+library(NetIndices)
+```
+
+
+Load the data
+```{r,include=FALSE}
+load(file="phase1.rda")
+load(file="phase2.rda")
+load(file="phase3.rda")
+load(file="reefs.rda")
+```
+
+Passive graph analysis
+```{r}
+rownames(passive.conn.regions) <- passive.regions$settle.region
+graph.passive <- graph_from_adjacency_matrix(passive.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.passive, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.passive)$vector
+plot(graph.passive, vertex.size = as*30, main="Authorities")
+
+graph.passive.adj <- get.adjacency(graph.passive, sparse = FALSE)
+graph.passive.ind <- GenInd(graph.passive.adj)
+graph.passive.ind$C
+```
+
+diel graph analysis
+```{r}
+rownames(diel.conn.regions) <- diel.regions$settle.region
+graph.diel <- graph_from_adjacency_matrix(diel.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.diel, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.diel)$vector
+plot(graph.diel, vertex.size = as*30, main="Authorities")
+
+graph.diel.adj <- get.adjacency(graph.diel, sparse = FALSE)
+graph.diel.ind <- GenInd(graph.diel.adj)
+graph.diel.ind$C
+```
+ovm graph analysis
+```{r}
+rownames(ovm.conn.regions) <- ovm.regions$settle.region
+graph.ovm <- graph_from_adjacency_matrix(ovm.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.ovm, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.ovm)$vector
+plot(graph.ovm, vertex.size = as*30, main="Authorities")
+
+graph.ovm.adj <- get.adjacency(graph.ovm, sparse = FALSE)
+graph.ovm.ind <- GenInd(graph.ovm.adj)
+graph.ovm.ind$C
+```
+
+orientate graph analysis
+```{r}
+orientate.regions <- orientate.regions[-18,]
+rownames(orientate.conn.regions) <- orientate.regions$settle.region
+graph.orientate <- graph_from_adjacency_matrix(orientate.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.orientate, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.orientate)$vector
+plot(graph.orientate, vertex.size = as*30, main="Authorities")
+
+graph.orientate.adj <- get.adjacency(graph.orientate, sparse = FALSE)
+graph.orientate.ind <- GenInd(graph.orientate.adj)
+graph.orientate.ind$C
+```
+
+ovm.orientate graph analysis
+```{r}
+ovm.orientate.regions <- ovm.orientate.regions[-18,]
+rownames(ovm.orientate.conn.regions) <- ovm.orientate.regions$settle.region
+graph.ovm.orientate <- graph_from_adjacency_matrix(ovm.orientate.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.ovm.orientate, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.ovm.orientate)$vector
+plot(graph.ovm.orientate, vertex.size = as*30, main="Authorities")
+
+graph.ovm.orientate.adj <- get.adjacency(graph.ovm.orientate, sparse = FALSE)
+graph.ovm.orientate.ind <- GenInd(graph.ovm.orientate.adj)
+graph.ovm.orientate.ind$C
+```
+
+diel.orientate graph analysis
+```{r}
+diel.orientate.regions <- diel.orientate.regions[-18,]
+rownames(diel.orientate.conn.regions) <- diel.orientate.regions$settle.region
+graph.diel.orientate <- graph_from_adjacency_matrix(diel.orientate.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.diel.orientate, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.diel.orientate)$vector
+plot(graph.diel.orientate, vertex.size = as*30, main="Authorities")
+
+graph.diel.orientate.adj <- get.adjacency(graph.diel.orientate, sparse = FALSE)
+graph.diel.orientate.ind <- GenInd(graph.diel.orientate.adj)
+graph.diel.orientate.ind$C
+```
+
+diel.ovm.orientate graph analysis
+```{r}
+diel.ovm.orientate.regions <- diel.ovm.orientate.regions[-18,]
+rownames(diel.ovm.orientate.conn.regions) <- diel.ovm.orientate.regions$settle.region
+graph.diel.ovm.orientate <- graph_from_adjacency_matrix(diel.ovm.orientate.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.diel.ovm.orientate, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.diel.ovm.orientate)$vector
+plot(graph.diel.ovm.orientate, vertex.size = as*30, main="Authorities")
+
+graph.diel.ovm.orientate.adj <- get.adjacency(graph.diel.ovm.orientate, sparse = FALSE)
+graph.diel.ovm.orientate.ind <- GenInd(graph.diel.ovm.orientate.adj)
+graph.diel.ovm.orientate.ind$C
+```
+
+diel.ovm graph analysis
+```{r}
+diel.ovm.regions <- diel.ovm.regions[-18,]
+rownames(diel.ovm.conn.regions) <- diel.ovm.regions$settle.region
+graph.diel.ovm <- graph_from_adjacency_matrix(diel.ovm.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.diel.ovm, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.diel.ovm)$vector
+plot(graph.diel.ovm, vertex.size = as*30, main="Authorities")
+
+graph.diel.ovm.adj <- get.adjacency(graph.diel.ovm, sparse = FALSE)
+graph.diel.ovm.ind <- GenInd(graph.diel.ovm.adj)
+graph.diel.ovm.ind$C
+```
+
+ovm.labrid graph analysis
+```{r}
+ovm.labrid.regions <- ovm.labrid.regions[-18,]
+rownames(ovm.labrid.conn.regions) <- ovm.labrid.regions$settle.region
+graph.ovm.labrid <- graph_from_adjacency_matrix(ovm.labrid.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.ovm.labrid, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.ovm.labrid)$vector
+plot(graph.ovm.labrid, vertex.size = as*30, main="Authorities")
+
+graph.ovm.labrid.adj <- get.adjacency(graph.ovm.labrid, sparse = FALSE)
+graph.ovm.labrid.ind <- GenInd(graph.ovm.labrid.adj)
+graph.ovm.labrid.ind$C
+```
+
+ovm.mullid graph analysis
+```{r}
+ovm.mullid.regions <- ovm.mullid.regions[-18,]
+rownames(ovm.mullid.conn.regions) <- ovm.mullid.regions$settle.region
+graph.ovm.mullid <- graph_from_adjacency_matrix(ovm.mullid.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.ovm.mullid, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.ovm.mullid)$vector
+plot(graph.ovm.mullid, vertex.size = as*30, main="Authorities")
+
+graph.ovm.mullid.adj <- get.adjacency(graph.ovm.mullid, sparse = FALSE)
+graph.ovm.mullid.ind <- GenInd(graph.ovm.mullid.adj)
+graph.ovm.mullid.ind$C
+```
+
+
+ovm.scarid graph analysis
+```{r}
+ovm.scarid.regions <- ovm.scarid.regions[-18,]
+rownames(ovm.scarid.conn.regions) <- ovm.scarid.regions$settle.region
+graph.ovm.scarid <- graph_from_adjacency_matrix(ovm.scarid.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.ovm.scarid, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.ovm.scarid)$vector
+plot(graph.ovm.scarid, vertex.size = as*30, main="Authorities")
+
+graph.ovm.scarid.adj <- get.adjacency(graph.ovm.scarid, sparse = FALSE)
+graph.ovm.scarid.ind <- GenInd(graph.ovm.scarid.adj)
+graph.ovm.scarid.ind$C
+```
+
+ovm.serranid graph analysis
+```{r}
+ovm.serranid.regions <- ovm.serranid.regions[-18,]
+rownames(ovm.serranid.conn.regions) <- ovm.serranid.regions$settle.region
+graph.ovm.serranid <- graph_from_adjacency_matrix(ovm.serranid.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.ovm.serranid, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.ovm.serranid)$vector
+plot(graph.ovm.serranid, vertex.size = as*30, main="Authorities")
+
+graph.ovm.serranid.adj <- get.adjacency(graph.ovm.serranid, sparse = FALSE)
+graph.ovm.serranid.ind <- GenInd(graph.ovm.serranid.adj)
+graph.ovm.serranid.ind$C
+```
+
+ovm.scorpaenid graph analysis
+```{r}
+ovm.scorpaenid.regions <- ovm.scorpaenid.regions[-18,]
+rownames(ovm.scorpaenid.conn.regions) <- ovm.scorpaenid.regions$settle.region
+graph.ovm.scorpaenid <- graph_from_adjacency_matrix(ovm.scorpaenid.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.ovm.scorpaenid, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.ovm.scorpaenid)$vector
+plot(graph.ovm.scorpaenid, vertex.size = as*30, main="Authorities")
+
+graph.ovm.scorpaenid.adj <- get.adjacency(graph.ovm.scorpaenid, sparse = FALSE)
+graph.ovm.scorpaenid.ind <- GenInd(graph.ovm.scorpaenid.adj)
+graph.ovm.scorpaenid.ind$C
+```
+
+ovm.synodontid graph analysis
+```{r}
+ovm.synodontid.regions <- ovm.synodontid.regions[-18,]
+rownames(ovm.synodontid.conn.regions) <- ovm.synodontid.regions$settle.region
+graph.ovm.synodontid <- graph_from_adjacency_matrix(ovm.synodontid.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.ovm.synodontid, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.ovm.synodontid)$vector
+plot(graph.ovm.synodontid, vertex.size = as*30, main="Authorities")
+
+graph.ovm.synodontid.adj <- get.adjacency(graph.ovm.synodontid, sparse = FALSE)
+graph.ovm.synodontid.ind <- GenInd(graph.ovm.synodontid.adj)
+graph.ovm.synodontid.ind$C
+```
+
+ovm.timestep graph analysis
+```{r}
+ovm.timestep.regions <- ovm.timestep.regions[-18,]
+rownames(ovm.timestep.conn.regions) <- ovm.timestep.regions$settle.region
+graph.ovm.timestep <- graph_from_adjacency_matrix(ovm.timestep.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.ovm.timestep, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.ovm.timestep)$vector
+plot(graph.ovm.timestep, vertex.size = as*30, main="Authorities")
+
+graph.ovm.timestep.adj <- get.adjacency(graph.ovm.timestep, sparse = FALSE)
+graph.ovm.timestep.ind <- GenInd(graph.ovm.timestep.adj)
+graph.ovm.timestep.ind$C
+```
+
+ovm.daily graph analysis
+```{r}
+ovm.daily.regions <- ovm.daily.regions[-18,]
+rownames(ovm.daily.conn.regions) <- ovm.daily.regions$settle.region
+graph.ovm.daily <- graph_from_adjacency_matrix(ovm.daily.conn.regions[,-18], mode= c("directed"), weighted = TRUE)
+plot(graph.ovm.daily, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.ovm.daily)$vector
+plot(graph.ovm.daily, vertex.size = as*30, main="Authorities")
+
+graph.ovm.daily.adj <- get.adjacency(graph.ovm.daily, sparse = FALSE)
+graph.ovm.daily.ind <- GenInd(graph.ovm.daily.adj)
+graph.ovm.daily.ind$C
+```
+
