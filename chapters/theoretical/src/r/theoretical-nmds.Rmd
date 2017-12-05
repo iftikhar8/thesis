@@ -8,11 +8,15 @@ Packages required
 library(tidyverse)
 library(vegan)
 library(ggdendro)
+library(cowplot)
 source("theoretical-functions.R")
 ```
 
 Load data
 ```{r,include=FALSE}
+load(file="phase1.rda")
+load(file="phase2.rda")
+load(file="phase3.rda")
 load(file="nmds.rda")
 ```
 
@@ -66,7 +70,7 @@ regions.nmds$stress
 
 NNDS using all reefs (or regions)
 ```{r}
-reefs <- rownames(passive.conn.regions)
+reefs <- colnames(passive.conn.regions)
 data <- as_tibble(passive.conn.regions)
 data$sites <- reefs
 data$behaviour <- rep(c("passive"))
@@ -79,24 +83,139 @@ data.ovm$behaviour <- rep(c("ovm"))
 data.orientate <- as_tibble(orientate.conn.regions)
 data.orientate$sites <- reefs
 data.orientate$behaviour <- rep(c("orientate"))
-community <- data %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.ovm)
-community_matrix <- select(community, -behaviour, -sites)
-community_matrix[is.na(community_matrix)] <- 0
+data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions)
+data.ovm.orientate$sites <- reefs
+data.ovm.orientate$behaviour <- rep(c("ovm.orientate"))
+data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions)
+data.diel.ovm.orientate$sites <- reefs
+data.diel.ovm.orientate$behaviour <- rep(c("diel.ovm.orientate"))
+data.diel.orientate <- as_tibble(diel.orientate.conn.regions)
+data.diel.orientate$sites <- reefs
+data.diel.orientate$behaviour <- rep(c("diel.orientate"))
+data.diel.ovm <- as_tibble(diel.ovm.conn.regions)
+data.diel.ovm$sites <- reefs
+data.diel.ovm$behaviour <- rep(c("diel.ovm"))
 
-nmds <- metaMDS(community_matrix,distance="bray", k=2)
+phase1.community <- data %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.ovm) %>% full_join(data.ovm.orientate) %>% full_join(data.diel.ovm) %>% full_join(data.diel.ovm.orientate) %>% full_join(data.diel.orientate)
+
+center_colmeans <- function(x) {
+  xcentre = colMeans(x)
+  x - rep(xcentre, rep.int(nrow(x), ncol(x)))
+}
+
+center_colmeans(phase1.community_matrix)
+
+phase1.community_matrix <- select(phase1.community, -behaviour, -sites)
+phase1.community_matrix[is.na(phase1.community_matrix)] <- 0
+
+phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=2)
 #plot(nmds)
 
-MDS_xy <- data.frame(nmds$points)
-MDS_xy$behaviour <- community$behaviour
-nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour)) + geom_jitter(width=0.015,size=3) + theme_bw() + theme(legend.position = "right")  + scale_color_brewer(name = "", palette = "Paired") +stat_ellipse()
+MDS_xy <- data.frame(phase1.nmds$points)
+MDS_xy$behaviour <- phase1.community$behaviour
+MDS_xy$sites <- phase1.community$sites
+phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour, group=sites)) + geom_point(size=3) + theme_bw() + theme(legend.position = "bottom")  + scale_color_brewer(name = "", palette = "Paired") + stat_ellipse()
+save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot)
 
-adonis(community_matrix ~ behaviour, community, perm=200)
+phase1.adonis <- adonis(phase1.community_matrix ~ behaviour, phase1.community, perm=200)
+phase1.adonis
 
-mod <- with(community, betadisper(vegdist(community_matrix,"bray"), behaviour))
+mod <- with(phase1.community, betadisper(vegdist(phase1.community_matrix,"bray"), behaviour))
+
+phase1.dist <- vegdist(phase1.community_matrix,"bray")
+phase1.anosim <- anosim(phase1.dist, phase1.community$sites)
+summary(phase1.anosim)
+
+#phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
+#anova(phase1.mva.model)
+```
 
 
-phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
-anova(phase1.mva.model)
+NNDS using all reefs (or regions) for fish
+```{r}
+reefs <- colnames(passive.conn.regions)
+data.labrid <- as_tibble(ovm.labrid.conn.regions)
+data.labrid$sites <- reefs
+data.labrid$fish <- rep(c("labridae"))
+data.mullid <- as_tibble(ovm.mullid.conn.regions)
+data.mullid$sites <- reefs
+data.mullid$fish <- rep(c("mullidae"))
+data.pomacentrid <- as_tibble(ovm.conn.regions)
+data.pomacentrid$sites <- reefs
+data.pomacentrid$fish <- rep(c("pomcentridae"))
+data.scarid <- as_tibble(ovm.scarid.conn.regions)
+data.scarid$sites <- reefs
+data.scarid$fish <- rep(c("scaridae"))
+data.synodontid <- as_tibble(ovm.synodontid.conn.regions)
+data.synodontid$sites <- reefs
+data.synodontid$fish <- rep(c("synodontidae"))
+data.scorpaenid <- as_tibble(ovm.scorpaenid.conn.regions)
+data.scorpaenid$sites <- reefs
+data.scorpaenid$fish <- rep(c("scorpaenidae"))
+data.serranid <- as_tibble(ovm.serranid.conn.regions)
+data.serranid$sites <- reefs
+data.serranid$fish <- rep(c("serranidae"))
+
+phase2.community <- data.labrid %>% full_join(data.serranid) %>% full_join(data.pomacentrid) %>% full_join(data.synodontid) %>% full_join(data.mullid) %>% full_join(data.scorpaenid) %>% full_join(data.scarid)
+phase2.community_matrix <- select(phase2.community, -fish, -sites)
+phase2.community_matrix[is.na(phase2.community_matrix)] <- 0
+
+phase2.nmds <- metaMDS(phase2.community_matrix,distance="bray", k=2)
+#plot(nmds)
+
+MDS_xy <- data.frame(phase2.nmds$points)
+MDS_xy$fish <- phase2.community$fish
+MDS_xy$sites <- phase2.community$sites
+phase2.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=fish, group=sites)) + geom_point(size=3) + theme_bw() + theme(legend.position = "bottom")  + scale_color_brewer(name = "", palette = "Paired") + stat_ellipse()
+save_plot("../../figs/phase2-all-nmds.png",phase2.nmds.plot)
+
+phase2.adonis <- adonis(phase2.community_matrix ~ fish, phase2.community, perm=200)
+phase2.adonis
+
+mod <- with(phase2.community, betadisper(vegdist(phase2.community_matrix,"bray"), fish))
+
+phase2.dist <- vegdist(phase2.community_matrix,"bray")
+phase2.anosim <- anosim(phase2.dist, phase2.community$sites)
+summary(phase2.anosim)
+#phase2.mva.model <- manyglm(phase2.mva~phase2.regions.mva$fish)
+#anova(phase2.mva.model)
+```
+
+NNDS using all reefs (or regions) for implementatinos
+```{r}
+reefs <- colnames(passive.conn.regions)
+data.timestep <- as_tibble(ovm.timestep.conn.regions[,-18])
+data.timestep$sites <- reefs
+data.timestep$methods <- rep(c("timestep"))
+data.daily <- as_tibble(ovm.daily.conn.regions)
+data.daily$sites <- reefs
+data.daily$methods <- rep(c("daily"))
+data.stage <- as_tibble(ovm.conn.regions)
+data.stage$sites <- reefs
+data.stage$methods<- rep(c("stage"))
+
+phase3.community <- data.timestep %>% full_join(data.daily) %>% full_join(data.stage) 
+phase3.community_matrix <- select(phase3.community, -methods, -sites)
+phase3.community_matrix[is.na(phase3.community_matrix)] <- 0
+
+phase3.nmds <- metaMDS(phase3.community_matrix,distance="bray", k=2)
+#plot(nmds)
+
+MDS_xy <- data.frame(phase3.nmds$points)
+MDS_xy$methods <- phase3.community$methods
+MDS_xy$sites <- phase3.community$sites
+phase3.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=methods, group=sites)) + geom_point(size=3) + theme_bw() + theme(legend.position = "bottom")  + scale_color_brewer(name = "", palette = "Paired") + stat_ellipse()
+save_plot("../../figs/phase3-all-nmds.png",phase3.nmds.plot)
+
+phase3.adonis <- adonis(phase3.community_matrix ~ methods, phase3.community, perm=200)
+
+mod <- with(phase3.community, betadisper(vegdist(phase3.community_matrix,"bray"), methods))
+
+phase3.dist <- vegdist(phase3.community_matrix,"bray")
+phase3.anosim <- anosim(phase3.dist, phase3.community$sites)
+summary(phase3.anosim)
+#phase3.mva.model <- manyglm(phase3.mva~phase3.regions.mva$impl)
+#anova(phase3.mva.model)
 ```
 
 ```{r}
@@ -138,14 +257,14 @@ plot(phase1.reefs.cca, scaling=2)
 # PCA
 jpeg('../../figs/regions-phase1-pca.jpg')
 phase1.regions.rda <- rda(phase1.regions.community_matrix, scale = TRUE)
-biplot(phase1.regions.rda, display=c("sites","species"), type=c("points","text"), scaling = 3)
+biplot(phase1.regions.rda, display=c("sites","species"), type=c("points","text"))
 orditorp(phase1.regions.rda, display="species")
 ordilabel(phase1.regions.rda, scaling = 3)
 dev.off()
 
 jpeg('../../figs/regions-phase2-pca.jpg')
 phase2.regions.rda <- rda(phase2.regions.community_matrix, scale = TRUE)
-biplot(phase2.regions.rda, display=c("sites","species"), type=c("points","text"), scaling = 3)
+biplot(phase2.regions.rda, display=c("sites","species"), type=c("points","text"))
 orditorp(phase2.regions.rda, display="species")
 ordilabel(phase2.regions.rda, scaling = 3, col="blue",font=1)
 dev.off()
@@ -171,6 +290,40 @@ ordilabel(phase2.regions.rda, display = "sites",priority = priSite, font = 3, fi
           col = "blue", scaling = 3)
 ordilabel(phase2.regions.rda, display = "species",priority = priSpp, font = 2 ,
           scaling = 3)
+
+```
+CA analysis 
+
+```{r}
+phase1.ca <- CA(phase1.regions.community_matrix, graph=FALSE)
+summary(phase1.ca)
+fviz_screeplot(phase1.ca, addlabels=TRUE)
+phase1.biplot <- fviz_ca_biplot(phase1.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
+fviz_ca_row(phase1.ca, repel=TRUE)
+fviz_ca_col(phase1.ca, repel=TRUE)
+row <- get_ca_row(phase1.ca)
+row$contrib
+ggsave("../../figs/phase1-ca.png",phase1.biplot)
+
+phase2.ca <- CA(phase2.regions.community_matrix, graph=FALSE)
+summary(phase2.ca)
+fviz_screeplot(phase2.ca, addlabels=TRUE)
+phase2.biplot <- fviz_ca_biplot(phase2.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
+fviz_ca_row(phase2.ca, repel=TRUE)
+fviz_ca_col(phase2.ca, repel=TRUE)
+row <- get_ca_row(phase2.ca)
+row$contrib
+ggsave("../../figs/phase2-ca.png",phase2.biplot)
+
+phase3.ca <- CA(phase3.regions.community_matrix, graph=FALSE)
+summary(phase3.ca)
+fviz_screeplot(phase3.ca, addlabels=TRUE)
+phase3.biplot <- fviz_ca_biplot(phase3.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
+fviz_ca_row(phase3.ca, repel=TRUE)
+fviz_ca_col(phase3.ca, repel=TRUE)
+row <- get_ca_row(phase3.ca)
+row$contrib
+ggsave("../../figs/phase3-ca.png",phase3.biplot)
 
 ```
 
