@@ -5,19 +5,14 @@ output: html_notebook
 
 Packages required
 ```{r, include=FALSE}
-# munging
 library(tidyverse)
-library(taRifx)
-library(ggdendro)
-# analysis
 library(vegan)
-library(mvabund)
+library(ggdendro)
 source("theoretical-functions.R")
 ```
 
 Load data
 ```{r,include=FALSE}
-load(file="phase1.rda")
 load(file="nmds.rda")
 ```
 
@@ -72,9 +67,9 @@ regions.nmds$stress
 NNDS using all reefs (or regions)
 ```{r}
 reefs <- rownames(passive.conn.regions)
-data.passive <- as_tibble(passive.conn.regions)
-data.passive$sites <- reefs
-data.passive$behaviour <- rep(c("passive"))
+data <- as_tibble(passive.conn.regions)
+data$sites <- reefs
+data$behaviour <- rep(c("passive"))
 data.diel <- as_tibble(diel.conn.regions)
 data.diel$sites <- reefs
 data.diel$behaviour <- rep(c("diel"))
@@ -84,21 +79,7 @@ data.ovm$behaviour <- rep(c("ovm"))
 data.orientate <- as_tibble(orientate.conn.regions)
 data.orientate$sites <- reefs
 data.orientate$behaviour <- rep(c("orientate"))
-data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions)
-data.ovm.orientate$sites <- reefs
-data.ovm.orientate$behaviour <- rep(c("ovm.orientate"))
-data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions)
-data.diel.ovm.orientate$sites <- reefs
-data.diel.ovm.orientate$behaviour <- rep(c("diel.ovm.orientate"))
-data.diel.ovm <- as_tibble(diel.ovm.conn.regions)
-data.diel.ovm$sites <- reefs
-data.diel.ovm$behaviour <- rep(c("diel.ovm"))
-data.diel.orientate <- as_tibble(diel.orientate.conn.regions)
-data.diel.orientate$sites <- reefs
-data.diel.orientate$behaviour <- rep(c("diel.orientate"))
-
-community <- data.passive %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.ovm) %>% full_join(data.diel.orientate) %>% full_join(data.ovm.orientate) %>% full_join(data.diel.ovm.orientate) %>% full_join(data.diel.ovm)
-community$behaviour <- factor(community$behaviour)
+community <- data %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.ovm)
 community_matrix <- select(community, -behaviour, -sites)
 community_matrix[is.na(community_matrix)] <- 0
 
@@ -113,17 +94,18 @@ adonis(community_matrix ~ behaviour, community, perm=200)
 
 mod <- with(community, betadisper(vegdist(community_matrix,"bray"), behaviour))
 
+
+phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
+anova(phase1.mva.model)
 ```
 
 ```{r}
-
 mva <- mvabund(community[,1:17])
 par(mar=c(2,10,2,2)) # adjusts the margins
 boxplot(community[,1:17],horizontal = TRUE,las=2)
 meanvar.plot(mva)
 p <- plot(mva~community$behaviour, height=9, width=6, cex.axis=0.8, cex=0.8)
 model <- manyglm(mva~community$behaviour)
-anova(model)
 ```
 
 
