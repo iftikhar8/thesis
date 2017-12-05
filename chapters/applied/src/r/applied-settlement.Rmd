@@ -1,0 +1,16 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+
+region.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","E&M Reefs")
+blackcod.regions <- regions.data[-20:-21,]
+blackcod.regions$desc <- region.names
+blackcod.regions <- gather(blackcod.regions, year, settlement, -settle.region, -desc)
+ggplot(blackcod.regions, aes(x=reorder(desc, settlement, FUN=mean), y=settlement)) +geom_boxplot() + coord_flip() + theme_bw()
+ggplot(blackcod.regions, aes(x=year, y=settlement)) +geom_boxplot() + coord_flip() + theme_bw()
+blackcod.lm <- lm(settlement ~ year, data=blackcod.regions)
+anova(blackcod.lm)
+```

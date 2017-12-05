@@ -15,7 +15,7 @@ read_in_dispersal_kernel <- function(path) {
   data <- do.call(rbind,lapply(list.files(pattern="\\kernel.csv", recursive = TRUE), read.csv, stringsAsFactors=FALSE))
   data <- data[complete.cases(data),]
   data <- as.tibble(data)
-  data <- data %>% filter(distance > 0) %>% mutate(distance.km = distance/1000) %>% sample_n(250000)
+  data <- data %>% filter(distance > 0) %>% mutate(distance.km = distance/1000)
   #reefs <- summarize(group_by(data, settle), count = n())
   #rm(data)
   setwd(oldpath)

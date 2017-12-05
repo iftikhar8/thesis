@@ -1,5 +1,5 @@
 ---
-title: "Theoretical chapter - nMDS analysis"
+title: "Appliedchapter - nMDS analysis"
 output: html_notebook
 ---
 
@@ -8,7 +8,8 @@ Packages required
 library(tidyverse)
 library(vegan)
 library(ggdendro)
-source("theoretical-functions.R")
+library(RColorBrewer)
+source("applied-functions.R")
 ```
 
 Load data
@@ -18,31 +19,29 @@ load(file="nmds.rda")
 
 Create community matrices
 ```{r}
-phase1.reefs.community_matrix <- get_community_matrix(phase1.reefs.data,TRUE)
-phase1.regions.community_matrix <- get_community_matrix(phase1.regions.data,FALSE)[,-18]
-phase2.reefs.community_matrix <- get_community_matrix(phase2.reefs.data,TRUE)
-phase2.regions.community_matrix <- get_community_matrix(phase2.regions.data,FALSE)[,-18]
-phase3.reefs.community_matrix <- get_community_matrix(phase3.reefs.data,TRUE)
-phase3.regions.community_matrix <- get_community_matrix(phase3.regions.data,FALSE)[,-18]
 reefs.community_matrix <- get_community_matrix(reefs.data,TRUE)
-regions.community_matrix <- get_community_matrix(regions.data,FALSE)[,-18]
+regions.community_matrix <- get_community_matrix(regions.data,FALSE)
 ```
 
 Labels for the data
 ```{r}
-model <- c("passive","diel","ovm","orientate","diel.orientate","ovm.orientate","diel.ovm.orientate","diel.ovm","ovm.serranid","ovm.scorpaenid","ovm.scarid","ovm.labrid","ovm.pomacentrid","ovm.synodontid","ovm.mullid","ovm.daily","ovm.timestep","ovm.stage")
-scenarios <- c("behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-method","ovm-method","ovm-method")
-theoretical <- data.frame(model,scenarios)
+years <- c("2011","2010","2009","2008","2007","2006","2005","2004")
+applied <- data.frame(years)
+region.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","E&M Reefs")
 ```
 
 NMDS using reef settlement sites
 ```{r}
 
 # nMDS 
-reefs.nmds <- metaMDS(reefs.community_matrix, distance="bray", k=2)
-plot(reefs.nmds, disp="sites")
+reefs.nmds <- metaMDS(regions.community_matrix, distance="bray", k=2)
+#plot(reefs.nmds, disp="sites")
 #ordiellipse(reefs.nmds, group=theoretical$scenarios, col=2:4, kind = "ehull", lwd=2, label = TRUE)
-ordihull(reefs.nmds, group=theoretical$scenarios, col=2:4, draw = "polygon", lwd=2, label=FALSE)
+#ordihull(reefs.nmds, group=applied$years, col=2:4, draw = "polygon", lwd=2, label=FALSE)
+MDS_xy <- data.frame(reefs.nmds$points)
+MDS_xy$years <- applied$years
+reefs.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=years)) + geom_point(size=3) + theme_bw() + theme(legend.position = "right") + scale_shape(name="")  + scale_color_brewer(name = "", palette = "Set1") 
+ggsave("../../figs/nmds-yearly.png", reefs.nmds.plot)
 #ordilabel(reefs.nmds)
 ```
 
@@ -53,12 +52,12 @@ regions.nmds <- metaMDS(regions.community_matrix,distance="bray", k=2)
 plot(regions.nmds, display="sites")
 #orditorp(regions.nmds,display = "species", col="black", air=0.01)
 #orditorp(regions.nmds,display = "sites", cex=1.25, air=0.01)
-ordiellipse(regions.nmds, group=theoretical$scenarios, col=2:4, kind = "ehull", lwd=2, label = TRUE)
+ordiellipse(regions.nmds, group=applied$years, col=2:4, kind = "ehull", lwd=2, label = TRUE)
 #ordihull(regions.nmds, group=theoretical$scenarios, col=2:4, draw = "polygon", lwd=2, label=FALSE)
 MDS_xy <- data.frame(regions.nmds$points)
-MDS_xy$scenarios <- theoretical$scenarios
-regions.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=scenarios, shape=scenarios)) + geom_jitter(width=0.015,size=3) + theme_bw() + theme(legend.position = "bottom")+ scale_shape(name="")  + scale_color_brewer(name = "", palette = "Paired") 
-save_plot("../../figs/nmds-regions.png", regions.nmds.plot)
+MDS_xy$years <- applied$years
+regions.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=years, shape=years)) + geom_jitter(width=0.015,size=3) + theme_bw() + theme(legend.position = "bottom")+ scale_shape(name="")  + scale_color_brewer(name = "", palette = "Paired") 
+ggsave("../../figs/nmds-regions.png", regions.nmds.plot)
 
 #dev.off()
 regions.nmds$stress
@@ -66,33 +65,59 @@ regions.nmds$stress
 
 NNDS using all reefs (or regions)
 ```{r}
-reefs <- rownames(passive.conn.regions)
-data <- as_tibble(passive.conn.regions)
-data$sites <- reefs
-data$behaviour <- rep(c("passive"))
-data.diel <- as_tibble(diel.conn.regions)
-data.diel$sites <- reefs
-data.diel$behaviour <- rep(c("diel"))
-data.ovm <- as_tibble(ovm.conn.regions)
-data.ovm$sites <- reefs
-data.ovm$behaviour <- rep(c("ovm"))
-data.orientate <- as_tibble(orientate.conn.regions)
-data.orientate$sites <- reefs
-data.orientate$behaviour <- rep(c("orientate"))
-community <- data %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.ovm)
-community_matrix <- select(community, -behaviour, -sites)
+regions <- colnames(blackcod.2011.conn.regions)
+data.2011 <- as_tibble(blackcod.2011.conn.regions)
+data.2011$sites <- regions[-20]
+data.2011$year <- rep(c("2011"))
+data.2010 <- as_tibble(blackcod.2010.conn.regions)
+data.2010$sites <- regions[-20]
+data.2010$year <- rep(c("2010"))
+data.2009 <- as_tibble(blackcod.2009.conn.regions)
+data.2009$sites <- regions[-20]
+data.2009$year <- rep(c("2009"))
+data.2008 <- as_tibble(blackcod.2008.conn.regions)
+data.2008$sites <- regions[-20]
+data.2008$year <- rep(c("2008"))
+data.2007 <- as_tibble(blackcod.2007.conn.regions)
+data.2007$sites <- regions[-20]
+data.2007$year <- rep(c("2007"))
+data.2006 <- as_tibble(blackcod.2006.conn.regions)
+data.2006$sites <- regions[-20]
+data.2006$year <- rep(c("2006"))
+data.2005 <- as_tibble(blackcod.2005.conn.regions)
+data.2005$sites <- regions[-20]
+data.2005$year <- rep(c("2005"))
+data.2004 <- as_tibble(blackcod.2004.conn.regions)
+data.2004$sites <- regions[-20]
+data.2004$year <- rep(c("2004"))
+
+community <- data.2011 %>% full_join(data.2010) %>% full_join(data.2009) %>% full_join(data.2008) %>% full_join(data.2007) %>% full_join(data.2006) %>% full_join(data.2005) %>% full_join(data.2004)
+
+community_matrix <- select(community, -year, -sites)
 community_matrix[is.na(community_matrix)] <- 0
 
 nmds <- metaMDS(community_matrix,distance="bray", k=2)
 #plot(nmds)
 
 MDS_xy <- data.frame(nmds$points)
-MDS_xy$behaviour <- community$behaviour
-nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour)) + geom_jitter(width=0.015,size=3) + theme_bw() + theme(legend.position = "right")  + scale_color_brewer(name = "", palette = "Paired") +stat_ellipse()
+MDS_xy$year <- community$year
+MDS_xy$sites <- community$sites
+#color = colorRampPalette(rev(brewer.pal(n = 8, name = "Paired"))(19))
+# Classic palette BuPu, with 4 colors
+coul = brewer.pal(9, "Set1") 
+ 
+# I can add more tones to this palette :
+coul = colorRampPalette(coul)(19)
 
-adonis(community_matrix ~ behaviour, community, perm=200)
+nmds.plot.years <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=year)) + geom_jitter(width=0.015,size=3) + theme_bw() + theme(legend.position = "right")   + scale_colour_brewer(name="", palette="Set1")
 
-mod <- with(community, betadisper(vegdist(community_matrix,"bray"), behaviour))
+nmds.plot.regions <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites)) + geom_point(size=3) + theme_bw() + theme(legend.position = "right")   + scale_colour_manual(values = coul, labels=region.names) + stat_ellipse() 
+ggsave("../../figs/nmds-regions.png", nmds.plot.regions)
+
+
+adonis(community_matrix ~ year, community, perm=200)
+
+mod <- with(community, betadisper(vegdist(community_matrix,"bray"), year))
 
 
 phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
@@ -100,12 +125,12 @@ anova(phase1.mva.model)
 ```
 
 ```{r}
-mva <- mvabund(community[,1:17])
+mva <- mvabund(community[,1:19])
 par(mar=c(2,10,2,2)) # adjusts the margins
-boxplot(community[,1:17],horizontal = TRUE,las=2)
+boxplot(community[,1:19],horizontal = TRUE,las=2)
 meanvar.plot(mva)
-p <- plot(mva~community$behaviour, height=9, width=6, cex.axis=0.8, cex=0.8)
-model <- manyglm(mva~community$behaviour)
+p <- plot(mva~community$year + community$sites, height=9, width=6, cex.axis=0.8, cex=0.8)
+model <- manyglm(mva~community$year + community$sites)
 ```
 
 
