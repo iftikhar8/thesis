@@ -7,15 +7,6 @@
 Biophysical dispersal models are popular tools to understand the influence of various processes (both physical and biological) on marine dispersal, and thus the underlying marine ecosystems.
 
 
-# Behaviours affecting connectivity
-
-
-# Ontogenetic vertical migration strategies
-
-
-# Do implementation choices matter?
-
-Examples of (daily, timestep, stage?)
 
 ## What have people done before
 
@@ -25,14 +16,10 @@ Examples of (daily, timestep, stage?)
 
 Aims:
 
-1. To investigate how connectivity patterns are affected by diel vertical migration (DVM), ontogenetic vertical migration (OVM), and orientated swimming.
-2. To investigate how different vertical migration patterns of reef fish effect their connectivity patterns?
-3. Do different vertical migration implementations produce different connectivity patterns? (Hope not)
+1. How do different patterns affect connectivity off the NSW coast?
+2. Question: Do different vertical migration patterns produce different connectivity patterns? (Would think so)
+3. Question: Do different vertical migration implementations produce different connectivity patterns? (Hope not)
 
-Hypothesis:
-1. Compared to passive practice, should reduce SR, increase LR, reduce DD
-2. The patterns should differ as places within the water column change the currents the larvae are affected by
-3. There should be an effect, but it is predicted to be minimal.
 
 # Methods
 
@@ -42,10 +29,11 @@ Hypothesis:
 
 - Made using the manual of recommended practices ICES.
 
-The biophysical dispersal model—a Zooplankton Interconnections and Source-Sink Observation Utility (ZISSOU, v1.1.3 [github.com/shawes/zissou])—is an individual-based model (IBM), whereby each larva moves independently to each other in the model system. Each particle in ZISSOU has biological traits and behaviours using populations level distributions capturing the biological variability. The system was designed for high-performance, high customisation, and platform independence; written in the Scala programming (v2.12.4) language using parallel libraries.
+The system is designed to run anywhere and for high-speed, written in Scala, which compiles into java byte code which can run on any operating system.
 
-The model was developed using the "Manual of recommended practices for ... " [CITE ICES].
+The biophysical dispersal model, a zooplankton interconnections and source-sink observation utility (ZISSOU, v1.1.3 [github.com/shawes/zissou]), was designed as an individual-based model (IBM), whereby each larva moves independently to each other in the model system.
 
+Each particle in ZISSOU is given biological traits and behaviours using populations level distributions capturing the biological variability. It is a parallel model that
 
 
 ### Ocean data
@@ -54,11 +42,11 @@ ZISSOU accesses ocean circulation data as network common data forms (NetCDF); se
 
 The ocean data must be in a Arakawa-A or Arakawa-B grid structure [CITE arakawa 97].
 
-The oceanographic data currently utilised are 3-dimensional velocity fields (u, v, w).
+The oceanographic data currently only reads in 3-dimensional velocity fields (u, v, w), where w = depth.
 
 [Interpolation]
 
-The larvae in a lagrangian system
+The particles in a lagrangian system
 
 Runge-Kutta fourth-order integration (RK4) is used to move the particle through space and time, calculating a weighted average of four increments using the chosen model time-step (@eq:rk4). The velocity at any given position in space is interpolated using a tricubic interpolation scheme on the hydrodynamic model, such that the velocity for a given particle in the oceanographic space is interpolated from neighbouring grids using 64 points (4 x 4 x 4). If this is not possible, for example due to boundary conditions, trilinear interpolation using 8 points (2 x 2 x 2) is substituted.
 
@@ -66,10 +54,10 @@ Runge-Kutta fourth-order integration (RK4) is used to move the particle through 
 
 $$y_{i+1} = y_{i} + \frac{1}{6} (k_{1} + 2k_{2})h$${#eq:rk4}
 
-To model the natural turbulent effect of ocean systems in a 3D stochastic model, ZISSOU uses a random displacement mechanism (@eq:turb; [CITE Brickman & Smith 2002]) Cite ICES?
+To model the natural turbulent effect of ocean systems in a 3D stochastic model, the random displacement mechanism (@eq:turb) was used [CITE Brickman & Smith 2002].
 
 
-$$D_{}(t+1)}=D_{(t)}+v ⃑∆t+ √(2K/∆t Q)$${#eq:turb}
+$$D_((t+1))=D_((t))+v ⃑∆t+ √(2K/∆t Q)$${#eq:turb}
 
 The displacement (D) is calculated using the velocity vector (v) from the hydrodynamic model, the time step (Δt), the eddy diffusivity (K) and a random number with a Gaussian distribution with a mean of zero (Q).
 
@@ -77,7 +65,7 @@ Psuedo-random numbers are generated in the model using a Mersenne Twister algori
 
 [Habitat]
 
-Sites used for both spawning and settlement are represented as polygons within the model. The polygons are supplied as input in the shapefile format, a common geospatial vector data format specified by the Environmental Systems Research Institute [Esri; CITE ESRI].
+Sites used for both spawning and settlement are represented as polygons within the model. The polygons are supplied as input as shapefiles, a common geospatial vector data format specified by the Environmental Systems Research Institute [Esri; CITE ESRI].
 
 
 
@@ -88,7 +76,7 @@ Sites used for both spawning and settlement are represented as polygons within t
 
 Vertical migration can be implemented as either diel or ontogenetic vertical migration. Both use probabilities of being in depth ranges either at a certain time, i.e. night or day, or in depth ranges defined by their ontogenetic stage (e.g. for ichthyoplankton these would be preflexion, flexion, or postflexion). Ontogenetic stages are specific by lengths of time in seconds, which are given gaussian distributions over the population. The vertical position was changed by applying a probability distribution function to determine which depth the larvae moved too. For diel vertical migration this probability distribution function was applied one hour before sunset or sunrise using an approximation calculated from the larvae position.
 
-The horizontal swimming speed is calculated using known critical swimming speeds, the *in situ* swimming potential and the swimming endurance of the larvae at postflexion [CITE eq]. The speed is added to both the *u* and *v* velocities after applying stochasticity [CITE eq]. Fish can swim, orientated to the nearest habitat, if they find themselves within a user configured olfactory range.
+The horizontal swimming speed is calculated using known critical swimming speeds, the *in situ* swimming potential and the swimming endurance of the larvae at postflexion. The speed is added to both the *u* and *v* velocities after applying stochasticity. Fish can swim, orientated to the nearest habitat, if they find themselves within a user configured olfactory range.
 
 
 $$s = U_{crit}S_{p}E_{p}$${#eq:swim}
@@ -100,13 +88,18 @@ u = rand * S * cos(theta)
 v = rand * S * sin(theta)
 
 
+
+
+
+
+
+
+
 ## Model configuration
 
 ### Study location
 
-Larvae were spawned from 68 coastal reefs along the New South Wales coast, Australia (Add geospatial data?), using freely available benthic data obtained from NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). The natal reefs were divided into 17 sub-regions, each containing four approximately equally spaced reefs. For each reef 1000 larvae were spawned every 7 days over the period of one year from 1st July 2007 to 31st June 2008. In total 3.5 million larvae were released over the year. No mortality was applied, providing only potential dispersal. Larvae were allowed to settle to reefs or benthic habitat marked as other, as unmapped reefs could be potential settlement sites.
-
-Create diagram using sites and regions. (colour coordinated).
+Larvae were spawned from 68 reefs along the NSW coast line using freely available benthic data obtained from NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). The natal reefs were divided into 17 sub-regions, each containing four approximately equally spaced reefs. For each reef 1000 larvae were spawned every 7 days over the period of one year from 1st July 2007 to 31st June 2008. In total 3.5 million larvae were released over the year. No mortality was applied, providing only potential dispersal. Larvae were allowed to settle to reefs or benthic habitat marked as other, as unmapped reefs could be potential settlement sites.
 
 ### Physical parameterisation
 
@@ -118,8 +111,6 @@ To populate the parameters of the model, we used characteristics of the small tr
 
 
 #### Comparison of different ichthyoplankton behaviours
-
-The Pomacentridae ontogenetic vertical migration strategy was used in the models that contained OVM (@tbl:scenarios-ovm).
 
 : The combination of the three larval behaviours, diel vertical migration, ontogenetic vertical migration, and orientated swimming, used in the modelling scenarios {#tbl:scenarios-behaviour}
 
@@ -185,51 +176,52 @@ To determine the influence of different behaviour implementations on the dispers
 
 Richness to Diversity
 
+
 [Diversituy, richness]
 
 ### nMDS analysis & MvaBund
 
-Non-metric multidimensional scaling (NMDS) ordination was used to assess settlement patterns between models and within scenarios using Bray-Curtis dissimilarities measures with a square root transform. For this analysis models were treated as sites and settlement regions were treated as species. Regions were used instead of reefs due to non-convergence when analysing the reefs. NMDS was conducted using the r package *vegan* [CITE]. Cluster analysis of the behaviour and OVM strategies scenarios was performed used a Bray-Curtis dissimilarity measure, and the average-link clustering method. To tests for differences between models with each scenario, generalised linear models (GLMs) using negative binomial distributions were used in conjunction with a site based resampling approach. The r package *mvabund* was used for this analysis [CITE]. In addition to ordination, using the sites (natal reefs) and species (settlement reefs) model, settlement site richness and Shannon-Weiner diversity of settlement was measured.
+Non-metric multidimensional scaling (NMDS) ordination was used to assess settlement patterns between models and within scenarios using Bray-Curtis dissimilarities measures with a square root transform. For this analysis models were treated as sites and settlement regions were treated as species. Regions were used instead of reefs due to non-convergance when analysing the reefs. NMDS was conducted using the r package *vegan*. Cluster analysis of the behaviour and OVM strategies scenarios was performed used a Bray-Curtis dissimilarity measure, and the average-link clustering method. To tests for differences between models with each scenario, generalised linear models (GLMs) using negative binomial distributions were used in conjunction with a site based resampling approach. The r package *mvabund* was used for this analysis.
 
 ### Connectivity Metrics
 
-The connectivity metrics of self-recruitment, local retention, settlement success and dispersal distance (**FORMAT see definitions**) were calculated for each scenarios. One-way ANOVAs were used to test for differences between models within each scenario, and Student-Newman-Keuls (SNK) post-hoc tests were used to make comparisons between groups if the ANOVA was significant. The R package *ConnMattTools* [CITE] was used to obtain connectivity metrics, and the package *agricolae* [CITE] was used to perform SNK tests.
+The connectivity metrics of self-recruitment, local retention, settlement success and dispersal distance (**FORMAT see definitions**) were calculated for each scenarios. One-way ANOVAs were used to test for differences between models within each scenario, and Student-Newman-Keuls (SNK) post-hoc tests were used to make comparisons between groups if the overall ANOVA was significant. The R package *ConnMattTools* [CITE] was used to obtain connectivity metrics, and the package *agricolae* [CITE] was used to perform SNK tests.
 
 ### Graph theory
 
-To test differences in connectivity patterns for each of the models with a scenario, we used a graph theory analyses. Connectance, the proportion of the links between natal and settlement sites in a graph compared to the theoretical maximum, was used to compare the models. The r package *igraph* was used for this analysis.
+To test differences in connectivity patterns for each of the models with a scenrio, we used a graph theory analyses. Connectance, the proportion of the links between natal and settlement sites in a graph compared to the theoretical maximum, was used to compare the models. The r package *igraph* was used for this analysis.
 
 
 # Results
 
 
-The behavioural scenario contained the most dissimilar patterns of settlement (@fig:ndms). The scenario of different methods of OVM implementation was more dissimilar than the scenario of different OVM strategies (@fig:nmds). OVM strategies were bunched together, while the OVM methods appeared to be equally dissimilar to each other.
+The behavioural scenarios contained the most different patterns of settlement.
+
+The methods
+
 
 ## Phase 1 (Behaviour comparisons)
 
-The largest dissimilarity of larval behaviour settlement patterns was the model with DVM behaviours (@fig:cluster a). The rest of the behaviour scenarios were grouped into behaviour with orientation and behaviour without orientation. DVM coupled with orientation, and DVM coupled with both OVM and orientation had the least dissimilar connectivity patterns. These two models also had the highest diversity index, and DVM with orientation had the highest settlement sites richness (@tbl:metrics). In addition, these models, along with orientation, and orientation with OVM, had the highest proportions of connectance. Larvae with no behaviour had the lowest settlement site richness. DVM produced the lowest settlement site diversity, and DVM by itself and couple with OVM produced the lowest connectance values between settlement sites. The lowest values of self-recruitment occurred in the no behaviour and OVM models, 12% lower than DVM. Local-retention was maximised when orientation was included, the highest local retention rates occurring when DVM, OVM and orientation were all included in the model. The lowest mean local retention rate of 35% occurred when no behaviour was included. The settlement success was significantly different between the groups.
 
-No behaviour and OVM produced the longest patterns of dispersal, with the mean dispersal over 140km before settlement. Combing DVM wiht orientation reduced the dispersal distance by 35% compared to no behaviour.
+The most dissimilar settlement pattern of larval behaviour in the cluster analysis was diel vertical migration (@fig:cluster a). The rest of the behaviour scenarios were grouped into behaviour with orientation and behaviour without orientation. Diel vertical migration coupled with orientation, and diel vertical migration coupled with both OVM and orientation had the closest connectivity patterns.
+
+The highest self-recruitment occurred when only DVM was implemented, and the lowest self-recruitment was when particles were given no behaviour (i.e. passive; @tbl:metrics).
+
 
 ## Phase 2 (OVM comparison)
 
-The cluster analysis for the OVM strategies had Mullidae as the outgroup (i.e. most dissimilar; @fig:cluster b). The two strategies with the most similar patterns of settlement were Pomacentridae and Synodontidae.
-
-Fairly equal valus of connectence.
-Mullidae is the one strategy with over 50% of its larvae it the surface waters at each stage. This OVM strategy produced the equal highest settlement richness. Staying in the surface waters also produced the highest settlement success, and longest dispersal distance.
-
-Scopaenidae and Serraidae have OVM strategies that keep them deep 51-100m waters the most. This migrating deeper strategy produced high settlement diversity, self-recruitment, and local retention.
+The cluster analysis for the OVM strategies had Mullidae as the outgroup (i.e. most dissimilar; @fig:cluster b). The two strategies with the most similar patterns of settlement were Pomacentridae and Synodontidae. The highest local retention occurred hwne
 
 ## Phase 3 (Implementation comparison)
 
 
 
 ### Figures and tables
-: Metrics measured for each modelling scenario grouped by the three aims; behaviour (Passive = no behaviour, Diel = diel vertical migration, OVM = ontogenetic vertical migration; Diel = diel vertical migration, Or = orientated horizontal swimming), OVM strategy, and OVM method. Richness and the Shannon-Weiner diversity were measured using the settlement reefs as a proxy for species. Connectance (%) is a measure of describing the proportion of all links between the natal and settlement sites that are realised. The mean self-recruitment (%), local-retention (%), settlement success (%) and dispersal distance (km) are metrics of connectivity. ^a-b^Means values in a column without a common superscript letter are different using ANOVA with SNK post-hoc tests (p \< 0.05), not superscript letter in a column means the ANOVA was not significant.{#tbl:metrics}
+: Metrics measured for each modelling scenario grouped by the three aims (behaviour, OVM strategy, and OVM method). Richness and the Shannon-Weiner diversity were measured using the settlement reefs as a proxy for species. Connectance (%) is a measure of describing the proporiton of all links between the natal and settlement sites that are realised. The mean self-recruitment (SR; %), local-retention (LR; %), settlement success (SS; %) and dispersal distance (DD, km) are metrics of overall connectivity. ^a-b^Means values in a column without a common superscript letter are different using ANOVA with SNK post-hoc tests (p \< 0.05), not superscript letter in a column means the ANOVA was not significant.  {#tbl:metrics}
 
 
 
-             | Scenario      | Richness | Diversity | Connectance | Self-recruitment       | Local retention       | Settlement success       | Dispersal distance
+             | Scenario      | Richness | Diversity | Connectance | SR       | LR       | SS       | DD
 -------------|---------------|----------|-----------|-------------|----------|----------|----------|----------
 Behaviour    |               |          |           |             |          |          |          |
              | Passive       | 262      | 4.69      | 0.44        | 0.58     | 0.35     | 0.57^a^     | **144.8**
@@ -238,7 +230,7 @@ Behaviour    |               |          |           |             |          |  
              | Or            | 267      | 4.80      | **0.46**    | 0.61     | 0.45     | 0.70^ab^     | 105.6
              | Diel+OVM      | 267      | 4.76      | 0.43        | 0.62     | 0.40     | 0.62^ab^     | 129.6
              | Diel+Or       | **270**  | **4.85**  | **0.46**    | 0.65     | 0.49     | 0.74^ab^     | 94.5
-             | Diel+OVM+Or   | 269      | **4.85**  | **0.46**        | 0.65     | **0.50** | 0.74^ab^     | 94.6
+             | Diel+OVM+Or   | 269      | **4.85**  | 0.46        | 0.65     | **0.50** | 0.74^ab^     | 94.6
              | OVM+Or        | 269      | 4.84      | **0.46**    | 0.62     | 0.47     | **0.77**^b^ | 103.3
 OVM Strategy |               |          |           |             |          |          |          |
              | Labridae      | **265**  | 4.75      | **0.45**    | 0.58     | 0.39     | 0.65     | 142.9
@@ -264,12 +256,7 @@ OVM Method   |               |          |           |             |          |  
 -
 ## Phase 1
 
-surprinsign that OVM was so similar to no behavour. 
-
 ## Phase 2
-
-Why did one stratgy produce different resutls from the other
-surprisng that they werent more differt
 
 ## Phase 3
 
