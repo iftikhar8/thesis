@@ -45,7 +45,8 @@ solitary <- filter(reefs.yearly, source.region=="NSW05")
 #reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
 solitary.regions <- group_by(solitary, settle.region, year)
 solitary.regions <- summarize(solitary.regions , count = sum(settlement/eggs))
-ggplot(solitary.regions, aes(x=settle.region, y=count)) + geom_boxplot(aes(settle.region)) + coord_flip()
+ggplot(solitary.regions, aes(x=settle.region, y=count)) + geom_boxplot(aes(settle.region)) + coord_flip() +scale_x_discrete(limits = rev(levels(eliza.middle.regions$settle.region)))
+ggsave("../../figs/solitary-settle.png")
 ```
 
 Settlement from Elizabeth & Middleton reefs
@@ -55,17 +56,21 @@ eliza.middle <- filter(reefs.yearly, source.region=="NSW19")
 eliza.middle.regions <- group_by(eliza.middle, settle.region, year)
 eliza.middle.regions <- summarize(eliza.middle.regions , count = sum(settlement/eggs))
 ggplot(eliza.middle.regions, aes(x=settle.region, y=count)) + geom_boxplot(aes(settle.region)) + coord_flip() +scale_x_discrete(limits = rev(levels(eliza.middle.regions$settle.region)))
+ggsave("../../figs/e-and-m-reef-settle.png")
 ```
 
-Settlement to Elizabeth & Middleton reefs
+
+
+
+Settlement from the Fish rock
 ```{r}
-eliza.middle <- filter(reefs.yearly, settle.region=="NSW19")
+fish.rock <- filter(reefs.yearly, source==400)
 #reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
-eliza.middle.regions <- group_by(eliza.middle, source.region, year)
-eliza.middle.regions <- summarize(eliza.middle.regions , count = sum(settlement/eggs))
-ggplot(eliza.middle.regions, aes(x=source.region, y=count)) + geom_boxplot(aes(source.region)) + coord_flip() +scale_x_discrete(limits = rev(levels(eliza.middle.regions$source.region))) + theme_bw()
+fish.rock.regions <- group_by(fish.rock, settle.desc, year)
+fish.rock.regions <- summarize(fish.rock.regions , count = sum(settlement/eggs))
+ggplot(fish.rock.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() + scale_x_discrete(limits = rev(levels(fish.rock.regions$settle.desc))) + theme_bw()
+ggsave("../../figs/fish-rock-settle.png")
 ```
-
 
 Settlement from the Cod Grounds
 ```{r}
@@ -74,5 +79,15 @@ cod.grounds <- filter(reefs.yearly, source==450)
 cod.grounds.regions <- group_by(cod.grounds, settle.desc, year)
 cod.grounds.regions <- summarize(cod.grounds.regions , count = sum(settlement/eggs))
 ggplot(cod.grounds.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() + scale_x_discrete(limits = rev(levels(cod.grounds.regions$settle.desc))) + theme_bw()
+ggsave("../../figs/cod-grounds-settle.png")
 ```
 
+Settlement to Lord Howe Island
+```{r}
+lord.howe <- filter(reefs.yearly, settle.region=="NSW18")
+#reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
+lord.howe.regions <- group_by(lord.howe, source.region, year)
+lord.howe.regions <- summarize(lord.howe.regions , count = sum(settlement/eggs))
+ggplot(lord.howe.regions, aes(x=source.region, y=count)) + geom_boxplot(aes(source.region)) + coord_flip() +scale_x_discrete(limits = rev(levels(lord.howe.regions$source.region))) + theme_bw()
+ggsave("../../figs/lord-howe-settle.png")
+```
