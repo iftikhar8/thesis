@@ -76,7 +76,7 @@ graph.m <- get.adjacency(graph, attr="weight", sparse = FALSE)
 colnames(graph.m) <- region.names
 rownames(graph.m) <- region.names
 palf <- colorRampPalette(c("gold","dark orange"))
-heatmap(graph.m, Rowv=NA, Colv=NA, col=palf(100), scale="none", margins=c(10,10))
+heatmap(graph.m, Rowv=NA, Colv=NA, col=palf(100), scale="col", margins=c(10,10))
 
 ```
 

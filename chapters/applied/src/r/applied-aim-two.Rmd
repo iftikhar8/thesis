@@ -1,0 +1,60 @@
+---
+title: "Aim 1: Settlement from known spawning sites"
+output: html_notebook
+---
+
+```{r, include=FALSE}
+library(ConnMatTools)
+library(tidyverse)
+library(agricolae)
+```
+
+
+```{r, include=FALSE}
+load(file="blackcod.rda")
+load(file="reefs.rda")
+source("applied-functions.R")
+```
+
+```{r}
+eggs <- 976000
+years <- c("2011","2010","2009","2008","2007","2006","2005","2004")
+region.names <- c("Queensland","Tweed","Byron","Ballina","Yamba","Solitary Is.","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis","Ulladulla","Batemans","Merimbula","Eden","Victoria","Lord Howe","Elizabeth-middleton")
+region.codes <- c("QLD","NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","NSW18","NSW19","VIC")
+```
+
+Settlement from solitary islands
+```{r}
+colnames(reefs.data) <- c("source", "settle", "2011","2010","2009","2008","2007","2006","2005","2004")
+reefs.yearly <- gather(reefs.data, year, settlement, -settle, -source)
+reefs.yearly <- reefs.yearly %>% left_join(reefs.id, by=c("settle"="PATCH_NUM")) %>% left_join(reefs.id, by=c("source"="PATCH_NUM")) %>% replace_na(list(settlement=0))
+reefs.yearly$year <- as_factor(reefs.yearly$year)
+reefs.yearly$settle <- as.factor(reefs.yearly$settle)
+reefs.yearly$source <- as.factor(reefs.yearly$source)
+reefs.yearly$settle.region <- as_factor(reefs.yearly$REGION.x,levels=region.codes)
+reefs.yearly$source.region <- as_factor(reefs.yearly$REGION.y,levels=region.codes)
+reefs.yearly$source.desc <- as_factor(reefs.yearly$Desc.y,levels=unique(reefs.id$Desc))
+reefs.yearly$settle.desc <- as_factor(reefs.yearly$Desc.x,levels=unique(reefs.id$Desc))
+reefs.yearly <- select(reefs.yearly, -Desc.x, -Desc.y, REGION.x, REGION.y, HABITAT.x, HABITAT.y)
+```
+
+Settlement from all regions
+```{r}
+
+#reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
+all.regions <- group_by(reefs.yearly, settle.region, year)
+all.regions <- summarize(all.regions , count = sum(settlement/eggs))
+ggplot(all.regions, aes(x=settle.region, y=count)) + geom_boxplot(aes(settle.region)) + coord_flip() +scale_x_discrete(limits = rev(levels(all.regions$settle.region)))
+```
+
+Settlement to all regions
+```{r}
+
+#reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
+all.regions <- group_by(reefs.yearly, source.region, year)
+all.regions <- summarize(all.regions , count = sum(settlement/eggs))
+ggplot(all.regions, aes(x=source.region, y=count)) + geom_boxplot(aes(source.region)) + coord_flip() +scale_x_discrete(limits = rev(levels(all.regions$source.region))) + theme_bw()
+```
+
+
+
