@@ -136,14 +136,14 @@ model <- manyglm(mva~community$year + community$sites)
 
 ```{r}
 
-phase1.regions.cca <- cca(sqrt(phase1.regions.community_matrix))
+phase1.regions.cca <- cca(sqrt(community_matrix))
 layout(matrix(1:2,1,2,byrow = TRUE))
 plot(phase1.regions.cca, display="sites", main="Behaviours", scaling="sites")
 #text(phase1.regions.cca, display="sites", scaling="sites")
 plot(phase1.regions.cca, display="species", main="Regions", scaling="species",cex=2)
 #text(phase1.regions.cca, display="species", scaling="species")
 
-phase1.regions.cca <- cca(sqrt(phase1.regions.community_matrix))
+phase1.regions.cca <- cca(sqrt(community_matrix))
 plot(phase1.regions.cca,scaling=3)
 phase2.regions.cca <- cca(sqrt(phase2.regions.community_matrix))
 plot(phase2.regions.cca,scaling=3)
