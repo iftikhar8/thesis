@@ -21,15 +21,15 @@ Graph analysis for regions
 
 region.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","E&M Reefs")
 
-X <- list(blackcod.2011.conn.regions,blackcod.2010.conn.regions,blackcod.2009.conn.regions,blackcod.2008.conn.regions,blackcod.2007.conn.regions,blackcod.2006.conn.regions,blackcod.2005.conn.regions,blackcod.2004.conn.regions)
+X <- list(blackcod.2011.conn.regions[,-20],blackcod.2010.conn.regions[-20:-21],blackcod.2009.conn.regions[,-20:-21],blackcod.2008.conn.regions[,-20:-21],blackcod.2007.conn.regions[,-20:-21],blackcod.2006.conn.regions[,-20:-21],blackcod.2005.conn.regions[,-20:-21],blackcod.2004.conn.regions[,-20:-21])
 
 Y <- do.call(cbind, X)
 Y <- array(Y, dim=c(dim(X[[1]]),length(X)))
 
 data.averages <- apply(Y, c(1,2), mean, na.rm=TRUE)
 
-rownames(data.averages) <- blackcod.2011.regions$settle.region[-20]
-colnames(data.averages) <-  blackcod.2011.regions$settle.region
+rownames(data.averages) <- unique(blackcod.2011.regions$settle.region)[-20]
+colnames(data.averages) <-  unique(blackcod.2011.regions$settle.region)[-20]
 
 graph <- graph_from_adjacency_matrix(data.averages[,-20], weighted = TRUE)
 V(graph)$desc <- region.names

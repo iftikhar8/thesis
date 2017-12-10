@@ -42,18 +42,20 @@ Settlement from all regions
 ```{r}
 
 #reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
-all.regions <- group_by(reefs.yearly, settle.region, year)
+all.regions <- group_by(reefs.yearly, settle.desc, year)
 all.regions <- summarize(all.regions , count = sum(settlement/eggs))
-ggplot(all.regions, aes(x=settle.region, y=count)) + geom_boxplot(aes(settle.region)) + coord_flip() +scale_x_discrete(limits = rev(levels(all.regions$settle.region)))
+ggplot(all.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(all.regions$settle.desc))) + theme_bw()
+ggsave("../../figs/total-settle-region.png")
 ```
 
 Settlement to all regions
 ```{r}
 
 #reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
-all.regions <- group_by(reefs.yearly, source.region, year)
+all.regions <- group_by(reefs.yearly, source.desc, year)
 all.regions <- summarize(all.regions , count = sum(settlement/eggs))
-ggplot(all.regions, aes(x=source.region, y=count)) + geom_boxplot(aes(source.region)) + coord_flip() +scale_x_discrete(limits = rev(levels(all.regions$source.region))) + theme_bw()
+ggplot(all.regions, aes(x=source.desc, y=count)) + geom_boxplot(aes(source.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(all.regions$source.desc))) + theme_bw()
+ggsave("../../figs/total-source-region.png")
 ```
 
 

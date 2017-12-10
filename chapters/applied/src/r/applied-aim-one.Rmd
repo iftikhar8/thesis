@@ -43,9 +43,9 @@ Settlement from Solitary Islands
 ```{r}
 solitary <- filter(reefs.yearly, source.region=="NSW05")
 #reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
-solitary.regions <- group_by(solitary, settle.region, year)
+solitary.regions <- group_by(solitary, settle.desc, year)
 solitary.regions <- summarize(solitary.regions , count = sum(settlement/eggs))
-ggplot(solitary.regions, aes(x=settle.region, y=count)) + geom_boxplot(aes(settle.region)) + coord_flip() +scale_x_discrete(limits = rev(levels(eliza.middle.regions$settle.region)))
+ggplot(solitary.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(eliza.middle.regions$settle.desc)))
 ggsave("../../figs/solitary-settle.png")
 ```
 
@@ -53,9 +53,9 @@ Settlement from Elizabeth & Middleton reefs
 ```{r}
 eliza.middle <- filter(reefs.yearly, source.region=="NSW19")
 #reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
-eliza.middle.regions <- group_by(eliza.middle, settle.region, year)
+eliza.middle.regions <- group_by(eliza.middle, settle.desc, year)
 eliza.middle.regions <- summarize(eliza.middle.regions , count = sum(settlement/eggs))
-ggplot(eliza.middle.regions, aes(x=settle.region, y=count)) + geom_boxplot(aes(settle.region)) + coord_flip() +scale_x_discrete(limits = rev(levels(eliza.middle.regions$settle.region)))
+ggplot(eliza.middle.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(eliza.middle.regions$settle.desc)))
 ggsave("../../figs/e-and-m-reef-settle.png")
 ```
 
@@ -70,6 +70,8 @@ fish.rock.regions <- group_by(fish.rock, settle.desc, year)
 fish.rock.regions <- summarize(fish.rock.regions , count = sum(settlement/eggs))
 ggplot(fish.rock.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() + scale_x_discrete(limits = rev(levels(fish.rock.regions$settle.desc))) + theme_bw()
 ggsave("../../figs/fish-rock-settle.png")
+anova(lm(count ~ settle.desc, data=fish.rock.regions))
+print(SNK.test(aov(lm(count ~ settle.desc, data=fish.rock.regions)), "settle.desc"))
 ```
 
 Settlement from the Cod Grounds

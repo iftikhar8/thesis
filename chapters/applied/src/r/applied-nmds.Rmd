@@ -93,7 +93,7 @@ data.2004$year <- rep(c("2004"))
 
 community <- data.2011 %>% full_join(data.2010) %>% full_join(data.2009) %>% full_join(data.2008) %>% full_join(data.2007) %>% full_join(data.2006) %>% full_join(data.2005) %>% full_join(data.2004)
 
-community_matrix <- select(community, -year, -sites)
+community_matrix <- dplyr::select(community, -year, -sites)
 community_matrix[is.na(community_matrix)] <- 0
 
 nmds <- metaMDS(community_matrix,distance="bray", k=2)

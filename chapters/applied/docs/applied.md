@@ -1,28 +1,42 @@
 
-# CHAPTER: Black cod
+# CHAPTER: Larval connectivity of Black Cod *Epinephelus daemelii* along the south-eastern coast of Australia and implications for conservation
 
 # Introduction
 
 AIMS:
 
-1. Where do the larvae from known spawning sites potentially settle?
-2. Where do the larvae from all locations across NSW settle?
+1. To investigate the realised connectivity patterns from known spawning locations
+2. To investigate the realised connectivity patterns from their known distribution?
 3. How do the current marine parks fit in with these patterns of connectivity?
 
 # Methods
 
 ## Study location
 
-- separation zone (CITE Paulina)
-- short continental shelf
+For detailed methods of the biophysical dispersal model used, see Chapter 3.
+
+Black cod larvae were spawned between April-May 2004-2011 from 76 coastal reefs (grouped into 19 regions; MAKE FIGURE) along the breadth of New South Wales, matching the known distribution and spawning times (CITE Harasti). The spawning regions ranged from the Tweed down to Eden, and included Lord Howe Island and the offshore reefs Elizabeth and Middleton. For each reef, 1000 larvae were spawned daily over the 61 day period, 18.5 million larvae were released breeding season (148 million over the course of the simulation period).  Black cod were allowed to settle to reefs defined by benthic data obtained from the NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). In addition, reefs for Norfolk Island and New Zealand were included as potential settlement sites, as per their known distribution.
 
 ## Model parameterisation
 
+The oceanographic current data was obtained from BRAN3 [Bluelink renalysis, version 3p5; Oke:2013dm], see Chapter 3 methods for a complete description.
+
+
+| Parameter               | Value            | Reference         |
+|-------------------------|------------------|-------------------|
+| Pelagic larval duration | 60 (± 15) days   | CITE Francis 2016 |
+| Hatching                | 0-3 (± 1) days   | CITE Cuhna 2013   |
+| Preflexion              | 4-12 (± 1) days  | Cuhna 2013        |
+| Flexion                 | 12-16 (± 1) days | Cuhna 2013        |
+| Postflexion             | 16-60 (± 1) days | Cuhna 2013        |
+| Settlement sensory      | 7 km             |                   |
+| Olfactory sensory       | 10 km            |                   |
+| U~crit~                 | 0.3 ms^-1^       | CITE Leis 2009    |
+| In situ potential       | 0.16             | Leis 2009         |
+| Endurance               | 0.5              | Leis 2009         |
+
 
 ## Data analysis
-
-
-## Study site
 
 
 
@@ -60,17 +74,22 @@ High but variable self-recruitment. Lots of drift southwards to lord howe. Also 
 [The yearly settlement (2004-2011) for black cod larvae spawned from Lord Howe Island ][chapters/applied/figs/e-and-m-reef-settle.png]
 
 
-## Settlement regions
+## Overall Settlement regions
 
-The upper Northern coast, Byron, Yamba and Solitary islands had the highest settlement per year to the region. Lord howe, elizabeth and middleton reefs had the lowest number of settlers (off shore islands mean more lost larvae to the currents), but they had the highest settlement to different regions. Settlement at Pt Macquaire was lower compared to similar regions of latitude.
+The upper Northern coast, Byron, Yamba and Solitary islands had the highest settlement per year to the region. Lord Howe, Elizabeth and Middleton reefs had the lowest number of settlers (off shore islands mean more lost larvae to the currents), but they had the highest settlement to different regions. Settlement at Pt Macquarie was lower compared to similar regions of latitude.
 
 [The total yearly settlement (2004-2011) for black cod larvae to regons along the eastern Australian coast][chapters/applied/figs/total-settle-region.png]
 
 ## Successful settlement from source
 
-The northern coast also had the highest number of successful settlers, settlement at Byron being considerably higher than the rest. The offshore islands had the lowest successful settlers overall. Successful settlement decreased with latitude. 
+The northern coast also had the highest number of successful settlers, settlement at Byron being considerably higher than the rest. The offshore islands had the lowest successful settlers overall. Successful settlement decreased with latitude.
 
-[The total yearly successful settlement (2004-2011) for black cod larvae born at regions along the eastern Australian coast][chapters/applied/figs/total-source-region.png]
+[The total yearly successful settlement (2004-2011) for black cod larvae born at regions along the eastern Australian coast](chapters/applied/figs/total-source-region.png)
+
+Each region shared overlapping settlement patterns with the regions directly above or below latitudinal. the only region that did not was Newcastle, which was similar to Sydney more than Pt Stephens. Newcastle tends to be the bottom of the separations zone, which could describe these results. In fact the areas where the separation zone usually occurs -30 to -32 are where the most differences occurred between regions. The yearly variation was largest for the offshore reefs (Lord Howe, Elizabeth, and Middleton). The northern NSW regions of Tweed, Byron, Ballina, Yamba, and Solitary Islands had similar settlement patterns, driven by a strong EAC. The regions in southern NSW also had similar settlement patterns.
+
+[nMDS comparing the yearly (2004-2011) settlement patterns from each region to all the other regions of NSW and each point is a year and regions are coloured and grouped by ellipses. Bray-curtis dissimilarities were used with a square-root transformation (2D stress = 0.12)](chapters/applied/figs/nmds-regions.png)
+
 
 ## Marine parks
 
