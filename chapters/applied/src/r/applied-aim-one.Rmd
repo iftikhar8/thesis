@@ -35,7 +35,7 @@ reefs.yearly$settle.region <- as_factor(reefs.yearly$REGION.x,levels=region.code
 reefs.yearly$source.region <- as_factor(reefs.yearly$REGION.y,levels=region.codes)
 reefs.yearly$source.desc <- as_factor(reefs.yearly$Desc.y,levels=unique(reefs.id$Desc))
 reefs.yearly$settle.desc <- as_factor(reefs.yearly$Desc.x,levels=unique(reefs.id$Desc))
-reefs.yearly <- select(reefs.yearly, -Desc.x, -Desc.y, REGION.x, REGION.y, HABITAT.x, HABITAT.y)
+reefs.yearly <- dplyr::select(reefs.yearly, -Desc.x, -Desc.y, REGION.x, REGION.y, HABITAT.x, HABITAT.y)
 ```
 
 
@@ -47,6 +47,9 @@ solitary.regions <- group_by(solitary, settle.desc, year)
 solitary.regions <- summarize(solitary.regions , count = sum(settlement/eggs))
 ggplot(solitary.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(eliza.middle.regions$settle.desc)))
 ggsave("../../figs/solitary-settle.png")
+solitary.regions.lm <- lm(count ~ settle.desc + year, data=solitary.regions)
+anova(solitary.regions.lm)
+print(SNK.test(aov(solitary.regions.lm),trt="settle.desc"))
 ```
 
 Settlement from Elizabeth & Middleton reefs
@@ -57,6 +60,9 @@ eliza.middle.regions <- group_by(eliza.middle, settle.desc, year)
 eliza.middle.regions <- summarize(eliza.middle.regions , count = sum(settlement/eggs))
 ggplot(eliza.middle.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(eliza.middle.regions$settle.desc)))
 ggsave("../../figs/e-and-m-reef-settle.png")
+eliza.middle.regions.lm <- lm(count ~ settle.desc + year, data=eliza.middle.regions)
+anova(eliza.middle.regions.lm)
+print(SNK.test(aov(eliza.middle.regions.lm),trt="settle.desc"))
 ```
 
 
@@ -82,6 +88,18 @@ cod.grounds.regions <- group_by(cod.grounds, settle.desc, year)
 cod.grounds.regions <- summarize(cod.grounds.regions , count = sum(settlement/eggs))
 ggplot(cod.grounds.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() + scale_x_discrete(limits = rev(levels(cod.grounds.regions$settle.desc))) + theme_bw()
 ggsave("../../figs/cod-grounds-settle.png")
+```
+
+Settlement from the Port Stephens
+```{r}
+pt.stephens <- filter(reefs.yearly, source.region=='NSW09')
+#reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
+pt.stephens.regions <- group_by(pt.stephens, settle.desc, year)
+pt.stephens.regions <- summarize(pt.stephens.regions , count = sum(settlement/eggs))
+ggplot(pt.stephens.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() + scale_x_discrete(limits = rev(levels(pt.stephens.regions$settle.desc))) + theme_bw()
+ggsave("../../figs/port-stephens-settle.png")
+anova(lm(count ~ settle.desc, data=pt.stephens.regions))
+print(SNK.test(aov(lm(count ~ settle.desc, data=pt.stephens.regions)), "settle.desc"))
 ```
 
 Settlement to Lord Howe Island
