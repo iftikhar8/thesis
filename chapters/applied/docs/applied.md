@@ -95,6 +95,8 @@ Discussion Pts
 
 ## Overall Settlement regions
 
+Heat map of both settlement and log(settlement)
+
 The upper Northern coast, Byron, Yamba and Solitary islands had the highest settlement per year to the region (@fig:total-settle-region). Lord Howe, Elizabeth and Middleton reefs had the lowest number of settlers (off shore islands mean more lost larvae to the currents), but they had the highest settlement to different regions. Settlement at Pt Macquarie was lower compared to similar regions of latitude. The northern coast also had the highest number of successful settlers, settlement at Byron being considerably higher than the rest (@fig:total-source-region). Successful settlement from region decreased with latitude and the  offshore islands had the lowest successful settlers.
 
 ![The total yearly settlement (2004-2011) for black cod larvae to regions along the eastern Australian coast](chapters/applied/figs/total-settle-region.png){#fig:total-settle-region}
@@ -108,6 +110,11 @@ Each region shared overlapping settlement patterns with the regions directly abo
 ![nMDS comparing the yearly (2004-2011) settlement patterns from each region to all the other regions of NSW and each point is a year and regions are coloured and grouped by ellipses. Bray-curtis dissimilarities were used with a square-root transformation (2D stress = 0.12)](chapters/applied/figs/nmds-regions.png){#fig:nmds}
 
 ## Marine parks
+
+
+Looking at demographic connectivity (in large enough numbers to be demographically significant). We define significance as > mean dispersal.
+- obviously genetic connectivity is useful, and we show that theres enough to stop genetic drift.
+
 
 
 # Discussion
