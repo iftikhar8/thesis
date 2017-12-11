@@ -76,7 +76,7 @@ Discussion Points
 
 ### Lord howe settlement
 
-Even though Lord Howe island is an off-shore island, annual self-recruitment is not as high as many other NSW regions (43.9% ± 14.0). Most other larvae settle at both Middleton or Elizabeth reefs, but Lord Howe is connected to all regions of NSW coast except Newcastle (@fig:lord-howe-settle), reflected by a mean dispersal distance of 1036.2 km (± 136.1).
+Even though Lord Howe island is an off-shore island, annual self-recruitment is not as high as many other NSW regions (43.9% ± 14.0). Most other larvae settle at both Middleton or Elizabeth reefs, but Lord Howe is connected to all regions of NSW coast, and some years the highest settlement Newcastle, Sydney or Wollongong (@fig:lord-howe-settle), reflected by a mean dispersal distance of 1036.2 km (± 136.1).
 
 [The yearly settlement (2004-2011) for black cod larvae spawned from Lord Howe Island ][chapters/applied/figs/lord-howe-settle.png]
 
