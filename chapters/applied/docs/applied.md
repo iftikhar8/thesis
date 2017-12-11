@@ -69,7 +69,7 @@ Discussion points
 Pt Stephens showed high levels of self-recruitment (76.6% ± 9.0), and strong settlement to the Newcastle region (@fig:port-stephens-settle). All other regions were considered similar by post-hoc analysis. Larvae did reach the southern regions of NSW, with a mean dispersal distance of 112.2 km (± 19.5).
 
 Discussion Points
-- Highly self-rectuitng population
+- Highly self-recruiting population
 - Feeds Newcastle. Connects down the south coast
 
 [The yearly settlement (2004-2011) for black cod larvae spawned from Port Stephens ][chapters/applied/figs/cod-grounds-settle.png](#fig:port-stephens-settle)
@@ -94,20 +94,17 @@ Discussion Pts
 
 ## Overall Settlement regions
 
-The upper Northern coast, Byron, Yamba and Solitary islands had the highest settlement per year to the region. Lord Howe, Elizabeth and Middleton reefs had the lowest number of settlers (off shore islands mean more lost larvae to the currents), but they had the highest settlement to different regions. Settlement at Pt Macquarie was lower compared to similar regions of latitude.
+The upper Northern coast, Byron, Yamba and Solitary islands had the highest settlement per year to the region (@fig:total-settle-region). Lord Howe, Elizabeth and Middleton reefs had the lowest number of settlers (off shore islands mean more lost larvae to the currents), but they had the highest settlement to different regions. Settlement at Pt Macquarie was lower compared to similar regions of latitude. The northern coast also had the highest number of successful settlers, settlement at Byron being considerably higher than the rest (@fig:total-source-region.png). Successful settlement from region decreased with latitude and the  offshore islands had the lowest successful settlers.
 
-[The total yearly settlement (2004-2011) for black cod larvae to regons along the eastern Australian coast][chapters/applied/figs/total-settle-region.png]
-
-## Successful settlement from source
-
-The northern coast also had the highest number of successful settlers, settlement at Byron being considerably higher than the rest. The offshore islands had the lowest successful settlers overall. Successful settlement decreased with latitude.
+[The total yearly settlement (2004-2011) for black cod larvae to regions along the eastern Australian coast][chapters/applied/figs/total-settle-region.png]
 
 [The total yearly successful settlement (2004-2011) for black cod larvae born at regions along the eastern Australian coast](chapters/applied/figs/total-source-region.png)
+
+Self-recruitment was highly variable between regions, mean self-recruitment was highest in the regions Crowdy Bay (89.6%), Batemans Bay (83.8%), Nambucca (82.9%), Jervis Bay (80.3%), and below 30% in the regions Port Macquarie (29.4%) and the Tweed (15.7%). Self-recruitment averaged across all regions also varied between years, highest in 2008 (62.5%), 2011 (61.3%) and lowest in 2010 (52.2%). Local retention was significantly the highest in the regions of the Batemans Bay, Port Stephens, The Tweed and Lord Howe Island, and the lowest region was Eden (12.9%). The mean local retention for all regions per year varied, highest in 2008 (70.5%) and lowest in 2010 (58.3%). Dispersal distance was longest in the southern regions of Eden (1325 km), Batemans Bay (483 km), and Lord Howe Island (1036 km).
 
 Each region shared overlapping settlement patterns with the regions directly above or below latitudinal. the only region that did not was Newcastle, which was similar to Sydney more than Pt Stephens. Newcastle tends to be the bottom of the separations zone, which could describe these results. In fact the areas where the separation zone usually occurs -30 to -32 are where the most differences occurred between regions. The yearly variation was largest for the offshore reefs (Lord Howe, Elizabeth, and Middleton). The northern NSW regions of Tweed, Byron, Ballina, Yamba, and Solitary Islands had similar settlement patterns, driven by a strong EAC. The regions in southern NSW also had similar settlement patterns.
 
 [nMDS comparing the yearly (2004-2011) settlement patterns from each region to all the other regions of NSW and each point is a year and regions are coloured and grouped by ellipses. Bray-curtis dissimilarities were used with a square-root transformation (2D stress = 0.12)](chapters/applied/figs/nmds-regions.png)
-
 
 ## Marine parks
 
