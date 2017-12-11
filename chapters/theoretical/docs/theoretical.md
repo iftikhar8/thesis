@@ -69,6 +69,8 @@ Vertical migration can be implemented as either diel or ontogenetic vertical mig
 
 The horizontal swimming speed is calculated using known critical swimming speeds, the *in situ* swimming potential and the swimming endurance of the larvae at postflexion (@eq:swim). The speed is added to both the *u* and *v* velocities after applying stochasticity (@eq:u; @eq:v). Fish can swim, orientated to the nearest habitat, if they find themselves within a user configured olfactory range.
 
+Critical swimming speed is a measure of the swimming capacity of the larvae. (Leis 2006). In situ spwimming speed is a measure oflarval fish swimming.
+
 $$s = U_{crit}S_{p}E_{p}$${#eq:swim}
 
 $$u^{\prime} = u + X_{[0,1]} \times s \times \cos(\theta)$${#eq:u}

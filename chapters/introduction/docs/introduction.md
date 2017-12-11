@@ -4,3 +4,11 @@ But I want to believe (im a bioligst after all)
 
 Let the fish go up and down, up and down. OVM. We know it happens. We know it can influence connectivity patterns? Why don't people implement these ideas?
 As a biologist thats my connundrum. Why the FUCK don't people do this?
+
+
+
+
+## THEORY of biological connectivity
+
+
+## APPLICATIONS of understanding larval connectivity (Chapter 4)
