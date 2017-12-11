@@ -21,49 +21,53 @@ Graph analysis for regions
 
 region.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","E&M Reefs")
 
-X <- list(blackcod.2011.conn.regions,blackcod.2010.conn.regions,blackcod.2009.conn.regions,blackcod.2008.conn.regions,blackcod.2007.conn.regions,blackcod.2006.conn.regions,blackcod.2005.conn.regions,blackcod.2004.conn.regions)
+X <- list(blackcod.2011.conn.regions[,-20],blackcod.2010.conn.regions[-20:-21],blackcod.2009.conn.regions[,-20:-21],blackcod.2008.conn.regions[,-20:-21],blackcod.2007.conn.regions[,-20:-21],blackcod.2006.conn.regions[,-20:-21],blackcod.2005.conn.regions[,-20:-21],blackcod.2004.conn.regions[,-20:-21])
 
 Y <- do.call(cbind, X)
 Y <- array(Y, dim=c(dim(X[[1]]),length(X)))
 
 data.averages <- apply(Y, c(1,2), mean, na.rm=TRUE)
 
-rownames(data.averages) <- blackcod.2011.regions$settle.region[-20]
-colnames(data.averages) <-  blackcod.2011.regions$settle.region
+rownames(data.averages) <- unique(blackcod.2011.regions$settle.region)[-20]
+colnames(data.averages) <-  unique(blackcod.2011.regions$settle.region)[-20]
+```
 
-graph.solitary <- graph.edgelist(data.averages[5:6,])
+Solitary islands
+```{r}
+data.solitary <- data.averages    
+data.solitary[-5,] <- 0L 
 
+#graph.solitary <- graph.edgelist(data.solitary[5:6,])
+#graph.sols <- graph_from_data_frame(d=)
 
-graph <- graph_from_adjacency_matrix(data.averages[,-20], weighted = TRUE)
-V(graph)$desc <- region.names
-graph.simple <- simplify(graph, remove.loops=T)
-E(graph)$width
-plot(graph.simple, edge.arrow.size=0.2, edge.curved=0.1, edge.width=E(graph)$weight/500, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.9,vertex.label=region.names, vertex.label.font=2, layout=layout_randomly)
+graph.solitary <- graph_from_adjacency_matrix(data.solitary, weighted = TRUE)
+V(graph.solitary)$desc <- region.names
+graph.solitary.simple <- simplify(graph.solitary, remove.loops=T)
+E(graph.solitary)$width
+plot(graph.solitary.simple, edge.arrow.size=0.2, edge.curved=0.1, edge.width=E(graph.solitary)$weight/500, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.9,vertex.label=region.names, vertex.label.font=2)
 
-cut.off <- mean(E(graph)$weight)
+cut.off <- mean(E(graph.solitary)$weight)
 par(mfrow=c(1,2))
-graph.sp <- delete_edges(graph, E(graph)[weight < cut.off])
-graph.sp <- delete_vertices(graph.sp, degree(graph.sp)==0)
-mpas <- incident_edges(graph.sp, c(1), mode = "out")
-ecol <- rep("gray80", ecount(graph.sp))
+graph.solitary.sp <- delete_edges(graph.solitary, E(graph.solitary)[weight < cut.off])
+graph.solitary.sp <- delete_vertices(graph.solitary.sp, degree(graph.solitary.sp)==0)
+mpas <- incident_edges(graph.solitary.sp, c(1), mode = "all")
+ecol <- rep("gray80", ecount(graph.solitary.sp))
 #ecol[mpas$NSW02] <- "orange"
 ecol[1] <- "orange"
-ecol[5] <- "orange"
+ecol[2] <- "orange"
 #ecol[mpas$NSW18] <- "orange"
 #ecol[mpas$NSW13] <- "orange"
 #ecol[mpas$NSW19] <- "orange"
 ecol[3] <- "orange"
-ecol[6] <- "orange"
-ecol[7] <- "orange"
-vcol <- rep("grey80", vcount(graph.sp))
+vcol <- rep("grey80", vcount(graph.solitary.sp))
 vcol[c(1,3,5,6,7)] <- "gold"
 
 #plot(simplify(graph), vertex.color=vcol, edge.color=ecol, edge.arrow.size=0.2, edge.curved=0.1, edge.width=E(graph)$weight/500, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.9,vertex.label=region.names, vertex.label.font=2, main="MPAs")
 
-region.names.solitary <- c("Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney")
-plot(graph.sp, edge.arrow.size=0.5,edge.curved=0.1,  edge.color=ecol, vertex.color=vcol, edge.width=E(graph.sp)$weight/300, vertex.label.family="Helvetica",vertex.label=region.names.solitary, vertex.label.color="black", vertex.label.cex=0.8,vertex.label.font=2, layout=layout_nicely)
+region.names.solitary <- c("Solitary Is","Nambucca","Pt Macquarie")
+plot(graph.solitary.sp, edge.arrow.size=0.5,edge.curved=0.1,  edge.color=ecol, vertex.color=vcol, edge.width=E(graph.solitary.sp)$weight/500, vertex.label.family="Helvetica",vertex.label=region.names.solitary, vertex.label.color="black", vertex.label.cex=0.8,vertex.label.font=2)
                           
 
 
-plot(graph.simple, edge.arrow.size=1.5, edge.curved=0.1, edge.width=E(graph)$weight/300, vertex.label.family="Helvetica", vertex.label.color="gray40", vertex.label.cex=0.9,vertex.label=region.names, vertex.label.font=2, vertex.shape="none")
+plot(graph.solitary.simple, edge.arrow.size=1.5, edge.curved=0.1, edge.width=E(graph.solitary)$weight/300, vertex.label.family="Helvetica", vertex.label.color="gray40", vertex.label.cex=0.9,vertex.label=region.names, vertex.label.font=2, vertex.shape="none")
 ```
