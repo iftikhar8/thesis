@@ -15,12 +15,10 @@ AIMS:
 
 For detailed methods of the biophysical dispersal model used, see Chapter 3.
 
-Black cod larvae were spawned between April-May 2004-2011 from 76 coastal reefs (grouped into 19 regions; MAKE FIGURE) along the breadth of New South Wales, matching the known distribution and spawning times (CITE Harasti). The spawning regions ranged from the Tweed down to Eden, and included Lord Howe Island and the offshore reefs Elizabeth and Middleton. For each reef, 1000 larvae were spawned daily over the 61 day period, 18.5 million larvae were released breeding season (148 million over the course of the simulation period).  Black cod were allowed to settle to reefs defined by benthic data obtained from the NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). In addition, reefs for Norfolk Island and New Zealand were included as potential settlement sites, as per their known distribution.
+Black cod larvae were spawned between April-May 2004-2011 from 76 coastal reefs (grouped into 19 regions; MAKE FIGURE) along the breadth of New South Wales, matching the known distribution and spawning times (CITE Harasti). The spawning regions ranged from the Tweed down to Eden, and included Lord Howe Island and the offshore reefs Elizabeth and Middleton. For each reef, 1000 larvae were spawned daily over the 61 day period, 18.5 million larvae were released breeding season (148 million over the course of the simulation period).  Black cod were allowed to settle to reefs defined by benthic data obtained from the NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). In addition, reefs for Norfolk Island and New Zealand were included as potential settlement sites, as per their known distribution. The oceanographic current data was obtained from BRAN3 [Bluelink renalysis, version 3p5; Oke:2013dm], see Chapter 3 methods for a complete description. The biological parameterisation was obtained from the literature where possible or using average values obtained in the review from Chapter 2 (@tbl:bio-params)
 
-## Model parameterisation
 
-The oceanographic current data was obtained from BRAN3 [Bluelink renalysis, version 3p5; Oke:2013dm], see Chapter 3 methods for a complete description.
-
+: Biological parametrisation for the larvae of the Black Cod (*Epinephelus daemelii*) in the biophysical dispersal model {@tbl:bio-params}
 
 | Parameter               | Value            | Reference         |
 |-------------------------|------------------|-------------------|
@@ -29,16 +27,17 @@ The oceanographic current data was obtained from BRAN3 [Bluelink renalysis, vers
 | Preflexion              | 4-12 (± 1) days  | Cuhna 2013        |
 | Flexion                 | 12-16 (± 1) days | Cuhna 2013        |
 | Postflexion             | 16-60 (± 1) days | Cuhna 2013        |
-| Settlement sensory      | 7 km             |                   |
+| Settlement sensory      | 7 km             |                  |
 | Olfactory sensory       | 10 km            |                   |
 | U~crit~                 | 0.3 ms^-1^       | CITE Leis 2009    |
 | In situ potential       | 0.16             | Leis 2009         |
 | Endurance               | 0.5              | Leis 2009         |
+| Mortality   | 0.1 day~-1~  |   |
 
 
 ## Data analysis
 
-
+To assess the settlement patterns between regions, we looked at total settlement (each region had the same amount of larvae spawned and total settlement is given as a proportion) from each source region to all settlement regions, and the variation that occurred between the years 2004-2011. Non-metric multidimensional scaling (NMDS) ordination was used to assess settlement patterns for each region to all other regions, using Bray-Curtis dissimilarity measure with a square root transformation. NMDS was conducted using the r package *vegan* [CITE], with rows as sources sites and columns as settlement sites. To tests for differences between yearly settlement patterns, PERMANOVA using the adonis function within the r package *vegan* was used. Connectivity metrics of self-recruitment, local retention, settlement success and dispersal distance were calculated using the the R package *ConnMattTools* [CITE]. One-way ANOVAs were used to test for differences between total settlement between regions, and Student-Newman-Keuls (SNK) post-hoc tests were used to make comparisons between groups if the ANOVA was significant using the r package *agricolae* [CITE]. Graph analyses were conducted to compare the settlement patterns with current marine protected area networks using the r package *igraph*.
 
 # Results
 
@@ -46,32 +45,51 @@ The oceanographic current data was obtained from BRAN3 [Bluelink renalysis, vers
 
 ### Solitary Islands
 
-The majority of larvae self-recruit (70%) to the solitary islands. With some going down to Nambucca and others settling in the region around Yamba (this northward migration was more variable year to year). The strength downwards was weak, but larvae did disperse as far as Batemens bay and some years reaching Lord Howe Island and Elizabeth & Middleton Reefs. The larvae never made it as far north as Queensland.
+Most larvae spawned from the Solitary Islands self-recruit back to the region [72.9 ± 7.7%; @fig:solitary-settle], which was reflected by the lowest dispersal distance for any of the regions (62.0 ± 14.6 km). The next highest region of settlement was Nambucca, and then to Yamba with more yearly variation, which post-hoc tests found to be statistically different to each other. Outside of these three areas, settlement was weak, although larvae did disperse as far south as Batemans Bay region and in some years reaching Lord Howe Island and Elizabeth & Middleton Reefs.
+
+Discussion points
+- high number of SR
+- important spawning region that self-recruits
 
 [The yearly settlement (2004-2011) for black cod larvae spawned from Pt Stephens (specifically the cod grounds marine park)][chapters/applied/figs/cod-grounds-settle.png](#fig:solitary-settle)
 
 ### Fish rock (Nambucca)
 
-Settlement was highest at Pt Macquarie. Nambucca and Crowdy Bay had similar settlement sizes (SNK tests were used). Some years settlement to Pt Stephens, Newcastle and Sydney was strong.
+The highest successful settlement from Fish Rock was to the Port Macquarie region (@fig:fish-rock-settle). Self-recruiting larvae to Nambucca and settlement further south to the Crowdy Bay region, post-hoc analysis showed had similar settlement patterns. Fish rock had lower overall settlement compared to other region such as Solitary Islands, but with more variations, with some years settlement to Pt Stephens, Newcastle and Sydney was strong.
+
+Discussion points
+- Fish rock has more variable settlement downwards.
+- Less self-recruitment, with more going south
+- Some do get to solitary islands - connection between breeding populations
 
 [The yearly settlement (2004-2011) for black cod larvae spawned from Nambucca (specifically the reef Fish Rock)][chapters/applied/figs/fish-rock-settle.png](#fig:fish-rock-settle)
 
 ### Pt Stephens
 
-Most larvae settle to the region below (Crowdy Bay area), but the size of the settlement is highly variable year to year. More consistent values of self-recruitment.
+Pt Stephens showed high levels of self-recruitment (76.6% ± 9.0), and strong settlement to the Newcastle region (@fig:port-stephens-settle). All other regions were considered similar by post-hoc analysis. Larvae did reach the southern regions of NSW, with a mean dispersal distance of 112.2 km (± 19.5).
 
-[The yearly settlement (2004-2011) for black cod larvae spawned from Pt Stephens (specifically the cod grounds marine park) ][chapters/applied/figs/cod-grounds-settle.png](#fig:cod-grounds-settle)
+Discussion Points
+- Highly self-rectuitng population
+- Feeds Newcastle. Connects down the south coast
+
+[The yearly settlement (2004-2011) for black cod larvae spawned from Port Stephens ][chapters/applied/figs/cod-grounds-settle.png](#fig:port-stephens-settle)
 
 ### Lord howe settlement
 
-High self-recruitment at lord-howe. Some drift northwards to Elizabeth and Middleton reefs. Makes it to nearly all areas of the eastern coast except NSW10 (Newcastle).
+Even though Lord Howe island is an off-shore island, annual self-recruitment is not as high as many other NSW regions (43.9% ± 14.0). Most other larvae settle at both Middleton or Elizabeth reefs, but Lord Howe is connected to all regions of NSW coast except Newcastle (@fig:lord-howe-settle), reflected by a mean dispersal distance of 1036.2 km (± 136.1).
 
 [The yearly settlement (2004-2011) for black cod larvae spawned from Lord Howe Island ][chapters/applied/figs/lord-howe-settle.png]
 
 ### Elizabeth and middleton reefs
 
-High but variable self-recruitment. Lots of drift southwards to lord howe. Also makes it to the eastern coast in high numbers than Lord howe.
+Self-recruitment for Elizabeth and Middleton reefs was lower than the other offshore region of Lord Howe island (31.8% ± 8.1), and a mean dispersal distance more than 6 times lower (153.2 km ± 77.2). The next highest region of settlement (and less variable) was to Lord Howe Island (@fig:e-and-m-reef-settle.png). Larvae spawned from these reefs also made it to all the regions along the NSW coast, but settlement was higher in the Northern half of the state.
+
 [The yearly settlement (2004-2011) for black cod larvae spawned from Lord Howe Island ][chapters/applied/figs/e-and-m-reef-settle.png]
+
+
+Discussion Pts
+- Surprising (if weak) connectivity to all regions of NSW.
+- Shows elizabeth, middleton, & lord howe are a network.
 
 
 ## Overall Settlement regions
