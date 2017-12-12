@@ -95,18 +95,44 @@ ggsave("../../figs/temperature-depth.png")
 
 ```{r Zero inflated data %}
 # Column graph
-# Column graph
 data.ontogeny <- mutate(data.ontogeny, conc.m = conc*1000)
 data.ontogeny$stage.r <- factor(data.ontogeny$stage, levels=c("POS","FLE","PRE"))
 data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
 ggplot(data=data.ontogeny, aes(y=conc.m, x=depth.r, group=stage.r, fill=stage.r)) + facet_wrap(~family, scales="free", ncol=4, shrink = TRUE) + stat_summary_bin(fun.y="mean", geom="col", position=position_dodge(width=0.95)) + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",position=position_dodge(width=0.95)) + labs(x="Depth (m)", y=expression("Concentration per 1000 "~m^{3})) + theme_classic() + coord_flip()
-ggsave("../../figs/depth-stage-all.png")
+ggsave("../../figs/depth-stage-all-col.png")
+```
+
+
+```{r Zero inflated data %}
+# Column graph
+# Column graph
+data.ontogeny <- mutate(data.ontogeny, conc.m = conc*1000)
+data.ontogeny$stage.r <- factor(data.ontogeny$stage, levels=c("PRE","FLE","POS"))
+data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
+ggplot(data=data.ontogeny, aes(y=conc.m, x=depth.r, group=stage.r, color=stage.r)) + facet_wrap(~family, scales="free", ncol=4, shrink = TRUE) + stat_summary_bin(fun.y="mean", geom="line", position=position_dodge(width=0.5), show.legend=FALSE) + stat_summary_bin(fun.y="mean", geom="point", position=position_dodge(width=0.5),size=2) + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",position=position_dodge(width=0.5),show.legend = FALSE) + labs(x="Depth (m)", y=expression("Concentration per 1000 "~m^{3})) + theme_classic() + coord_flip() + scale_color_discrete(name="", labels=c("Preflexion","Flexion","Postflexion")) + theme(legend.position = c(0.85,0.15), legend.justification = c(0.3,0)) 
+ggsave("../../figs/depth-stage-all-point.png")
+```
+
+```{r}
+data.ontogeny <- mutate(data.ontogeny, conc.m = conc*1000)
+data.ontogeny$stage.r <- factor(data.ontogeny$stage, levels=c("PRE","FLE","POS"))
+data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
+ggplot(data=data.ontogeny, aes(y=log(conc.m), x=depth.r, group=stage.r, color=stage.r)) + facet_wrap(~feature+family,ncol=7, shrink = TRUE) + stat_summary_bin(fun.y="mean", geom="line", position=position_dodge(width=0.5), show.legend=FALSE) + stat_summary_bin(fun.y="mean", geom="point", position=position_dodge(width=0.5),size=1) + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",position=position_dodge(width=0.5),show.legend = FALSE) + labs(x="Depth (m)", y=expression("Log concentration per 1000 "~m^{3})) + theme_classic() + coord_flip() + scale_color_discrete(name="", labels=c("Preflexion","Flexion","Postflexion")) + theme(legend.position = "bottom")
+ggsave("../../figs/depth-stage-feature.png")
+```
+
+
+
+```{r}
+data.length$depth.r <- factor(data.length$depth, levels=c("75","25","0"))
+ggplot(aes(y=standard_length, x=depth.r, group=1), data=data.length)+stat_summary_bin(fun.y="mean", geom="point") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) +stat_summary(fun.y="mean", geom="line")+ facet_wrap(~family,ncol=4) + theme_bw() + coord_flip() +labs(x="Depth (m)", y=expression("Length (mm)"))
+ggsave("../../figs/length-depth-family.png")
 ```
 
 ```{r}
 data.length$depth.r <- factor(data.length$depth, levels=c("75","25","0"))
-ggplot(aes(y=log(total_length), x=depth.r), data=data.length) + geom_boxplot() + facet_wrap(~family, scales="free", ncol=3) + theme_classic() + coord_flip() +labs(x="Depth (m)", y=expression("Log Length (mm)"))
-ggsave("../../figs/length-family.png")
+ggplot(aes(y=standard_length, x=feature), data=data.length) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family, ncol=4) + theme_bw() + labs(x="Feature", y=expression("Length (mm)"))
+ggsave("../../figs/length-family-feature.png")
 ```
 
 # Labrid
@@ -161,7 +187,7 @@ lsmip(model.ontogeny.labrid.nb, depth ~ feature, type="response")
 
 ## Length
 ```{r}
-summary(model.length.labrid.gamma <- glm(total_length ~ feature + depth + temperature + chlorophyll_fluorescence, family = Gamma(link="log"), data=filter(data.length, family=="labridae")))
+summary(model.length.labrid.gamma <- glm(standard_length ~ feature + depth + temperature + chlorophyll_fluorescence, family = Gamma(link="log"), data=filter(data.length, family == "labridae")))
 ```
 
 ## Length post-hoc analysis
@@ -224,7 +250,7 @@ lsmip(model.ontogeny.mullid.nb, stage ~ feature, type="response")
 ## Length
 ```{r}
 #summary(model.length.mullid.norm <- glm(total_length ~ feature + depth + scale(temperature), family = gaussian(link="log"), data=data.mullid.length))
-summary(model.length.mullid.gamma <- glm(total_length ~ feature + depth + temperature, family = Gamma(link="log"), data=data.mullid.length))
+summary(model.length.mullid.gamma <- glm(standard_length ~ feature + depth + temperature, family = Gamma(link="log"), data=data.mullid.length))
 #sjp.glm(model.length.mullid.gamma)
 ```
 
@@ -302,7 +328,7 @@ lsmip(model.ontogeny.pomacentrid.nb, depth ~ feature, type="response")
 ## Length
 ```{r}
 #summary(model.length.pom <- glm(total_length ~ feature + depth + dissolved_oxygen, family = gaussian(link="log"), data=data.pomacentrid.length))
-summary(model.length.pomacentrid.gamma <- glm(total_length ~ feature + depth + temperature + salinity + dissolved_oxygen, family = Gamma(link="log"), data=data.pomacentrid.length))
+summary(model.length.pomacentrid.gamma <- glm(standard_length ~ feature + depth + temperature + salinity + dissolved_oxygen, family = Gamma(link="log"), data=data.pomacentrid.length))
 ```
 
 ## Length post-hoc analysis
@@ -358,7 +384,7 @@ lsmip(model.ontogeny.scarid.nb, ~ depth, type="response")
 ## Length
 ```{r}
 hist(data.scarid.length$total_length)
-summary(model.length.scarid.gamma <- glm(total_length ~ depth + temperature + salinity, family = Gamma(link="log"), data=data.scarid.length))
+summary(model.length.scarid.gamma <- glm(standard_length ~ depth + temperature + salinity, family = Gamma(link="log"), data=data.scarid.length))
 plot(model.length.scarid.gamma)
 ```
 
@@ -428,8 +454,8 @@ lsmip(model.ontogeny.scorpaenid.nb, stage ~ feature, type="response")
 
 ```{r}
 hist(data.scorpaenid.length$total_length)
-summary(model.length.scorpaenid.gauss <- glm(total_length ~ feature*depth + temperature + salinity + dissolved_oxygen, family = gaussian(link="log"), data=data.scorpaenid.length))
-summary(model.length.scorpaenid.gamma <- glm(total_length ~ feature + depth + salinity, family = Gamma(link="log"), data=data.scorpaenid.length))
+summary(model.length.scorpaenid.gauss <- glm(standard_length ~ feature*depth + temperature + salinity + dissolved_oxygen, family = gaussian(link="log"), data=data.scorpaenid.length))
+summary(model.length.scorpaenid.gamma <- glm(standard_length ~ feature + depth + salinity, family = Gamma(link="log"), data=data.scorpaenid.length))
 plot(model.length.scorpaenid.gamma)
 ```
 
@@ -484,7 +510,7 @@ lsmip(model.ontogeny.serranid.nb, stage ~ depth, type="response")
 ## Length
 ```{r}
 #summary(model.length.serranid.gauss <- glm(total_length ~ feature*depth + temperature + salinity + dissolved_oxygen, family = gaussian(link="log"), data=data.serranid.length))
-summary(model.length.serranid.gamma <- glm(total_length ~ feature + depth + temperature + salinity, family = Gamma(link="log"), data=data.serranid.length))
+summary(model.length.serranid.gamma <- glm(standard_length ~ feature + depth + temperature + salinity, family = Gamma(link="log"), data=data.serranid.length))
 ```
 
 ## Length post-hoc analysis
@@ -553,7 +579,7 @@ lsmip(model.ontogeny.synodontid.nb, depth ~ feature, type="response")
 ## Length
 ```{r}
 #summary(model.length.synodontid.gauss <- glm(total_length ~ feature*depth + temperature + salinity + dissolved_oxygen, family = gaussian(link="log"), data=data.synodontid.length))
-summary(model.length.synodontid.gamma <- glm(total_length ~ feature + depth + dissolved_oxygen, family = Gamma(link="log"), data=data.synodontid.length), type="response")
+summary(model.length.synodontid.gamma <- glm(standard_length ~ feature + depth + dissolved_oxygen, family = Gamma(link="log"), data=data.synodontid.length), type="response")
 ```
 ## Length post-hoc analysis
 ```{r}

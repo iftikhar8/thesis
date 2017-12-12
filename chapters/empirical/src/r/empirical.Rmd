@@ -122,7 +122,7 @@ ggsave("../../figs/ontogeny-family.png",plot=plot.ontogeny.family,width = 169, h
 plot.ontogeny.feature.all <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.feature.all) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_wrap(~feature)
 ggsave("../../figs/ontogeny-feature-all.png",plot=plot.ontogeny.feature.all,width = 169, height=75, units="mm",dpi=96)
 
-plot.ontogeny.feature.family <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.feature.family) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_grid(family~feature, scales = "free")
+plot.ontogeny.feature.family <- ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.summary.feature.family) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_grid(family~feature, scales="free") + coord_flip()
 ggsave("../../figs/ontogeny-feature-family.png",plot=plot.ontogeny.feature.family,width = 169, height=200, units="mm",dpi=96)
 #data.ontogeny.complete <- na.omit(data.ontogeny)
 #ggplot(aes(y=conc, x=depth), data=data.ontogeny.complete) + geom_violin(aes(colour=stage))
