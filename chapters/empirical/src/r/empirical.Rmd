@@ -18,6 +18,7 @@ require(ggmap)
 require(broom)
 require(multcompView)
 require(cowplot)
+require(magick)
 ```
 
 
@@ -68,9 +69,9 @@ ggsave("../../figs/stations.png")
 Ontogenetic stage specimens
 ```{r}
 
-flexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid_i_fle.png", scale=0.9)
-preflexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid_b_pre.png", scale=0.9)
-postflexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid_b_pos.png", scale=0.9)
+flexion <- ggdraw() + draw_image("../../figs/type_specimens/lab-x-fle.png", scale=0.9)
+preflexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid-z-pre.png", scale=0.9)
+postflexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid-y-pos.png", scale=0.9)
 plot_grid(preflexion,flexion, postflexion, labels="AUTO", align="h", ncol=1, label_colour="white") + theme(panel.background = element_rect(fill="black", colour="black"))
 ggsave("../../figs/stages-ontogeny.png")
 

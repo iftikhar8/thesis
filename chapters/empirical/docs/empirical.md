@@ -23,13 +23,35 @@ Sampling occurred along the eastern coast of Australia on Australian Marine Nati
 
 ## Data processing
 
-In the lab each sample was sorted to seperate out ichthyoplankton. The larval fish were then sorted by morphological features and identified to family taxonomic level where possible, referring to reference guides and expert help where appropriate [CITE: books CalCOFI, Leis & Calvert, Miskiwiez et al]. For our analysis the most abundant (greater than 100 captured) reef associated fish families were identified from the samples, which were the family groups Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae. For ichthyoplankton, ontogenetic stages can be broadly defined by the beginning of the development of the caudal fin as the notochord bends upwards and fin rays start to develop. For this study we classified the fish into three broad categories of ontogenetic stage, i.e. preflexion, flexion, or postflexion. Each fish was photographed using a calibrated stereo microscope and measured to &mu;m accuracy using the image acquisition software Image-Pro Insight 8 (<http://www.mediacy.com/imageproinsight>).
+In the lab each sample was sorted to seperate out ichthyoplankton. The larval fish were then sorted by morphological features and identified to family taxonomic level where possible, referring to reference guides and expert help where appropriate [CITE: books CalCOFI, Leis & Calvert, Miskiwiez et al]. For our analysis the most abundant (greater than 100 captured) reef associated fish families were identified from the samples, which were the family groups Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae. For ichthyoplankton, ontogenetic stages can be broadly defined by the beginning of the development of the caudal fin as the notochord bends upwards and fin rays start to develop. For this study we classified the fish into three broad categories of ontogenetic stage, i.e. preflexion, flexion, or postflexion (@fig:stages). Each fish was photographed using a calibrated stereo microscope and measured to &mu;m accuracy using the image acquisition software Image-Pro Insight 8 (<http://www.mediacy.com/imageproinsight>).
 
-![](chapters/empirical/figs/stages-ontogeny.png){#fig:stages}
+![The three stages of ontogeny as seen in Labridae larvae; preflexion where the notochord is straight and no fin rays are present (SL 3.69 mm) (A), flexion (SL 4.17 mm) where the notochord flexes upwards at a 45 degree angle (B), and postflexion (SL 9.34 mm) where the caudal fin has developed (C).](chapters/empirical/figs/stages-ontogeny.png){#fig:stages}
 
 ## Data analysis
 
-The data was analysed using general linear models (GLMs) with either length or abundance as the response variable. GLMs for each family were constructed using a bottom-up approach, building models of single factors and including predicators that were significant until a complete model was constructed which represented the data. The model was then reduced where possible to exclude non-significant interaction predictors using Akaike information criterion (AIC). Instead of modelling station as a random factor, to account for the patchiness of the larval assemblages each station was described using four environmental variables measured using from CTDs; temperature (C), salinity (PSI), dissolved oxygen (mg/L), and chlorophyll fluorescence (Volts). Dissolved oxygen and chlorophyll fluorescence were highly correlated with each other (r^2^ = 0.73), and therefore only one was included in any model. The stage-abundance data was analysed using negative binomial GLM with an offset of volume to measure concentration (m^3^). The negative binomial GLM was chosen to account for the over-dispersion of the data. Even though the data contained a large number of zero observations, none of the models appeared to be zero-inflated after comparing the expected zeros of the negative binomial distribution and AIC comparisons with zero-inflated negative binomial models. The larval fish length data were analysed using GLMs with a Gamma distribution and log link function. Post-hoc analysis was performed using pairwise tests on the least squares means with a Tukey adjustment. All analysis was conducted using the R programming language [@RAlanguageanden:wf]. The package MASS was used for negative binomial GLMs [CITE], the packages car [CITE] and DHARMa were used for model checking, and the packages lsmeans [CITE] and multcomp [CITE] were used for GLM post-hoc analysis. Figures and tables were made using the package tidyverse [CITE] and stargazer [CITE] respectively.
+The data was analysed using general linear models (GLMs) with either length or abundance as the response variable (@tbl:models). Fourteen GLMs for each fish family and each response variable were constructed using a bottom-up approach, building models of single factors and including predicators that were significant until a complete model was constructed which represented the data . The model was then reduced where possible to exclude non-significant interaction predictors using Akaike information criterion (AIC). Instead of modelling location by latitude (northern or central NSW coast) as a random factor, temperature (°C), salinity (PSI), dissolved oxygen (mg/L), and chlorophyll fluorescence (Volts) values were calculated for the depth range covered by each net at each station. Dissolved oxygen and chlorophyll fluorescence were highly correlated with each other (r^2^ = 0.73), and therefore only one was included in any model at a time, but both were tested for significance (@tbl:models). The stage-abundance data was analysed using negative binomial distributed GLM with an offset to standardise the abundance using concentration (1000 m^3^) per filtered volume of water per net calculated from the flowmeter. The negative binomial GLM was chosen to account for the over-dispersion of the data. Even though the data contained a large number of zero observations, none of the models appeared to be zero-inflated after comparing the expected zeros of the negative binomial distribution fit to the data with zero-inflated negative binomial models. The larval fish length data were found to be fit GLMs with a gamma distribution and log link function, probably due to sampling bias and high larval mortality. Post-hoc analysis of the GLMs were performed using pairwise tests on the least squares means with a Tukey adjustment. All analysis was conducted using the R programming language [@RAlanguageanden:wf]. The package MASS was used for negative binomial GLMs [CITE], the packages car [CITE] and DHARMa were used for model checking, and the packages lsmeans [CITE] and multcomp [CITE] were used for GLM post-hoc analysis. Figures and tables were made using the package tidyverse [CITE] and stargazer [CITE] respectively.
+
+: The most parsimonious Generalised Linear Models constructed for each fish family per response variable (abundance (A) or length (L); C = concentration (1000 m^3^), F = feature (eddy or coastal), D = depth (0-5, 5-50, 51-100 m), S = ontogenetic stage (preflexion, flexion, postflexion), T = temperature (°C), Ch = chlorophyll (Volts), Do = dissolved oxygen (mg/L), and Sa = salinity (PSI)){#tbl:models}
+
+| Response  | Fish         | Most parsimonious model             |
+|-----------|---------------|-------------------------------------|
+| Abundance | *Base model*  | C~A~ = FxDxS + T + Sa + Ch$\vee$Do  |
+|           | Labridae      | C~A~ = F + F:D + F:S + D:S + T      |
+|           | Mullidae      | C~A~ = F + F:S + DxS + Ch           |
+|           | Pomacentridae | C~A~ = FxSxD + T + Ch               |
+|           | Scaridae      | C~A~ = F + D + S + T + Sa + Do      |
+|           | Scorpaenidae  | C~A~ = F + F:S + DxS + T            |
+|           | Serranidae    | C~A~ = DxS + Do                     |
+|           | Synodontidae  | C~A~ = F + F:D + F:S + DxS + T + Do |
+| Length    | *Base model*  | L = FxD + T + Sa + Ch$\vee$Do       |
+|           | Labridae      | L = F + D + T + Ch                  |
+|           | Mullidae      | L = F + D + T                       |
+|           | Pomacentridae | L = F + D + T                       |
+|           | Scaridae      | L = D + T + Sa                      |
+|           | Scorpaenidae  | L = F + D + Sa                      |
+|           | Serranidae    | L = F + D + T + Sa                  |
+|           | Synodontidae  | L = F + D + Do                      |
+
 
 # Results
 
@@ -208,7 +230,6 @@ In conclusion, ontogenetic vertical migration is not uniform for reef-associated
 |                  | (0.695)         | (1.707)        | (36.695)      | (1.749)  | (3.551)      | (7.429)    | (2.324)      |   |
 | Observations     | 1,252           | 244            | 194           | 228      | 176          | 593        | 140          |   |
 | Note:            | \*p < 0.05; \** | p < 0.01; \*** | p < 0.001     |          |              |            |              |   |
-
 
 
 
