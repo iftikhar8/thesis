@@ -135,6 +135,13 @@ ggplot(aes(y=standard_length, x=feature), data=data.length) +stat_summary_bin(fu
 ggsave("../../figs/length-family-feature.png")
 ```
 
+
+```{r}
+ggplot(aes(y=standard_length, x=temperature), data=data.length)+ geom_point()+theme_bw() +labs(x="Temperature (C)", y=expression("Standard length (mm)")) + facet_wrap(~family, scales="free",ncol=4) + stat_smooth(method="lm", formula = y ~ x, se=T, level=0.95)
+ggsave("../../figs/length-temp-family.png")
+```
+
+
 # Labrid
 
 ```{r}
