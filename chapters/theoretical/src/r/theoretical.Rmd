@@ -3,14 +3,65 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
 ```{r}
-plot(cars)
+require(maps)
+require(mapdata)
+require(rgdal)
+require(ggmap)
+require(broom)
+require(multcompView)
+require(cowplot)
+require(magick)
+library(RColorBrewer)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
+OVM diagram
+```{r}
+
+ovm <- tribble(
+  ~stage, ~depth, ~probability,
+  "preflexion", 0, 60,
+  "preflexion", 25, 20,
+  "preflexion", 50, 10,
+  "preflexion", 75, 10,
+  "flexion", 0, 30,
+  "flexion", 25, 30,
+  "flexion", 50, 30,
+  "flexion", 75, 10,
+  "postflexion", 0, 10,
+  "postflexion", 25, 20,
+  "postflexion", 50, 40,
+  "postflexion", 75, 30
+)
+
+ovm$stage <- factor(ovm$stage, levels=c("preflexion","flexion","postflexion"))
+ggplot(ovm, aes(x="", y=probability, fill=factor(depth))) + geom_col(width=1) + coord_polar(theta="y") + facet_wrap(~stage) + theme_classic() + scale_fill_discrete(labels = c("0-25", "25-50", "50-75", "75-100"), name="Depth (m)") + labs(x="", y="Probability")
+ggsave("../../figs/ovm-example.png")
+
+```
+
+
+Study sites diagram
+```{r}
+#australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), col="gray90", fill=TRUE)
+#coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
+legend.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden")
+
+centre <- geocode("Sydney, AU")
+coast <- get_map(c(lon=151, lat=-33), zoom = 6, maptype=c("hybrid"))
+
+sites <- filter(reefs.id, RELEASE)
+australia <- ggmap(coast)
+
+coul = brewer.pal(9, "Set1")
+coul = colorRampPalette(coul)(17)
+map <- australia + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, group=REGION, colour=REGION), size=1.5, data=sites) + theme(legend.position = "right") + labs(x="Longitude", y="Latitude") + scale_color_manual(labels = c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden"), name="NSW region", values = coul) 
+
+map
+
+
+#eddies <- ggdraw() + draw_image("../../figs/nsw-eddies.gif", scale=0.9)
+#plot_grid(map,eddies, labels="AUTO")
+ggsave("../../figs/release-sites.png", map)
+```

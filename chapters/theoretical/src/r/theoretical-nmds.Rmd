@@ -70,40 +70,35 @@ regions.nmds$stress
 
 NNDS using all reefs (or regions)
 ```{r}
-reefs <- colnames(passive.conn.regions)
-data <- as_tibble(passive.conn.regions)
+reefs <- colnames(passive.conn.regions)[-18:-19]
+data <- as_tibble(passive.conn.regions/(passive.conn.regions+1))
 data$sites <- reefs
 data$behaviour <- rep(c("passive"))
-data.diel <- as_tibble(diel.conn.regions)
+data.diel <- as_tibble(diel.conn.regions/(passive.conn.regions+1))
 data.diel$sites <- reefs
 data.diel$behaviour <- rep(c("diel"))
-data.ovm <- as_tibble(ovm.conn.regions)
+data.ovm <- as_tibble(ovm.conn.regions/(passive.conn.regions+1))
 data.ovm$sites <- reefs
 data.ovm$behaviour <- rep(c("ovm"))
-data.orientate <- as_tibble(orientate.conn.regions)
+data.orientate <- as_tibble(orientate.conn.regions/(passive.conn.regions+1))
 data.orientate$sites <- reefs
 data.orientate$behaviour <- rep(c("orientate"))
-data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions)
+data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions/(passive.conn.regions+1))
 data.ovm.orientate$sites <- reefs
 data.ovm.orientate$behaviour <- rep(c("ovm.orientate"))
-data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions)
+data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions/(passive.conn.regions+1))
 data.diel.ovm.orientate$sites <- reefs
 data.diel.ovm.orientate$behaviour <- rep(c("diel.ovm.orientate"))
-data.diel.orientate <- as_tibble(diel.orientate.conn.regions)
+data.diel.orientate <- as_tibble(diel.orientate.conn.regions/(passive.conn.regions+1))
 data.diel.orientate$sites <- reefs
 data.diel.orientate$behaviour <- rep(c("diel.orientate"))
-data.diel.ovm <- as_tibble(diel.ovm.conn.regions)
+data.diel.ovm <- as_tibble(diel.ovm.conn.regions/(passive.conn.regions+1))
 data.diel.ovm$sites <- reefs
 data.diel.ovm$behaviour <- rep(c("diel.ovm"))
 
 phase1.community <- data %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.ovm) %>% full_join(data.ovm.orientate) %>% full_join(data.diel.ovm) %>% full_join(data.diel.ovm.orientate) %>% full_join(data.diel.orientate)
 
-center_colmeans <- function(x) {
-  xcentre = colMeans(x)
-  x - rep(xcentre, rep.int(nrow(x), ncol(x)))
-}
 
-center_colmeans(phase1.community_matrix)
 
 phase1.community_matrix <- select(phase1.community, -behaviour, -sites)
 phase1.community_matrix[is.na(phase1.community_matrix)] <- 0
@@ -120,7 +115,7 @@ save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot)
 phase1.adonis <- adonis(phase1.community_matrix ~ behaviour, phase1.community, perm=200)
 phase1.adonis
 
-mod <- with(phase1.community, betadisper(vegdist(phase1.community_matrix,"bray"), behaviour))
+phase1.mod <- with(phase1.community, betadisper(vegdist(phase1.community_matrix,"bray"), behaviour))
 
 phase1.dist <- vegdist(phase1.community_matrix,"bray")
 phase1.anosim <- anosim(phase1.dist, phase1.community$sites)
@@ -133,26 +128,26 @@ summary(phase1.anosim)
 
 NNDS using all reefs (or regions) for fish
 ```{r}
-reefs <- colnames(passive.conn.regions)
-data.labrid <- as_tibble(ovm.labrid.conn.regions)
+reefs <- colnames(passive.conn.regions)[-18:-19]
+data.labrid <- as_tibble(ovm.labrid.conn.regions/(ovm.conn.regions+1))
 data.labrid$sites <- reefs
 data.labrid$fish <- rep(c("labridae"))
-data.mullid <- as_tibble(ovm.mullid.conn.regions)
+data.mullid <- as_tibble(ovm.mullid.conn.regions[,-18]/(ovm.conn.regions+1))
 data.mullid$sites <- reefs
 data.mullid$fish <- rep(c("mullidae"))
-data.pomacentrid <- as_tibble(ovm.conn.regions)
+data.pomacentrid <- as_tibble(ovm.conn.regions/(ovm.conn.regions+1))
 data.pomacentrid$sites <- reefs
 data.pomacentrid$fish <- rep(c("pomcentridae"))
-data.scarid <- as_tibble(ovm.scarid.conn.regions)
+data.scarid <- as_tibble(ovm.scarid.conn.regions/(ovm.conn.regions+1))
 data.scarid$sites <- reefs
 data.scarid$fish <- rep(c("scaridae"))
-data.synodontid <- as_tibble(ovm.synodontid.conn.regions)
+data.synodontid <- as_tibble(ovm.synodontid.conn.regions/(ovm.conn.regions+1))
 data.synodontid$sites <- reefs
 data.synodontid$fish <- rep(c("synodontidae"))
-data.scorpaenid <- as_tibble(ovm.scorpaenid.conn.regions)
+data.scorpaenid <- as_tibble(ovm.scorpaenid.conn.regions/(ovm.conn.regions+1))
 data.scorpaenid$sites <- reefs
 data.scorpaenid$fish <- rep(c("scorpaenidae"))
-data.serranid <- as_tibble(ovm.serranid.conn.regions)
+data.serranid <- as_tibble(ovm.serranid.conn.regions/(ovm.conn.regions+1))
 data.serranid$sites <- reefs
 data.serranid$fish <- rep(c("serranidae"))
 
@@ -160,7 +155,7 @@ phase2.community <- data.labrid %>% full_join(data.serranid) %>% full_join(data.
 phase2.community_matrix <- select(phase2.community, -fish, -sites)
 phase2.community_matrix[is.na(phase2.community_matrix)] <- 0
 
-phase2.nmds <- metaMDS(phase2.community_matrix,distance="bray", k=2)
+phase2.nmds <- metaMDS(phase2.community_matrix,distance="bray", k=2, trymax=100)
 #plot(nmds)
 
 MDS_xy <- data.frame(phase2.nmds$points)
@@ -173,6 +168,7 @@ phase2.adonis <- adonis(phase2.community_matrix ~ fish, phase2.community, perm=2
 phase2.adonis
 
 mod <- with(phase2.community, betadisper(vegdist(phase2.community_matrix,"bray"), fish))
+plot(mod)
 
 phase2.dist <- vegdist(phase2.community_matrix,"bray")
 phase2.anosim <- anosim(phase2.dist, phase2.community$sites)
@@ -183,14 +179,14 @@ summary(phase2.anosim)
 
 NNDS using all reefs (or regions) for implementatinos
 ```{r}
-reefs <- colnames(passive.conn.regions)
-data.timestep <- as_tibble(ovm.timestep.conn.regions[,-18])
+reefs <- colnames(passive.conn.regions)[-18:-19]
+data.timestep <- as_tibble(ovm.timestep.conn.regions/(ovm.conn.regions+1))
 data.timestep$sites <- reefs
 data.timestep$methods <- rep(c("timestep"))
-data.daily <- as_tibble(ovm.daily.conn.regions)
+data.daily <- as_tibble(ovm.daily.conn.regions/(ovm.conn.regions+1))
 data.daily$sites <- reefs
 data.daily$methods <- rep(c("daily"))
-data.stage <- as_tibble(ovm.conn.regions)
+data.stage <- as_tibble(ovm.conn.regions/(ovm.conn.regions+1))
 data.stage$sites <- reefs
 data.stage$methods<- rep(c("stage"))
 
@@ -198,7 +194,7 @@ phase3.community <- data.timestep %>% full_join(data.daily) %>% full_join(data.s
 phase3.community_matrix <- select(phase3.community, -methods, -sites)
 phase3.community_matrix[is.na(phase3.community_matrix)] <- 0
 
-phase3.nmds <- metaMDS(phase3.community_matrix,distance="bray", k=2)
+phase3.nmds <- metaMDS(phase3.community_matrix,distance="bray", k=2, trymax=100)
 #plot(nmds)
 
 MDS_xy <- data.frame(phase3.nmds$points)
@@ -345,6 +341,7 @@ phase1.reefs.cluster <- hclust(phase1.reefs.bray, method="average")
 phase1.reefs.dendrogram <- as.dendrogram(phase1.reefs.cluster) 
 plot(phase1.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
 phase1.plot <- ggdendrogram(phase1.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="Behaviour scenarios", y="Bray-Curtis dissimilarity")
+
 phase1.plot
 ```
 

@@ -1,4 +1,4 @@
-# CHAPTER 3: Comparison of how parameter choice of behaviours, behaviour strategies and behaviour implementation effect dispersal patterns of biophysical dispersal models
+# CHAPTER 3: Comparing the influence of the implementation of different larval behavioural strategies on connectivity patterns in biophysical dispersal models
 
 # Introduction
 
@@ -10,7 +10,6 @@ Biophysical dispersal models are popular tools to understand the influence of va
 # Behaviours affecting connectivity
 
 Orientation CITE different examples
-
 
 
 # Ontogenetic vertical migration strategies
@@ -30,14 +29,17 @@ Examples of (daily, timestep, stage?)
 
 
 Aims:
-1. To investigate how connectivity patterns are affected by diel vertical migration (DVM), ontogenetic vertical migration (OVM), and horizontal orientated swimming
-2. To investigate how different strategies of ontogenetic vertical migration patterns of reef fish effect connectivity dispersal patterns
-3. To investigate how different implementation methods of ontogenetic vertical migration affect connectivity dispersal patterns.
+1. To investigate how connectivity patterns are affected by the implementation of different forms of larval behaviour, specifically-- diel vertical migration (DVM), ontogenetic vertical migration (OVM), and horizontal orientated swimming
+2. To investigate how different implementation methods of ontogenetic vertical migration affect connectivity dispersal patterns.
+3. To investigate how different parametrisation strategies (reflecting species differences) of ontogenetic vertical migration effect connectivity patterns.
+
+
 
 Hypothesis:
 1. Compared to passive practice, should reduce SR, increase LR, reduce DD
+  i. Comment on effect of different types of flow regimes on the differences?
 2. The patterns should differ as places within the water column change the currents the larvae are moved by
-3. There should be an effect, but is predicted to be minimal.
+3. There should be an effect, but is predicted to be minimal [Why?]
 
 # Methods
 
@@ -45,58 +47,151 @@ Hypothesis:
 
 [Worth building a flow diagram?]
 
-The biophysical dispersal model—a Zooplankton Interconnections and Source-Sink Observation Utility (ZISSOU, v1.1.3 [github.com/shawes/zissou])—is an individual-based model (IBM), whereby each larva moves independently to each other in the model system. Each particle in ZISSOU has biological traits and behaviours using populations level distributions capturing the biological variability. The system was designed for high-performance, high customisation, and platform independence; written in the Scala programming (v2.12.4) language using parallel libraries. ZISSOU was developed using the "Manual of recommended practices for modelling physical-biological interactions during fish early life" [@North:2009tx].
+The biophysical dispersal model— Zooplankton Interconnections and Source-Sink Observation Utility (ZISSOU, v1.1.3 [github.com/shawes/zissou])—is an individual-based model (IBM) developed in accordance with recommendations from the “Manual of recommended practices for modelling physical-biological interactions during fish early life” (ICES 2009).  Movement of particles within the model is forced by offline oceanographic current data but can be influenced by larval  behavioural traits parameterised using probability distributions capturing known biological variability. The system was designed for high-performance, high customisation, and platform independence; written in the Scala programming  language (v2.12.4) using parallel libraries.
 
-ZISSOU accesses ocean circulation data as network common data forms (NetCDF); self-describing, machine-independent data formats. The data can be accessed either using locally stored files or using the open-source project for a network data access protocol (OPeNDAP; http://www.opendap.org).   This project took advantage of Java NetCDF software libraries developed by UCAR/Unidata [http://doi.org/10.5065/D6H70CW6]. The ocean data must be in a Arakawa-A or Arakawa-B grid structure [CITE arakawa 97]. This version of ZISSOU utilises only the 3-dimensional velocity fields, and not other environmental variables such as salinity or temperature.
+### Physical sub-model
+
+ZISSOU accesses ocean circulation data as network common data forms (NetCDF); self-describing, machine-independent data formats. The data can be accessed either using locally stored files or using the Open-source Project for a Network Data Access Protocol (OPeNDAP; http://www.opendap.org). This project took advantage of Java NetCDF software libraries developed by UCAR/Unidata [http://doi.org/10.5065/D6H70CW6]. The ocean data must be in an Arakawa-A or Arakawa-B grid structure [CITE arakawa 97]. This version of ZISSOU utilises only the 3-dimensional velocity fields, and not other environmental variables such as salinity or temperature.
 
 Runge-Kutta fourth-order integration (RK4) is used to move the particle through space and time, calculating a weighted average of four increments using the chosen model time-step (@eq:rk4). The velocity at any given position in space is interpolated using a tri-cubic interpolation scheme on the hydrodynamic model, such that the velocity for a given particle in the oceanographic space is interpolated from neighbouring grids using 64 points (4 x 4 x 4). If this is not possible, for example due to boundary conditions, trilinear interpolation using 8 points (2 x 2 x 2) is substituted.
 
-$$y_{i+1} = y_{i} + \frac{1}{6} (k_{1} + 2k_{2})h$${#eq:rk4}
+$$\overrightarrow{v_{t+h}} = \overrightarrow{v_{t}} + \rfrac{1}{6} (k_{1} + 2k_{2} + 2k_{3} + k_{4})h$${#eq:rk4}
+$$k_{1} = f(x_{t},y_{t})$$
+$$k_{2} = f(x_{t} + \rfrac{1}{2}h, y_{t} + \rfrac{1}{2}k_{1}h)$$
+$$k_{3} = f(x_{t} + \rfrac{1}{2}h, y_{t} + \rfrac{1}{2}k_{2}h)$$
+$$k_{4} = f(x_{t} + h, y_{t} + k_{3}h)$$
+
+The integrated velocity vector (*v~t+h~*), at time *t* and time step *h* is calculated using the weighted average of the four seperate interpolations (*k~1~, k~2~, k~3~, k~4~*), which interpolate the velocities at the beginning of the time step, two midpoint approximations and the end of the time step. The interpolation function *f(x,y)* calculates the velocities using the tri-cubic interpolation function described above.
 
 To model the natural turbulent effect of ocean systems in a 3D stochastic model, ZISSOU uses a random displacement mechanism []@eq:turb; CITE Brickman & Smith 2002]
 
 $$D_{(t+1)} = D_{(t)} + \overrightarrow{v} +\Delta{t} + \sqrt{\frac{2K}{\Delta{t}}Q}$${#eq:turb}
 
-The displacement (D) is calculated using the velocity vector (v) from the hydrodynamic model, the time step (Δt), the eddy diffusivity (K) and a random number with a Gaussian distribution with a mean of zero (Q).
+The displacement (D) is calculated using the velocity vector (v) from the hydrodynamic model, the time step (Δt), the eddy diffusivity (K) and a random number from a Gaussian distribution with a mean of zero (Q).
 
-Psuedo-random numbers are generated in the model using a Mersenne Twister algorithm, WELL44497b [CITE Paennon]. The seed for the random number generator is an optional parameter of the model to allow for reproducibility of results.
+Psuedo-random numbers are generated in the model using a Mersenne Twister algorithm, WELL44497b [CITE Paennon]. The seed for the random number generator is an optional parameter of the model to allow for reproducibility of results if needed.
 
-Sites used for both spawning and settlement are represented as polygons within the model. The polygons are supplied as input in the shapefile format, a common geospatial vector data format specified by the Environmental Systems Research Institute [Esri; CITE ESRI].
+## Biological sub-model
 
-## Biological traits
+Biological traits are specified using a configurable XML file as input to the model. The biological model implements many biological processes that are considered to be important for marine larval dispersal, e.g. the spawning period, pelagic larval duration, and vertical migration (@tbl:biological-params). The pelagic larval duration is specified by the length of the duration in days. It can be either random (used in a combination with a settlement competency window) that allows the larvae to settle when they find suitable habitat, or a fixed duration and larvae settle if they are over suitable habitat at the end of the duration. The settlement competency window is a specified time period when the larvae become competent to settle, it can be specified as number of days or a developmental stage. Spawning sites are given as GPS locations, with the release period, clutch size of eggs, interval of spawned clutches, and the release depth all options to specify for the marine species being modelled. The developmental ages for fish larvae (preflexion, flexion, postflexion) can all be specified by giving a mean and standard deviation of days, which is assigned to individual larvae at birth using a gaussian distribution (if no standard deviation is specified, the mean is the value). For pelagic eggs, a preflexion developmental age specifies the time of hatching. Settlement sites are represented as GIS polygons within the model, using point in polygon algorithms to determine if larvae are over settlement sites. The polygons are supplied as input in the Shapefile format, a common geospatial vector data format specified by the Environmental Systems Research Institute [Esri; CITE ESRI]. Mortality is specified as a daily rate, which is applied at midnight each day in the system using a random number generator, similar to many other connectivity studies [CITE mortality studies].
 
-Vertical migration can be implemented as either diel or ontogenetic vertical migration. Both use probabilities of being in depth ranges either at a certain time, i.e. night or day, or in depth ranges defined by their ontogenetic stage (e.g. for ichthyoplankton these would be preflexion, flexion, or postflexion). Ontogenetic stages are specific by lengths of time in seconds, which are given gaussian distributions over the population. The vertical position was changed by applying a probability distribution function to determine which depth the larvae moved too. For diel vertical migration this probability distribution function was applied one hour before sunset or sunrise using an approximation calculated using the current latitude / longitude of the larvae.
+: The options for the biological and behavioural traits that can be specified in the biological sub-model. {#tbl:biological-params}
 
-The horizontal swimming speed is calculated using known critical swimming speeds, the *in situ* swimming potential and the swimming endurance of the larvae at postflexion (@eq:swim). The speed is added to both the *u* and *v* velocities after applying stochasticity (@eq:u; @eq:v). Fish can swim, orientated to the nearest habitat, if they find themselves within a user configured olfactory range.
+| Trait  | Option  |  Description | Input type
+| --|---|--
+| Pelagic larval duration  | Random  | Larvae are allowed to settle at a suitable habitat if they are within a given settlement competency window | Days (mean and standard deviation for gaussian distribution)
+|  |  Fixed |  Seconds
+| Settlement competency window  | Fixed | Time the larvae become  |  Days
+| Development age   | Preflexion  | The time the larvae start the preflexion stage (hatching from eggs). If this value is greater than 0, the first period the larvae are considered to be pelagic eggs. | Days (mean and s.d. for gaussian distribution)
+|  | Flexion  | The age the flexion developmental period starts  | Days (mean and s.d. for gaussian distribution))
+|  | Postflexion  | the age the postflexion period starts  | Days (mean and s.d. for gaussian distribution)
+| Spawning sites  | Location  | The latitude and longitude of where to release the eggs  | GPS Coordinates
+|  | Depth  | The depth the eggs are spawned  |  Metres
+|  | Clutch size | The number of eggs to spawn  |  Real number
+|  | Period  | The period to release the eggs over  | Date range
+|  | Interval  | The number of days to release the eggs over the release period  | Days (1 = daily, 7 = weekly)
+| Settlement sites  | n/a  | The sites of settlement for the larvae given as GIS polygons  | Shapefile
+| Mortality  | Linear  | The number of larvae to be randomly killed each day  | Rate (day~-1~)
+| Vertical migration  | Diel  | Vertically migrates the particles twice daily at sunset and sunrise  | Probabilities of the larvae being found at user specified depths during the day or at night
+|  | Ontogenetic  | Vertically migrates the fish based on their ontogenetic stage  | Probabilities of the larvae being found at user specified depths at each of the developmental stages (hatching, preflexion, flexion, and postflexion)
+| Settlement sensory distance  |   |  The distance at which a larvae can sense a reef to settle  | Kilometres
+| Olfactory distance  |   | The distance at which a larvae can sense a reef and orientate towards it | Kilometres
+| Horizontal swimming  | Critical swimming speed  |  | ms~-1~
+|  | In situ swimming speed  |   |  ms~-1~
+|  | Swimming endurance  |   | ms~-1~
 
-Critical swimming speed is a measure of the swimming capacity of the larvae. (Leis 2006). In situ spwimming speed is a measure oflarval fish swimming.
+In addition to biological traits, several behavioural traits for larvae are able to be included in the model, e.g. orientated horizontal swimming, vertical migration, and the ability to sense suitable settlement sites (@tbl:biological-params). Vertical migration can be implemented as either diel or ontogenetic vertical migration. Both are based around the probability of being in a specific depth range based on either the time of day (i.e. night or day), or their ontogenetic stage (@fig:ovm-example). The vertical position was changed by applying a probability distribution function to determine too which depth the larvae moved. For diel vertical migration this probability distribution function was applied one hour before sunset or sunrise using an approximation calculated using the current latitude / longitude of the larvae.
+
+![Example of ontogenetic vertical migration input for a fish than migrates downwards with ontogeny, where the probabilities at different depths are specified for each stage, and must add up to one for each developmental stage](chapters/theoretical/figs/ovm-example.png){#fig:ovm-example}
+
+The fish larvae can be given a settlement sensory distance which allows them to discover a reef and settle if they come within the specified distance, acting as psuedo-behaviour for cues such as vision, hearing or olfaction [CITE Leis 2007; Kingsford]. The nearest point on the reef polygon is identified and then the distance is compared to the larva's current position. Olfactory distance works similar to settlement sensory, allowing the larvae to orientate towards the nearest settlement habitat if it is within the specified distance. The horizontal swimming speed is calculated using known critical swimming speeds, the *in situ* swimming potential and the swimming endurance of the larvae at postflexion (@eq:swim). Critical swimming speed is a measure of the swimming capacity of the larvae, the *in situ* swimming speed is a measure of larval fish swimming in the ocean by divers, and endurance is a measure of how long they can keep swimming before tiring [CITE Leis 2006]. Therefore the speed they are allowed to swim is constructed from their maximum possible speed, proportioned to what they have been seen swimming, and tempered by their known endurance. The speed is added to both the *u* and *v* velocities after applying stochasticity (@eq:u; @eq:v). Fish can swim, orientated to the nearest habitat, if they find themselves within a user configured olfactory range.
 
 $$s = U_{crit}S_{p}E_{p}$${#eq:swim}
 
 $$u^{\prime} = u + X_{[0,1]} \times s \times \cos(\theta)$${#eq:u}
 $$v^{\prime} = v + X_{[0,1]} \times s \times \sin(\theta)$${#eq:v}
 
+*U~crit~* is the critical swimming speed (ms~-1~), *S~p~* is the *in situ* swimming potential (%), and *E~p~* is the endurance potential (%) of the fish larvae. \theta is the angle of direction to a settlement site if it was sensed within the olfactory distance.
+
+
 ## Model configuration
 
 ### Study location
 
-Larvae were spawned from 68 coastal reefs along the New South Wales coast, Australia (Add geospatial data?), using freely available benthic data obtained from NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). The natal reefs were divided into 17 sub-regions, each containing four approximately equally spaced reefs. For each reef 1000 larvae were spawned every 7 days over the period of one year from 1st July 2007 to 31st June 2008. In total 3.5 million larvae were released over the year. No mortality was applied, providing only potential dispersal. Larvae were allowed to settle to reefs or benthic habitat marked as other, as unmapped reefs could be potential settlement sites.
+[Start by highlighting the intent here so it’s clear why you’ve chosen the region and patches you did.
 
-Create diagram using sites and regions. (colour coordinated).
+The New South Wales (NSW) coastline (2,137 km) was divided into approximately 17 equally sized regions (approximately 125 km each). Rock reef patches along the NSW coastline were identified using freely available benthic data obtained from NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). Within each NSW sub-region, four rocky reef patches were chosen as spawning sites for the larvae spanning the region, and larvae were released within a GPS location of a reef patch. Weekly releases of 1000 larvae at each patch were spawned over the period July 2007 to June 2008. In total 3.5 million larvae were released over the release period. No mortality was applied, therefore only measuring potential dispersal. Larvae were allowed to settle to the identified rocky reef patches or benthic habitat patches marked as unknown, as unmapped patches could be potential rocky reef settlement sites.
 
-### Physical parameterisation
+![The 17 regions (each containing four rock reef patches) used to spawn the reef fish larvae along the coastline of New South Wales, Australia](chapters/theoretical/figs/release-sites.png){#fig:release-sites.png}
 
-The hindcast model used was BRAN3 [Bluelink renalysis, version 3p5; Oke:2013dm], an oceanographic circulation model based on the Ocean Forecasting Australia Model (OFAM). BRAN is a data-assimilating model that aims to resolve mesoscale eddies in 3-dimensions, at the scale of 10 km in the horizontal (0.1° latitude and longitude) and 5-10 m vertically (15 depth bins between 0-105 m). The model consists of mean daily current velocities, sea-level anomaly, sea-surface temperature, and salinity over the period January 1993 to September 2012. An eddy diffusivity value (K) of 300 ms^-1^ was used, as per similar studies in the region [CITE condie, chiswell]. The time-step of the model was 2 hours.
+### Physical sub-model
 
-### Biological parameterisation
+The oceanographic circulation model used was BRAN3 [Bluelink renalysis, version 3p5; Oke:2013dm], a hindcast model based on the Ocean Forecasting Australia Model (OFAM). BRAN is a data-assimilating model that aims to resolve mesoscale eddies in 3-dimensions, at the scale of 10 km in the horizontal (0.1° latitude and longitude) and 5-10 m vertically (15 depth bins between 0-105 m). The model consists of mean daily current velocities, sea-level anomaly, sea-surface temperature, and salinity over the period January 1993 to September 2012. An eddy diffusivity value (K) of 300 ms^-1^ was used, as per similar studies in the region [CITE condie, chiswell]. The time-step of the model was 2 hours.
 
-To populate the parameters of the model, we used characteristics of the small tropical fish, the Indo-Pacific sergeant damselfish *Abudefduf vaigiensis*. It is a common species found all along the coast of  NSW, and one that relatively a lot is known about its early-life history. The larvae were spawned in the preflexion stage (assumed a species with benthic eggs), flexion occurred at 5 (±0.5) days, and postflexion 8 (±0.5) days [CITE Murphy 2007]. The pelagic larval duration (PLD) was 18.3 (±1.5) days [CITE Wellington & Victor], and the duration was fixed, meaning that the simulation ran until the larvae reached their PLD (assigned using a gaussian distribution) and settled if there was an available reef. The larvae were given a sensory zone of 10 km with which to sense settlement reef habitat. This is a generous example of sensory abilities, helped overcome the coarseness of the oceanographic model resolution near the coast, limiting the ability of fish to settle on some reefs. The sensory zone was implemented within the model by finding the distance to the nearest point on a reef polygon to the larvas position. To orientate and swim towards a reef, *A. vaigiensis* were given a olfactory range of 15 km, combined with a critical swimming speed (U~crit~) of 0.463 ms~-1~, *in situ* potential of 0.25, and an endurance rate of 50% [CITE Leis and Fisher 2006 ].
+### Biological sub-model
 
-The base model for the behaviour scenario contained no behaviour, with the larvae passively moved by the ocean currents. The three behaviours (OVM, DVM and orientated swimming) were then combined for 7 other test models (@tbl:scenarios-ovm). The Pomacentridae ontogenetic vertical migration strategy was used in the models that contained OVM. Comparisons of ontogenetic migration strategies were made using the different proportions found amongst the seven families in Chapter 3 (@tbl:scenarios-ovm). The ontogenetic vertical migration was implemented such that the larvae moved when they reached their next ontogenetic stage (based on time). To determine the influence of different behaviour implementations on the dispersal patterns, we compared three different methods of ontogenetic vertical migration (@tbl:scenarios-impl). The first method migrated the larvae using the given probabilities after each time-step. Due to the short time-period larvae were restricted from moving upwards or downwards 25 m. The second method the larvae performed vertical migration every 24 hours in the system, and the last method migrated a larva when it moved to the next ontogenetic stage.
+[It looks odd to be using a trop/sub trop species for this region. I would approach this differently. Say you sought to parameterise the model to represent a ubiquitious rocky reef fish which has been well studied. Then say pomacentrids are a good model but many purely temperate fish don’t have enough data…so use a similar trop/sub-trop. And good to highlight that things like PLD used is similar to that of many temperate fishes. ]
 
-: The combination of the three larval behaviours, diel vertical migration, ontogenetic vertical migration, and orientated swimming, used in the modelling scenarios {#tbl:scenarios-behaviour}
 
-| Scenario | Diel | OVM | Orientation |
+[Be more clear about this point as it can sound like you used a fixed PLD which is not strictly true.  I’d individual larvae realized a PLD from a guassian distribution with a mean of X and SD of Y.  This was implemented by assigning a PLD value from the distribution in advance and then stopping their dispersal at this point, allowing them to settle if they were over available reef.]
+
+This doesn’t flow very well. See my advice above.  I’d do this bit as:
+-	Once spawned larva dispersed for PLD (incorporate my comments above) and would only settle if over reef at the end.
+-	During dispersal the position of the larvae was updated every time step based on 1) the current and 2) behavioural properties—OVM, Diel and Horz swim/orient.
+
+Then explain how this is done each time step for each behavior but note you’ve explained this above a bit so you can be brief…its just useful for all this to be clear.
+
+
+To populate the parameters of the model, we used characteristics of temperate rocky reef fish, and chose Pomacentridae due many species distribution along the NSW coast, and their high representation in the literature [CITE example]. The literature on early-life fish histories is biased towards tropical and sub-tropical species, therefore where values for temperate Pomacentridae were not found, information of tropical larvae was utilised (@tbl:bio-params). The individual larvae only settled if at the end of their pelagic larval duration they were able to sense a settlement reef patch (within the settlement sensory distance of suitable settlement habitat). The larvae were spawned in the preflexion stage, assumed a species with benthic eggs which is common for Pomacentridae. The larvae were given a sensory zone of 10 km with which to sense settlement reef habitat, a generous example of sensory abilities used to help overcome the coarse 10 km of the oceanographic model resolution (@tbl:bio-base). The oceanographic model often had no velocities near the coast (due its inherent grid structure), limiting the ability of fish to settle on some reefs. To orientate and swim towards a reef, the fish were given a olfactory range of 15 km, which was 5km longer than the settlement sensory ability.
+
+: Biological features of the Pomacentridae larvae that were used in every model run of the experiment {#tbl:bio-base}
+
+| Biological feature          | Value            | Reference          |
+|-----------------------------|------------------|--------------------|
+| PLD                         | 18.3 (±1.5) days |[CITE Wellington & Victor] |
+| Preflexion age              | 0 days           | [CITE Murphy 2007] |
+| Flexion age                 | 5 (±0.5) days    |                    |
+| Postflexion age             | 8 (±0.5) days    |                    |
+| Settlement sensory distance | 10 km            |                    |
+
+
+
+
+In order to address the first aim of evaluating the influence of different behaviors on connectivity patterns I ran a series of models with different behaviours; DVM (@tbl:dvm), OVM (@tbl:scenarios-ovm; Pomacentridae strategy), and Oriented swimming (@tbl:orientate)) implemented. Each behaviour (and combination of congruent behaviours) was compared to a base case of completely passive transport (@tbl:scenarios-behaviour).
+
+: Orientated horizontal swimming (OHS) parameterisation, used in the swimming equation described above {#tbl:orientate}
+
+| OHS feature  | Value        | Reference                   |
+|------------------------------|--------------|-----------------------------|
+| Olfactory distance           | 15 km        |                             |
+| *U~crit~*                    | 0.463 ms~-1~ | [CITE Leis and Fisher 2006] |
+| *In situ* swimming potential | 0.25         |                             |
+| Endurance                    | 0.50          |                             |
+
+: Diel vertical migration (DVM) values {#tbl:dvm}
+
+| DVM      | Depth (m) | Proportion  |
+|-------|-----------|:------------|
+| Day   | 0-50      | 0.1         |
+|       | 51-100    | 0.9         |
+| Night | 0-50      | 0.8         |
+|       | 51-100    | 0.2         |
+
+
+Pick terminology and stick with it…don’t’ bounce back and forth from Diel to DVM.  Same for Orientation.  I’d call it oriented horizontal swimming, OHS for short).  Define these early and then be very consistent.
+
+The more I think about it…I think you might want to combine these two aims.  So the aim would be to evaluate the impact of OVM implementation strategy, method and parametrization, on patterns.  You know there is likely to be differences in patterns based on parameters used, i.e. for different speices…but the issue is that there are also different ways of implementing OVM in a biophysical model. You want to know how much patterns are affected by the method as opposed to parameters to know if this is important.  If variability is mainly from params, that’s fine and good to know…but if its from method then we need to suggest what is best and probably be doing the same thing.
+
+
+The second aim, to assess the impact on connectivity of using different ontogenetic vertical migration parameters was addressed by conducting model runs using proportional depth stage abundance profiles which represented the seven fish families reported on in  Chapter 3 (@tbl:scenarios-ovm). The ontogenetic vertical migration was implemented such that the larvae moved when they reached their next ontogenetic stage (based on time).
+
+[I think its worth defining a term here to describe these things…here’s my stab at it.  You should use the term in chapter 3 as well.  Then use it above when describing OVM and, if you make the figure I suggested, use it there as well.  This will allow you have a term which essentially describes this multi-dimensional parameter which is fundamental to the OVM behavior in the model.]
+
+Lastly, in order to explore the impact of the OVM implementation strategy on connectivity patterns I compared three different methods of ontogenetic vertical migration (@tbl:scenarios-ovm). The first method migrated the larvae using the given probabilities after each time-step. Due to the short time-period, larvae were restricted from moving upwards or downwards 25 m. In the the second method the larvae performed vertical migration every 24 hours in the system, and the last method migrated a larva when it moved to the next ontogenetic stage.
+
+: Depth stage profiles for each of the seven fish families evaluated in Chapter 3. Values represent the proportional (within a stage) abundance of each stage within each of three depth ranges (surface: 0-5 m; mixed layer: 5-50 m; deep layer: 51-100 m) and are used to parameterise models run to address Aim 2 of this study. {#tbl:scenarios-behaviour}
+
+| Scenario | DVM | OVM | OHS |
 |:--------:|:----:|:---:|:-----------:|
 |    1     |  —   |  —  |      —      |
 |    2     | Yes  |  —  |      —      |
@@ -108,7 +203,7 @@ The base model for the behaviour scenario contained no behaviour, with the larva
 |    8     | Yes  | Yes |     Yes     |
 
 
-: The ontogenetic vertical migration probabilities for each of the seven fish families used in each scenario, at three depth ranges (surface: 0-5 m; mixed layer: 5-50 m; deep layer: 51-100 m) {#tbl:scenarios-ovm}
+: Depth stage profiles for each of the seven fish families evaluated in Chapter 3. Values represent the proportional (within a stage) abundance of each stage within each of three depth ranges (surface: 0-5 m; mixed layer: 5-50 m; deep layer: 51-100 m) and are used to parameterise models run to address Aim 2 of this study. {#tbl:scenarios-ovm}
 
 | Scenario      | Depth (m) | Preflexion | Flexion | Postflexion |
 |---------------|-----------|:-----------|:--------|:------------|
@@ -142,7 +237,7 @@ The base model for the behaviour scenario contained no behaviour, with the larva
 |----------|-------------------------------------------------|
 | 1        | time-step migration |
 | 2        | daily migration                                 |
-| 3        | ontogenetic stage migration           |
+| 3        | stage migration           |
 
 ## Data analysis
 
