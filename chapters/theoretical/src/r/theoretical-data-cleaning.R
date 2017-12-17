@@ -1,8 +1,8 @@
 library(tidyverse)
 source("theoretical-functions.R")
 
-prefix <- "/Users/steve/Documents/PhD/Thesis"
-prefix_old <- "/Users/Steven/Documents/Thesis"
+prefix_old <- "/Users/steve/Documents/PhD/Thesis"
+prefix <- "/Users/Steven/Documents/Thesis"
 
 reefs.id <- read_csv("../../data/reefs.csv")
 save(reefs.id,file="reefs.rda")
