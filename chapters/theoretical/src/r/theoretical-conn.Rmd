@@ -28,7 +28,7 @@ Passive connectivity metrics
 passive.sr <- selfRecruitment(passive.conn.regions/eggs)
 passive.lr <- localRetention(passive.conn.regions/eggs)
 passive.rlr <- relativeLocalRetention(passive.conn.regions/eggs)
-passive.ss <- settlementSuccess(passive.conn.regions/eggs)
+passive.ss <- settlementSuccess(passive.conn.regions[,-18:-19]/eggs)
 ```
 
 Diel connectivity metrics
@@ -36,7 +36,7 @@ Diel connectivity metrics
 diel.sr <- selfRecruitment(diel.conn.regions/eggs)
 diel.lr <- localRetention(diel.conn.regions/eggs)
 diel.rlr <- relativeLocalRetention(diel.conn.regions/eggs)
-diel.ss <- settlementSuccess(diel.conn.regions/eggs)
+diel.ss <- settlementSuccess(diel.conn.regions[,-18:-19]/eggs)
 ```
 
 
@@ -45,7 +45,7 @@ ovm connectivity metrics
 ovm.sr <- selfRecruitment(ovm.conn.regions/eggs)
 ovm.lr <- localRetention(ovm.conn.regions/eggs)
 ovm.rlr <- relativeLocalRetention(ovm.conn.regions/eggs)
-ovm.ss <- settlementSuccess(ovm.conn.regions/eggs)
+ovm.ss <- settlementSuccess(ovm.conn.regions[,-18:-19]/eggs)
 ```
 
 orientate connectivity metrics
@@ -54,7 +54,7 @@ orientate.conn.regions <- orientate.conn.regions[,-18]
 orientate.sr <- selfRecruitment(orientate.conn.regions/eggs)
 orientate.lr <- localRetention(orientate.conn.regions/eggs)
 orientate.rlr <- relativeLocalRetention(orientate.conn.regions/eggs)
-orientate.ss <- settlementSuccess(orientate.conn.regions/eggs)
+orientate.ss <- settlementSuccess(orientate.conn.regions[,-18]/eggs)
 ```
 
 diel.ovm connectivity metrics
@@ -63,7 +63,7 @@ diel.ovm.conn.regions <- diel.ovm.conn.regions[,-18]
 diel.ovm.sr <- selfRecruitment(diel.ovm.conn.regions/eggs)
 diel.ovm.lr <- localRetention(diel.ovm.conn.regions/eggs)
 diel.ovm.rlr <- relativeLocalRetention(diel.ovm.conn.regions/eggs)
-diel.ovm.ss <- settlementSuccess(diel.ovm.conn.regions/eggs)
+diel.ovm.ss <- settlementSuccess(diel.ovm.conn.regions[,-18]/eggs)
 ```
 
 diel.ovm.orientate connectivity metrics
@@ -72,7 +72,7 @@ diel.ovm.orientate.conn.regions <- diel.ovm.orientate.conn.regions[,-18]
 diel.ovm.orientate.sr <- selfRecruitment(diel.ovm.orientate.conn.regions/eggs)
 diel.ovm.orientate.lr <- localRetention(diel.ovm.orientate.conn.regions/eggs)
 diel.ovm.orientate.rlr <- relativeLocalRetention(diel.ovm.orientate.conn.regions/eggs)
-diel.ovm.orientate.ss <- settlementSuccess(diel.ovm.orientate.conn.regions/eggs)
+diel.ovm.orientate.ss <- settlementSuccess(diel.ovm.orientate.conn.regions[,-18]/eggs)
 ```
 
 diel.orientate connectivity metrics
@@ -81,7 +81,7 @@ diel.orientate.conn.regions <- diel.orientate.conn.regions[,-18]
 diel.orientate.sr <- selfRecruitment(diel.orientate.conn.regions/eggs)
 diel.orientate.lr <- localRetention(diel.orientate.conn.regions/eggs)
 diel.orientate.rlr <- relativeLocalRetention(diel.orientate.conn.regions/eggs)
-diel.orientate.ss <- settlementSuccess(diel.orientate.conn.regions/eggs)
+diel.orientate.ss <- settlementSuccess(diel.orientate.conn.regions[,-18]/eggs)
 ```
 
 ovm.orientate connectivity metrics
@@ -90,7 +90,7 @@ ovm.orientate.conn.regions <- ovm.orientate.conn.regions[,-18]
 ovm.orientate.sr <- selfRecruitment(ovm.orientate.conn.regions/eggs)
 ovm.orientate.lr <- localRetention(ovm.orientate.conn.regions/eggs)
 ovm.orientate.rlr <- relativeLocalRetention(ovm.orientate.conn.regions/eggs)
-ovm.orientate.ss <- settlementSuccess(ovm.orientate.conn.regions/eggs)
+ovm.orientate.ss <- settlementSuccess(ovm.orientate.conn.regions[,-18]/eggs)
 ```
 
 
@@ -100,7 +100,7 @@ ovm.labrid.conn.regions <- ovm.labrid.conn.regions[,-18]
 ovm.labrid.sr <- selfRecruitment(ovm.labrid.conn.regions/eggs)
 ovm.labrid.lr <- localRetention(ovm.labrid.conn.regions/eggs)
 ovm.labrid.rlr <- relativeLocalRetention(ovm.labrid.conn.regions/eggs)
-ovm.labrid.ss <- settlementSuccess(ovm.labrid.conn.regions/eggs)
+ovm.labrid.ss <- settlementSuccess(ovm.labrid.conn.regions[,-18]/eggs)
 ```
 
 ovm.mullid connectivity metrics
@@ -109,7 +109,7 @@ ovm.mullid.conn.regions <- ovm.mullid.conn.regions[,-18]
 ovm.mullid.sr <- selfRecruitment(ovm.mullid.conn.regions/eggs)
 ovm.mullid.lr <- localRetention(ovm.mullid.conn.regions/eggs)
 ovm.mullid.rlr <- relativeLocalRetention(ovm.mullid.conn.regions/eggs)
-ovm.mullid.ss <- settlementSuccess(ovm.mullid.conn.regions/eggs)
+ovm.mullid.ss <- settlementSuccess(ovm.mullid.conn.regions[,-18:-19]/eggs)
 ```
 
 ovm.scarid connectivity metrics
@@ -118,7 +118,7 @@ ovm.scarid.conn.regions <- ovm.scarid.conn.regions[,-18]
 ovm.scarid.sr <- selfRecruitment(ovm.scarid.conn.regions/eggs)
 ovm.scarid.lr <- localRetention(ovm.scarid.conn.regions/eggs)
 ovm.scarid.rlr <- relativeLocalRetention(ovm.scarid.conn.regions/eggs)
-ovm.scarid.ss <- settlementSuccess(ovm.scarid.conn.regions/eggs)
+ovm.scarid.ss <- settlementSuccess(ovm.scarid.conn.regions[,-18]/eggs)
 ```
 
 ovm.scorpaenid connectivity metrics
@@ -127,7 +127,7 @@ ovm.scorpaenid.conn.regions <- ovm.scorpaenid.conn.regions[,-18]
 ovm.scorpaenid.sr <- selfRecruitment(ovm.scorpaenid.conn.regions/eggs)
 ovm.scorpaenid.lr <- localRetention(ovm.scorpaenid.conn.regions/eggs)
 ovm.scorpaenid.rlr <- relativeLocalRetention(ovm.scorpaenid.conn.regions/eggs)
-ovm.scorpaenid.ss <- settlementSuccess(ovm.scorpaenid.conn.regions/eggs)
+ovm.scorpaenid.ss <- settlementSuccess(ovm.scorpaenid.conn.regions[,-18]/eggs)
 ```
 
 ovm.synodontid connectivity metrics
@@ -136,7 +136,7 @@ ovm.synodontid.conn.regions <- ovm.synodontid.conn.regions[,-18]
 ovm.synodontid.sr <- selfRecruitment(ovm.synodontid.conn.regions/eggs)
 ovm.synodontid.lr <- localRetention(ovm.synodontid.conn.regions/eggs)
 ovm.synodontid.rlr <- relativeLocalRetention(ovm.synodontid.conn.regions/eggs)
-ovm.synodontid.ss <- settlementSuccess(ovm.synodontid.conn.regions/eggs)
+ovm.synodontid.ss <- settlementSuccess(ovm.synodontid.conn.regions[,-18]/eggs)
 ```
 
 ovm.serranid connectivity metrics
@@ -145,7 +145,7 @@ ovm.serranid.conn.regions <- ovm.serranid.conn.regions[,-18]
 ovm.serranid.sr <- selfRecruitment(ovm.serranid.conn.regions/eggs)
 ovm.serranid.lr <- localRetention(ovm.serranid.conn.regions/eggs)
 ovm.serranid.rlr <- relativeLocalRetention(ovm.serranid.conn.regions/eggs)
-ovm.serranid.ss <- settlementSuccess(ovm.serranid.conn.regions/eggs)
+ovm.serranid.ss <- settlementSuccess(ovm.serranid.conn.regions[,-18]/eggs)
 ```
 
 ovm.timestep connectivity metrics
@@ -154,7 +154,7 @@ ovm.timestep.conn.regions <- ovm.timestep.conn.regions[,-18]
 ovm.timestep.sr <- selfRecruitment(ovm.timestep.conn.regions/eggs)
 ovm.timestep.lr <- localRetention(ovm.timestep.conn.regions/eggs)
 ovm.timestep.rlr <- relativeLocalRetention(ovm.timestep.conn.regions/eggs)
-ovm.timestep.ss <- settlementSuccess(ovm.timestep.conn.regions/eggs)
+ovm.timestep.ss <- settlementSuccess(ovm.timestep.conn.regions[,-18]/eggs)
 ```
 
 ovm.daily connectivity metrics
@@ -163,7 +163,7 @@ ovm.daily.conn.regions <- ovm.daily.conn.regions[,-18]
 ovm.daily.sr <- selfRecruitment(ovm.daily.conn.regions/eggs)
 ovm.daily.lr <- localRetention(ovm.daily.conn.regions/eggs)
 ovm.daily.rlr <- relativeLocalRetention(ovm.daily.conn.regions/eggs)
-ovm.daily.ss <- settlementSuccess(ovm.daily.conn.regions/eggs)
+ovm.daily.ss <- settlementSuccess(ovm.daily.conn.regions[,-18:-19]/eggs)
 ```
 
 Phase1 - self-recruitment
@@ -218,7 +218,7 @@ phase1.dk <- gather(phase1.dk)
 colnames(phase1.dk) <- c("model","dk")
 phase1.dk$model <- as.factor(phase1.dk$model)
 phase1.dk.summary <- summarise(group_by(phase1.dk,model), dk.mean=mean(dk), dk.sd=sd(dk), dk.se = dk.sd/n())
-ggplot(data=phase1.dk.summary, aes(y=dk.mean, x=model)) + geom_bar(stat = "identity") + geom_linerange(aes(ymin=dk.mean,ymax=dk.mean+dk.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 500))
+ggplot(data=phase1.dk.summary, aes(y=dk.mean, x=model)) + geom_bar(stat = "identity") + geom_linerange(aes(ymin=dk.mean,ymax=dk.mean+dk.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 200))
 ggsave("../../figs/phase1-dispersal.png")
 #ggplot(data=phase1.dk, aes(y=dk, x=model)) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange")
 phase1.dk.summary
