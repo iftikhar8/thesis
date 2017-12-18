@@ -3,11 +3,15 @@
 
 # Introduction
 
+[Black cod history]
+
+
+
 AIMS:
 
 1. To investigate the realised connectivity patterns from known spawning locations
 2. To investigate the realised connectivity patterns from their known distribution?
-3. How do the current marine parks fit in with these patterns of connectivity?
+3. How does the current designated marine park network meet the current needs of the black cod connectivity patterns?
 
 # Methods
 
@@ -15,7 +19,19 @@ AIMS:
 
 For detailed methods of the biophysical dispersal model used, see Chapter 3.
 
-Black cod larvae were spawned between April-May 2004-2011 from 76 coastal reefs (grouped into 19 regions; MAKE FIGURE) along the breadth of New South Wales, matching the known distribution and spawning times (CITE Harasti). The spawning regions ranged from the Tweed down to Eden, and included Lord Howe Island and the offshore reefs Elizabeth and Middleton. For each reef, 1000 larvae were spawned daily over the 61 day period, 18.5 million larvae were released breeding season (148 million over the course of the simulation period).  Black cod were allowed to settle to reefs defined by benthic data obtained from the NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). In addition, reefs for Norfolk Island and New Zealand were included as potential settlement sites, as per their known distribution. The oceanographic current data was obtained from BRAN3 [Bluelink renalysis, version 3p5; Oke:2013dm], see Chapter 3 methods for a complete description. The biological parameterisation was obtained from the literature where possible or using average values obtained in the review from Chapter 2 (@tbl:bio-params)
+[Info about study species]
+
+The black cod, *Epinephelus daemelii* (Gunther, 1876), is also known commonly as the black rockcod, the saddled rockcod, and the saddletail grouper, is a large temperate marine reef fish of the family Serranidae. It occurs along the eastern Australian coast, with reported sightings from southern Queensland down to the Bass Strait, but primarily along the NSW coastline [CITE Fish base, Atlas of living australia]. It has been seen to grow up to 200 cm TL, and weigh up to 68 kg. Black cod live in caves and rocky reef holes at depths of up to 50 m.
+
+
+The New South Wales (NSW) coastline (2,137 km) was divided into approximately 17 equally sized regions (approximately 125 km each). Rock reef patches along the NSW coastline were identified using freely available benthic data obtained from NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). Within each NSW sub-region, four rocky reef patches were chosen as spawning sites for the larvae spanning the region, and larvae were released within a GPS location of a reef patch. Weekly releases of 1000 larvae at each patch were spawned over the period July 2007 to June 2008. In total 3.5 million larvae were released over the release period. No mortality was applied, therefore only measuring potential dispersal. Larvae were allowed to settle to the identified rocky reef patches or benthic habitat patches marked as unknown, as unmapped patches could be potential rocky reef settlement sites.
+
+
+Black cod larvae were spawned between the known aggregating months April-May every year over the period 2004-2011. The spawning region split NSW into 17 approximately equally sized regions down the coastline (~125 km each), and included two off-shore spawning sites, Lord Howe Island and the Elizabeth and Middleton reefs. Clutches of larvae eggs were released from 76 coastal rocky reefs patches (grouped into 19 regions, with four reef patches per region; MAKE FIGURE) along the breadth of New South Wales, matching the known distribution and spawning times/locations (CITE Harasti).
+
+
+
+For each reef patch, 4000 eggs per reef were spawned daily (16,000 per region) over the 61 day period, 18.5 million larvae were released breeding season (148 million over the course of the simulation period).  Black cod were allowed to settle to reefs defined by benthic data obtained from the NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). In addition, reefs for Norfolk Island and New Zealand were included as potential settlement sites, as per their known distribution. The oceanographic current data was obtained from BRAN3 [Bluelink renalysis, version 3p5; Oke:2013dm], see Chapter 3 methods for a complete description. The biological parameterisation was obtained from the literature where possible or using average values obtained in the review from Chapter 2 (@tbl:bio-params)
 
 
 : Biological parametrisation for the larvae of the Black Cod (*Epinephelus daemelii*) in the biophysical dispersal model. {#tbl:bio-params}
@@ -40,6 +56,23 @@ Black cod larvae were spawned between April-May 2004-2011 from 76 coastal reefs 
 To assess the settlement patterns between regions, we looked at total settlement (each region had the same amount of larvae spawned and total settlement is given as a proportion) from each source region to all settlement regions, and the variation that occurred between the years 2004-2011. Non-metric multidimensional scaling (NMDS) ordination was used to assess settlement patterns for each region to all other regions, using Bray-Curtis dissimilarity measure with a square root transformation. NMDS was conducted using the r package *vegan* [CITE], with rows as sources sites and columns as settlement sites. To tests for differences between yearly settlement patterns, PERMANOVA using the adonis function within the r package *vegan* was used. Connectivity metrics of self-recruitment, local retention, settlement success and dispersal distance were calculated using the the R package *ConnMattTools* [CITE]. One-way ANOVAs were used to test for differences between total settlement between regions, and Student-Newman-Keuls (SNK) post-hoc tests were used to make comparisons between groups if the ANOVA was significant using the r package *agricolae* [CITE]. Graph analyses were conducted to compare the settlement patterns with current marine protected area networks using the r package *igraph*.
 
 # Results
+
+My suggestion for how to present all this:
+
+-	Start with overall picture of all univariate metrics by region…and look at it with the region as an origin and then again with it as a destination. You want to establish relative rankings of regions for all the metrics.  You should also look at how variable these metrics are in time (using SD for instance).
+-	Next look at the multivariate settlement fingerprint of each region and again, how stable this is over time.
+-	Next look more specifically at this issue of known spawning areas.  Where do they fall in terms of univariate and multivariate metrics of larval output relative to the other areas which are not known to have spawning?
+-	What does larval settlement look like to all regions if you only consider the known spawning locations?  Specifically you want to compare patterns to those from the situation where spawning happened from all areas.
+-	Then you tackle the question of this connectivity in the context of marine parks.  Specifically:
+-	Are parks in locations of max production?
+-	Are parks in locations of max recruitment?]
+
+And a few more general points
+-	You really need to play up the temporal component of this.  Including variance in linkage strength in your analysis will be novel and, of course, highly relevant.
+-	Many of these graphs could be in multi-panel figures.
+-	I don’t think addressing one spawning site in a special section is the way to go.  You want to view their results within the context of the others.
+-	Should you be using graph theory to say something about the key nodes?  Or is that not relevant given we don’t think they would complete their life cycle in one area?  Good question relevant to the self-recruitment metric.  Normally you look for a good reserve to also have a strong component of self-seeding.
+
 
 ## Known spawning sites
 

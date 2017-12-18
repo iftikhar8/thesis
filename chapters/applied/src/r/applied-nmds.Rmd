@@ -9,11 +9,14 @@ library(tidyverse)
 library(vegan)
 library(ggdendro)
 library(RColorBrewer)
+library(FactoMineR)
+library(factoextra)
 source("applied-functions.R")
 ```
 
 Load data
 ```{r,include=FALSE}
+load(file="blackcod.rda")
 load(file="nmds.rda")
 ```
 
@@ -34,7 +37,7 @@ NMDS using reef settlement sites
 ```{r}
 
 # nMDS 
-reefs.nmds <- metaMDS(regions.community_matrix, distance="bray", k=2)
+reefs.nmds <- metaMDS(regions.community_matrix, distance="bray", k=2, trymax=100)
 #plot(reefs.nmds, disp="sites")
 #ordiellipse(reefs.nmds, group=theoretical$scenarios, col=2:4, kind = "ehull", lwd=2, label = TRUE)
 #ordihull(reefs.nmds, group=applied$years, col=2:4, draw = "polygon", lwd=2, label=FALSE)
@@ -123,79 +126,18 @@ mod <- with(community, betadisper(vegdist(community_matrix,"bray"), year))
 phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
 anova(phase1.mva.model)
 ```
-
-```{r}
-mva <- mvabund(community[,1:19])
-par(mar=c(2,10,2,2)) # adjusts the margins
-boxplot(community[,1:19],horizontal = TRUE,las=2)
-meanvar.plot(mva)
-p <- plot(mva~community$year + community$sites, height=9, width=6, cex.axis=0.8, cex=0.8)
-model <- manyglm(mva~community$year + community$sites)
-```
-
-
+CA analysis
 ```{r}
 
-phase1.regions.cca <- cca(sqrt(community_matrix))
-layout(matrix(1:2,1,2,byrow = TRUE))
-plot(phase1.regions.cca, display="sites", main="Behaviours", scaling="sites")
-#text(phase1.regions.cca, display="sites", scaling="sites")
-plot(phase1.regions.cca, display="species", main="Regions", scaling="species",cex=2)
-#text(phase1.regions.cca, display="species", scaling="species")
-
-phase1.regions.cca <- cca(sqrt(community_matrix))
-plot(phase1.regions.cca,scaling=3)
-phase2.regions.cca <- cca(sqrt(phase2.regions.community_matrix))
-plot(phase2.regions.cca,scaling=3)
-phase3.regions.cca <- cca(sqrt(phase3.regions.community_matrix))
-plot(phase3.regions.cca,scaling=2)
-
-phase1.reefs.cca <- cca(sqrt(phase1.reefs.community_matrix))
-plot(phase1.reefs.cca, scaling=2)
-```
-
-
-```{r}
-
-
-
-
-# PCA
-jpeg('../../figs/regions-phase1-pca.jpg')
-phase1.regions.rda <- rda(phase1.regions.community_matrix, scale = TRUE)
-biplot(phase1.regions.rda, display=c("sites","species"), type=c("points","text"), scaling = 3)
-orditorp(phase1.regions.rda, display="species")
-ordilabel(phase1.regions.rda, scaling = 3)
-dev.off()
-
-jpeg('../../figs/regions-phase2-pca.jpg')
-phase2.regions.rda <- rda(phase2.regions.community_matrix, scale = TRUE)
-biplot(phase2.regions.rda, display=c("sites","species"), type=c("points","text"), scaling = 3)
-orditorp(phase2.regions.rda, display="species")
-ordilabel(phase2.regions.rda, scaling = 3, col="blue",font=1)
-dev.off()
-
-jpeg('../../figs/regions-phase3-pca.jpg')
-phase3.regions.rda <- rda(phase3.regions.community_matrix, scale = TRUE)
-priSpp <- diversity(phase3.regions.community_matrix, index = "invsimpson", MARGIN = 2)
-priSite <- diversity(phase3.regions.community_matrix, index = "invsimpson", MARGIN = 1)
-#biplot(phase3.regions.rda, display=c("sites","species"), scaling = 3)
-plot(phase3.regions.rda, type = "n", scaling = 3)
-ordilabel(phase3.regions.rda, display = "sites",priority = priSite, font = 3, fill = "hotpink",
-          col = "blue")
-ordilabel(phase3.regions.rda, display = "species",priority = priSpp, font = 2)
-dev.off()
-#orditorp(phase3.regions.rda, display="species")
-
-phase2.regions.rda <- rda(phase2.regions.community_matrix, scale = TRUE)
-priSpp <- diversity(phase2.regions.community_matrix, index = "invsimpson", MARGIN = 2)
-priSite <- diversity(phase2.regions.community_matrix, index = "invsimpson", MARGIN = 1)
-#biplot(phase2.regions.rda, display=c("sites","species"), scaling = 3)
-plot(phase2.regions.rda, type = "n", scaling = 3)
-ordilabel(phase2.regions.rda, display = "sites",priority = priSite, font = 3, fill = "hotpink",
-          col = "blue", scaling = 3)
-ordilabel(phase2.regions.rda, display = "species",priority = priSpp, font = 2 ,
-          scaling = 3)
+blackcod.ca <- CA(regions.community_matrix, graph=FALSE)
+summary(blackcod.ca)
+fviz_screeplot(blackcod.ca, addlabels=TRUE)
+blackcod.biplot <- fviz_ca_biplot(blackcod.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
+fviz_ca_row(blackcod.ca, repel=TRUE)
+fviz_ca_col(blackcod.ca, repel=TRUE)
+row <- get_ca_row(blackcod.ca)
+row$contrib
+ggsave("../../figs/blackcod-ca.png",blackcod.biplot)
 
 ```
 
