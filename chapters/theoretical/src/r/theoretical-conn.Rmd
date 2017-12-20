@@ -324,8 +324,40 @@ phase3.dk.summary
 
 Statistical tests for Phase 1
 ```{r}
-phase1.sr.lm <- lm(sr ~ model, data=phase1.sr)
-anova(phase1.sr.lm)
+
+phase1.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+phase1.sr <- add_column(phase1.sr, regions = phase1.regions)
+phase1.sr.lme <- lme(sr ~ model , random = ~1 | regions/model, data = phase1.sr)
+anova(phase1.sr.lme)
+summary(glht(phase1.sr.lme, linfct=mcp(model="Tukey")))
+
+#phase1.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+phase1.ss <- add_column(phase1.ss, regions = phase1.regions)
+phase1.ss.lme <- lme(ss ~ model , random = ~1 | regions/model, data = phase1.ss)
+anova(phase1.ss.lme)
+summary(glht(phase1.ss.lme, linfct=mcp(model="Tukey")))
+
+#phase1.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+phase1.lr <- add_column(phase1.lr, regions = phase1.regions)
+phase1.lr.lme <- lme(lr ~ model , random = ~1 | regions/model, data = phase1.lr)
+anova(phase1.lr.lme)
+summary(glht(phase1.lr.lme, linfct=mcp(model="Tukey")))
+
+phase1.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+phase1.dk <- add_column(phase1.dk, regions = phase1.regions)
+phase1.dk.lme <- lme(dk ~ model , random = ~1 | regions/model, data = phase1.dk)
+anova(phase1.dk.lme)
+summary(glht(phase1.dk.lme, linfct=mcp(model="Tukey")))
+
+
+
+
+
+
+
+
+
+
 phase1.lr.lm <- lm(lr ~ model, data=phase1.lr)
 anova(phase1.lr.lm)
 phase1.ss.lm <- lm(ss ~ model, data=phase1.ss)
