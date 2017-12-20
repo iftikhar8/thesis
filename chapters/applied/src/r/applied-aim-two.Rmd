@@ -35,6 +35,7 @@ reefs.yearly$settle.region <- as_factor(reefs.yearly$REGION.x,levels=region.code
 reefs.yearly$source.region <- as_factor(reefs.yearly$REGION.y,levels=region.codes)
 reefs.yearly$source.desc <- as_factor(reefs.yearly$Desc.y,levels=unique(reefs.id$Desc))
 reefs.yearly$settle.desc <- as_factor(reefs.yearly$Desc.x,levels=unique(reefs.id$Desc))
+
 reefs.yearly <- select(reefs.yearly, -Desc.x, -Desc.y, REGION.x, REGION.y, HABITAT.x, HABITAT.y)
 ```
 
@@ -43,20 +44,31 @@ Settlement from all regions
 
 #reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
 all.regions <- group_by(reefs.yearly, settle.desc, year)
-all.regions <- summarize(all.regions , count = sum(settlement/eggs))
-ggplot(all.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(all.regions$settle.desc))) + theme_bw()
+all.regions <- summarize(all.regions , count = sum(settlement))
+ggplot(all.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(all.regions$settle.desc))) + theme_bw() + labs(x = "Settlement region", y= "Annual larval settlement")
 ggsave("../../figs/total-settle-region.png")
 ```
 
-Settlement to all regions
+Source to all regions
 ```{r}
 
 #reefs.pinnacle <- reefs.pinnacle %>% summarise(sum)
 all.regions <- group_by(reefs.yearly, source.desc, year)
-all.regions <- summarize(all.regions , count = sum(settlement/eggs))
-ggplot(all.regions, aes(x=source.desc, y=count)) + geom_boxplot(aes(source.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(all.regions$source.desc))) + theme_bw()
+all.regions <- summarize(all.regions , count = sum(settlement))
+ggplot(all.regions, aes(x=source.desc, y=count)) + geom_boxplot(aes(source.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(all.regions$source.desc))) + theme_bw() +labs(x = "Source region", y= "Annual larval settlement")
 ggsave("../../figs/total-source-region.png")
 ```
 
+```{r}
+known.regions <- reefs.yearly %>% filter(source.region == "NSW05" | source.region == "NSW06" | source.region == "NSW09"| source.region == "NSW18"| source.region == "NSW19") %>% group_by(settle.desc, year)
+known.regions <- summarize(known.regions , count = sum(settlement))
+ggplot(known.regions, aes(x=settle.desc, y=count)) + geom_boxplot(aes(settle.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(known.regions$settle.desc))) + theme_bw() +labs(x = "Settlement region", y= "Annual larval settlement")
+  ggsave("../../figs/known-settle-region.png")
+```
 
-
+```{r}
+known.regions.source <- reefs.yearly %>% filter(source.region == "NSW05" | source.region == "NSW06" | source.region == "NSW09"| source.region == "NSW18"| source.region == "NSW19") %>% group_by(source.desc, year)
+known.regions.source <- summarize(known.regions.source , count = sum(settlement))
+ggplot(known.regions.source, aes(x=source.desc, y=count)) + geom_boxplot(aes(source.desc)) + coord_flip() +scale_x_discrete(limits = rev(levels(known.regions$source.desc))) + theme_bw() +labs(x = "Source region", y= "Annual larval settlement")
+ggsave("../../figs/known-source-region.png")
+```

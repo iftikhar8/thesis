@@ -100,13 +100,14 @@ Self-recruitment
 #years <- c("2011","2010","2009","2008","2007","2006")
 blackcod.sr <- as.tibble(t(rbind(blackcod.2011.sr, blackcod.2010.sr, blackcod.2009.sr, blackcod.2008.sr,blackcod.2007.sr, blackcod.2006.sr,blackcod.2005.sr,blackcod.2004.sr)))
 colnames(blackcod.sr) <- years
-blackcod.sr$regions <- unique(regions.data$settle.region)[-20:-21]
+blackcod.sr$regions <- colnames(blackcod.2008.conn.regions)
 blackcod.sr <- gather(blackcod.sr, year, sr, -regions)
 blackcod.sr$year <- as.factor(blackcod.sr$year)
-blackcod.sr$regions <- as.factor(blackcod.sr$regions)
-blackcod.sr$desc <- as.factor(region.names)
-ggplot(data=blackcod.sr, aes(x=reorder(regions, sr, FUN=mean),y=sr)) + geom_boxplot() + coord_flip() + theme_bw()
-ggsave("../../figs/blackcod-region-sr.png")
+blackcod.sr$regions <- factor(blackcod.sr$regions)
+blackcod.sr$desc <- factor(region.names, levels=rev(region.names[order(blackcod.sr$regions)]))
+blackcod.sr.plot <- ggplot(data=blackcod.sr, aes(x=desc,y=sr)) + geom_boxplot() + coord_flip() + theme_bw() + labs(x="Source region", y="Self-recruitment")
+blackcod.sr.plot.year <- ggplot(data=blackcod.sr, aes(x=year,y=sr)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_bw() + labs(x="", y="Self-recruitment")
+ggsave("../../figs/blackcod-region-sr.png", blackcod.sr.plot)
 ```
 
 Settlement success
@@ -114,13 +115,16 @@ Settlement success
 
 blackcod.ss <- as.tibble(t(rbind(blackcod.2011.ss, blackcod.2010.ss, blackcod.2009.ss, blackcod.2008.ss,blackcod.2007.ss, blackcod.2006.ss,blackcod.2005.ss,blackcod.2004.ss)))
 colnames(blackcod.ss) <- years
-blackcod.ss$regions <- unique(regions.data$settle.region)[-20:-21]
+blackcod.ss$regions <- colnames(blackcod.2008.conn.regions)
 blackcod.ss <- gather(blackcod.ss, year, ss, -regions)
 blackcod.ss$year <- as.factor(blackcod.ss$year)
 blackcod.ss$regions <- as.factor(blackcod.ss$regions)
-#blackcod.ss$desc <- as.factor(region.names)
-ggplot(data=blackcod.ss, aes(x=reorder(regions, ss, FUN=mean),y=ss)) + geom_boxplot() + coord_flip() + theme_bw()
-ggsave("../../figs/blackcod-region-ss.png")
+blackcod.ss$desc <- factor(region.names,levels=rev(region.names[order(blackcod.ss$regions)]))
+blackcod.ss.plot <- ggplot(data=blackcod.ss, aes(x=desc,y=ss)) + geom_boxplot() + coord_flip() + theme_bw() + labs(x="Source region", y="Settlement success")
+blackcod.ss.plot.year <- ggplot(data=blackcod.ss, aes(x=year,y=ss)) +stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + theme_bw() + labs(x="Year", y="Settlement success")
+ggsave("../../figs/blackcod-region-ss.png",blackcod.ss.plot)
+p1 <- ggplot(aes(y = ss, x = year), data = blackcod.ss)
+p1 <- p1 + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + geom_jitter(position=position_jitter(width=.2), size=3) + ggtitle("Boxplot con media, 95%CI, valore min. e max.") + xlab("Gruppi") + ylab("Valori") + coord_flip() + theme_bw()
 ```
 
 Local retention
@@ -128,13 +132,14 @@ Local retention
 #years <- c("2011","2010","2009","2008","2007","2006")
 blackcod.lr <- as.tibble(t(rbind(blackcod.2011.lr, blackcod.2010.lr, blackcod.2009.lr, blackcod.2008.lr,blackcod.2007.lr, blackcod.2006.lr, blackcod.2005.lr, blackcod.2004.lr)))
 colnames(blackcod.lr) <- years
-blackcod.lr$regions <- unique(regions.data$settle.region)[-20:-21]
+blackcod.lr$regions <- colnames(blackcod.2008.conn.regions)
 blackcod.lr <- gather(blackcod.lr, year, lr, -regions)
 blackcod.lr$year <- as.factor(blackcod.lr$year)
 blackcod.lr$regions <- as.factor(blackcod.lr$regions)
-#blackcod.lr$desc <- as.factor(region.names)
-ggplot(data=blackcod.lr, aes(x=reorder(regions, lr, FUN=mean),y=lr)) + geom_boxplot() + coord_flip() + theme_bw()
-ggsave("../../figs/blackcod-regions-lr.png")
+blackcod.lr$desc <- factor(region.names,levels=rev(region.names[order(blackcod.lr$regions)]))
+blackcod.lr.plot <- ggplot(data=blackcod.lr, aes(x=desc,y=lr)) + geom_boxplot() + coord_flip()+ labs(x="", y="Local retention") + theme_bw()
+blackcod.lr.plot.year <- ggplot(data=blackcod.lr, aes(x=year,y=lr)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") +  labs(x="", y="Local retention") + theme_bw()
+ggsave("../../figs/blackcod-regions-lr.png",blackcod.lr.plot)
 ```
 
 Relative local retention
@@ -142,13 +147,14 @@ Relative local retention
 #years <- c("2011","2010","2009","2008","2007","2006")
 blackcod.rlr <- as.tibble(t(rbind(blackcod.2011.rlr, blackcod.2010.rlr, blackcod.2009.rlr, blackcod.2008.rlr,blackcod.2007.rlr, blackcod.2006.rlr, blackcod.2005.rlr, blackcod.2004.rlr)))
 colnames(blackcod.rlr) <- years
-blackcod.rlr$regions <- unique(regions.data$settle.region)[-20:-21]
+blackcod.rlr$regions <- colnames(blackcod.2008.conn.regions)
 blackcod.rlr <- gather(blackcod.rlr, year, rlr, -regions)
 blackcod.rlr$year <- as.factor(blackcod.rlr$year)
 blackcod.rlr$regions <- as.factor(blackcod.rlr$regions)
-#blackcod.rlr$desc <- as.factor(region.names)
-ggplot(data=blackcod.rlr, aes(x=reorder(regions, rlr, FUN=mean),y=rlr)) + geom_boxplot() + coord_flip() + theme_bw()
-ggsave("../../figs/blackcod-regions-rlr.png")
+blackcod.rlr$desc <- factor(region.names,levels=rev(region.names[order(blackcod.rlr$regions)]))
+
+blackcod.rlr.plot <- ggplot(data=blackcod.rlr, aes(x=reorder(desc, rlr, FUN=mean),y=rlr)) + geom_boxplot() + coord_flip() + theme_bw() + labs(x="Local retention (%)")
+ggsave("../../figs/blackcod-regions-rlr.png", blackcod.rlr.plot)
 ```
 
 Dispersal kernel
@@ -156,23 +162,85 @@ Dispersal kernel
 blackcod.dk <- as.tibble(cbind(blackcod.2011.dk.regions$mean.distance, blackcod.2010.dk.regions$mean.distance, blackcod.2009.dk.regions$mean.distance, blackcod.2008.dk.regions$mean.distance,blackcod.2007.dk.regions$mean.distance,blackcod.2006.dk.regions$mean.distance,blackcod.2005.dk.regions$mean.distance, 
                    blackcod.2004.dk.regions$mean.distance))
 colnames(blackcod.dk) <- years
-blackcod.dk$regions <- unique(regions.data$settle.region)[-20:-21]
+blackcod.dk$regions <- colnames(blackcod.2008.conn.regions)
 blackcod.dk <- gather(blackcod.dk, year, dk, -regions)
 blackcod.dk$year <- as.factor(blackcod.dk$year)
 blackcod.dk$regions <- as.factor(blackcod.dk$regions)
-#blackcod.dk$desc <- as.factor(region.names)
-ggplot(data=blackcod.dk, aes(x=reorder(regions, dk, FUN=mean),y=dk)) + geom_boxplot() + coord_flip() + theme_bw()
-ggsave("../../figs/blackcod-regions-dk.png")
+blackcod.dk$desc <- factor(region.names, levels=rev(region.names[order(blackcod.dk$regions)]))
+blackcod.dk.plot <- ggplot(data=blackcod.dk, aes(x=desc,y=dk)) + geom_boxplot() + coord_flip() + theme_bw() + labs(x="", y="Dispersal distance (km)")
+blackcod.dk.plot.year <- ggplot(data=blackcod.dk, aes(x=year,y=dk)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + theme_bw() + labs(x="Year", y="Dispersal distance (km)")
+ggsave("../../figs/blackcod-regions-dk.png",blackcod.dk.plot)
 ```
 
+```{r}
 
+blackcod.metrics.plot <- plot_grid(blackcod.sr.plot, blackcod.lr.plot, blackcod.ss.plot, blackcod.dk.plot, labels = c("A", "B", "C", "D"), ncol = 2)
+save_plot("../../figs/region-metrics.png", blackcod.metrics.plot,
+          ncol = 2, # we're saving a grid plot of 2 columns
+          nrow = 2, # and 2 rows
+          base_aspect_ratio = 1.3
+          )
+
+blackcod.metrics.plot.year <- plot_grid(blackcod.sr.plot.year, blackcod.lr.plot.year, blackcod.ss.plot.year, blackcod.dk.plot.year, labels = c("A", "B", "C", "D"), ncol = 2)
+save_plot("../../figs/year-metrics.png", blackcod.metrics.plot.year,
+          ncol = 2, # we're saving a grid plot of 2 columns
+          nrow = 2, # and 2 rows
+          base_aspect_ratio = 1.3
+          )
+```
+
+```{r}
+
+
+```
 
 Statistical tests
 ```{r}
+
+blackcod.sr.aov <- with(blackcod.sr,
+                   aov(sr ~ year +
+                       Error(regions / (year)))
+)
+summary(blackcod.sr.aov)
+
+#Aov.mod <- aov(Y ~ N + V + Error(B/V), data = oats)
+blackcod.sr.lme <- lme(sr ~ year , random = ~1 | regions/year, data = blackcod.sr)
+
+#summary(Aov.mod)
+anova(blackcod.sr.lme)
+summary(glht(blackcod.sr.lme, linfct=mcp(year="Tukey")))
+summary(Lme.mod)
+summary(glht(Lme.mod, linfct=mcp(year="Tukey")))
+
+blackcod.lr.aov <- with(blackcod.lr,
+                   aov(lr ~ year +
+                       Error(regions / (year)))
+)
+summary(blackcod.lr.aov)
+
+blackcod.ss.aov <- with(blackcod.ss,
+                   aov(ss ~ year +
+                       Error(regions / (year)))
+)
+summary(blackcod.ss.aov)
+
+blackcod.rlr.aov <- with(blackcod.rlr,
+                   aov(rlr ~ year +
+                       Error(regions / (year)))
+)
+summary(blackcod.rlr.aov)
+
+blackcod.dk.aov <- with(blackcod.dk,
+                   aov(dk ~ year +
+                       Error(regions / (year)))
+)
+summary(blackcod.dk.aov)
+
 blackcod.sr.lm <- lm(sr ~ year + regions, data=blackcod.sr)
 anova(blackcod.sr.lm)
-print(SNK.test(aov(blackcod.sr.lm),"regions"))
 print(SNK.test(aov(blackcod.sr.lm),"year"))
+
+
 blackcod.lr.lm <- lm(lr ~ year + regions, data=blackcod.lr)
 anova(blackcod.lr.lm)
 print(SNK.test(aov(blackcod.lr.lm),"year"))

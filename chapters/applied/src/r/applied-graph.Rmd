@@ -46,7 +46,7 @@ Hubs and Authorities
 as <- authority_score(graph)$vector
 hs <- hub_score(graph)$vector
 par(mfrow=c(1,2))
-plot(graph.s, vertex.size = as*50, edge.arrow.size=0.1,edge.curved=0.1,vertex.label=region.names, main="Links out", vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7)
+plot(graph.simple, vertex.size = as*50, edge.arrow.size=0.1,edge.curved=0.1,vertex.label=region.names, main="Links out", vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7)
 plot(graph, vertex.size = hs*50, edge.arrow.size=0.1, edge.curved=0.1,vertex.label=region.names,main="Links in", vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7)
 ```
 
@@ -100,10 +100,10 @@ ecol[mpas$NSW10] <- "orange"
 ecol[mpas$NSW11] <- "orange"
 vcol <- rep("grey80", vcount(graph))
 vcol[c(2,5,9,18,13,19,7,10,11)] <- "gold"
-plot(simplify(graph), vertex.color=vcol, edge.color=ecol, edge.arrow.size=0.2, edge.curved=0.1, edge.width=E(graph)$weight/500, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.9,vertex.label=region.names, vertex.label.font=2, main="MPAs")
+plot(simplify(graph), vertex.color=vcol, edge.color=ecol, edge.arrow.size=0.2, edge.curved=0.1, edge.width=E(graph)$weight/500, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.9,vertex.label=region.names, vertex.label.font=2, main="MPAs", layout=layout_in_circle)
 
 par(mfrow=c(1,2))
-plot(graph.s, vertex.color=vcol, edge.color=ecol, vertex.size = as*50, edge.arrow.size=0.1,edge.curved=0.1,vertex.label=region.names, main="Links out", vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7)
+plot(graph.simple, vertex.color=vcol, edge.color=ecol, vertex.size = as*50, edge.arrow.size=0.1,edge.curved=0.1,vertex.label=region.names, main="Links out", vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7)
 plot(graph, vertex.color=vcol, edge.color=ecol, vertex.size = hs*50, edge.arrow.size=0.1, edge.curved=0.1,vertex.label=region.names,main="Links in", vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7)
 
 ```
@@ -112,10 +112,25 @@ Community detection
 ```{r}
 
 ceb <- cluster_edge_betweenness(graph)
-dendPlot(ceb, mode="hclust")
+dendPlot(ceb, mode="hclust", label=region.names)
 plot(ceb, graph, vertex.size = hs*50, edge.arrow.size=0.1, edge.curved=0.1, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7,vertex.label=region.names)
 
 clp <- cluster_fast_greedy(as.undirected(graph))
+
+png(filename="../../figs/dendo-all-regions.png")
+dendPlot(clp, mode="hclust", label=region.names)
+dev.off()
+ggdendrogram(clp, rotate = FALSE, size = 2)
+
+dhc <- as.dendrogram(clp)
+# Rectangular lines
+ddata <- dendro_data(dhc, type = "rectangle")
+p <- ggplot(segment(ddata)) + 
+  geom_segment(aes(x = x, y = label, xend = xend, yend = yend)) + 
+  coord_flip() + 
+  scale_y_reverse(expand = c(0.2, 0))
+p
+
 plot(clp, as.undirected(graph), edge.arrow.size=0.1, edge.curved=0.1, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7,vertex.label=region.names)
 
 V(graph)$community <- clp$membership
