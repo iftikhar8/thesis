@@ -13,10 +13,11 @@ require(multcompView)
 require(cowplot)
 require(magick)
 library(RColorBrewer)
+library(tidyverse)
 ```
 
 
-OVM diagram
+OVM example diagram
 ```{r}
 
 ovm <- tribble(
@@ -65,3 +66,22 @@ map
 #plot_grid(map,eddies, labels="AUTO")
 ggsave("../../figs/release-sites.png", map)
 ```
+
+
+OVM proportions diagram
+
+```{r}
+ovm.data <- read_csv("../../data/ovm.csv")
+ovm.data <- ovm.data %>% gather(key= stage, value=proportion, 3:5)
+ovm.data$stage <- factor(ovm.data$stage, levels=c("preflexion","flexion","postflexion"))
+ovm.plot <- ggplot(data= ovm.data, aes(x=depth, y=proportion, group=stage, colour=stage)) + geom_line() + geom_point() + facet_wrap(~fish, ncol=2, shrink = TRUE) + coord_flip() + theme_bw() + labs(x="Depth", y="Proportion") + theme(legend.position = "bottom")
+ggsave("../../figs/ovm-strategies.png", ovm.plot)
+
+
+
+data.ontogeny$stage.r <- factor(data.ontogeny$stage, levels=c("PRE","FLE","POS"))
+data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
+ggplot(data=data.ontogeny, aes(y=conc.m, x=depth.r, group=stage.r, color=stage.r)) + facet_wrap(~family, scales="free", ncol=4, shrink = TRUE) + stat_summary_bin(fun.y="mean", geom="line", position=position_dodge(width=0.5), show.legend=FALSE) + stat_summary_bin(fun.y="mean", geom="point", position=position_dodge(width=0.5),size=2) + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",position=position_dodge(width=0.5),show.legend = FALSE) + labs(x="Depth (m)", y=expression("Concentration per 1000 "~m^{3})) + theme_classic() + coord_flip() + scale_color_discrete(name="", labels=c("Preflexion","Flexion","Postflexion")) + theme(legend.position = c(0.85,0.15), legend.justification = c(0.3,0)) 
+```
+
+
