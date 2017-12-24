@@ -129,6 +129,11 @@ The length of Labridae (p < 0.001), Pomacentridae (p < 0.001) and Serranidae (p 
 
 # Discussion
 
+Your trends for family may be confounded by within family variation.
+Is there a family (Miskie?) that you could test this with a couple of taxa even simply by inspection, before graduating to a family level statistical analysis?
+
+Secondly – is the thermocline approximately around 50 m for most of the stations? Or is it significantly different?  I think it was – but if not then it would confound the effect of depth (ie the taxon follows the water mass)
+
 ## Stage-abundance
 Ontogenetic stage distribution patterns were not seen amongst all of the families as predicted, and of the five families that show ontogenetic shifts in distribution, a downward shift pattern was not uniform. Similar downward ontogenetic shifts of the families Labridae, Scorpaenidae and Serranidae as seen in this study, have been seen before [@Gray:1993et; @Irisson:2010um]. Off the NSW coast, a study of vertical migration also saw upwards shifts for Mullidae and no ontogenetic pattern for Pomacentridae [@Gray:1993et]. Pomacentridae in tropical areas have been shown to vertically migrate both downwards [@Paris:2004te] and upwards [@Irisson:2010um] with ontogeny, suggesting strong species-specific trends. In our experiment, the results for Pomacentridae and Scaridae were also hard to analyse due to the low sample numbers for postflexion and preflexion respectively, therefore it is highly possible ontogenetic patterns existed but we could not tease them out. The result was surprising, as we thought the relationship between stage and depth would exist for these families as per the literature, especially over the coarse depths we used. For Scorpaenidae, X and Y, the pattern supported our hypothesis that more developed larvae (in this case flexion and onwards) were more likely to be present at lower depths (50-100 m). For the other species, it appears there could be ontogenetic patterns, but the low catch rate of the different ontogenetic stages across all sites reduced the power of the analysis.
 
