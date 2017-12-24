@@ -85,15 +85,27 @@
     <verticalMigrationDielProbabilities>
       <verticalMigrationDielProbability>
         <depthStart>0</depthStart>
-        <depthFinish>50</depthFinish>
+        <depthFinish>25</depthFinish>
         <day>0.1</day>
-        <night>0.8</night>
+        <night>0.3</night>
       </verticalMigrationDielProbability>
       <verticalMigrationDielProbability>
-        <depthStart>50</depthStart>
+        <depthStart>26</depthStart>
+        <depthFinish>50</depthFinish>
+        <day>0.3</day>
+        <night>0.3</night>
+      </verticalMigrationDielProbability>
+      <verticalMigrationDielProbability>
+        <depthStart>51</depthStart>
+        <depthFinish>75</depthFinish>
+        <day>0.4</day>
+        <night>0.3</night>
+      </verticalMigrationDielProbability>
+      <verticalMigrationDielProbability>
+        <depthStart>76</depthStart>
         <depthFinish>100</depthFinish>
-        <day>0.9</day>
-        <night>0.2</night>
+        <day>0.2</day>
+        <night>0.1</night>
       </verticalMigrationDielProbability>
     </verticalMigrationDielProbabilities>
     <pelagicLarvalDuration>
@@ -117,7 +129,7 @@
     <buffer>
       <isBuffered>true</isBuffered>
       <settlement>10</settlement>
-      <olfactory>15</olfactory>
+      <olfactory>10</olfactory>
     </buffer>
   </habitat>
   <output>
