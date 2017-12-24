@@ -74,7 +74,7 @@ OVM proportions diagram
 ovm.data <- read_csv("../../data/ovm.csv")
 ovm.data <- ovm.data %>% gather(key= stage, value=proportion, 3:5)
 ovm.data$stage <- factor(ovm.data$stage, levels=c("preflexion","flexion","postflexion"))
-ovm.plot <- ggplot(data= ovm.data, aes(x=depth, y=proportion, group=stage, colour=stage)) + geom_line() + geom_point() + facet_wrap(~fish, ncol=2, shrink = TRUE) + coord_flip() + theme_bw() + labs(x="Depth", y="Proportion") + theme(legend.position = "bottom")
+ovm.plot <- ggplot(data= ovm.data, aes(x=depth, y=proportion, group=stage, colour=stage)) + geom_line() + geom_point() + facet_wrap(~fish, ncol=2, shrink = TRUE) + coord_flip() + theme_bw() + labs(x="Depth", y="Proportion") + scale_color_discrete(name="Ontogenetic stage") + theme(legend.position = "right")
 ggsave("../../figs/ovm-strategies.png", ovm.plot)
 
 

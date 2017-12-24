@@ -218,9 +218,9 @@ Then when you describe your analysis, after you give a general overview of your 
 Note you could perhaps go the other way around…look at specific diffs first and then pull it all together to put it in context.
 
 
-## Behaviours
+## Behavioural scenarios
 
-Including orientation increased the diversity of the settlement reefs, although behaviours did not seem to effect the richness of the settlement reefs (@tbl:metrics). Larvae with only DVM behaviours had lowered richness, diversity, and connectedness of settlement patterns, conversely all other behavioural combinations increased these values compared to passive larvae. Including behaviour in models generally increased self-recruitment (with OVM the exception), increased local retention, increased settlement success and lowered the dispersal distance of larvae (@tbl:metrics). Settlement success was significantly increased approximately 20% when OHS was included with either DVM, OVM or a combination of both compared to a model with no behaviour (F~7,128~ = 2.98, p \< 0.05).
+Including orientation increased the diversity of the settlement reefs, although behaviours did not seem to effect the richness of the settlement reefs (@tbl:metrics). Larvae with only DVM behaviours had lowered richness, diversity, and connectedness of settlement patterns, conversely all other behavioural combinations increased these values compared to passive larvae. Including behaviour in models generally increased self-recruitment (with OVM the exception), increased local retention, increased settlement success and lowered the dispersal distance of larvae (@tbl:metrics). Self-recruitment varied significantly between behavioural models (F~7,112~ = 18.00, p \< 0.05), the self-recruitment for DVM was significantly different to all other models. The self-recruitment for models containing DVM was significantly greater than the model with no behaviour. Settlement success was significantly increased approximately 20% when OHS was included with either DVM, OVM or a combination of both compared to a model with no behaviour (F~7,112~ = 63.02, p \< 0.05). Local retention was also significantly increased with all behaviour, except OVM. Larvae with DVM behaviour increased local retention the most, and it the highest values came when combining it with the behaviour OHS. The distance dispersed before settling was also reduced by adding any behaviour to the larvae (F~7,112~ = 23.66, p \< 0.05), with DVM restricting the dispersal distance the most.
 
 Evaluating the settlement patterns from regions using the settlement to other regions, the most dissimilar pattern occurred when only diel vertical migration was included (@fig:cluster a). The rest of the settlement patterns for the different behaviours were grouped into models with and without orientation (@fig:cluster a). The effect of including behaviours on settlement pattens differed depending on the source region, for some regions, such as off the southern coastline of NSW the effect was less noticeable (@fig:nmds-behaviour). The effect appeared to be greatest amongst all the patterns at mid-north to central coast, the regions Nambucca, Solitary Islands, Pt Stephens, and Newcastle. There were no significant differences in overall settlement patterns between the behaviours (F~model(7,128)~ = 0.95, p > 0.05, r^2^ = 0.05). The dissimilarities in DVM settlement was strongly driven by increased settlement at the Tweed (@fig:behaviour-ca). Including OVM and OHS strongly increased settlement at the southern NSW region of Merimbula and into Victoria.
 
@@ -231,9 +231,37 @@ TAKE HOME POINTS FOR DISCUSSION
 - OVM didn't have as big as effect as possible
 - Effects can be regional (important to remember if only releasing from one point)
 
-## Ontogenetic vertical migration
+## Ontogenetic vertical migration scenarios
 
-Serranidae, an OVM strategy where postflexion larvae migrate downwards had the highest settlement diversity (@tbl:metrics). This strategy of migrating downwards with ontogeny below 50 m, most pronounced in Serranidae and Scorpaenidae, increased self-recruitment, local retention, settlement success, and lowered the dispersal distance. This pattern contrasted with Mullidae larvae that migrated upwards towards the surface during postflexion produced the least diverse patterns of settlement. Staying close to the surface lowered self-recruitment, local retention, settlement success, and increased the dispersal distance of the larvae (@tbl:metrics). The settlement patterns of different larval migration strategies by source region were not significantly different from each other (F~model(6,112)~ = 0.12, p > 0.05, r^2^=0.01; @fig:nmds-ovm). Mullidae were the only pattern that were able to settle at the distant rocky reefs of Lord Howe Island (@fig:ovm-ca). The deeper strategy used by Serranidae increased settlement at the Tweed in northern NSW. Patterns clustered together with similar migration strategies (@fig:cluster b).
+Serranidae, an OVM pattern where postflexion larvae migrate downwards had the highest settlement diversity (@tbl:metrics). This strategy of migrating downwards with ontogeny below 50 m, most pronounced in Serranidae and Scorpaenidae, increased self-recruitment, local retention, settlement success, and lowered the dispersal distance. This pattern contrasted with Mullidae larvae that migrated upwards towards the surface during postflexion, which produced the least diverse patterns of settlement. Staying close to the surface lowered self-recruitment (F~6,96~ = 31.10, p \< 0.05), local retention (F~6,96~ = 40.90, p \< 0.05), settlement success (F~6,96~ = 42.84, p \< 0.05), and increased the dispersal distance of the larvae (F~6,96~ = 63.25, p \< 0.05; @tbl:metrics). The settlement patterns of different larval migration strategies by source region were not significantly different from each other (F~model(6,112)~ = 0.12, p > 0.05, r^2^=0.01; @fig:nmds-ovm). Mullidae were the only pattern that were able to settle at the distant rocky reefs of Lord Howe Island (@fig:ovm-ca). The deeper strategy used by Serranidae increased settlement at the Tweed in northern NSW, with the equal highest settlement overall with Scorpaendiae, but also had the highest dispersal distance. Patterns clustered together with similar migration strategies (@fig:cluster b).
+
+SR
+model           6    96  31.10362  <.0001
+labridae      mullidae pomacentridae      scaridae  scorpaenidae
+     "b"           "a"           "b"          "bc"          "cd"
+serranidae  synodontidae
+     "d"           "b"
+
+SS model           6    96  42.83704  <.0001
+     labridae      mullidae pomacentridae      scaridae  scorpaenidae
+               "b"           "a"          "cd"          "bc"          "de"
+        serranidae  synodontidae
+               "e"           "c"
+LR
+model           6    96 40.90339  <.0001
+               labridae      mullidae pomacentridae      scaridae  scorpaenidae
+                      "b"           "a"           "b"           "b"           "c"
+               serranidae  synodontidae
+                      "c"           "b"
+
+DK
+model           6    96  63.25106  <.0001
+
+                      labridae      mullidae pomacentridae      scaridae  scorpaenidae
+                             "d"           "e"           "d"           "c"           "b"
+                      serranidae  synodontidae
+                             "a"          "cd"
+
 
 Each different implementation method of ontogenetic migration (time step, daily, or stage) affected the connectivity metrics (@tbl:metrics). Ontogenetically migrating the larvae daily had a different settlement pattern compared to time step and stage migration (F~model(2,48)~ = 2.88, p < 0.05, r^2^ = 0.11; @fig:nmds-implementation). The settlement was different at a number of different sites for each method, stage migration had the most dissimilar abundance at the Tweed (@fig:implementation-ca).
 

@@ -7,6 +7,8 @@ output: html_notebook
 library(ConnMatTools)
 library(tidyverse)
 library(agricolae)
+library(nlme)
+library(multcomp)
 ```
 
 ```{r}
@@ -342,12 +344,14 @@ phase1.lr <- add_column(phase1.lr, regions = phase1.regions)
 phase1.lr.lme <- lme(lr ~ model , random = ~1 | regions/model, data = phase1.lr)
 anova(phase1.lr.lme)
 summary(glht(phase1.lr.lme, linfct=mcp(model="Tukey")))
-
-phase1.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+cld(glht(phase1.lr.lme, linfct=mcp(model="Tukey")))
+#phase1.regions <- rep(c(paste("nsw",1:17, sep="")),8)
 phase1.dk <- add_column(phase1.dk, regions = phase1.regions)
 phase1.dk.lme <- lme(dk ~ model , random = ~1 | regions/model, data = phase1.dk)
 anova(phase1.dk.lme)
-summary(glht(phase1.dk.lme, linfct=mcp(model="Tukey")))
+phase1.dk.posthoc <- glht(phase1.dk.lme, linfct=mcp(model="Tukey"))
+summary(phase1.dk.posthoc)
+cld(phase1.dk.posthoc)
 
 
 
@@ -369,6 +373,33 @@ anova(phase1.dk.lm)
 
 Statistical tests for Phase 2
 ```{r}
+
+phase2.regions <- rep(c(paste("nsw",1:17, sep="")),7)
+phase2.sr <- add_column(phase2.sr, regions = phase2.regions)
+phase2.sr.lme <- lme(sr ~ model , random = ~1 | regions/model, data = phase2.sr)
+anova(phase2.sr.lme)
+summary(glht(phase2.sr.lme, linfct=mcp(model="Tukey")))
+cld(glht(phase2.sr.lme, linfct=mcp(model="Tukey")))
+#phase2.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+phase2.ss <- add_column(phase2.ss, regions = phase2.regions)
+phase2.ss.lme <- lme(ss ~ model , random = ~1 | regions/model, data = phase2.ss)
+anova(phase2.ss.lme)
+summary(glht(phase2.ss.lme, linfct=mcp(model="Tukey")))
+cld(glht(phase2.ss.lme, linfct=mcp(model="Tukey")))
+#phase2.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+phase2.lr <- add_column(phase2.lr, regions = phase2.regions)
+phase2.lr.lme <- lme(lr ~ model , random = ~1 | regions/model, data = phase2.lr)
+anova(phase2.lr.lme)
+summary(glht(phase2.lr.lme, linfct=mcp(model="Tukey")))
+cld(glht(phase2.lr.lme, linfct=mcp(model="Tukey")))
+#phase2.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+phase2.dk <- add_column(phase2.dk, regions = phase2.regions)
+phase2.dk.lme <- lme(dk ~ model , random = ~1 | regions/model, data = phase2.dk)
+anova(phase2.dk.lme)
+phase2.dk.posthoc <- glht(phase2.dk.lme, linfct=mcp(model="Tukey"))
+summary(phase2.dk.posthoc)
+cld(phase2.dk.posthoc)
+
 phase2.sr.lm <- lm(sr ~ model, data=phase2.sr)
 anova(phase2.sr.lm)
 phase2.lr.lm <- lm(lr ~ model, data=phase2.lr)

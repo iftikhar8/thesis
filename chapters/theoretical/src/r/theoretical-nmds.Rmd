@@ -400,7 +400,7 @@ phase3.plot
 ```
 
 ```{r}
-grid <- plot_grid(phase1.plot,phase2.plot, labels=c("a","b"), align ="h")
+grid <- plot_grid(phase1.plot,phase2.plot, phase3.plot, labels=c("a","b", "c"), align ="h")
 save_plot("../../figs/cluster.png", grid, ncol=2, nrow=1)
 ```
 
