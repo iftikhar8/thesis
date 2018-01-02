@@ -149,20 +149,24 @@ In order to address the first aim of evaluating the influence of different behav
 : Orientated horizontal swimming (OHS) parameterisation, used in the swimming equation described above {#tbl:orientate}
 
 | OHS feature  | Value        | Reference                   |
-|------------------------------|--------------|-----------------------------|
+|------------------------------|:------------:|-----------------------------|
 | Olfactory distance           | 10 km        |  Based on review in Chapter 2  |
 | *U~crit~*                    | 0.463 ms~-1~ | [CITE Leis and Fisher 2006] |
 | *In situ* swimming potential | 0.25         | [CITE Leis and Fisher 2006] |
 | Endurance                    | 0.50          | [CITE Leis and Fisher 2006] |
 
-: Diel vertical migration (DVM) values {#tbl:dvm}
+: Diel vertical migration (DVM) values used, providing more stratified depth positions during the day and more even distribution at night as seen in temperate fish off NSW [CITE Gray 1997] {#tbl:dvm}
 
-| DVM      | Depth (m) | Probability  | Reference
-|-------|-----------|:------------| ------------
-| Day   | 0-50      | 0.1         | CITE Gray 1997
-|       | 51-100    | 0.9         | CITE Gray 1997
-| Night | 0-50      | 0.7         | CITE Gray 1997
-|       | 51-100    | 0.3         | CITE Gray 1997
+| Time of day | Depth range (m) | Probability |
+|-------------|-----------------|:-----------:|
+| Day         | 0-25            | 0.1         |
+|             | 26-50           | 0.3         |
+|             | 51-75           | 0.4         |
+|             | 76-100          | 0.2         |
+| Night       | 0-25            | 0.3         |
+|             | 26-50           | 0.3         |
+|             | 51-75           | 0.3         |
+|             | 76-100          | 0.1         |
 
 [I think its worth defining a term here to describe these things…here’s my stab at it.  You should use the term in chapter 3 as well.  Then use it above when describing OVM and, if you make the figure I suggested, use it there as well.  This will allow you have a term which essentially describes this multi-dimensional parameter which is fundamental to the OVM behavior in the model.]
 
@@ -170,16 +174,16 @@ The second aim, to assess the impact on connectivity of using different ontogene
 
 : Eight models with combinations of the three different behavioural scenarios were used to test the effects of the three behaviours; No behaviour (scenario 1), diel vertical migration (DVM; scenarios 2,5,6,8), ontogenetic vertical migration (OVM; scenarios 3,5,7,8), and orientated horizontal swimming (OHS, scenarios 4,6,7,8). {#tbl:scenarios-behaviour}
 
-| Scenario | DVM | OVM | OHS |
-|:--------:|:----:|:---:|:-----------:|
-|    1     |  —   |  —  |      —      |
-|    2     | Yes  |  —  |      —      |
-|    3     |  —   | Yes |      —      |
-|    4     |  —   |  —  |     Yes     |
-|    5     | Yes  | Yes |      —      |
-|    6     | Yes  |  —  |     Yes     |
-|    7     |  —   | Yes |     Yes     |
-|    8     | Yes  | Yes |     Yes     |
+| Behavioural scenario | DVM | OVM | OHS |
+|:--------------------|:---:|:---:|:---:|
+|          1           |  —  |  —  |  —  |
+|          2           | Yes |  —  |  —  |
+|          3           |  —  | Yes |  —  |
+|          4           |  —  |  —  | Yes |
+|          5           | Yes | Yes |  —  |
+|          6           | Yes |  —  | Yes |
+|          7           |  —  | Yes | Yes |
+|          8           | Yes | Yes | Yes |
 
 ![Proportional depth stage abundance profiles for each of the seven fish families evaluated in Chapter 3. Values represent the proportional (within a stage) abundance of each ontogenetic stage (preflexion, flexion, postflexion) within each of three depth ranges (surface: 0-5 m; middle: 6-50 m; deep layer: 51-100 m) and are used to parameterise models run to address Aim 2 of this study.](chapters/theoretical/figs/ovm-strategies.png){@fig:scenarios-ovm}
 
@@ -197,7 +201,7 @@ The second aim, to assess the impact on connectivity of using different ontogene
 
 [These are not clear enough.  I’ve had a go at clarifying but I’m not sure I actually got it right, so check that.  Ideally you want to probably have a section where you talk about univariate metrics and one where you look at multivariate.]
 
-Each individual model run produced as output a connectivity matrix, which represents the connectivity between larval source (row~*i*~) and settlement (column~*j*~) regions where each element~*i,j*~ is the proportion of all larvae spawned at *i* which settled at *j* over the release period. Several univariate measures were extracted from each matrix: settlement site richness (the number of reefs receiving settlers), Shannon-Weiner diversity of settlement (using number of reefs and total larvae settled per reef), self-recruitment, local retention, settlement success, dispersal distance (see Definitions), and connectance (the proportion of the edges connecting natal and settlement sites in a graph compared to the theoretical maximum number of edges). Differences between model scenarios were assessed by comparing each metric amongst different sets of matrices (depending on the aim) with regions (n = 17) used as replicates using one-way repeated measure ANOVAs, to account for the regional oceangraphic variation in each model. Tukey's HSD post-hoc pairwise tests were used to assess differences amongst regions where ANOVAs were significant (\&alpha = 0.05). The r package *ConnMattTools* [CITE] was used to obtain connectivity metrics and the package *igraph* [CITE] was used for obtaining measures of connectance.
+Each individual model run produced as output a connectivity matrix, which represents the connectivity between larval source (row~*i*~) and settlement (column~*j*~) regions where each element~*i,j*~ is the proportion of all larvae spawned at *i* which settled at *j* over the release period. Several univariate measures were extracted from each matrix: settlement site richness (the number of reefs receiving settlers), Shannon-Weiner diversity of settlement (using number of reefs and total larvae settled per reef), self-recruitment, local retention, settlement success, dispersal distance (see Definitions), and connectance (the proportion of the edges connecting natal and settlement sites in a graph compared to the theoretical maximum number of edges). Differences between model scenarios were assessed by comparing each metric amongst different sets of matrices (depending on the aim) with regions (n = 17) used as replicates using one-way repeated measure ANOVAs, to account for the same oceanographic currents used in each model. Tukey's HSD post-hoc pairwise tests were used to assess differences amongst regions where ANOVAs were significant (\&alpha = 0.05). The r package *ConnMattTools* [CITE] was used to obtain connectivity metrics and the package *igraph* [CITE] was used for obtaining measures of connectance.
 
 Multivariate comparisons of connectivity matrices were made using non-metric multidimensional scaling (NMDS) which allowed for the assessment of the relative similarity of regional patterns (replicates) across different model scenarios (variables). I used the Bray-Curtis dissimilarity measures to get distance matrices and applied a square root transform to account for highly abundant areas of settlement. There were strong differences in settlement patters for the different regions due to variations in regional oceanography. These differences are interesting but can serve to swamp the more pertinent comparisons between models. In order to capture these differences between models more explicitly raw settlement proportions were standardised by settlement proportion values from the passive (no behaviour) connectivity matrix. To test for differences in these multivariate patterns of settlement between models, PERMANOVA tests were conducted using the *adonis* function in the r package *vegan* [CITE vegan]. Correspondence analysis using the r package *ca* [CITE] was used to see which regions were contributing the most to differences amongst models. Cluster analysis for each model was also used to test for groups of similar models, again using a Bray-Curtis dissimilarity measure and the average-link clustering method.
 
@@ -220,9 +224,21 @@ Note you could perhaps go the other way around…look at specific diffs first an
 
 ## Behavioural scenarios
 
-Including orientation increased the diversity of the settlement reefs, although behaviours did not seem to effect the richness of the settlement reefs (@tbl:metrics). Larvae with only DVM behaviours had lowered richness, diversity, and connectedness of settlement patterns, conversely all other behavioural combinations increased these values compared to passive larvae. Including behaviour in models generally increased self-recruitment (with OVM the exception), increased local retention, increased settlement success and lowered the dispersal distance of larvae (@tbl:metrics). Self-recruitment varied significantly between behavioural models (F~7,112~ = 18.00, p \< 0.05), the self-recruitment for DVM was significantly different to all other models. The self-recruitment for models containing DVM was significantly greater than the model with no behaviour. Settlement success was significantly increased approximately 20% when OHS was included with either DVM, OVM or a combination of both compared to a model with no behaviour (F~7,112~ = 63.02, p \< 0.05). Local retention was also significantly increased with all behaviour, except OVM. Larvae with DVM behaviour increased local retention the most, and it the highest values came when combining it with the behaviour OHS. The distance dispersed before settling was also reduced by adding any behaviour to the larvae (F~7,112~ = 23.66, p \< 0.05), with DVM restricting the dispersal distance the most.
+Including behaviour in models increased the self-recruitment compared to no behaviour (F~7,112~ = 16.59, p \< 0.05), except for the behaviour OVM unless it was combined with OHS ; @fig:conn-metrics A). DVM and DVM-OHS produced the highest mean self-recruitment values for each region. Similarly local retention increased when including all behaviours except OVM (unless coupled with OHS; F~7,112~ = 76.39, p \< 0.05; @fig:conn-metrics B). Passive larvae and larvae with OVM produced the most consistent local retention between regions, while changes in local retention attributed to DVM behaviour appeared to be highly region specific. Settlement success was significantly increased approximately 20% when OHS was included with either DVM, OVM or a combination of both compared to a model with no behaviour (F~7,112~ = 87.53, p \< 0.05; @fig:conn-metrics C). Including either OVM or DVM+OVM did not change the settlement success significantly compared to passive larvae. Larvae with no behaviour dispersed the longest (F~7,112~ = 60.54, p \< 0.05), suggesting behaviour constrains the dispersal kernel of larvae. Models with OHS behaviour included had the lowest dispersal distances,  approximately 40% the distance that passive larvae dispersed until settlement (@fig:conn-metrics D).
 
-Evaluating the settlement patterns from regions using the settlement to other regions, the most dissimilar pattern occurred when only diel vertical migration was included (@fig:cluster a). The rest of the settlement patterns for the different behaviours were grouped into models with and without orientation (@fig:cluster a). The effect of including behaviours on settlement pattens differed depending on the source region, for some regions, such as off the southern coastline of NSW the effect was less noticeable (@fig:nmds-behaviour). The effect appeared to be greatest amongst all the patterns at mid-north to central coast, the regions Nambucca, Solitary Islands, Pt Stephens, and Newcastle. There were no significant differences in overall settlement patterns between the behaviours (F~model(7,128)~ = 0.95, p > 0.05, r^2^ = 0.05). The dissimilarities in DVM settlement was strongly driven by increased settlement at the Tweed (@fig:behaviour-ca). Including OVM and OHS strongly increased settlement at the southern NSW region of Merimbula and into Victoria.
+[!The connectivity metrics of mean self-recruitment (%; A), local-retention (%; B), settlement success (%; C) and dispersal distance (km; B) for each region, as measured for each modelling scenario grouped by the three aims; behaviour (Passive = no behaviour, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming), OVM strategy, and OVM method. The whisker plots denote the mean, one standard deviation either side of the mean and min/max values.](chapters/theoretical/figs/conn-metrics.png){#fig:conn-metrics}
+
+Settlement richness, i.e. the number of sites settled to, was changed when behaviour was added to a model (F~7,112~ = 17.94, p \< 0.05; @fig:settle-metrics A). The settlement diversity similarly changed with behaviour (F~7,112~ = 52.99, p \< 0.05). The pattern was the same as with richness, but more pronounced, with OHS reducing the number of settlement sites and abundance of settlers across sites (@fig:settle-metrics B). DVM+OHS produced the greatest differences in settlement diversity, while DVM+OHS had the least variation between regions. Maximum connectance was achieved by including OVM behaviour, but all over behaviour combinations reduced the connectance of the models compared to no behaviour (@fig:settle-metrics C). Models with OHS had the lowest connectance values for models including behaviour.
+
+[!The metrics of mean settlement richness (A), settlement diversity (measured using Shannon-Weiner; B), and connectance (a measure of describing the proportion of all links between the natal and settlement sites that are realised; C) for each region, as measured for each modelling scenario grouped by the three aims; behaviour (Passive = no behaviour, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming), OVM strategy, and OVM method. The whisker plots denote the mean, one standard deviation either side of the mean and min/max values.](chapters/theoretical/figs/settle-metrics.png){#fig:settle-metrics}
+
+Cluster analysis of the settlement regions by behavioural models produced two discrete clusters: models with OHS and models with only vertical migration (either DVM or OVM) and no behaviour strategies (@fig:cluster A). The settlement patterns that were most similar were OVM+OHS and DVM+OVM+OHS, and also OVM and OVM+DVM, suggesting that including DVM with OVM does not effect the settlement pattern considerably. The strength of the effect on settlement patterns when including behaviour was regional, however the models with OHS included tended to be grouped together for each source region, suggesting similar settlement patterns compared to the other models (@fig:behaviour-nmds). There were no differences in the settlement patterns between the behaviours (F~model(7,128)~ = 1.27, p > 0.05, r^2^ = 0.06), with the majority of the variation explained by the source region, and hence the prevailing currents (F~model(16,119)~ = 22.02, p \< 0.05, r^2^ = 0.75).  Tweed and Pt Stephens settlement regions exhibited strong dissimilarities between these two behavioural model clusters, in contrast to the regions Pt Macquarie and Jervis Bay where the effect was less noticeable (@fig:behaviour-nmds). Dissimilarities between behaviour scenario models was explained by many different settlement regions (@fig:phase1-ca). Strong settlement to the Tweed region explained the dissimilarities for DVM models (excluding DVM+OVM) and OHS models. OHS also caused stronger larval settlement at Victoria, Merimbula, and Ballina, and weaker larval settlement at the regions Solitary Islands and Nambucca. Complementary to this, Nambucca and Solitary Islands were strong settlements regions for models with vertical migration or no behaviour (@fig:phase1-ca).
+
+![Cluster analysis of the behaviour (A; Passive = no behaviour, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming) and ontogenetic vertical migration (OVM) strategies (B), and OVM methods (C) using a Bray-Curtis dissimilarity measure and clustered using the average-link method.](chapters/theoretical/figs/cluster.png){#fig:cluster}
+
+![nMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the behaviour scenario; ellipses denote regions (2D stress = 0.01)](chapters/theoretical/figs/phase1-all-nmds.png){#fig:behaviour-nmds}
+
+![Correspondence analysis of the total settlement patterns to each region along NSW for each of the different models for the behaviour scenarios](chapters/theoretical/figs/phase1-ca.png){#fig:behaviour-ca}
 
 TAKE HOME POINTS FOR DISCUSSION
 
@@ -233,37 +249,22 @@ TAKE HOME POINTS FOR DISCUSSION
 
 ## Ontogenetic vertical migration scenarios
 
-Serranidae, an OVM pattern where postflexion larvae migrate downwards had the highest settlement diversity (@tbl:metrics). This strategy of migrating downwards with ontogeny below 50 m, most pronounced in Serranidae and Scorpaenidae, increased self-recruitment, local retention, settlement success, and lowered the dispersal distance. This pattern contrasted with Mullidae larvae that migrated upwards towards the surface during postflexion, which produced the least diverse patterns of settlement. Staying close to the surface lowered self-recruitment (F~6,96~ = 31.10, p \< 0.05), local retention (F~6,96~ = 40.90, p \< 0.05), settlement success (F~6,96~ = 42.84, p \< 0.05), and increased the dispersal distance of the larvae (F~6,96~ = 63.25, p \< 0.05; @tbl:metrics). The settlement patterns of different larval migration strategies by source region were not significantly different from each other (F~model(6,112)~ = 0.12, p > 0.05, r^2^=0.01; @fig:nmds-ovm). Mullidae were the only pattern that were able to settle at the distant rocky reefs of Lord Howe Island (@fig:ovm-ca). The deeper strategy used by Serranidae increased settlement at the Tweed in northern NSW, with the equal highest settlement overall with Scorpaendiae, but also had the highest dispersal distance. Patterns clustered together with similar migration strategies (@fig:cluster b).
+Changes in OVM strategies had significant effects on all the connectivity metrics; self-recruitment of larvae (F~6,96~ = 31.88, p \< 0.05; @fig:conn-metrics A), local retention (F~6,96~ = 40.90, p \< 0.05; @fig:conn-metrics B), settlement success (F~6,96~ = 42.84, p \< 0.05; @fig:conn-metrics C), and dispersal distance (F~6,96~ = 63.25, p \< 0.05; @fig:conn-metrics D). The strategy of close to the surface during all stages of ontogeny, e.g. Mullidae, produced the lowest self-recruitment, local retention, settlement success, and the longest dispersal distance. Contrastingly, the strategy of migrating downwards with ontogeny below 50 m, most pronounced in Serranidae and Scorpaenidae, increased self-recruitment, local retention, settlement success, and lowered the dispersal distance.
+Different OVM strategies did not produce any differences in richness (F~6,96~ = 1.11, p > 0.05; @fig:settle-metrics A) or diversity (F~6,96~ = 0.79, p > 0.05; @fig:settle-metrics B). The strategies with the lowest connectance occurred with the Labridae and Scaridae strategies, while Synodontidae had the highest connectance values (@fig:settle-metrics C).
 
-SR
-model           6    96  31.10362  <.0001
-labridae      mullidae pomacentridae      scaridae  scorpaenidae
-     "b"           "a"           "b"          "bc"          "cd"
-serranidae  synodontidae
-     "d"           "b"
+Comparing the settlement patterns of OVM strategies, there were no significant differences in strategies (F~model(6,112)~ = 0.13, p > 0.05, r^2^ = 0.01), with the variation largely explained by the regional currents. The dissimilarity patterns between OVM strategies at each settlement region appeared to be different, e.g. Labridae and Mullidae OVM strategies had similar settlement patterns when spawned at Merimbula and Pt Macquarie, but seemingly disparate patterns when spawned at Crowdy Bay and Sydney (@fig:ovm-nmds). Source regions Pt Stephens and Pt Macquarie produced similar patterns of settlement for all strategies, whereas other source regions, e.g. Merimbula or Solitary Islands, produced more varied settlement patterns between OVM strategies. Mullidae (surface strategy) were the only larvae to settle at the offshore region of Lord Howe Island (@fig:ovm-ca). Serranidae, with deeper larvae at post-flexion, had stronger settlement at the Tweed region. The rest of the dissimilarities were a result of small regional settlement changes. The OVM strategies clustered into three groups, the first containing only Mullidae (which were the only ones to reach Lord Howe), the second group containing the two deep vertical migrations strategies of Serranidae and Scorpaenidae, and the rest in the final group (@figs:cluster B).
 
-SS model           6    96  42.83704  <.0001
-     labridae      mullidae pomacentridae      scaridae  scorpaenidae
-               "b"           "a"          "cd"          "bc"          "de"
-        serranidae  synodontidae
-               "e"           "c"
-LR
-model           6    96 40.90339  <.0001
-               labridae      mullidae pomacentridae      scaridae  scorpaenidae
-                      "b"           "a"           "b"           "b"           "c"
-               serranidae  synodontidae
-                      "c"           "b"
+![nMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration strategies for reef fish (2D stress = 0.06)](chapters/theoretical/figs/phase2-all-nmds.png){#fig:ovm-nmds}
 
-DK
-model           6    96  63.25106  <.0001
+![Correspondence analysis of the total settlement patterns to each region along NSW for each of the different models for the ontogenetic vertical migration strategies](chapters/theoretical/figs/phase2-ca.png){#fig:ovm-ca}
 
-                      labridae      mullidae pomacentridae      scaridae  scorpaenidae
-                             "d"           "e"           "d"           "c"           "b"
-                      serranidae  synodontidae
-                             "a"          "cd"
+Considering different methods of OVM, there were significant differences between self-recruitment (F~(2,32)~ = 5.68, p < 0.05), the daily method having lower self-recruitment than stage based migration (@fig:conn-metrics A). Time-step migration had the lowest mean local retention (F~(2,32)~ = 9.83, p < 0.05; @fig:conn-metrics B) and settlement success (F~(2,32)~ = 32.48, p < 0.05; @fig:conn-metrics C) between the OVM methods. The daily and time-step methods both significantly dispersed further than the stage OVM method (F~(2,32)~ = 11.00, p < 0.05; @fig:conn-metrics D). The variation of dispersal distance for the daily OVM method had a standard deviation estimated to be 30% greater than the other methods. OVM methods did not have an effect on settlement site richness (F~(2,32)~ = 1.04, p \> 0.05; @fig:settle-metrics A), there was an effect on diversity (F~(2,32)~ = 11.02, p < 0.05; @fig:settle-metrics B). This effect was caused by the OVM method of daily migration, which had lower settlement site diversity than the other OVM methods. However, the daily method of migration had the highest value of connectance (@fig:settle-metrics C).
 
+The method of migrating daily produced significantly different settlement patterns from all regions compared to the time-step or staged based methods (F~model(2,48)~ = 2.96, p < 0.05, r^2^ = 0.11; @fig:impl-nmds). Ontogenetically migrating larvae daily produced distinctly different patterns to stage and time-step migration at the southern latitude source regions of Wollongong, Ulladulla, Jervis Bay, and Batemans Bay. Crowdy Bay and Nambucca, central latitudinal sites produced large variation between all three methods, while only Pt Macquarie and Pt Stephens produced similar settlement patterns for each OVM method. The strongest settlement variation occurs at the Tweed, where settlement is increased when the stage OVM migration method is used (@fig:impl-ca). Daily migration produces stronger settlement at Sydney, Pt Macquarie, and Yamba, whereas time-step migration has the most pronounced settlement at Eden and Solitary Islands. Each method has dissimilar settlement patterns, and clustered into three groups (@fig:cluster C).
 
-Each different implementation method of ontogenetic migration (time step, daily, or stage) affected the connectivity metrics (@tbl:metrics). Ontogenetically migrating the larvae daily had a different settlement pattern compared to time step and stage migration (F~model(2,48)~ = 2.88, p < 0.05, r^2^ = 0.11; @fig:nmds-implementation). The settlement was different at a number of different sites for each method, stage migration had the most dissimilar abundance at the Tweed (@fig:implementation-ca).
+![nMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration methods (2D stress = 0.08)](chapters/theoretical/figs/phase3-all-nmds.png){#fig:impl-nmds}
+
+![Correspondence analysis of the total settlement patterns to each region along NSW for each of the different implementation methods (stage-based, daily, and time-step) of ontogenetic vertical migration in the biophysical dispersal model](chapters/theoretical/figs/phase3-ca.png){#fig:impl-ca}
 
 
 TAKE HOME POINTS FOR DISCUSSION
@@ -279,45 +280,21 @@ The settlement patterns of behaviour were more dissimilar to each other than the
 
 ### Figures and tables
 
-: Metrics measured for each modelling scenario grouped by the three aims; behaviour (Passive = no behaviour, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming), OVM strategy, and OVM method. Richness and the Shannon-Weiner diversity were measured using the settlement reefs as a proxy for species. Connectance (%) is a measure of describing the proportion of all links between the natal and settlement sites that are realised. The mean self-recruitment (%), local-retention (%), settlement success (%) and dispersal distance (km) are metrics of connectivity. ^a-b^Means values in a column without a common superscript letter are different using ANOVA with SNK post-hoc tests (p \< 0.05), not superscript letter in a column means the ANOVA was not significant. **Bold** denotes the highest metric value per scenario and *italics* denote the lowest value. {#tbl:metrics}
-
-
-| Scenario     | Model         | Richness | Diversity | Connectance | Self-recruitment | Local retention | Settlement success | Dispersal distance |
-|--------------|---------------|----------|-----------|-------------|------------------|-----------------|--------------------|--------------------|
-| Behaviour    | Passive       | **286**  | 4.88      | 0.51        | 0.60             | *0.26*          | *0.43^a^*          | **92.6**           |
-|              | DVM          | 285      | *4.80*    | *0.49*      | **0.76**         | 0.41            | 0.52^b^            | *65.1*             |
-|              | OVM           | *284*    | 4.95      | 0.53        | *0.58*           | 0.30            | 0.48^ab^           | 82.7               |
-|              | OHS            | **286**  | 4.95      | **0.54**    | 0.62             | 0.36            | 0.58^ab^           | 80.6               |
-|              | DVM+OVM      | *284*    | 4.69      | 0.53        | 0.66             | 0.34            | 0.51^ab^           | 74.8               |
-|              | DVM+OHS       | **286**  | **5.02**  | 0.52        | 0.66             | **0.43**        | **0.65^b^**        | 66.6               |
-|              | DVM+OVM+OHS   | **286**  | **5.02**  | 0.52        | 0.66             | **0.43**        | **0.65^b^**        | 66.7               |
-|              | OVM+OHS        | **286**  | 5.01      | **0.54**    | 0.63             | 0.40            | **0.64^b^**            | 72.7               |
-| OVM Strategy | Labridae      | *284*    | 4.95      | 0.52        | 0.62             | *0.29*          | 0.47               | 82.5               |
-|              | Mullidae      | 285      | *4.92*    | 0.52        | *0.59*           | *0.29*          | *0.45*             | **92.7**           |
-|              | Pomacentridae | *284*    | 4.95      | 0.53        | 0.62             | 0.30            | 0.48               | 82.7               |
-|              | Scaridae      | **286**  | 4.97      | *0.51*      | 0.62             | 0.30            | 0.48               | 78.3               |
-|              | Scorpaenidae  | 285      | 4.98      | 0.53        | **0.64**         | 0.31            | **0.49**           | 74.1               |
-|              | Serranidae    | 285      | **4.99**  | 0.53        | **0.64**         | **0.32**        | **0.49**           | *70.0*             |
-|              | Synodontidae  | 285      | 4.96      | **0.54**    | 0.62             | 0.30            | 0.48               | 80.7               |
-| OVM Method   | Time-step     | **285**  | *4.88*    | *0.52*      | 0.60             | *0.26*          | 0.43               | 92.5               |
-|              | Daily         | *284*    | **4.95**  | **0.54**    | *0.58*           | 0.29            | **0.50**           | **100.0**          |
-|              | Stage         | *284*    | **4.95**  | 0.53        | **0.62**         | **0.30**        | 0.48               | 82.7               |
 
 
 
-![Cluster analysis of the behaviour (a) and ontogenetic vertical migration (OVM) strategies, using a Bray-Curtis dissimilarity measure and clustered using the average-link method.](chapters/theoretical/figs/cluster.png){#fig:cluster}
 
-![Correspondence analysis of the total settlement patterns to each region along NSW for each of the different models for the behaviour scenarios](chapters/theoretical/figs/phase1-ca.png){#fig:behaviour-ca}
 
-![nMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the behaviour scenario; ellipses denote regions (2D stress = 0.04)](chapters/theoretical/figs/phase1-all-nmds.png){#fig:nmds-behaviour}
 
-![nMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration strategies for reef fish (2D stress = 0.04)](chapters/theoretical/figs/phase2-all-nmds.png){#fig:nmds-ovm}
 
-![Correspondence analysis of the total settlement patterns to each region along NSW for each of the different models for the ontogenetic vertical migration strategies](chapters/theoretical/figs/phase2-ca.png){#fig:ovm-ca}
 
-![nMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration methods (2D stress = 0.04)](chapters/theoretical/figs/phase3-all-nmds.png){#fig:nmds-implementation}
 
-![Correspondence analysis of the total settlement patterns to each region along NSW for each of the different implementation methods (stage-based, daily, and time-step) of ontogenetic vertical migration in the biophysical dispersal model](chapters/theoretical/figs/phase3-ca.png){#fig:implementation-ca}
+
+
+
+
+
+
 
 ![nMDS ordination plot using Bray-Curtis dissimilarities between the different settlement patterns for each scenario within each of the treatments; behaviour, OVM strategy, OVM method (2D stress = 0.03)](chapters/theoretical/figs/nmds-regions.png){#fig:nmds}
 
@@ -333,7 +310,7 @@ The settlement patterns of behaviour were more dissimilar to each other than the
 - surprising that OVM was so similar to no behaviour.
 
 - What have behaviours found before?
-
+ - need to explain my passive particles were not cisntrained by depth - would have seen an even greater effect
 
 Orientation has been seen to increase settlement success, inreasing as the size of olflactor window increases (Staatermann 2010)
 
