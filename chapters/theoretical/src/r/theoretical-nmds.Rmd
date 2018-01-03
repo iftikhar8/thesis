@@ -36,7 +36,7 @@ regions.community_matrix <- get_community_matrix(regions.data,FALSE)[,-18]
 
 Labels for the data
 ```{r}
-model <- c("passive","dvm","ovm","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","pomacentrid","labrid","mullid","scarid","scorpaenid","serranid","synodontid","stage","timestep","daily")
+model <- c("passive","dvm","ovm","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
 scenarios <- c("behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-method","ovm-method","ovm-method")
 theoretical <- data.frame(model,scenarios)
 ```
@@ -45,7 +45,7 @@ NMDS using reef settlement sites
 ```{r}
 
 # nMDS 
-reefs.nmds <- metaMDS(reefs.community_matrix, distance="bray", k=2)
+reefs.nmds <- metaMDS(reefs.community_matrix, distance="bray", k=2, trymax=100)
 plot(reefs.nmds, disp="sites")
 #ordiellipse(reefs.nmds, group=theoretical$scenarios, col=2:4, kind = "ehull", lwd=2, label = TRUE)
 ordihull(reefs.nmds, group=theoretical$scenarios, col=2:4, draw = "polygon", lwd=2, label=FALSE)
@@ -55,7 +55,7 @@ ordihull(reefs.nmds, group=theoretical$scenarios, col=2:4, draw = "polygon", lwd
 NMDS using region settlement sites
 ```{r}
 #png('../../figs/regions-nmds.png')
-regions.nmds <- metaMDS(regions.community_matrix,distance="bray", k=2)
+regions.nmds <- metaMDS(regions.community_matrix,distance="bray", k=3, trymax=100)
 plot(regions.nmds, display="sites")
 #orditorp(regions.nmds,display = "species", col="black", air=0.01)
 #orditorp(regions.nmds,display = "sites", cex=1.25, air=0.01)
@@ -73,7 +73,7 @@ regions.nmds$stress
 NNDS using all reefs (or regions)
 ```{r}
 #reefs <- colnames(passive.conn.regions)[-18:-19]
-reefs <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden")
+reefs <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden")
 data <- as_tibble(passive.conn.regions/(passive.conn.regions+1))
 data$sites <- reefs
 data$behaviour <- rep(c("passive"))
@@ -83,19 +83,19 @@ data.diel$behaviour <- rep(c("dvm"))
 data.ovm <- as_tibble(ovm.conn.regions/(passive.conn.regions+1))
 data.ovm$sites <- reefs
 data.ovm$behaviour <- rep(c("ovm"))
-data.orientate <- as_tibble(orientate.conn.regions/(passive.conn.regions[,-18:-19]+1))
+data.orientate <- as_tibble(orientate.conn.regions/(passive.conn.regions +1))
 data.orientate$sites <- reefs
 data.orientate$behaviour <- rep(c("ohs"))
-data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions/(passive.conn.regions[,-18]+1))
+data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions/(passive.conn.regions+1))
 data.ovm.orientate$sites <- reefs
 data.ovm.orientate$behaviour <- rep(c("ovm+ohs"))
-data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions/(passive.conn.regions[,-18:-19]+1))
+data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions/(passive.conn.regions+1))
 data.diel.ovm.orientate$sites <- reefs
 data.diel.ovm.orientate$behaviour <- rep(c("dvm+ovm+ohs"))
-data.diel.orientate <- as_tibble(diel.orientate.conn.regions/(passive.conn.regions[,-18:-19]+1))
+data.diel.orientate <- as_tibble(diel.orientate.conn.regions/(passive.conn.regions+1))
 data.diel.orientate$sites <- reefs
 data.diel.orientate$behaviour <- rep(c("dvm+ohs"))
-data.diel.ovm <- as_tibble(diel.ovm.conn.regions/(passive.conn.regions[,-18:-19]+1))
+data.diel.ovm <- as_tibble(diel.ovm.conn.regions/(passive.conn.regions+1))
 data.diel.ovm$sites <- reefs
 data.diel.ovm$behaviour <- rep(c("dvm+ovm"))
 
@@ -106,23 +106,42 @@ phase1.community <- data %>% full_join(data.diel) %>% full_join(data.orientate) 
 phase1.community_matrix <- dplyr::select(phase1.community, -behaviour, -sites)
 phase1.community_matrix[is.na(phase1.community_matrix)] <- 0
 
-phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=2)
+phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=2, trymax=100)
 #plot(nmds)
+coul = brewer.pal(9, "Set1") 
+coul = colorRampPalette(coul)(17)
 
 MDS_xy <- data.frame(phase1.nmds$points)
 MDS_xy$behaviour <- phase1.community$behaviour
-MDS_xy$sites <- phase1.community$sites
-phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour, group=sites, label=sites))  + theme_bw() + theme(legend.position = "bottom")  + scale_color_brewer(name = "", palette = "Paired") + stat_ellipse(type="norm",linetype = 1) + geom_text()
-save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot)
+MDS_xy$sites <- factor(phase1.community$sites, levels=reefs)
+phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=behaviour, group=sites, label=sites))  + theme_bw() + theme(legend.position = "bottom") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,16,17,18)) 
+#+geom_polygon(aes(fill=sites))
+save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot,base_aspect_ratio = 2.3)
 
 phase1.adonis <- adonis(phase1.community_matrix ~ sites, phase1.community, perm=200)
+phase1.adonis
+phase1.adonis <- adonis(phase1.community_matrix ~ behaviour, phase1.community, perm=200)
 phase1.adonis
 
 phase1.mod <- with(phase1.community, betadisper(vegdist(phase1.community_matrix,"bray"), behaviour))
 
 phase1.dist <- vegdist(phase1.community_matrix,"bray")
-phase1.anosim <- anosim(phase1.dist, phase1.community$sites)
+phase1.anosim <- anosim(phase1.dist, phase1.community$behaviour)
 summary(phase1.anosim)
+
+phase1.community$diversity <- vegan::diversity(phase1.community_matrix)
+phase1.community$richness <- rowSums( phase1.community_matrix != 0)
+
+ggplot(phase1.community, aes(behaviour, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot")
+ggplot(phase1.community, aes(behaviour, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot")
+phase1.community$behaviour <- factor(phase1.community$behaviour)
+#phase1.regions <- rep(c(paste("nsw",1:17, sep="")),7)
+#phase2.sr <- add_column(phase2.sr, regions = phase2.regions)
+phase1.lme.diversity <- lme(diversity ~ behaviour , random = ~1 | sites/behaviour, data = phase1.community)
+anova(phase1.lme.diversity)
+summary(glht(phase1.lme.diversity, linfct=mcp(behaviour="Tukey")))
+lets <- cld(glht(phase1.lme.diversity, linfct=mcp(behaviour="Tukey")))
+
 
 #phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
 #anova(phase1.mva.model)
@@ -132,25 +151,25 @@ summary(phase1.anosim)
 NNDS using all reefs (or regions) for fish
 ```{r}
 reefs <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden")
-data.labrid <- as_tibble(ovm.labrid.conn.regions/(ovm.conn.regions[,-18:-19]+1))
+data.labrid <- as_tibble(ovm.labrid.conn.regions/(ovm.conn.regions+1))
 data.labrid$sites <- reefs
 data.labrid$fish <- rep(c("labridae"))
-data.mullid <- as_tibble(ovm.mullid.conn.regions[,-18]/(ovm.conn.regions[,-18:-19]+1))
+data.mullid <- as_tibble(ovm.mullid.conn.regions[,-18]/(ovm.conn.regions+1))
 data.mullid$sites <- reefs
 data.mullid$fish <- rep(c("mullidae"))
-data.pomacentrid <- as_tibble(ovm.conn.regions[,-18:-19]/(ovm.conn.regions[,-18:-19]+1))
+data.pomacentrid <- as_tibble(ovm.conn.regions/(ovm.conn.regions+1))
 data.pomacentrid$sites <- reefs
-data.pomacentrid$fish <- rep(c("pomcentridae"))
-data.scarid <- as_tibble(ovm.scarid.conn.regions/(ovm.conn.regions[,-18:-19]+1))
+data.pomacentrid$fish <- rep(c("pomacentridae"))
+data.scarid <- as_tibble(ovm.scarid.conn.regions/(ovm.conn.regions+1))
 data.scarid$sites <- reefs
 data.scarid$fish <- rep(c("scaridae"))
-data.synodontid <- as_tibble(ovm.synodontid.conn.regions/(ovm.conn.regions[,-18:-19]+1))
+data.synodontid <- as_tibble(ovm.synodontid.conn.regions/(ovm.conn.regions+1))
 data.synodontid$sites <- reefs
 data.synodontid$fish <- rep(c("synodontidae"))
-data.scorpaenid <- as_tibble(ovm.scorpaenid.conn.regions/(ovm.conn.regions[,-18:-19]+1))
+data.scorpaenid <- as_tibble(ovm.scorpaenid.conn.regions/(ovm.conn.regions+1))
 data.scorpaenid$sites <- reefs
 data.scorpaenid$fish <- rep(c("scorpaenidae"))
-data.serranid <- as_tibble(ovm.serranid.conn.regions[,-18]/(ovm.conn.regions[,-18:-19]+1))
+data.serranid <- as_tibble(ovm.serranid.conn.regions/(ovm.conn.regions+1))
 data.serranid$sites <- reefs
 data.serranid$fish <- rep(c("serranidae"))
 
@@ -163,9 +182,10 @@ phase2.nmds <- metaMDS(phase2.community_matrix,distance="bray", k=2, trymax=100)
 
 MDS_xy <- data.frame(phase2.nmds$points)
 MDS_xy$fish <- phase2.community$fish
-MDS_xy$sites <- phase2.community$sites
-phase2.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=fish, group=sites, label=sites))  + theme_bw() + theme(legend.position = "bottom")  + scale_color_brewer(name = "", palette = "Paired") + stat_ellipse(type="norm",linetype = 1) + geom_text()
-save_plot("../../figs/phase2-all-nmds.png",phase2.nmds.plot)
+MDS_xy$sites <- factor(phase2.community$sites, levels=reefs)
+phase2.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=fish, group=sites, label=sites))  + theme_bw() + theme(legend.position = "bottom") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="OVM Strategy",values=c(3,4,7,8,15,16,17,18)) 
+#+geom_polygon(aes(fill=sites))
+save_plot("../../figs/phase2-all-nmds.png",phase2.nmds.plot,base_aspect_ratio = 3)
 
 phase2.adonis <- adonis(phase2.community_matrix ~ fish, phase2.community, perm=200)
 phase2.adonis
@@ -176,20 +196,32 @@ plot(mod)
 phase2.dist <- vegdist(phase2.community_matrix,"bray")
 phase2.anosim <- anosim(phase2.dist, phase2.community$sites)
 summary(phase2.anosim)
+
+phase2.community$diversity <- vegan::diversity(phase2.community_matrix)
+phase2.community$richness <- rowSums( phase2.community_matrix != 0)
+ggplot(phase2.community, aes(fish, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot")
+ggplot(phase2.community, aes(fish, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot")
+
+phase2.lme.diversity <- lme(diversity ~ fish , random = ~1 | sites/fish, data = phase2.community)
+anova(phase2.lme.diversity)
+
+phase2.lme.richness <- lme(richness ~ fish , random = ~1 | sites/fish, data = phase2.community)
+anova(phase2.lme.richness)
+
 #phase2.mva.model <- manyglm(phase2.mva~phase2.regions.mva$fish)
 #anova(phase2.mva.model)
 ```
 
 NNDS using all reefs (or regions) for implementatinos
 ```{r}
-reefs <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden")
-data.timestep <- as_tibble(ovm.timestep.conn.regions/(ovm.conn.regions[,-18:-19]+1))
+reefs <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden")
+data.timestep <- as_tibble(ovm.timestep.conn.regions/(ovm.conn.regions+1))
 data.timestep$sites <- reefs
 data.timestep$methods <- rep(c("timestep"))
-data.daily <- as_tibble(ovm.daily.conn.regions[,-18]/(ovm.conn.regions[,-18:-19]+1))
+data.daily <- as_tibble(ovm.daily.conn.regions/(ovm.conn.regions+1))
 data.daily$sites <- reefs
 data.daily$methods <- rep(c("daily"))
-data.stage <- as_tibble(ovm.conn.regions[,-18:-19]/(ovm.conn.regions[,-18:-19]+1))
+data.stage <- as_tibble(ovm.conn.regions/(ovm.conn.regions+1))
 data.stage$sites <- reefs
 data.stage$methods<- rep(c("stage"))
 
@@ -202,9 +234,11 @@ phase3.nmds <- metaMDS(phase3.community_matrix,distance="bray", k=2, trymax=100)
 
 MDS_xy <- data.frame(phase3.nmds$points)
 MDS_xy$methods <- phase3.community$methods
-MDS_xy$sites <- phase3.community$sites
-phase3.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=methods, group=sites, label=sites))  + theme_bw() + theme(legend.position = "bottom")  + scale_color_brewer(name = "", palette = "Paired") + stat_ellipse(type="norm",linetype = 1) + geom_label()
-save_plot("../../figs/phase3-all-nmds.png",phase3.nmds.plot)
+MDS_xy$sites <- factor(phase3.community$sites, levels=reefs)
+phase3.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=methods, group=sites, label=sites))  + theme_bw() + theme(legend.position = "bottom") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="OVM Method",values=c(15,16,17)) 
+#+geom_polygon(aes(fill=sites))
+save_plot("../../figs/phase3-all-nmds.png",phase3.nmds.plot,base_aspect_ratio = 2.3)
+#save_plot("../../figs/phase3-all-nmds.png",phase3.nmds.plot)
 
 phase3.adonis <- adonis(phase3.community_matrix ~ methods, phase3.community, perm=200)
 phase3.adonis
@@ -214,6 +248,22 @@ mod <- with(phase3.community, betadisper(vegdist(phase3.community_matrix,"bray")
 phase3.dist <- vegdist(phase3.community_matrix,"bray")
 phase3.anosim <- anosim(phase3.dist, phase3.community$sites)
 summary(phase3.anosim)
+
+phase3.community$diversity <- vegan::diversity(phase3.community_matrix)
+phase3.community$richness <- rowSums( phase3.community_matrix != 0)
+ggplot(phase3.community, aes(methods, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + geom_jitter(position=position_jitter(width=.2), size=3)
+ggplot(phase3.community, aes(methods, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot")
+
+phase3.community$methods <- factor(phase3.community$methods)
+
+phase3.lme.diversity <- lme(diversity ~ methods , random = ~1 | sites/methods, data = phase3.community)
+anova(phase3.lme.diversity)
+summary(glht(phase3.lme.diversity, linfct=mcp(methods="Tukey")))
+cld(glht(phase3.lme.diversity, linfct=mcp(methods="Tukey")))
+
+phase3.lme.richness <- lme(richness ~ methods , random = ~1 | sites/methods, data = phase3.community)
+anova(phase3.lme.richness)
+
 #phase3.mva.model <- manyglm(phase3.mva~phase3.regions.mva$impl)
 #anova(phase3.mva.model)
 ```
@@ -225,6 +275,38 @@ boxplot(community[,1:17],horizontal = TRUE,las=2)
 meanvar.plot(mva)
 p <- plot(mva~community$behaviour, height=9, width=6, cex.axis=0.8, cex=0.8)
 model <- manyglm(mva~community$behaviour)
+```
+
+
+```{r}
+
+#models <- c("passive","dvm","ovm","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
+regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden", "Victoria","Lord Howe Is")
+#rownames(phase1.regions.community_matrix) <- models
+colnames(regions.community_matrix) <- regions
+all.ca <- CA(regions.community_matrix, graph=FALSE)
+summary(all.ca)
+fviz_screeplot(all.ca, addlabels=TRUE)
+all.biplot <- fviz_ca_biplot(all.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
+fviz_ca_row(all.ca, repel=TRUE)
+fviz_ca_col(all.ca, repel=TRUE)
+row <- get_ca_row(all.ca)
+row$contrib
+#ggsave("../../figs/phase1-ca.png",phase1.biplot)
+
+regions.bray = vegdist(regions.community_matrix, "bray")
+mds <- wcmdscale(regions.bray, k=2)
+ca <- cca(regions.community_matrix)
+all.ca.data <- fortify(ca)
+all.ca.data <- filter(all.ca.data, Score=="sites")
+all.ca.data$scenario <- scenarios
+all.ca.data$model <- model
+plot(mds)
+
+all.nmds.plot <- ggplot(all.ca.data, aes(CA1, CA2, colour=scenario, group=scenario, label=model))  + theme_classic() + theme(legend.position = "right") + geom_point(size=3) + geom_text_repel()
+ggsave("../../figs/all-nmds.png",all.nmds.plot)
+#+geom_polygon(aes(fill=sites))
+
 ```
 
 
@@ -337,19 +419,11 @@ ggsave("../../figs/phase3-ca.png",phase3.biplot)
 
 Biodiversity index
 ```{r}
-phase1.reefs.data.t <- t(phase1.reefs.data)
-names(phase1.reefs.data.t) <- phase1.reefs.data.t[1,]
-phase1.reefs.data.t <- phase1.reefs.data.t[-1,]
-phase1.reefs.data.t[is.na(phase1.reefs.data.t)] <- 0
-
-# shannons
-phase1.reefs.shannon <- vegan::diversity(phase1.reefs.data.t)
-phase1.reefs.shannon
-##phase1.reefs.simpson <- diversity(phase1.reefs.data.t,"simpson")
-#anova(phase1.reefs.shannon)
-phase1.reefs.bray = vegdist(phase1.reefs.data.t, "bray")
-hist(phase1.reefs.bray)
-phase1.reefs.cluster <- hclust(phase1.reefs.bray, method="average")
+rownames(phase1.regions.community_matrix) <- models
+phase1.regions.bray = vegdist(phase1.regions.community_matrix, "bray")
+#rownames(phase1.regions.community_matrix) <- models
+hist(phase1.regions.bray)
+phase1.reefs.cluster <- hclust(phase1.regions.bray, method="average")
 phase1.reefs.dendrogram <- as.dendrogram(phase1.reefs.cluster) 
 plot(phase1.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
 phase1.plot <- ggdendrogram(phase1.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="Behaviour scenarios", y="Bray-Curtis dissimilarity")
@@ -359,17 +433,8 @@ phase1.plot
 
 Biodiversity index for Phase 2
 ```{r}
-phase2.reefs.data.t <- t(phase2.reefs.data)
-names(phase2.reefs.data.t) <- phase2.reefs.data.t[1,]
-phase2.reefs.data.t <- phase2.reefs.data.t[-1,]
-phase2.reefs.data.t[is.na(phase2.reefs.data.t)] <- 0
 
-# shannons
-phase2.reefs.shannon <- vegan::diversity(phase2.reefs.data.t)
-phase2.reefs.shannon
-##phase2.reefs.simpson <- diversity(phase2.reefs.data.t,"simpson")
-#anova(phase2.reefs.shannon)
-phase2.reefs.bray = vegdist(phase2.reefs.data.t, "bray")
+phase2.reefs.bray = vegdist(phase2.regions.community_matrix, "bray")
 hist(phase2.reefs.bray)
 phase2.reefs.cluster <- hclust(phase2.reefs.bray, method="average")
 phase2.reefs.dendrogram <- as.dendrogram(phase2.reefs.cluster) 
@@ -395,12 +460,12 @@ hist(phase3.reefs.bray)
 phase3.reefs.cluster <- hclust(phase3.reefs.bray, method="average")
 phase3.reefs.dendrogram <- as.dendrogram(phase3.reefs.cluster) 
 plot(phase3.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-phase3.plot <- ggdendrogram(phase3.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM strategies", y="Bray-Curtis dissimilarity")
+phase3.plot <- ggdendrogram(phase3.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM methods", y="Bray-Curtis dissimilarity")
 phase3.plot
 ```
 
 ```{r}
-grid <- plot_grid(phase1.plot,phase2.plot, phase3.plot, labels=c("a","b", "c"), align ="h")
+grid <- plot_grid(phase1.plot,phase2.plot, phase3.plot, labels="AUTO", align ="hv")
 save_plot("../../figs/cluster.png", grid, ncol=2, nrow=1)
 ```
 
@@ -427,5 +492,28 @@ Settlement reef richness
 rowSums(phase1.reefs.data.t > 0)
 rowSums(phase2.reefs.data.t > 0)
 rowSums(phase3.reefs.data.t > 0)
+```
+
+Metrics graphs
+```{r}
+model.levels <- c("passive","dvm","ovm","ohs","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ovm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
+
+metrics <- dplyr::select(phase1.community, diversity, richness, behaviour) %>% mutate(scenario = "behaviour")
+metrics2 <- dplyr::select(phase2.community, diversity, richness, fish) %>% mutate(scenario = "ovm-strategy")
+metrics3 <- dplyr::select(phase3.community, diversity, richness, methods) %>% mutate(scenario = "ovm-methods")
+metrics <- metrics %>% full_join(metrics2) %>% full_join(metrics3) %>% gather(key="scenarios",value="model", behaviour, fish, methods) %>% filter(model != "NA")
+
+metrics$model <- factor(metrics$model, levels=rev(model.levels))
+
+metrics.plot1 <- ggplot(data=metrics, aes(model, diversity, fill=scenario),na.rm = TRUE) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + labs(x = "", y="Settlement diversity")+ theme(legend.position = "bottom") + scale_fill_discrete(name="") +guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+metrics.plot2 <- ggplot(data=metrics, aes(model, richness, fill=scenario),na.rm = TRUE) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip()  + labs(x = "", y="Settlement richness")+ theme(legend.position = "bottom") + scale_fill_discrete(name="") +guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+load(file="graph.rda")
+connectance.data$model <- factor(connectance.data$model, levels=rev(model.levels))
+metrics.plot3 <- ggplot(data=connectance.data, aes(model, connectance, colour=scenario),na.rm = TRUE) + geom_point() + coord_flip()  + labs(x = "", y="Connectance")+ theme(legend.position = "bottom") + scale_colour_discrete(name="") +guides(colour=guide_legend(nrow=2,byrow=TRUE))
+
+metrics.grid <- plot_grid(metrics.plot2,metrics.plot1, metrics.plot3, labels="AUTO", align ="hv")
+save_plot("../../figs/settle-metrics.png", metrics.grid, ncol=2, nrow=2)
 ```
 
