@@ -77,3 +77,9 @@ get_community_matrix <- function(data, is_reef) {
   community_matrix.transposed[is.na(community_matrix.transposed)] <- 0
   community_matrix.transposed
 }
+
+min.mean.sd.max <- function(x) {
+  r <- c(min(x), mean(x) - sd(x), mean(x), mean(x) + sd(x), max(x))
+  names(r) <- c("ymin", "lower", "middle", "upper", "ymax")
+  r
+}

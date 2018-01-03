@@ -21,7 +21,7 @@ source("theoretical-functions.R")
 
 
 ```{r}
-eggs <- 208000
+eggs <- 248000
 ```
 
 
@@ -29,7 +29,7 @@ Passive connectivity metrics
 ```{r}
 passive.sr <- selfRecruitment(passive.conn.regions/eggs)
 passive.lr <- localRetention(passive.conn.regions/eggs)
-passive.rlr <- relativeLocalRetention(passive.conn.regions/eggs)
+passive.rlr <- relativeLocalRetention(passive.conn.regions[,-18:-19]/eggs)
 passive.ss <- settlementSuccess(passive.conn.regions[,-18:-19]/eggs)
 ```
 
@@ -170,14 +170,14 @@ ovm.daily.ss <- settlementSuccess(ovm.daily.conn.regions[,-18:-19]/eggs)
 
 Phase1 - self-recruitment
 ```{r}
-names.phase1 <- c("passive","diel","ovm","orientate","diel-ovm","diel-ovm-orientate","ovm-orientate","diel-orientate")
+names.phase1 <- c("passive","dvm","ovm","ohs","dvm+ovm","dvm+ovm+ohs","ovm+ohs","dvm+ohs")
 phase1.sr <- as.tibble(t(rbind(passive.sr, diel.sr, ovm.sr, orientate.sr,diel.ovm.sr, diel.ovm.orientate.sr, ovm.orientate.sr, diel.orientate.sr)))
 colnames(phase1.sr) <- names.phase1
 phase1.sr <- gather(phase1.sr)
 colnames(phase1.sr) <- c("model","sr")
 phase1.sr$model <- as.factor(phase1.sr$model)
 phase1.sr.summary <- summarise(group_by(phase1.sr,model), sr.mean=mean(sr), sr.sd=sd(sr), sr.se = sr.sd/n())
-ggplot(data=phase1.sr.summary, aes(y=sr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=sr.mean-sr.sd,ymax=sr.mean+sr.sd),width=.1) + coord_flip()+scale_y_continuous(limits = c(0, 1))
+ggplot(data=phase1.sr.summary, aes(y=sr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=sr.mean-sr.sd,ymax=sr.mean+sr.sd),width=.1) + scale_y_continuous(limits = c(0, 1))
 ggsave("../../figs/phase1-sr.png")
 phase1.glm.sr <- glm(sr ~ model, family = binomial(link="logit"), phase1.sr)
 phase1.sr.summary
@@ -205,7 +205,6 @@ colnames(phase1.lr) <- c("model","lr")
 phase1.lr$model <- as.factor(phase1.lr$model)
 phase1.lr.summary <- summarise(group_by(phase1.lr,model), lr.mean=mean(lr), lr.sd=sd(lr), lr.se = lr.sd/n())
 ggplot(data=phase1.lr.summary, aes(y=lr.mean, x=model)) + geom_bar(stat="identity") + geom_errorbar(aes(ymin=lr.mean-lr.sd,ymax=lr.mean+lr.sd),width=.1)+coord_flip() +scale_y_continuous(limits = c(0, 1))
-summary(phase1.lr.glm <- glm(lr ~ model, family=binomial(link="logit"), phase1.lr))
 ggsave("../../figs/phase1-lr.png")
 #plot(phase1.lr.glm)
 phase1.lr.summary
@@ -332,6 +331,7 @@ phase1.sr <- add_column(phase1.sr, regions = phase1.regions)
 phase1.sr.lme <- lme(sr ~ model , random = ~1 | regions/model, data = phase1.sr)
 anova(phase1.sr.lme)
 summary(glht(phase1.sr.lme, linfct=mcp(model="Tukey")))
+cld(glht(phase1.sr.lme, linfct=mcp(model="Tukey")))
 
 #phase1.regions <- rep(c(paste("nsw",1:17, sep="")),8)
 phase1.ss <- add_column(phase1.ss, regions = phase1.regions)
@@ -413,14 +413,72 @@ anova(phase2.dk.lm)
 
 Statistical tests for Phase 3
 ```{r}
-phase3.sr.lm <- lm(sr ~ model, data=phase3.sr)
-anova(phase3.sr.lm)
-phase3.lr.lm <- lm(lr ~ model, data=phase3.lr)
-anova(phase3.lr.lm)
-phase3.ss.lm <- lm(ss ~ model, data=phase3.ss)
-anova(phase3.ss.lm)
-phase3.dk.lm <- lm(dk ~ model, data=phase3.dk)
-anova(phase3.dk.lm)
+phase3.regions <- rep(c(paste("nsw",1:17, sep="")),3)
+phase3.sr <- add_column(phase3.sr, regions = phase3.regions)
+phase3.sr.lme <- lme(sr ~ model , random = ~1 | regions/model, data = phase3.sr)
+anova(phase3.sr.lme)
+summary(glht(phase3.sr.lme, linfct=mcp(model="Tukey")))
+cld(glht(phase3.sr.lme, linfct=mcp(model="Tukey")))
+#phase3.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+phase3.ss <- add_column(phase3.ss, regions = phase3.regions)
+phase3.ss.lme <- lme(ss ~ model , random = ~1 | regions/model, data = phase3.ss)
+anova(phase3.ss.lme)
+summary(glht(phase3.ss.lme, linfct=mcp(model="Tukey")))
+cld(glht(phase3.ss.lme, linfct=mcp(model="Tukey")))
+#phase3.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+phase3.lr <- add_column(phase3.lr, regions = phase3.regions)
+phase3.lr.lme <- lme(lr ~ model , random = ~1 | regions/model, data = phase3.lr)
+anova(phase3.lr.lme)
+summary(glht(phase3.lr.lme, linfct=mcp(model="Tukey")))
+cld(glht(phase3.lr.lme, linfct=mcp(model="Tukey")))
+#phase3.regions <- rep(c(paste("nsw",1:17, sep="")),8)
+phase3.dk <- add_column(phase3.dk, regions = phase3.regions)
+phase3.dk.lme <- lme(dk ~ model , random = ~1 | regions/model, data = phase3.dk)
+anova(phase3.dk.lme)
+phase3.dk.posthoc <- glht(phase3.dk.lme, linfct=mcp(model="Tukey"))
+summary(phase3.dk.posthoc)
+cld(phase3.dk.posthoc)
 ```
+
+Graphs
+```{r}
+
+model.levels <- c("passive","dvm","ovm","ohs","dvm-ohs","dvm-ovm","dvm-ovm-ohs","ovm-ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
+
+
+phase1.sr <- mutate(phase1.sr, scenario = "behaviour")
+phase2.sr <- mutate(phase2.sr, scenario = "ovm-strategy")
+phase3.sr <- mutate(phase3.sr, scenario = "ovm-method")
+sr.data <- phase1.sr %>% full_join(phase2.sr) %>% full_join(phase3.sr)
+sr.data$model <- factor(sr.data$model, levels=rev(model.levels))
+plot.sr <- ggplot(data=sr.data, aes(model,sr, fill=scenario)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + labs(x = "", y="Mean self-recruitment (%)") + theme(legend.position = "bottom") + scale_fill_discrete(name="")+guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+
+phase1.ss <- mutate(phase1.ss, scenario = "behaviour")
+phase2.ss <- mutate(phase2.ss, scenario = "ovm-strategy")
+phase3.ss <- mutate(phase3.ss, scenario = "ovm-method")
+ss.data <- phase1.ss %>% full_join(phase2.ss) %>% full_join(phase3.ss)
+ss.data$model <- factor(ss.data$model, levels=rev(model.levels))
+plot.ss <- ggplot(data=ss.data, aes(model,ss, fill=scenario)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip()+ labs(x = "", y="Mean settlement success (%)") + theme(legend.position = "bottom") + scale_fill_discrete(name="")+guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+phase1.lr <- mutate(phase1.lr, scenario = "behaviour")
+phase2.lr <- mutate(phase2.lr, scenario = "ovm-strategy")
+phase3.lr <- mutate(phase3.lr, scenario = "ovm-method")
+lr.data <- phase1.lr %>% full_join(phase2.lr) %>% full_join(phase3.lr)
+lr.data$model <- factor(lr.data$model, levels=rev(model.levels))
+plot.lr <- ggplot(data=lr.data, aes(model,lr, fill=scenario)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip()+ labs(x = "", y="Mean local retention (%)") + theme(legend.position = "bottom") + scale_fill_discrete(name="")+guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+phase1.dk <- mutate(phase1.dk, scenario = "behaviour")
+phase2.dk <- mutate(phase2.dk, scenario = "ovm-strategy")
+phase3.dk <- mutate(phase3.dk, scenario = "ovm-method")
+dk.data <- phase1.dk %>% full_join(phase2.dk) %>% full_join(phase3.dk)
+dk.data$model <- factor(dk.data$model, levels=rev(model.levels))
+plot.dk <- ggplot(data=dk.data, aes(model,dk, fill=scenario)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + labs(x = "", y="Mean dispersal distance (km)")+ theme(legend.position = "bottom") + scale_fill_discrete(name="") +guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+plot.all <- plot_grid(plot.sr, plot.lr, plot.ss, plot.dk, labels="AUTO",align='hv')
+save_plot("../../figs/conn-metrics.png", plot.all, ncol=2, nrow=2)
+```
+
+
 
 

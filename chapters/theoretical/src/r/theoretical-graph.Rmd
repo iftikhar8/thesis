@@ -18,6 +18,12 @@ load(file="phase3.rda")
 load(file="reefs.rda")
 ```
 
+Create tibble for connectance graph
+```{r}
+
+```
+
+
 Passive graph analysis
 ```{r}
 rownames(passive.conn.regions) <- passive.regions$settle.region[-18:-19]
@@ -30,6 +36,9 @@ plot(graph.passive, vertex.size = as*30, main="Authorities")
 graph.passive.adj <- get.adjacency(graph.passive, sparse = FALSE)
 graph.passive.ind <- GenInd(graph.passive.adj)
 graph.passive.ind$C
+
+connectance.data <- tribble(~scenario, ~model, ~connectance,
+                            "behaviour", "passive", graph.passive.ind$C)
 ```
 
 diel graph analysis
@@ -44,6 +53,7 @@ plot(graph.diel, vertex.size = as*30, main="Authorities")
 graph.diel.adj <- get.adjacency(graph.diel, sparse = FALSE)
 graph.diel.ind <- GenInd(graph.diel.adj)
 graph.diel.ind$C
+connectance.data <- add_row(connectance.data, scenario = "behaviour", model = "dvm", connectance = graph.diel.ind$C)
 ```
 ovm graph analysis
 ```{r}
@@ -57,6 +67,7 @@ plot(graph.ovm, vertex.size = as*30, main="Authorities")
 graph.ovm.adj <- get.adjacency(graph.ovm, sparse = FALSE)
 graph.ovm.ind <- GenInd(graph.ovm.adj)
 graph.ovm.ind$C
+connectance.data <- add_row(connectance.data, scenario = "behaviour", model = "ovm", connectance = graph.ovm.ind$C)
 ```
 
 orientate graph analysis
@@ -72,6 +83,7 @@ plot(graph.orientate, vertex.size = as*30, main="Authorities")
 graph.orientate.adj <- get.adjacency(graph.orientate, sparse = FALSE)
 graph.orientate.ind <- GenInd(graph.orientate.adj)
 graph.orientate.ind$C
+connectance.data <- add_row(connectance.data, scenario = "behaviour", model = "ohs", connectance = graph.orientate.ind$C)
 ```
 
 ovm.orientate graph analysis
@@ -87,6 +99,7 @@ plot(graph.ovm.orientate, vertex.size = as*30, main="Authorities")
 graph.ovm.orientate.adj <- get.adjacency(graph.ovm.orientate, sparse = FALSE)
 graph.ovm.orientate.ind <- GenInd(graph.ovm.orientate.adj)
 graph.ovm.orientate.ind$C
+connectance.data <- add_row(connectance.data, scenario = "behaviour", model = "ovm+ohs", connectance = graph.ovm.orientate.ind$C)
 ```
 
 diel.orientate graph analysis
@@ -102,6 +115,7 @@ plot(graph.diel.orientate, vertex.size = as*30, main="Authorities")
 graph.diel.orientate.adj <- get.adjacency(graph.diel.orientate, sparse = FALSE)
 graph.diel.orientate.ind <- GenInd(graph.diel.orientate.adj)
 graph.diel.orientate.ind$C
+connectance.data <- add_row(connectance.data, scenario = "behaviour", model = "dvm+ohs", connectance = graph.diel.orientate.ind$C)
 ```
 
 diel.ovm.orientate graph analysis
@@ -117,6 +131,7 @@ plot(graph.diel.ovm.orientate, vertex.size = as*30, main="Authorities")
 graph.diel.ovm.orientate.adj <- get.adjacency(graph.diel.ovm.orientate, sparse = FALSE)
 graph.diel.ovm.orientate.ind <- GenInd(graph.diel.ovm.orientate.adj)
 graph.diel.ovm.orientate.ind$C
+connectance.data <- add_row(connectance.data, scenario = "behaviour", model = "dvm+ovm+ohs", connectance = graph.diel.ovm.orientate.ind$C)
 ```
 
 diel.ovm graph analysis
@@ -132,6 +147,7 @@ plot(graph.diel.ovm, vertex.size = as*30, main="Authorities")
 graph.diel.ovm.adj <- get.adjacency(graph.diel.ovm, sparse = FALSE)
 graph.diel.ovm.ind <- GenInd(graph.diel.ovm.adj)
 graph.diel.ovm.ind$C
+connectance.data <- add_row(connectance.data, scenario = "behaviour", model = "dvm+ovm", connectance = graph.diel.ovm.ind$C)
 ```
 
 ovm.labrid graph analysis
@@ -147,6 +163,7 @@ plot(graph.ovm.labrid, vertex.size = as*30, main="Authorities")
 graph.ovm.labrid.adj <- get.adjacency(graph.ovm.labrid, sparse = FALSE)
 graph.ovm.labrid.ind <- GenInd(graph.ovm.labrid.adj)
 graph.ovm.labrid.ind$C
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "labridae", connectance = graph.ovm.labrid.ind$C)
 ```
 
 ovm.mullid graph analysis
@@ -162,6 +179,8 @@ plot(graph.ovm.mullid, vertex.size = as*30, main="Authorities")
 graph.ovm.mullid.adj <- get.adjacency(graph.ovm.mullid, sparse = FALSE)
 graph.ovm.mullid.ind <- GenInd(graph.ovm.mullid.adj)
 graph.ovm.mullid.ind$C
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "mullidae", connectance = graph.ovm.mullid.ind$C)
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "pomacentridae", connectance = graph.ovm.ind$C)
 ```
 
 
@@ -178,6 +197,7 @@ plot(graph.ovm.scarid, vertex.size = as*30, main="Authorities")
 graph.ovm.scarid.adj <- get.adjacency(graph.ovm.scarid, sparse = FALSE)
 graph.ovm.scarid.ind <- GenInd(graph.ovm.scarid.adj)
 graph.ovm.scarid.ind$C
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "scaridae", connectance = graph.ovm.scarid.ind$C)
 ```
 
 ovm.serranid graph analysis
@@ -193,6 +213,7 @@ plot(graph.ovm.serranid, vertex.size = as*30, main="Authorities")
 graph.ovm.serranid.adj <- get.adjacency(graph.ovm.serranid, sparse = FALSE)
 graph.ovm.serranid.ind <- GenInd(graph.ovm.serranid.adj)
 graph.ovm.serranid.ind$C
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "serranidae", connectance = graph.ovm.serranid.ind$C)
 ```
 
 ovm.scorpaenid graph analysis
@@ -208,6 +229,7 @@ plot(graph.ovm.scorpaenid, vertex.size = as*30, main="Authorities")
 graph.ovm.scorpaenid.adj <- get.adjacency(graph.ovm.scorpaenid, sparse = FALSE)
 graph.ovm.scorpaenid.ind <- GenInd(graph.ovm.scorpaenid.adj)
 graph.ovm.scorpaenid.ind$C
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "scorpaenidae", connectance = graph.ovm.scorpaenid.ind$C)
 ```
 
 ovm.synodontid graph analysis
@@ -223,6 +245,7 @@ plot(graph.ovm.synodontid, vertex.size = as*30, main="Authorities")
 graph.ovm.synodontid.adj <- get.adjacency(graph.ovm.synodontid, sparse = FALSE)
 graph.ovm.synodontid.ind <- GenInd(graph.ovm.synodontid.adj)
 graph.ovm.synodontid.ind$C
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "synodontidae", connectance = graph.ovm.synodontid.ind$C)
 ```
 
 ovm.timestep graph analysis
@@ -238,6 +261,7 @@ plot(graph.ovm.timestep, vertex.size = as*30, main="Authorities")
 graph.ovm.timestep.adj <- get.adjacency(graph.ovm.timestep, sparse = FALSE)
 graph.ovm.timestep.ind <- GenInd(graph.ovm.timestep.adj)
 graph.ovm.timestep.ind$C
+connectance.data <- add_row(connectance.data, scenario = "ovm-method", model = "timestep", connectance = graph.ovm.timestep.ind$C)
 ```
 
 ovm.daily graph analysis
@@ -253,5 +277,11 @@ plot(graph.ovm.daily, vertex.size = as*30, main="Authorities")
 graph.ovm.daily.adj <- get.adjacency(graph.ovm.daily, sparse = FALSE)
 graph.ovm.daily.ind <- GenInd(graph.ovm.daily.adj)
 graph.ovm.daily.ind$C
+connectance.data <- add_row(connectance.data, scenario = "ovm-method", model = "daily", connectance = graph.ovm.daily.ind$C)
+connectance.data <- add_row(connectance.data, scenario = "ovm-method", model = "stage", connectance = graph.ovm.ind$C)
+```
+
+```{r}
+save(connectance.data,file="graph.rda")
 ```
 
