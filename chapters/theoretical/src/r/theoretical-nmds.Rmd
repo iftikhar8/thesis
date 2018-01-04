@@ -7,10 +7,14 @@ Packages required
 ```{r, include=FALSE}
 library(tidyverse)
 library(vegan)
+library(lme4)
 library(ggdendro)
+library(ggrepel)
+library(ggvegan)
 library(cowplot)
 library(FactoMineR)
 library(factoextra)
+library(RColorBrewer)
 source("theoretical-functions.R")
 ```
 
@@ -38,65 +42,38 @@ Labels for the data
 ```{r}
 model <- c("passive","dvm","ovm","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
 scenarios <- c("behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-method","ovm-method","ovm-method")
+regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden")
 theoretical <- data.frame(model,scenarios)
 ```
 
-NMDS using reef settlement sites
-```{r}
-
-# nMDS 
-reefs.nmds <- metaMDS(reefs.community_matrix, distance="bray", k=2, trymax=100)
-plot(reefs.nmds, disp="sites")
-#ordiellipse(reefs.nmds, group=theoretical$scenarios, col=2:4, kind = "ehull", lwd=2, label = TRUE)
-ordihull(reefs.nmds, group=theoretical$scenarios, col=2:4, draw = "polygon", lwd=2, label=FALSE)
-#ordilabel(reefs.nmds)
-```
-
-NMDS using region settlement sites
-```{r}
-#png('../../figs/regions-nmds.png')
-regions.nmds <- metaMDS(regions.community_matrix,distance="bray", k=3, trymax=100)
-plot(regions.nmds, display="sites")
-#orditorp(regions.nmds,display = "species", col="black", air=0.01)
-#orditorp(regions.nmds,display = "sites", cex=1.25, air=0.01)
-ordiellipse(regions.nmds, group=theoretical$scenarios, col=2:4, kind = "ehull", lwd=2, label = TRUE)
-#ordihull(regions.nmds, group=theoretical$scenarios, col=2:4, draw = "polygon", lwd=2, label=FALSE)
-MDS_xy <- data.frame(regions.nmds$points)
-MDS_xy$scenarios <- theoretical$scenarios
-regions.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=scenarios, shape=scenarios, label=model)) + theme_bw() + theme(legend.position = "bottom") + scale_color_brewer(name = "", palette = "Paired") + geom_label()
-save_plot("../../figs/nmds-regions.png", regions.nmds.plot)
-
-#dev.off()
-regions.nmds$stress
-```
 
 NNDS using all reefs (or regions)
 ```{r}
 #reefs <- colnames(passive.conn.regions)[-18:-19]
-reefs <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden")
+
 data <- as_tibble(passive.conn.regions/(passive.conn.regions+1))
-data$sites <- reefs
+data$sites <- regions
 data$behaviour <- rep(c("passive"))
 data.diel <- as_tibble(diel.conn.regions/(passive.conn.regions+1))
-data.diel$sites <- reefs
+data.diel$sites <- regions
 data.diel$behaviour <- rep(c("dvm"))
 data.ovm <- as_tibble(ovm.conn.regions/(passive.conn.regions+1))
-data.ovm$sites <- reefs
+data.ovm$sites <- regions
 data.ovm$behaviour <- rep(c("ovm"))
 data.orientate <- as_tibble(orientate.conn.regions/(passive.conn.regions +1))
-data.orientate$sites <- reefs
+data.orientate$sites <- regions
 data.orientate$behaviour <- rep(c("ohs"))
 data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions/(passive.conn.regions+1))
-data.ovm.orientate$sites <- reefs
+data.ovm.orientate$sites <- regions
 data.ovm.orientate$behaviour <- rep(c("ovm+ohs"))
 data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions/(passive.conn.regions+1))
-data.diel.ovm.orientate$sites <- reefs
+data.diel.ovm.orientate$sites <- regions
 data.diel.ovm.orientate$behaviour <- rep(c("dvm+ovm+ohs"))
 data.diel.orientate <- as_tibble(diel.orientate.conn.regions/(passive.conn.regions+1))
-data.diel.orientate$sites <- reefs
+data.diel.orientate$sites <- regions
 data.diel.orientate$behaviour <- rep(c("dvm+ohs"))
 data.diel.ovm <- as_tibble(diel.ovm.conn.regions/(passive.conn.regions+1))
-data.diel.ovm$sites <- reefs
+data.diel.ovm$sites <- regions
 data.diel.ovm$behaviour <- rep(c("dvm+ovm"))
 
 phase1.community <- data %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.ovm) %>% full_join(data.ovm.orientate) %>% full_join(data.diel.ovm) %>% full_join(data.diel.ovm.orientate) %>% full_join(data.diel.orientate)
@@ -113,10 +90,11 @@ coul = colorRampPalette(coul)(17)
 
 MDS_xy <- data.frame(phase1.nmds$points)
 MDS_xy$behaviour <- phase1.community$behaviour
-MDS_xy$sites <- factor(phase1.community$sites, levels=reefs)
-phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=behaviour, group=sites, label=sites))  + theme_bw() + theme(legend.position = "bottom") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,16,17,18)) 
+MDS_xy$sites <- factor(phase1.community$sites, levels=regions)
+phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=behaviour, group=sites, label=sites))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,16,17,18)) 
 #+geom_polygon(aes(fill=sites))
-save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot,base_aspect_ratio = 2.3)
+ggsave("../../figs/phase1-all-nmds.png",phase1.nmds.plot, scale=1.2)
+#save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot,base_aspect_ratio = 3.2)
 
 phase1.adonis <- adonis(phase1.community_matrix ~ sites, phase1.community, perm=200)
 phase1.adonis
@@ -183,9 +161,9 @@ phase2.nmds <- metaMDS(phase2.community_matrix,distance="bray", k=2, trymax=100)
 MDS_xy <- data.frame(phase2.nmds$points)
 MDS_xy$fish <- phase2.community$fish
 MDS_xy$sites <- factor(phase2.community$sites, levels=reefs)
-phase2.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=fish, group=sites, label=sites))  + theme_bw() + theme(legend.position = "bottom") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="OVM Strategy",values=c(3,4,7,8,15,16,17,18)) 
+phase2.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=fish, group=sites, label=sites))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="OVM Strategy",values=c(3,4,7,8,15,16,17,18)) 
 #+geom_polygon(aes(fill=sites))
-save_plot("../../figs/phase2-all-nmds.png",phase2.nmds.plot,base_aspect_ratio = 3)
+ggsave("../../figs/phase2-all-nmds.png",phase2.nmds.plot, scale=1.2)
 
 phase2.adonis <- adonis(phase2.community_matrix ~ fish, phase2.community, perm=200)
 phase2.adonis
@@ -235,9 +213,9 @@ phase3.nmds <- metaMDS(phase3.community_matrix,distance="bray", k=2, trymax=100)
 MDS_xy <- data.frame(phase3.nmds$points)
 MDS_xy$methods <- phase3.community$methods
 MDS_xy$sites <- factor(phase3.community$sites, levels=reefs)
-phase3.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=methods, group=sites, label=sites))  + theme_bw() + theme(legend.position = "bottom") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="OVM Method",values=c(15,16,17)) 
+phase3.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=methods, group=sites, label=sites))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="OVM Method",values=c(15,16,17)) 
 #+geom_polygon(aes(fill=sites))
-save_plot("../../figs/phase3-all-nmds.png",phase3.nmds.plot,base_aspect_ratio = 2.3)
+ggsave("../../figs/phase3-all-nmds.png",phase3.nmds.plot)
 #save_plot("../../figs/phase3-all-nmds.png",phase3.nmds.plot)
 
 phase3.adonis <- adonis(phase3.community_matrix ~ methods, phase3.community, perm=200)
@@ -303,7 +281,7 @@ all.ca.data$scenario <- scenarios
 all.ca.data$model <- model
 plot(mds)
 
-all.nmds.plot <- ggplot(all.ca.data, aes(CA1, CA2, colour=scenario, group=scenario, label=model))  + theme_classic() + theme(legend.position = "right") + geom_point(size=3) + geom_text_repel()
+all.nmds.plot <- ggplot(all.ca.data, aes(CA1, CA2, colour=scenario, group=scenario, label=model))  + theme_classic() + theme(legend.position = "right") + geom_point(size=3) + geom_text_repel(size=4) + scale_colour_discrete(name="Scenario")
 ggsave("../../figs/all-nmds.png",all.nmds.plot)
 #+geom_polygon(aes(fill=sites))
 
@@ -426,7 +404,7 @@ hist(phase1.regions.bray)
 phase1.reefs.cluster <- hclust(phase1.regions.bray, method="average")
 phase1.reefs.dendrogram <- as.dendrogram(phase1.reefs.cluster) 
 plot(phase1.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-phase1.plot <- ggdendrogram(phase1.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="Behaviour scenarios", y="Bray-Curtis dissimilarity")
+phase1.plot <- ggdendrogram(phase1.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="Behaviour", y="Bray-Curtis dissimilarity")
 
 phase1.plot
 ```
@@ -466,7 +444,7 @@ phase3.plot
 
 ```{r}
 grid <- plot_grid(phase1.plot,phase2.plot, phase3.plot, labels="AUTO", align ="hv")
-save_plot("../../figs/cluster.png", grid, ncol=2, nrow=1)
+save_plot("../../figs/cluster.png", grid, ncol=2, nrow=2)
 ```
 
 MVABUND
@@ -505,15 +483,19 @@ metrics <- metrics %>% full_join(metrics2) %>% full_join(metrics3) %>% gather(ke
 
 metrics$model <- factor(metrics$model, levels=rev(model.levels))
 
-metrics.plot1 <- ggplot(data=metrics, aes(model, diversity, fill=scenario),na.rm = TRUE) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + labs(x = "", y="Settlement diversity")+ theme(legend.position = "bottom") + scale_fill_discrete(name="") +guides(fill=guide_legend(nrow=2,byrow=TRUE))
+metrics.plot1 <- ggplot(data=metrics, aes(model, diversity, fill=scenario),na.rm = TRUE) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + labs(x = "", y="Settlement diversity")+ theme(legend.position = "none") + scale_fill_discrete(name="") +guides(fill=guide_legend(nrow=2,byrow=TRUE))
 
-metrics.plot2 <- ggplot(data=metrics, aes(model, richness, fill=scenario),na.rm = TRUE) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip()  + labs(x = "", y="Settlement richness")+ theme(legend.position = "bottom") + scale_fill_discrete(name="") +guides(fill=guide_legend(nrow=2,byrow=TRUE))
+metrics.plot2 <- ggplot(data=metrics, aes(model, richness, fill=scenario),na.rm = TRUE) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip()  + labs(x = "", y="Settlement richness")+ theme(legend.position = "none") + scale_fill_discrete(name="") +guides(fill=guide_legend(nrow=2,byrow=TRUE))
 
 load(file="graph.rda")
 connectance.data$model <- factor(connectance.data$model, levels=rev(model.levels))
-metrics.plot3 <- ggplot(data=connectance.data, aes(model, connectance, colour=scenario),na.rm = TRUE) + geom_point() + coord_flip()  + labs(x = "", y="Connectance")+ theme(legend.position = "bottom") + scale_colour_discrete(name="") +guides(colour=guide_legend(nrow=2,byrow=TRUE))
+metrics.plot3 <- ggplot(data=connectance.data, aes(model, connectance, colour=scenario),na.rm = TRUE) + geom_point(size=3) + coord_flip()  + labs(x = "", y="Connectance")+ theme(legend.position = "right") + scale_colour_discrete(name="Scenario")
 
-metrics.grid <- plot_grid(metrics.plot2,metrics.plot1, metrics.plot3, labels="AUTO", align ="hv")
-save_plot("../../figs/settle-metrics.png", metrics.grid, ncol=2, nrow=2)
+legend <- get_legend(metrics.plot3)
+metrics.plot3a <- metrics.plot3 + theme(legend.position = "none")
+
+metrics.grid <- plot_grid(metrics.plot2,metrics.plot1, metrics.plot3a, labels="AUTO", align ="hv")
+metrics.legend <- plot_grid(metrics.grid, legend, rel_widths=c(1,.2))
+save_plot("../../figs/settle-metrics.png", metrics.legend, ncol=2, nrow=2)
 ```
 
