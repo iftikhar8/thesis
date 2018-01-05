@@ -1,5 +1,5 @@
 
-word-template=templates/custom-reference-meps.docx
+word-template=templates/custom-reference.docx
 pdf-template=templates/format.sty
 bibliography=/Users/steve/Dropbox/Research/library.bib
 yaml="crossrefYaml=templates/pandoc-crossref.yaml"
@@ -25,7 +25,7 @@ applied:
 		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc  --bibliography=$(bibliography) --csl=$(csl) chapters/applied/docs/applied.md -o out/applied.docx
 
 thesis:
-	pandoc --filter pandoc-crossref --filter pandoc-citeproc -H $(pdf-template) -V fontsize=12pt --bibliography=$(bibliography) --csl=$(csl) chapters/lit_review/docs/lit-review.md -o out/lit-review.pdf
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc -H $(pdf-template) -V fontsize=12pt --bibliography=$(bibliography) --csl=$(csl) chapters/sections/title.md chapters/lit-review/docs/lit-review.md -o out/thesis.pdf
 
 clean:
 	rm out/*.docx
