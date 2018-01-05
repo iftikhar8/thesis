@@ -57,11 +57,23 @@ The BDM generates as output (per calendar year) a connectivity matrix (connectiv
 
 # Results
 
-
-Generic Introduction
-
-
 ## Assessing the realised connectivity patterns from all regions
+
+The strongest demographic connectivity for all source regions occurred to geographically close settlement regions, although each source region along the NSW coast showed long tails of connectivity with decreasing latitude (@fig:conn-matrix-heatmap). From the Tweed to Pt Stephens, the strongest connectivity was with the region directly below, and few larvae migrated to regions of higher latitudes. This pattern ceased at the Newcastle region, which had poor local retention, and settlement to lower latitudes. The southern source regions from Sydney to Eden had most larvae settle at the natal region, but also tended to settle at regions both increasing and decreasing latitude (@fig:conn-matrix-heatmap). The offshore areas of Lord Howe Island, and Elizabeth and Middleton (EM) reefs also mostly recruited to the natal sites and to each other, but also both connected to the central NSW coast, from Nambucca to Wollongong. These patterns are reflected in the trajectories seen for a random subset (only 5% of larvae from the year 2010 are displayed for visualisation purposes) of black cod larvae that settled (@fig:trajectories A). The larvae only made it into Southern Queensland or Victoria occasionally, and predominately from geographically connected sites (although both Lord Howe and EM reefs did have connectivity with Queensland). The connectivity, while not strong,  between Lord Howe, EM reefs, and the mainland was bi-directional (@fig:conn-matrix-heatmap). No connectivity was seen to occur to either Norfolk Island or New Zealand from any of the chosen source regions.
+
+![The connectivity matrix of the mean proportion of total settlement (log~-10~) from all source regions to settlement regions for the years (2004-2011), using a log scale on the settlement proportions.](chapters/applied/figs//heatmap-all.png){#fig:conn-matrix-heatmap}
+
+![Comparison of a subset (5% of the larvae were randomly selected) of the trajectories for the settled Black Cod larvae from all source regions (A) and known aggregation regions (B) for the year 2010.](chapters/applied/figs//trajectories-comp.png){#fig:trajectories}
+
+Comparing the mean annual settlement patterns by source regions, strong latitudinal patterns were also expressed. The source regions with the most similar settlement patterns occurred in close geographical proximity (@fig:nmds-settlement A). Although, settlement patterns were more similar in the most northern and most southern regions, with the regions Nambucca to Sydney showing more dissimilarity. Comparing the connectivity from each source region to each settlement region for each year between 2004-2011 using PERMANOVA, the settlement patterns between source regions were significantly different (F~model(18,151)~ = 82.67, p < 0.05, r^2^= 0.92; @fig:nmds-regions). The variation between regions was more significant than the annual variation (F~model(7,151)~ = 0.18, p > 0.05, r^2^ = 0.01). Annual variation in connectivity patterns was not consistent between sources regions, the offshore areas of Lord Howe Island and EM reefs showed the largest variations, but also the southern regions along the NSW coast were more variable annually than the northern areas. A few source regions, e.g. Nambucca, Newcastle, and Sydney, had minimal annual variation. There was annual variation seen when comparing the total settlement across all settlement regions. Some years, e.g. 2004 and 2007, 2006 and 2009, the black cod larvae settlement pattens were acutely similar, but in general each year was dissimilar to all others (@fig:nmds-settlement B).
+
+![NMDS comparison of the mean total settlement from each of the 19 source regions across NSW and the offshore areas (A; 0.07), and the total settlement to all regions by year (B; stress 0.05).Bray-Curtis dissimilarities were used with a square-root transformation.](chapters/applied/figs/ndms-settlement.png){#fig:nmds-settlement}
+
+![NMDS of the connectivity patterns from each source region (colour coded and grouped by ellipses) in each year (2004 - 2011) to all possible settlement regions. Bray-Curtis dissimilarities were used with a square-root transformation (2D stress = 0.12)](chapters/applied/figs/nmds-regions.png){#fig:nmds-regions}
+
+The strongest region of settlement were Yamba and Solitary Islands, which were also consistently settlement in high proportions (@fig:cv A). Black cod settlement was highest in the northern-central region of NSW, when considering all source sites. The offshore islands of Lord Howe and EM reefs, along with settlement regions in Queensland and Victoria had the lowest settlement numbers. Queensland, and the the most northern site of the Tweed had the highest variation, but for the rest of the regions the annual variation was consistent.
+
+![The coefficient of variation against the mean annual settlement from all source regions (A) and from the known aggregation sites (B).](chapters/applied/figs/settlement-cv.png){#fig:cv}
 
 ### Connectivity metrics
 
@@ -77,11 +89,7 @@ Most regions had similar dispersal distances, yet several had significantly long
 
 ![The mean annual connectivity metrics across all regions of self-recruitment (A), local retention (B), settlement success (C), and dispersal distance (D; km) for the years 2004-2011, when Black Cod (*Epinephelus daemelii*) larvae were released in the dispersal model. The whisker plots represent the mean, standard deviation, and min/max values of the distribution](chapters/applied/figs/year-metrics.png){#fig:year-metrics}
 
-Patterns of settlement across the 19 regions was significantly different (F~model(7,151)~ = 82.67, p < 0.05, r^2^= 0.92; @fig:nmds-regions). Each region shared overlapping settlement patterns with the regions directly above or below latitudinal. The only region that did not was Newcastle, which was similar to Sydney more than Pt Stephens. Newcastle tends to be the bottom of the separations zone, which could describe these results. The regions where the separation zone usually occurs -30 to -32, is where the most differences occurred between regions. The yearly variation was largest for the offshore reefs (Lord Howe, Elizabeth, and Middleton). The northern NSW regions of Tweed, Byron, Ballina, Yamba, and Solitary Islands had similar settlement patterns, driven by a strong EAC. The regions in southern NSW from Jervis Bay to Merimbula also had similar settlement patterns. There was no clear effect of year on the settlement patterns, as annual variation was region specific (F~model(7,151)~ = 0.18, p > 0.05, r^2^ = 0.01; @fig:nmds-years), although 2007 stands out as the most different amongst the years.
 
-![nMDS comparing the yearly (2004-2011) settlement patterns from each region to all the other regions of NSW and each point is related to the total settlement per year and regions are coloured and grouped by ellipses. Bray-curtis dissimilarities were used with a square-root transformation (2D stress = 0.12)](chapters/applied/figs/nmds-regions.png){#fig:nmds-regions}
-
-![nMDS comparing the yearly (2004-2011) settlement patterns from each region to all the other regions of NSW and each point is related to the total settlement per year in a region and different years are coloured. Bray-curtis dissimilarities were used with a square-root transformation (2D stress = 0.12)](chapters/applied/figs/nmds-years.png){#fig:nmds-years}
 
 
 Discussion points
@@ -91,7 +99,7 @@ Discussion points
 - Some regions showed more yearly variation than others, not consistent. 2007 dispersed more and less local recruitment and settlement success. Not a special climatic year (Strong La nina (2010-11), moderate El-nino (2009-2010).
 
 
-## Known spawning sites
+## Assessing the realised connectivity patterns from all regions
 
 The three highest settlement regions were all the known aggregating regions of Solitary Islands, Nambucca, and Port Stephens (@fig:known-settle-region). Yamba and Newcastle were the other sites receiving the highest numbers of new recruits, and the south coast had seemingly negligible connectivity. Solitary Islands produced the most successful number of larvae that find suitable habitat, mostly to itself (self-recruitment values of 72.9 ± 7.7; @fig:region-metrics A), but also to Nambucca, and Yamba (@fig:known-source-region). This high self-recruitment was reflected by the low dispersal distance for larvae from the Solitary Islands (@fig:region-metrics D). Port Stephens and Nambucca both had similar numbers of larvae successful settle (@fig:known-source-region), and also approximately the same high proportions of self-recruitment at about 80% (@fig:region-metrics A). The settlement at Port Stephens showed less annual variability than either the Solitary Islands and Nambucca (@fig:known-settle-region). Pt Stephens showed strong settlement to the Newcastle region, and were able to reach the southern regions of NSW, with a mean dispersal distance of 112.2 km (± 19.5) ()@fig:region-metrics D). Even though Lord Howe Island, Elizabeth and Middleton reefs all support populations of black cod, the connectivity from the models was seemingly minimal with low successful settlement. Even though Lord Howe island is an off-shore island, annual self-recruitment is not as high as many other NSW regions (43.9% ± 14.0; @fig:region-metrics A). Most other larvae settle at both Middleton or Elizabeth reefs, but Lord Howe is connected to all regions of NSW coast, and some years the highest settlement Newcastle, Sydney or Wollongong, reflected by a mean dispersal distance of 1036.2 km ± 136.1; @fig:region-metrics D). Self-recruitment for Elizabeth and Middleton reefs was lower than the other offshore region of Lord Howe island (31.8% ± 8.1), and a mean dispersal distance more than 6 times lower (153.2 km ± 77.2). The next highest region of settlement (and less variable) was to Lord Howe Island. Larvae spawned from these reefs also made it to all the regions along the NSW coast, but settlement was higher in the Northern half of the state. Despite being included in the model, no larvae settled at either New Zealand or Norfolk Island, suggesting these populations are not connected to the ones within NSW regions.
 
@@ -112,6 +120,11 @@ Due to the life cycle of the black cod, marine protected areas are important in 
 ![Dendrogram of communities detected through greedy optimisation of modularity using the mean yearly settlement between regions](chapters/applied/figs/dendo-all-regions.png){#fig:dendro-regions}
 
 Discussion
+
+Newcastle tends to be the bottom of the separations zone, which could describe these results. The regions where the separation zone usually occurs -30 to -32, is where the most differences occurred between regions. The yearly variation was largest for the offshore reefs (Lord Howe, Elizabeth, and Middleton). The northern NSW regions of Tweed, Byron, Ballina, Yamba, and Solitary Islands had similar settlement patterns, driven by a strong EAC. The regions in southern NSW from Jervis Bay to Merimbula also had similar settlement patterns.
+
+
+
  - Marine protected areas seem to be in many of the right places? Ballina and Yamba the big exclusions with the highest source settlement
  - Although this is looking at regional connections, MPAs don't span the entire region
  - Also different usages, if adults can be fished by rec fishers for example are the protections there
