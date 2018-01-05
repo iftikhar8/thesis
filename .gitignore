@@ -3,6 +3,7 @@
 chapters/*/figs/
 chapters/*/out/
 chapters/*/data/model-output/
+chapters/*/data/model-output-old/
 */resources/*
 *.html
 
