@@ -7,6 +7,7 @@ Packages required
 ```{r, include=FALSE}
 library(igraph)
 library(NetIndices)
+library(ggdendro)
 ```
 
 

@@ -36,6 +36,8 @@ years <- c("2011","2010","2009","2008","2007","2006","2005","2004")
 applied <- data.frame(years)
 region.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","E&M Reefs")
 settle.names <- c("Queensland","Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Victoria","Lord Howe Is","E&M Reefs", "Norfolk Is", "New Zealand")
+region.names.known <- c("Solitary Is","Nambucca","Pt Stephens","Lord Howe Is","E&M Reefs")
+settle.names.known <- c("Queensland","Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","E&M Reefs")
 coul = brewer.pal(9, "Set1") 
 coul = colorRampPalette(coul)(19)
 coul21 = colorRampPalette(coul)(21)
@@ -83,6 +85,15 @@ regions.data.heatmap$source.region <- factor(regions.data.heatmap$source.region)
 regions.data.heatmap$settle.region <- factor(regions.data.heatmap$settle.region, levels=c("QLD","NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","VIC","NSW18","NSW19","NFI","NZ"))
 heatmap.plot <- ggplot(regions.data.heatmap, aes(rev(source.region),settle.region)) + geom_tile(aes(fill=log10(settlers)), colour="white") + scale_fill_gradient(low="white", high="steelblue",name="Proportion \nSettled (log 10)") + labs(x="Source region",y="Settlement region") + theme(legend.position = "right", axis.text.x = element_text(angle=330, hjust=0)) + coord_flip() + scale_x_discrete(labels=rev(region.names)) + scale_y_discrete(labels=settle.names)
 ggsave("../../figs/heatmap-all.png",heatmap.plot, width=9.17, height=5.43, units=c("in"))
+
+regions.data.heatmap.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(source.region, settle.region) %>% summarise(settlers = mean(value)/eggs)
+regions.data.heatmap.known <- ungroup(regions.data.heatmap.known)
+regions.data.heatmap.known <- group_by(regions.data.heatmap.known, source.region, settle.region)
+regions.data.heatmap.known$source.region <- factor(regions.data.heatmap.known$source.region)
+regions.data.heatmap.known$settle.region <- factor(regions.data.heatmap.known$settle.region, levels=c("QLD","NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","VIC","NSW18","NSW19"))
+regions.data.heatmap.known <- regions.data.heatmap.known %>% filter(source.region=="NSW05" | source.region=="NSW06" | source.region=="NSW09" | source.region=="NSW18" | source.region=="NSW19")
+heatmap.known.plot <- ggplot(regions.data.heatmap.known, aes(rev(source.region),settle.region)) + geom_tile(aes(fill=log10(settlers)), colour="white") + scale_fill_gradient(low="white", high="steelblue",name="Proportion \nSettled (log 10)") + labs(x="Source region",y="Settlement region") + theme(legend.position = "right", axis.text.x = element_text(angle=330, hjust=0)) + coord_flip() + scale_x_discrete(labels=rev(region.names.known)) + scale_y_discrete(labels=settle.names.known)
+ggsave("../../figs/heatmap-known-all.png",heatmap.known.plot, width=9.0, height=2.5, units=c("in"))
 ```
 
 Variation of total settlement
@@ -98,6 +109,10 @@ regions.data.cv.known.plot <- ggplot(regions.data.cv.known, aes(mean,cv)) + geom
 
 p <- plot_grid(regions.data.cv.plot,regions.data.cv.known.plot, labels="AUTO", align="v", nrow=2)
 save_plot("../../figs/settlement-cv.png", p, base_aspect_ratio = 1.1, scale=2)
+
+regions.data.lm.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% filter(source.region=="NSW05" | source.region=="NSW06" | source.region=="NSW09" | source.region=="NSW18" | source.region=="NSW19") %>% mutate(value=value/eggs) %>% group_by(settle.region, year) %>% summarise(settlers = sum(value))
+regions.lm.known <- lm(settlers ~ year + settle.region, data=regions.data.lm.known)
+anova(regions.lm.known)
 ```
 
 NNDS using all reefs (or regions)

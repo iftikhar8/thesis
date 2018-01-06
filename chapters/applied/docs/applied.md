@@ -4,6 +4,11 @@
 # Introduction
 
 
+## Black cod threats.
+
+- while illegal to fish for black cod either recreational or commercial
+- there is bycatch threat
+
 AIMS:
 
 1. To investigate the realised connectivity patterns from all spawning regions
@@ -20,7 +25,7 @@ The black cod, *Epinephelus daemelii* (Gunther, 1876), also known commonly as th
 
 I used a biophysical dispersal model (BDM) to measure the connectivity of black cod (ZISSOU, v1.1.3 [github.com/shawes/zissou]), see Chapter 3 methods for a complete description. The model allows for the implementation of many biological behaviours e.g. ontogenetic vertical migration (OVM), diel vertical migration (DVM), and orientated horizontal swimming (OHS). The model was forced with oceanographic data from BRAN3 [Bluelink renalysis, version 3p5; Oke:2013dm], a data-assimilating hindcast model which resolves mesoscale eddies with mean daily velocities. BRAN3 has a resolution of 0.1° latitude and longitude, and resolves depth velocities at bins of 5-10 m. As with similar studies  [CITE condie, chiswell], an eddy diffusivity value (K) of 300 ms^-1^ was implemented in the model. Larvae positions in the BDM were updated based on a time step of two hours.
 
-Patterns of annual settlement were assessed for the period 2004-2011 by spawning and tracking the settlement of larvae along the coast of NSW and offshore islands. Nineteen spawning regions were chosen, 17 along the NSW coast (approximately equally sized spawning regions at ~125 km each), and with two off-shore areas, Lord Howe Island and Elizabeth and Middleton reefs (considered as a single region; Figure 1). Reef patches within each region was identified (as per Chapter 3), using benthic data obtained from the NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au) with areas of roughly equally sized sections of contiguous reef demarked as specific reef patches’ (total of 560 in the model domain). Larvae were spawned from four reef patches per region (chosen using either the known distribution or randomly if there was no specific data), daily between the known aggregating months, April-May, every year over the period 2004-2011. For each reef patch, 4000 pelagic eggs were spawned per day (16,000 per region) over the 61 day period. In total 18.5 million eggs were released each breeding season and 148 million over the course of the experiment. Black cod were allowed to settle to reef patches if they came within the settlement sensory distance, after the settlement competency window and before the pelagic larval duration. Black cod were allowed to settle to reefs in Queensland, Victoria, Norfolk Island, and New Zealand as per the known distribution, although none of which have known breeding populations [CITE Harasti]. Biological parameters were obtained from the literature, and if no data was found for *E.daemelii* specifically, either similar species, genus averages, or general data was used to parameterise the model (@tbl:bio-params).
+Patterns of annual settlement were assessed for the period 2004-2011 by spawning and tracking the settlement of larvae along the coast of NSW and offshore islands. Nineteen spawning regions were chosen, 17 along the NSW coast (approximately equally sized spawning regions at ~125 km each), and with two off-shore areas, Lord Howe Island and Elizabeth and Middleton reefs (considered as a single region; Figure 1). Reef patches within each region was identified (as per Chapter 3), using benthic data obtained from the NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au) with areas of roughly equally sized sections of contiguous reef demarked as specific reef patches’ (total of 560 in the model domain). Larvae were spawned from four reef patches per region (chosen using either the known distribution or randomly if there was no specific data), daily between the known aggregating months, April-May, every year over the period 2004-2011. For each reef patch, 4000 pelagic eggs were spawned per day (16,000 per region) over the 61 day period. In total 18.5 million eggs were released each breeding season and 148 million over the course of the experiment. Black cod were allowed to settle to reef & rock intertidal patches if they came within the settlement sensory distance, after the settlement competency window and before the pelagic larval duration. Black cod were allowed to settle to reefs in Queensland, Victoria, Norfolk Island, and New Zealand as per the known distribution, although none of which have known breeding populations [CITE Harasti]. Biological parameters were obtained from the literature, and if no data was found for *E.daemelii* specifically, either similar species, genus averages, or general data was used to parameterise the model (@tbl:bio-params).
 
 ![The 19 regions (each containing four rocky reef patches) used to spawn the black cod *Epinephelus daemelii* larvae along the coastline of New South Wales, Australia and the offshore areas of Lord Howe Island, Elizabeth reef, and Middleton reef (E&M reefs)](chapters/applied/figs/release-sites.png){#fig:release-sites}
 
@@ -59,9 +64,9 @@ The BDM generates as output (per calendar year) a connectivity matrix (connectiv
 
 ## Assessing the realised connectivity patterns from all regions
 
-The strongest demographic connectivity for all source regions occurred to geographically close settlement regions, although each source region along the NSW coast showed long tails of connectivity with decreasing latitude (@fig:conn-matrix-heatmap). From the Tweed to Pt Stephens, the strongest connectivity was with the region directly below, and few larvae migrated to regions of higher latitudes. This pattern ceased at the Newcastle region, which had poor local retention, and settlement to lower latitudes. The southern source regions from Sydney to Eden had most larvae settle at the natal region, but also tended to settle at regions both increasing and decreasing latitude (@fig:conn-matrix-heatmap). The offshore areas of Lord Howe Island, and Elizabeth and Middleton (EM) reefs also mostly recruited to the natal sites and to each other, but also both connected to the central NSW coast, from Nambucca to Wollongong. These patterns are reflected in the trajectories seen for a random subset (only 5% of larvae from the year 2010 are displayed for visualisation purposes) of black cod larvae that settled (@fig:trajectories A). The larvae only made it into Southern Queensland or Victoria occasionally, and predominately from geographically connected sites (although both Lord Howe and EM reefs did have connectivity with Queensland). The connectivity, while not strong,  between Lord Howe, EM reefs, and the mainland was bi-directional (@fig:conn-matrix-heatmap). No connectivity was seen to occur to either Norfolk Island or New Zealand from any of the chosen source regions.
+The strongest demographic connectivity for all source regions occurred to geographically close settlement regions, although each source region along the NSW coast showed long tails of connectivity with decreasing latitude (@fig:heatmap-all). From the Tweed to Pt Stephens, the strongest connectivity was with the region directly below, and few larvae migrated to regions of higher latitudes. This pattern ceased at the Newcastle region, which had poor local retention, and settlement to lower latitudes. The southern source regions from Sydney to Eden had most larvae settle at the natal region, but also tended to settle at regions both increasing and decreasing latitude (@fig:heatmap-all). The offshore areas of Lord Howe Island, and Elizabeth and Middleton (EM) reefs also mostly recruited to the natal sites and to each other, but also both connected to the central NSW coast, from Nambucca to Wollongong. These patterns are reflected in the trajectories seen for a random subset (only 5% of larvae from the year 2010 are displayed for visualisation purposes) of black cod larvae that settled (@fig:trajectories A). The larvae only made it into Southern Queensland or Victoria occasionally, and predominately from geographically connected sites (although both Lord Howe and EM reefs did have connectivity with Queensland). The connectivity, while not strong,  between Lord Howe, EM reefs, and the mainland was bi-directional (@fig:heatmap-all). No connectivity was seen to occur to either Norfolk Island or New Zealand from any of the chosen source regions.
 
-![The connectivity matrix of the mean proportion of total settlement (log~-10~) from all source regions to settlement regions for the years (2004-2011), using a log scale on the settlement proportions.](chapters/applied/figs//heatmap-all.png){#fig:conn-matrix-heatmap}
+![The connectivity matrix of the mean proportion of total settlement (log~-10~) from all source regions to settlement regions for the years (2004-2011), using a log scale on the settlement proportions.](chapters/applied/figs//heatmap-all.png){#fig:heatmap-all}
 
 ![Comparison of a subset (5% of the larvae were randomly selected) of the trajectories for the settled Black Cod larvae from all source regions (A) and known aggregation regions (B) for the year 2010.](chapters/applied/figs//trajectories-comp.png){#fig:trajectories}
 
@@ -101,11 +106,9 @@ Discussion points
 
 ## Assessing the realised connectivity patterns from all regions
 
-The three highest settlement regions were all the known aggregating regions of Solitary Islands, Nambucca, and Port Stephens (@fig:known-settle-region). Yamba and Newcastle were the other sites receiving the highest numbers of new recruits, and the south coast had seemingly negligible connectivity. Solitary Islands produced the most successful number of larvae that find suitable habitat, mostly to itself (self-recruitment values of 72.9 ± 7.7; @fig:region-metrics A), but also to Nambucca, and Yamba (@fig:known-source-region). This high self-recruitment was reflected by the low dispersal distance for larvae from the Solitary Islands (@fig:region-metrics D). Port Stephens and Nambucca both had similar numbers of larvae successful settle (@fig:known-source-region), and also approximately the same high proportions of self-recruitment at about 80% (@fig:region-metrics A). The settlement at Port Stephens showed less annual variability than either the Solitary Islands and Nambucca (@fig:known-settle-region). Pt Stephens showed strong settlement to the Newcastle region, and were able to reach the southern regions of NSW, with a mean dispersal distance of 112.2 km (± 19.5) ()@fig:region-metrics D). Even though Lord Howe Island, Elizabeth and Middleton reefs all support populations of black cod, the connectivity from the models was seemingly minimal with low successful settlement. Even though Lord Howe island is an off-shore island, annual self-recruitment is not as high as many other NSW regions (43.9% ± 14.0; @fig:region-metrics A). Most other larvae settle at both Middleton or Elizabeth reefs, but Lord Howe is connected to all regions of NSW coast, and some years the highest settlement Newcastle, Sydney or Wollongong, reflected by a mean dispersal distance of 1036.2 km ± 136.1; @fig:region-metrics D). Self-recruitment for Elizabeth and Middleton reefs was lower than the other offshore region of Lord Howe island (31.8% ± 8.1), and a mean dispersal distance more than 6 times lower (153.2 km ± 77.2). The next highest region of settlement (and less variable) was to Lord Howe Island. Larvae spawned from these reefs also made it to all the regions along the NSW coast, but settlement was higher in the Northern half of the state. Despite being included in the model, no larvae settled at either New Zealand or Norfolk Island, suggesting these populations are not connected to the ones within NSW regions.
+The settlement from the known aggregation sites (Nambucca, Solitary Islands, Pt Stephens, Lord Howe Island, and EM reefs) was more restricted, with black cod larvae not making it up in Queensland or down into Victoria (@fig:trajectories B). Three of the source regions, Nambucca, Solitary Islands, and Pt Stephens were the areas of highest settlement and with strong consistency, significantly different from the rest with settlement at Port Stephens was 4.8 times higher than the fourth highest area of settlement (F~(19,133)~ = 140.51, p \< 0.05; @fig:cv B). Yamba and Newcastle were the other sites receiving the highest numbers of new recruits (connectivity was more variable to Yamba), and the south coast had seemingly negligible connectivity (high annual variation). Solitary Islands produced the most successful number of larvae that successfully settle, mostly to itself (high local retention @fig:region-metrics B), but also to Nambucca, the region below (@fig:heatmap-known). This high local-retention was reflected by the low dispersal distance for larvae from the Solitary Islands (@fig:region-metrics D). However, it is also the most important source region for itself, with annual self-recruitment values of 72.9 ± 7.7 (@fig:region-metrics A). The other known aggregation regions on the NSW coast of Port Stephens and Nambucca also both have high self-recruitment at about 80% (@fig:region-metrics A). The settlement at Nambucca showed slightly less annual variability than either the Solitary Islands and Pt Stephens (@fig:cv B), but the differences were small. Pt Stephens showed strongest connectivity to the Sydney and Wollongong regions, but had some of the lowest overall settlement success (and highly variable) for the NSW regions (@fig:region-metrics C). Compared to Solitary Islands and Nambucca, larvae spawned from Port Stephens showed the strongest connections to the southern regions of NSW, dispersing with a mean distance of 112.2 km before settlement (@fig:region-metrics D). Even though Lord Howe Island and EM reefs both support populations of black cod, these regions had the lowest settlement success in the model. Both had low local retention and low and highly variable self-recruitment, with means below 50%. Larvae spawned at Lord Howe Island larvae settled consistently to all regions in NSW, apart from Yamba to Nambucca. EM reefs showed similar settlement patterns to Lord Howe, except the larvae spawned at EM reefs had limited connectivity to the most northern sites Tweed, Byron, and Ballina. The larvae from these sites were also the most dispersed, travelling on average more than 1000 km before successfully settling.
 
-![The yearly settlement (2004-2011) for black cod larvae to all 19 regions along the NSW coast and offshore that were spawned only from the known aggregation regions; Solitary Islands, Nambucca (Fish Rock), Port Stephens (Pinnacle Rock), Lord Howe Islands, and Elizabeth and Middleton reefs.](chapters/applied/figs/known-settle-region.png){#fig:known-settle-region}
-
-![The yearly settlement (2004-2011) for black cod larvae spawned from the known aggregation regions; Solitary Islands, Nambucca (Fish Rock), Port Stephens (Pinnacle Rock), Lord Howe Islands, and Elizabeth and Middleton reefs.](chapters/applied/figs/known-source-region.png){#fig:known-source-region}
+![The connectivity matrix of the mean proportion of total settlement (log~-10~) from all source regions to settlement regions for the years (2004-2011), using a log scale on the settlement proportions.](chapters/applied/figs/heatmap-known.png){#fig:heatmap-known}
 
 Discussion Pts
 - Surprising (if weak) connectivity to all regions of NSW.
@@ -118,6 +121,46 @@ Discussion Pts
 Due to the life cycle of the black cod, marine protected areas are important in protecting the adult fish to both grow to a sufficient age with which to spawn, and to be allowed to spawn in sufficient numbers. The three highest areas of settlement from known spawning sites, and the three spawning areas with highest settlement all occur in NSW marine protected areas, Solitary Islands, Nambucca and Port Stephens (@fig:known-settle-region, @fig:known-source-region). The black cod larvae at all three have high levels of self-recruitment and local retention, allowing for strong potential population sustainability within these marine parks. When considering each region as a release region, only one out of the four highest areas of settlement contains a marine park, Solitary Islands (@fig:known-settle-region). Considering the top five source areas for successful settlement, two of them contain marine parks; Solitary Islands, and Sydney (Aquatic Reserve; @fig:known-source-region). When considering the sub-communities that form the network of demographically connected regions from all possible spawning sites, there is at least one marine protected area in each sub-community (@fig:dendro-regions).
 
 ![Dendrogram of communities detected through greedy optimisation of modularity using the mean yearly settlement between regions](chapters/applied/figs/dendo-all-regions.png){#fig:dendro-regions}
+
+Cook Island Aquatic Reserve (78 hectares)
+-
+
+Cape Byron
+- Julian rocks
+
+Solitary Islands
+- Jones Beach and Jones Point Sanctuary Zone (1.3 km)
+- Central Section Sanctuary Zone (3.0 km)
+- Flat Top Point Sanctuary Zone (1.3 km)
+- Southern Section Sanctuary Zone (4.3 km)
+-
+
+Pt Stephens
+-  The Pinnacle Sanctuary Zone (2.5km)
+- seal rocks
+- broughton island
+- cabbage tree island
+-  Fingal Island Sanctuary Zone (4.0km)
+
+Sydney
+- Cabbage Tree Bay Aquatic Reserve (20 hectares)
+
+Batemans Bay
+- North Head Sanctuary Zone (4.8 km)
+- Burrewarra (North Section) Sanctuary Zone (4.7 km)
+- Burrewarra (South Section) Sanctuary Zone (2.8)
+- Broulee Island Sanctuary Zone (2.1 km)
+
+Lord Howe Island 460kms
+
+Middleton Reef (Sanctury zone), Elizabeth Reef (Rec fishing with permit)
+(Lord Howe Commonwealth Marine Reserve)
+
+Pt Macquarie
+- Cod Grounds Commonwealth Marine Reserve (4 km^2)
+
+
+
 
 Discussion
 
