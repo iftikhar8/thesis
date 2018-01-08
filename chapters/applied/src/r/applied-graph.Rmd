@@ -113,14 +113,39 @@ Community detection
 
 ceb <- cluster_edge_betweenness(graph)
 dendPlot(ceb, mode="hclust", label=region.names)
-plot(ceb, graph, vertex.size = hs*50, edge.arrow.size=0.1, edge.curved=0.1, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7,vertex.label=region.names)
+plot(ceb, graph, vertex.size = as*50, edge.arrow.size=0.1, edge.curved=0.1, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7,vertex.label=region.names)
 
 clp <- cluster_fast_greedy(as.undirected(graph))
+wc <- walktrap.community(graph)
 
 png(filename="../../figs/dendo-all-regions.png")
-dendPlot(clp, mode="hclust", label=region.names)
+dendPlot(wc, mode="hclust", label=region.names)
 dev.off()
-ggdendrogram(clp, rotate = FALSE, size = 2)
+ggdendro(clp, rotate = FALSE, size = 2)
+
+png(filename="../../figs/network-all-regions.png")
+#dendPlot(wc, mode="hclust", label=region.names)
+plot(wc,simplify(graph), edge.arrow.size=0.1, edge.curved=0.1, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=1.0,vertex.label=region.names, edge.width=E(graph)$weight/1000, layout=layout_nicely, vertex.label.dist=1, vertex.size=5)
+dev.off()
+
+
+plot(simplify(graph), edge.arrow.size=0.2, edge.curved=0.1, edge.width=E(graph)$weight/500, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.9,vertex.label=region.names, vertex.label.font=2, main="MPAs", layout=spring)
+
+p1 <- ggdraw() + draw_image("../../figs/dendo-all-regions.png")
+p2 <- ggdraw()+ draw_image("../../figs/network-all-regions.png")
+grid <- plot_grid(p1,p2, labels="AUTO", align="hv", nrow=2)
+save_plot("../../figs/graph.png", grid, nrow=2, ncol=1, base_aspect_ratio = 1.2)
+
+
+
+sg <- spinglass.community(graph)
+graph5 <- qgraph(cormatrix, graph="glasso", layout="spring", sampleSize = nrow(data),groups=group.spinglass, 
+                 vsize=7, cut=0, maximum=.45, border.width=1.5,
+                 color=c("red", "orange", "white", "blue", "green"), title="igraph spinglass")
+layout <-layout.fruchterman.reingold(graph)
+new_cols <- c("white", "red", "black")[membership(sg)]
+plot(sg, graph, col=new_cols, mark.border="black", mark.col=c("tan", "pink", "lightgray"), 
+    layout=layout, vertex.label=NA, vertex.size=5, edge.arrow.size=.2)
 
 dhc <- as.dendrogram(clp)
 # Rectangular lines
@@ -133,9 +158,9 @@ p
 
 plot(clp, as.undirected(graph), edge.arrow.size=0.1, edge.curved=0.1, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7,vertex.label=region.names)
 
-V(graph)$community <- clp$membership
-clrs <- adjustcolor(c("tomato","gold","yellowgreen"), alpha=0.6)
-plot(graph, vertex.color=clrs[V(graph)$community],edge.arrow.size=0.2, edge.curved=0.1, edge.width=E(graph)$weight/500,vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7,vertex.label=region.names)
+V(graph)$community <- sg$membership
+clrs <- adjustcolor(c("tomato","gold","yellowgreen","blue","brown"), alpha=0.5)
+plot(graph, vertex.color=clrs[V(graph)$community],edge.arrow.size=0.2, edge.curved=0.1, edge.width=E(graph)$weight/1000,vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=0.7,vertex.label=region.names, layout=layout)
 ```
 
 ```{r}
