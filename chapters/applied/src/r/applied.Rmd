@@ -20,7 +20,7 @@ Study sites diagram
 load("reefs.rda")
 #australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), col="gray90", fill=TRUE)
 #coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
-legend.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "E&M Reefs")
+legend.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "EM Reefs")
 
 centre <- geocode("Sydney, AU")
 coast <- get_map(c(lon=153, lat=-33), zoom = 6, maptype=c("hybrid"))
@@ -30,14 +30,14 @@ australia <- ggmap(coast)
 
 coul = brewer.pal(9, "Set1")
 coul = colorRampPalette(coul)(19)
-map <- australia + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, group=REGION, colour=REGION), size=1.5, data=sites) + theme(legend.position = "right") + labs(x="Longitude", y="Latitude") + scale_color_manual(labels = c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "E&M Reefs"), name="NSW region", values = coul) 
+map <- australia + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, group=REGION, colour=REGION), size=1.5, data=sites) + theme(legend.position = "bottom") + labs(x="Longitude", y="Latitude") + scale_color_manual(labels = c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "EM Reefs"), name="Region", values = coul) 
 
 map
 
 
 #eddies <- ggdraw() + draw_image("../../figs/nsw-eddies.gif", scale=0.9)
 #plot_grid(map,eddies, labels="AUTO")
-ggsave("../../figs/release-sites.png", map)
+ggsave("../../figs/release-sites.png", map, width=5, height=5, units=c("in"))
 ```
 
 Trajectories
@@ -47,5 +47,20 @@ p1 <- ggdraw() + draw_image("../../figs/all-trajectories.png")
 p2 <- ggdraw() + draw_image("../../figs/known-trajectories.png")
 trajectories.grid <- plot_grid(p1,p2,labels="AUTO")
 save_plot("../../figs/trajectories-comp.png",trajectories.grid, nrow=1, ncol=2)
+```
+
+Trajectories by year
+```{r}
+
+p04 <- ggdraw() + draw_image("../../figs/trajectories/2004.png")
+p05 <- ggdraw() + draw_image("../../figs/trajectories/2005.png")
+p06 <- ggdraw() + draw_image("../../figs/trajectories/2006.png")
+p07 <- ggdraw() + draw_image("../../figs/trajectories/2007.png")
+p08 <- ggdraw() + draw_image("../../figs/trajectories/2008.png")
+p09 <- ggdraw() + draw_image("../../figs/trajectories/2009.png")
+p10 <- ggdraw() + draw_image("../../figs/trajectories/2010.png")
+p11 <- ggdraw() + draw_image("../../figs/trajectories/2011.png")
+trajectories.grid <- plot_grid(p04,p05,p06,p07,p08,p09,p10,p11,labels=c("2004","2005","2006","2007","2008","2009","2010","2011"), ncol=3, nrow=3, align="vh")
+save_plot("../../figs/trajectories-years.png",trajectories.grid, ncol=3, nrow=3)
 ```
 

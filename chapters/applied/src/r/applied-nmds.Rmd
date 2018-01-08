@@ -34,14 +34,14 @@ Labels for the data
 ```{r}
 years <- c("2011","2010","2009","2008","2007","2006","2005","2004")
 applied <- data.frame(years)
-region.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","E&M Reefs")
-settle.names <- c("Queensland","Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Victoria","Lord Howe Is","E&M Reefs", "Norfolk Is", "New Zealand")
+region.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs")
+settle.names <- c("Queensland","Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Victoria","Lord Howe Is","EM Reefs", "Norfolk Is", "New Zealand")
 region.names.known <- c("Solitary Is","Nambucca","Pt Stephens","Lord Howe Is","E&M Reefs")
-settle.names.known <- c("Queensland","Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","E&M Reefs")
+settle.names.known <- c("Queensland","Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs")
 coul = brewer.pal(9, "Set1") 
 coul = colorRampPalette(coul)(19)
 coul21 = colorRampPalette(coul)(21)
-```
+``` 
 
 NMDS for regions using mean total settlement
 ```{r}
@@ -56,7 +56,6 @@ regions.mean.nmds$stress
 #ggsave("../../figs/mean-settle-nmds.png", regions.mean.nmds.plot)
 ```
 
-
 NMDS for years using total settlement
 ```{r}
 years.data.mean <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(year, settle.region) %>% summarise(value = sum(value)) %>% spread(settle.region, value)
@@ -64,9 +63,26 @@ years.data.mean[is.na(years.data.mean)] <- 0
 years.data.mds <- metaMDS(years.data.mean[,-1],distance="bray", k=2)
 MDS_xy <- data.frame(years.data.mds$points)
 MDS_xy$year <- years.data.mean$year
-year.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2)) + geom_label_repel(size=3, label=years) + theme_classic() + theme(legend.position = "none") + geom_point(size=3)
+year.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2)) + geom_label_repel(size=3, label=rev(years)) + theme_classic() + theme(legend.position = "none") + geom_point(size=3)
 years.data.mds$stress
-#ggsave("../../figs/years-settle-nmds.png", year.nmds.plot)
+ggsave("../../figs/years-settle-nmds.png", year.nmds.plot)
+```
+
+CCA for years data
+```{r}
+years.data.matrix <- spread(years.data.mean, settle.region, value)
+years.matrix <- as.data.frame(years.data.matrix[-1])
+colnames(years.matrix) <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs","Queensland","Victoria")
+rownames(years.matrix) <- rev(years)
+years.ca <- CA(years.matrix, graph=FALSE)
+summary(years.ca)
+fviz_screeplot(years.ca, addlabels=TRUE)
+years.biplot <- fviz_ca_biplot(years.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
+fviz_ca_row(years.ca, repel=TRUE)
+fviz_ca_col(years.ca, repel=TRUE)
+row <- get_ca_row(years.ca)
+row$contrib
+ggsave("../../figs/cca-years.png",years.biplot, width=7.5, height=5, units=c("in"))
 ```
 
 ```{r}
@@ -79,26 +95,26 @@ Create connectivity matrix heatmaps
 eggs <- 976000
 regions.data.heatmap <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(source.region, settle.region) %>% summarise(settlers = mean(value)/eggs)
 regions.data.heatmap <- ungroup(regions.data.heatmap)
-regions.data.heatmap <- regions.data.heatmap %>% add_row(source.region="NSW19",settle.region="NFI",settlers=0.001/eggs) %>% add_row( source.region="NSW19",settle.region="NZ",settlers=0.001/eggs)
+regions.data.heatmap <- regions.data.heatmap %>% add_row(source.region="NSW19",settle.region="NFI",settlers=0) %>% add_row( source.region="NSW19",settle.region="NZ",settlers=0)
 regions.data.heatmap <- group_by(regions.data.heatmap, source.region, settle.region)
-regions.data.heatmap$source.region <- factor(regions.data.heatmap$source.region)
+regions.data.heatmap$source.region <- factor(regions.data.heatmap$source.region,levels=rev(c("NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","NSW18","NSW19")))
 regions.data.heatmap$settle.region <- factor(regions.data.heatmap$settle.region, levels=c("QLD","NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","VIC","NSW18","NSW19","NFI","NZ"))
-heatmap.plot <- ggplot(regions.data.heatmap, aes(rev(source.region),settle.region)) + geom_tile(aes(fill=log10(settlers)), colour="white") + scale_fill_gradient(low="white", high="steelblue",name="Proportion \nSettled (log 10)") + labs(x="Source region",y="Settlement region") + theme(legend.position = "right", axis.text.x = element_text(angle=330, hjust=0)) + coord_flip() + scale_x_discrete(labels=rev(region.names)) + scale_y_discrete(labels=settle.names)
+heatmap.plot <- ggplot(regions.data.heatmap, aes(settle.region,source.region)) + geom_tile(aes(fill=sqrt(sqrt(settlers))), colour="white") + scale_fill_gradient(low="white", high="steelblue",name="Proportion settled\n(4th root)") + theme(legend.position = "right", axis.text.x = element_text(angle=330, hjust=0)) + scale_y_discrete(labels=rev(region.names)) + scale_x_discrete(labels=settle.names) +labs(y="Source region",x="Settlement region")
 ggsave("../../figs/heatmap-all.png",heatmap.plot, width=9.17, height=5.43, units=c("in"))
 
 regions.data.heatmap.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(source.region, settle.region) %>% summarise(settlers = mean(value)/eggs)
 regions.data.heatmap.known <- ungroup(regions.data.heatmap.known)
 regions.data.heatmap.known <- group_by(regions.data.heatmap.known, source.region, settle.region)
-regions.data.heatmap.known$source.region <- factor(regions.data.heatmap.known$source.region)
+regions.data.heatmap.known$source.region <- factor(regions.data.heatmap.known$source.region, levels=rev(c("NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","NSW18","NSW19")))
 regions.data.heatmap.known$settle.region <- factor(regions.data.heatmap.known$settle.region, levels=c("QLD","NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","VIC","NSW18","NSW19"))
 regions.data.heatmap.known <- regions.data.heatmap.known %>% filter(source.region=="NSW05" | source.region=="NSW06" | source.region=="NSW09" | source.region=="NSW18" | source.region=="NSW19")
-heatmap.known.plot <- ggplot(regions.data.heatmap.known, aes(rev(source.region),settle.region)) + geom_tile(aes(fill=log10(settlers)), colour="white") + scale_fill_gradient(low="white", high="steelblue",name="Proportion \nSettled (log 10)") + labs(x="Source region",y="Settlement region") + theme(legend.position = "right", axis.text.x = element_text(angle=330, hjust=0)) + coord_flip() + scale_x_discrete(labels=rev(region.names.known)) + scale_y_discrete(labels=settle.names.known)
-ggsave("../../figs/heatmap-known-all.png",heatmap.known.plot, width=9.0, height=2.5, units=c("in"))
+heatmap.known.plot <- ggplot(regions.data.heatmap.known, aes(settle.region,source.region)) + geom_tile(aes(fill=sqrt(sqrt(settlers))), colour="white") + scale_fill_gradient(low="white", high="steelblue",name="Proportion settled\n(4th root)") + theme(legend.position = "right", axis.text.x = element_text(angle=330, hjust=0)) + scale_y_discrete(labels=rev(region.names.known)) + scale_x_discrete(labels=settle.names.known) +labs(y="Source region",x="Settlement region")
+ggsave("../../figs/heatmap-known.png",heatmap.known.plot, width=9.0, height=2.5, units=c("in"))
 ```
 
 Variation of total settlement
 ```{r}
-cv.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","E&M Reefs","Queensland","Victoria")
+cv.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs","Queensland","Victoria")
 regions.data.cv <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% mutate(value=value/eggs)  %>% group_by(settle.region, year) %>% summarise(settlers = sum(value)) %>% summarise(mean = mean(settlers), cv = (sd(settlers)/mean(settlers))*100)
 regions.data.cv.plot <- ggplot(regions.data.cv, aes(mean,cv)) + geom_point() + geom_text_repel(size=4, label=cv.names) + theme(legend.position = "none") + labs(x="", y="Coefficient of variation") + xlim(0, 0.016)
 #ggsave("../../figs/settlement-cv.png", regions.data.cv.plot, width=8.17, height=7.43, unit=c("in"))
@@ -174,113 +190,23 @@ adonis(community_matrix ~ sites, community, perm=200)
 
 mod <- with(community, betadisper(vegdist(community_matrix,"bray"), year))
 
+phase2.dist <- vegdist(phase2.community_matrix,"bray")
+phase2.anosim <- anosim(phase2.dist, phase2.community$sites)
+summary(phase2.anosim)
+
 ```
-CA analysis
+
 ```{r}
-years.ca <- c(rep(2011)) <- 
-blackcod.ca <- CA(community_matrix, graph=FALSE)
-blackcod.ca$years <- years
-summary(blackcod.ca)
-fviz_screeplot(blackcod.ca, addlabels=TRUE)
-blackcod.biplot <- fviz_ca_biplot(blackcod.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
-fviz_ca_row(blackcod.ca, repel=TRUE)
-fviz_ca_col(blackcod.ca, repel=TRUE)
-row <- get_ca_row(blackcod.ca)
+#models <- c("passive","dvm","ovm","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
+#rownames(phase1.regions.community_matrix) <- models
+colnames(community_matrix) <-  c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden", "Lord Howe Is","EM Reefs","Victoria","Queensland")
+all.ca <- CA(community_matrix, graph=FALSE)
+summary(all.ca)
+fviz_screeplot(all.ca, addlabels=TRUE)
+all.biplot <- fviz_ca_biplot(all.ca, map="colgreen", arrow=c(TRUE,TRUE), repel=TRUE, title = "") + theme_classic()
+fviz_ca_row(all.ca, repel=TRUE)
+fviz_ca_col(all.ca, repel=TRUE)
+row <- get_ca_row(all.ca)
 row$contrib
-ggsave("../../figs/blackcod-ca.png",blackcod.biplot)
-
-```
-
-Biodiversity index
-```{r}
-phase1.reefs.data.t <- t(phase1.reefs.data)
-names(phase1.reefs.data.t) <- phase1.reefs.data.t[1,]
-phase1.reefs.data.t <- phase1.reefs.data.t[-1,]
-phase1.reefs.data.t[is.na(phase1.reefs.data.t)] <- 0
-
-# shannons
-phase1.reefs.shannon <- diversity(phase1.reefs.data.t)
-phase1.reefs.shannon
-##phase1.reefs.simpson <- diversity(phase1.reefs.data.t,"simpson")
-#anova(phase1.reefs.shannon)
-phase1.reefs.bray = vegdist(phase1.reefs.data.t, "bray")
-hist(phase1.reefs.bray)
-phase1.reefs.cluster <- hclust(phase1.reefs.bray, method="average")
-phase1.reefs.dendrogram <- as.dendrogram(phase1.reefs.cluster) 
-plot(phase1.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-phase1.plot <- ggdendrogram(phase1.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="Behaviour scenarios", y="Bray-Curtis dissimilarity")
-phase1.plot
-```
-
-Biodiversity index for Phase 2
-```{r}
-phase2.reefs.data.t <- t(phase2.reefs.data)
-names(phase2.reefs.data.t) <- phase2.reefs.data.t[1,]
-phase2.reefs.data.t <- phase2.reefs.data.t[-1,]
-phase2.reefs.data.t[is.na(phase2.reefs.data.t)] <- 0
-
-# shannons
-phase2.reefs.shannon <- diversity(phase2.reefs.data.t)
-phase2.reefs.shannon
-##phase2.reefs.simpson <- diversity(phase2.reefs.data.t,"simpson")
-#anova(phase2.reefs.shannon)
-phase2.reefs.bray = vegdist(phase2.reefs.data.t, "bray")
-hist(phase2.reefs.bray)
-phase2.reefs.cluster <- hclust(phase2.reefs.bray, method="average")
-phase2.reefs.dendrogram <- as.dendrogram(phase2.reefs.cluster) 
-plot(phase2.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-phase2.plot <- ggdendrogram(phase2.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM strategies", y="Bray-Curtis dissimilarity")
-phase2.plot
-```
-
-Biodiversity index for Phase 3
-```{r}
-phase3.reefs.data.t <- t(phase3.reefs.data)
-names(phase3.reefs.data.t) <- phase3.reefs.data.t[1,]
-phase3.reefs.data.t <- phase3.reefs.data.t[-1,]
-phase3.reefs.data.t[is.na(phase3.reefs.data.t)] <- 0
-
-# shannons
-phase3.reefs.shannon <- diversity(phase3.reefs.data.t)
-phase3.reefs.shannon
-#anova(phase3.reefs.shannon)
-
-phase3.reefs.bray = vegdist(phase3.reefs.data.t, "bray")
-hist(phase3.reefs.bray)
-phase3.reefs.cluster <- hclust(phase3.reefs.bray, method="average")
-phase3.reefs.dendrogram <- as.dendrogram(phase3.reefs.cluster) 
-plot(phase3.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-phase3.plot <- ggdendrogram(phase3.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM strategies", y="Bray-Curtis dissimilarity")
-phase3.plot
-```
-
-```{r}
-grid <- plot_grid(phase1.plot,phase2.plot, labels=c("a","b"), align ="h")
-save_plot("../../figs/cluster.png", grid, ncol=2, nrow=1)
-```
-
-MVABUND
-```{r}
-phase1.regions.mva <- phase1.regions.data %>% rownames_to_column %>% gather(behaviour,value,-settle.region) %>% spread(settle.region,value)
-phase1.regions.mva <- phase1.regions.mva[-9,-19]
-phase1.regions.mva$behaviour <- factor(phase1.regions.mva$behaviour)
-phase1.regions.mva <- japply( phase1.regions.mva, which(sapply(phase1.regions.mva,class)=="character"),as.numeric)
-phase1.regions.mva
-phase1.mva <- mvabund(phase1.regions.mva[,2:18])
-
-par(mar=c(2,10,2,2)) # adjusts the margins
-boxplot(phase1.regions.mva[,2:18],horizontal = TRUE,las=2)
-meanvar.plot(phase1.mva)
-plot(phase1.mva~phase1.regions.mva$behaviour, height=9,width=9, cex.axis=0.8, cex=0.8)
-
-phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
-anova(phase1.mva.model)
-```
-
-Settlement reef richness
-```{r}
-rowSums(phase1.reefs.data.t > 0)
-rowSums(phase2.reefs.data.t > 0)
-rowSums(phase3.reefs.data.t > 0)
 ```
 
