@@ -17,6 +17,7 @@ library(RColorBrewer)
 
 Study sites diagram
 ```{r}
+load("reefs.rda")
 #australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), col="gray90", fill=TRUE)
 #coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
 legend.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "E&M Reefs")
@@ -38,3 +39,13 @@ map
 #plot_grid(map,eddies, labels="AUTO")
 ggsave("../../figs/release-sites.png", map)
 ```
+
+Trajectories
+```{r}
+
+p1 <- ggdraw() + draw_image("../../figs/all-trajectories.png")
+p2 <- ggdraw() + draw_image("../../figs/known-trajectories.png")
+trajectories.grid <- plot_grid(p1,p2,labels="AUTO")
+save_plot("../../figs/trajectories-comp.png",trajectories.grid, nrow=1, ncol=2)
+```
+

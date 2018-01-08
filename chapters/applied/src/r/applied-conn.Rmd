@@ -124,8 +124,6 @@ blackcod.ss$desc <- factor(region.names,levels=rev(region.names[order(blackcod.s
 blackcod.ss.plot <- ggplot(data=blackcod.ss, aes(x=desc,y=ss)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + theme_classic() + coord_flip() + labs(x="Source region", y="Settlement success")
 blackcod.ss.plot.year <- ggplot(data=blackcod.ss, aes(x=year,y=ss)) +stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + theme_classic() + labs(x="Year", y="Settlement success")
 ggsave("../../figs/blackcod-region-ss.png",blackcod.ss.plot)
-p1 <- ggplot(aes(y = ss, x = year), data = blackcod.ss)
-p1 <- p1 + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + geom_jitter(position=position_jitter(width=.2), size=3) + ggtitle("Boxplot con media, 95%CI, valore min. e max.") + xlab("Gruppi") + ylab("Valori") + coord_flip() + theme_bw()
 ```
 
 Local retention
