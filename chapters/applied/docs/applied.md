@@ -156,9 +156,51 @@ Discussion
 
 Aim 1: All regions
 
+- Explain the variation between regions and years
+
+The connectivity patterns of the black cod *E. daemelii* larvae strongly differ between the 19 regions and between the years of release. The reason for the variation seen is that the ocean circulation off the NSW coast is heterogenous. The shallow continental shelf means that larvae are subjected to the East Australia from northern NSW to the separation zone around 31 - 32 degrees S, where it splits off from the coast of NSW. The water that does not split off here is further carried down the coast.
+
+- implications
+
+- Explain the patterns seen
+
+
+- implications
+
+- What are the implications for the black cod population
+
+  - long life before spawning, and potential movement
+
 Aim 2: Known regions
 
+- What do we know about where larvae are seen? Does it fit the high areas of settement ?
+-
+
 Aim 3: Marine reserves
+
+Is the current network effective ?
+ - compare with known and all
+
+What about annual variation?
+
+Are there areas we should be protecting?
+
+Are there enough sancutary zones (threat to spawning)
+
+
+Are there enough habitat zones (threat to settlement)
+
+
+
+
+Limitations
+- Did we use the correct larvae values (assumptions)
+
+future validation
+- Can we match with areas of high settlement ?
+
+
+Conclusion
 
 
 Newcastle tends to be the bottom of the separations zone, which could describe these results. The regions where the separation zone usually occurs -30 to -32, is where the most differences occurred between regions. The yearly variation was largest for the offshore reefs (Lord Howe, Elizabeth, and Middleton). The northern NSW regions of Tweed, Byron, Ballina, Yamba, and Solitary Islands had similar settlement patterns, driven by a strong EAC. The regions in southern NSW from Jervis Bay to Merimbula also had similar settlement patterns.
