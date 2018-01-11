@@ -7,6 +7,23 @@ As a biologist thats my connundrum. Why the FUCK don't people do this?
 
 
 
+# Current empirical techniques
+
+## Population genetics
+
+
+## Parentage analysis
+
+
+## Otolith tagging
+
+
+## Isotope tagging
+
+## Modelling approaches
+
+
+
 
 ## THEORY of biological connectivity
 
