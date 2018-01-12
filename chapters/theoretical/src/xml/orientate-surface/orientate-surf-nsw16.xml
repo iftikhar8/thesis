@@ -7,11 +7,11 @@
   </inputFiles>
   <spawn>
     <spawningLocation>
-      <name>ulladulla-one</name>
-      <patchNumber>753</patchNumber>
+      <name>merimbula-one</name>
+      <patchNumber>844</patchNumber>
       <site>
-        <longitude>150.601</longitude>
-        <latitude>-35.355</latitude>
+        <longitude>150.201</longitude>
+        <latitude>-36.449</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -22,11 +22,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>ulladulla-two</name>
-      <patchNumber>759</patchNumber>
+      <name>merimbula-two</name>
+      <patchNumber>859</patchNumber>
       <site>
-        <longitude>150.601</longitude>
-        <latitude>-35.401</latitude>
+        <longitude>150.201</longitude>
+        <latitude>-36.669</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -37,11 +37,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>ulladulla-three</name>
-      <patchNumber>765</patchNumber>
+      <name>merimbula-three</name>
+      <patchNumber>864</patchNumber>
       <site>
-        <longitude>150.601</longitude>
-        <latitude>-35.490</latitude>
+        <longitude>150.101</longitude>
+        <latitude>-36.751</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -52,11 +52,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>ulladulla-four</name>
-      <patchNumber>771</patchNumber>
+      <name>merimbula-four</name>
+      <patchNumber>872</patchNumber>
       <site>
-        <longitude>150.501</longitude>
-        <latitude>-35.564</latitude>
+        <longitude>150.101</longitude>
+        <latitude>-36.885</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -113,9 +113,9 @@
     </habitat>
     <output>
       <includeLarvaeHistory>false</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate</saveOutputFilePath>
+      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate-surface</saveOutputFilePath>
       <percentage>5</percentage>
-      <prefix>orientate-nsw14</prefix>
+      <prefix>orientate-surf-nsw16</prefix>
       <logLevel>info</logLevel>
       <logFile>/var/log/zissou.log</logFile>
     </output>

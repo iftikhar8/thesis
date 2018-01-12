@@ -109,7 +109,7 @@
     </habitat>
     <output>
       <includeLarvaeHistory>false</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output/theoretical/passive</saveOutputFilePath>
+      <saveOutputFilePath>/srv/zissou/output/theoretical/passive-surface</saveOutputFilePath>
       <percentage>5</percentage>
       <prefix>passive-surf-nsw02</prefix>
       <logLevel>info</logLevel>

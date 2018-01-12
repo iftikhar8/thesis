@@ -7,11 +7,11 @@
   </inputFiles>
   <spawn>
     <spawningLocation>
-      <name>byron-one</name>
-      <patchNumber>227</patchNumber>
+      <name>yamba-one</name>
+      <patchNumber>270</patchNumber>
       <site>
-        <longitude>153.701</longitude>
-        <latitude>-28.504</latitude>
+        <longitude>153.501</longitude>
+        <latitude>-29.218</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -22,11 +22,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>byron-two</name>
-      <patchNumber>228</patchNumber>
+      <name>yamba-two</name>
+      <patchNumber>278</patchNumber>
       <site>
-        <longitude>153.701</longitude>
-        <latitude>-28.616</latitude>
+        <longitude>153.501</longitude>
+        <latitude>-29.349</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -37,11 +37,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>byron-three</name>
-      <patchNumber>237</patchNumber>
+      <name>yamba-three</name>
+      <patchNumber>288</patchNumber>
       <site>
-        <longitude>153.701</longitude>
-        <latitude>-28.706</latitude>
+        <longitude>153.401</longitude>
+        <latitude>-29.510</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -52,11 +52,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>byron-four</name>
-      <patchNumber>243</patchNumber>
+      <name>yamba-four</name>
+      <patchNumber>302</patchNumber>
       <site>
-        <longitude>153.701</longitude>
-        <latitude>-28.825</latitude>
+        <longitude>153.401</longitude>
+        <latitude>-29.706</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -113,9 +113,9 @@
     </habitat>
     <output>
       <includeLarvaeHistory>false</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate</saveOutputFilePath>
+      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate-surface</saveOutputFilePath>
       <percentage>5</percentage>
-      <prefix>orientate-nsw02</prefix>
+      <prefix>orientate-surf-nsw04</prefix>
       <logLevel>info</logLevel>
       <logFile>/var/log/zissou.log</logFile>
     </output>

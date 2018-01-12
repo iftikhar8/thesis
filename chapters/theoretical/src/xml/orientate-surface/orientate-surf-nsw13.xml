@@ -7,41 +7,11 @@
   </inputFiles>
   <spawn>
     <spawningLocation>
-      <name>wollongong-one</name>
-      <patchNumber>681</patchNumber>
-      <site>
-        <longitude>151.101</longitude>
-        <latitude>-34.313</latitude>
-        <depth>5</depth>
-      </site>
-      <numberOfLarvae>1000</numberOfLarvae>
-      <releasePeriod>
-        <start>2010-07-01T00:00:00</start>
-        <end>2011-07-01T00:00:00</end>
-      </releasePeriod>
-      <interval>7</interval>
-    </spawningLocation>
-    <spawningLocation>
-      <name>wollongong-two</name>
-      <patchNumber>692</patchNumber>
-      <site>
-        <longitude>151.101</longitude>
-        <latitude>-34.465</latitude>
-        <depth>5</depth>
-      </site>
-      <numberOfLarvae>1000</numberOfLarvae>
-      <releasePeriod>
-        <start>2010-07-01T00:00:00</start>
-        <end>2011-07-01T00:00:00</end>
-      </releasePeriod>
-      <interval>7</interval>
-    </spawningLocation>
-    <spawningLocation>
-      <name>wollongong-three</name>
-      <patchNumber>706</patchNumber>
+      <name>jervis-bay-one</name>
+      <patchNumber>730</patchNumber>
       <site>
         <longitude>150.901</longitude>
-        <latitude>-34.638</latitude>
+        <latitude>-35.066</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -52,11 +22,41 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>wollongong-four</name>
-      <patchNumber>724</patchNumber>
+      <name>jervis-bay-two</name>
+      <patchNumber>733</patchNumber>
       <site>
-        <longitude>150.901</longitude>
-        <latitude>-34.972</latitude>
+        <longitude>150.801</longitude>
+        <latitude>-35.187</latitude>
+        <depth>5</depth>
+      </site>
+      <numberOfLarvae>1000</numberOfLarvae>
+      <releasePeriod>
+        <start>2010-07-01T00:00:00</start>
+        <end>2011-07-01T00:00:00</end>
+      </releasePeriod>
+      <interval>7</interval>
+    </spawningLocation>
+    <spawningLocation>
+      <name>jervis-bay-three</name>
+      <patchNumber>743</patchNumber>
+      <site>
+        <longitude>150.801</longitude>
+        <latitude>-35.238</latitude>
+        <depth>5</depth>
+      </site>
+      <numberOfLarvae>1000</numberOfLarvae>
+      <releasePeriod>
+        <start>2010-07-01T00:00:00</start>
+        <end>2011-07-01T00:00:00</end>
+      </releasePeriod>
+      <interval>7</interval>
+    </spawningLocation>
+    <spawningLocation>
+      <name>jervis-bay-four</name>
+      <patchNumber>746</patchNumber>
+      <site>
+        <longitude>150.801</longitude>
+        <latitude>-35.225</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -113,9 +113,9 @@
     </habitat>
     <output>
       <includeLarvaeHistory>false</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate</saveOutputFilePath>
+      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate-surface</saveOutputFilePath>
       <percentage>5</percentage>
-      <prefix>orientate-nsw12</prefix>
+      <prefix>orientate-surf-nsw13</prefix>
       <logLevel>info</logLevel>
       <logFile>/var/log/zissou.log</logFile>
     </output>

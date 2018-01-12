@@ -7,11 +7,11 @@
   </inputFiles>
   <spawn>
     <spawningLocation>
-      <name>batemans-bay-one</name>
-      <patchNumber>796</patchNumber>
+      <name>ballina-one</name>
+      <patchNumber>250</patchNumber>
       <site>
-        <longitude>150.401</longitude>
-        <latitude>-35.752</latitude>
+        <longitude>153.701</longitude>
+        <latitude>-28.946</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -22,11 +22,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>batemans-bay-two</name>
-      <patchNumber>807</patchNumber>
+      <name>ballina-two</name>
+      <patchNumber>256</patchNumber>
       <site>
-        <longitude>150.301</longitude>
-        <latitude>-35.908</latitude>
+        <longitude>153.601</longitude>
+        <latitude>-29.012</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -37,11 +37,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>batemans-bay-three</name>
-      <patchNumber>818</patchNumber>
+      <name>ballina-three</name>
+      <patchNumber>258</patchNumber>
       <site>
-        <longitude>150.301</longitude>
-        <latitude>-36.040</latitude>
+        <longitude>153.601</longitude>
+        <latitude>-29.066</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -52,11 +52,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>batemans-bay-four</name>
-      <patchNumber>831</patchNumber>
+      <name>ballina-four</name>
+      <patchNumber>261</patchNumber>
       <site>
-        <longitude>150.223</longitude>
-        <latitude>-36.264</latitude>
+        <longitude>153.501</longitude>
+        <latitude>-29.140</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -113,9 +113,9 @@
     </habitat>
     <output>
       <includeLarvaeHistory>false</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate</saveOutputFilePath>
+      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate-surface</saveOutputFilePath>
       <percentage>5</percentage>
-      <prefix>orientate-nsw15</prefix>
+      <prefix>orientate-surf-nsw03</prefix>
       <logLevel>info</logLevel>
       <logFile>/var/log/zissou.log</logFile>
     </output>

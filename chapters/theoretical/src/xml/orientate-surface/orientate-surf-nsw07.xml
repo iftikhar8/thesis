@@ -7,11 +7,11 @@
   </inputFiles>
   <spawn>
     <spawningLocation>
-      <name>eden-one</name>
-      <patchNumber>889</patchNumber>
+      <name>port-macquarie-one</name>
+      <patchNumber>417</patchNumber>
       <site>
-        <longitude>150.001</longitude>
-        <latitude>-37.092</latitude>
+        <longitude>153.201</longitude>
+        <latitude>-31.055</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -22,11 +22,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>eden-two</name>
-      <patchNumber>902</patchNumber>
+      <name>port-macquarie-two</name>
+      <patchNumber>419</patchNumber>
       <site>
-        <longitude>150.101</longitude>
-        <latitude>-37.204</latitude>
+        <longitude>153.201</longitude>
+        <latitude>-31.190</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -37,11 +37,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>eden-three</name>
-      <patchNumber>911</patchNumber>
+      <name>port-macquarie-three</name>
+      <patchNumber>431</patchNumber>
       <site>
-        <longitude>150.101</longitude>
-        <latitude>-37.409</latitude>
+        <longitude>153.101</longitude>
+        <latitude>-31.309</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -52,11 +52,11 @@
       <interval>7</interval>
     </spawningLocation>
     <spawningLocation>
-      <name>eden-four</name>
-      <patchNumber>921</patchNumber>
+      <name>port-macquarie-four</name>
+      <patchNumber>448</patchNumber>
       <site>
-        <longitude>150.101</longitude>
-        <latitude>-37.500</latitude>
+        <longitude>153.001</longitude>
+        <latitude>-31.529</latitude>
         <depth>5</depth>
       </site>
       <numberOfLarvae>1000</numberOfLarvae>
@@ -113,9 +113,9 @@
     </habitat>
     <output>
       <includeLarvaeHistory>false</includeLarvaeHistory>
-      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate</saveOutputFilePath>
+      <saveOutputFilePath>/srv/zissou/output/theoretical/orientate-surface</saveOutputFilePath>
       <percentage>5</percentage>
-      <prefix>orientate-nsw17</prefix>
+      <prefix>orientate-surf-nsw07</prefix>
       <logLevel>info</logLevel>
       <logFile>/var/log/zissou.log</logFile>
     </output>
