@@ -160,16 +160,28 @@ Aim 1: All regions
 
 The connectivity patterns of the black cod *E. daemelii* larvae strongly differ between the 19 regions and between the years of release. The reason for the variation seen is that the ocean circulation off the NSW coast is heterogenous. The shallow continental shelf means that larvae are subjected to the East Australia from northern NSW to the separation zone around 31 - 32 degrees S, where it splits off from the coast of NSW. The water that does not split off here is further carried down the coast.
 
+How did El Nino / La Nina conditions affect the dispersal ?
+
 - implications
 
 - Explain the patterns seen
+Which regions have communities
+Genetic dispersal
+Surprising they don't settle further away
 
+open (from far away sources) or closed (from local sources).
+
+So coastline populations tend to be closed, but the offshore islands are more open.
 
 - implications
 
 - What are the implications for the black cod population
 
   - long life before spawning, and potential movement
+
+
+Similar regional and annual variation seen elsewhere [Watson 2010].
+
 
 Aim 2: Known regions
 
@@ -178,27 +190,49 @@ Aim 2: Known regions
 
 Aim 3: Marine reserves
 
+
 Is the current network effective ?
  - compare with known and all
+
+
 
 What about annual variation?
 
 Are there areas we should be protecting?
+- areas of strong connectivity (less variation)
+
+
+Size of coastline for black cod, because of limited movement can be small (CITE Green 2014).
+
+Population persistence is key.
+Local retention is important - shows how many stay there depending on hatch amount [CITE Botsford 2009]
+Fraction of coastline required is related to fishing pressure [CITE botsford 2009].
+
+We know that a non-contiguous marine reserve is less effective, especially with a high dispersal distance, therefore length of coastline (more coastline for habitat zone is preferable - CITE Bostford 2001), .e.g. recommended reserves are twice the dispersal distance.
+
+Spillover is not a dirver (total ban on fishing black cod)
+
+How to get back to anecdotal levels ?
 
 Are there enough sancutary zones (threat to spawning)
 
 
 Are there enough habitat zones (threat to settlement)
 
+Simulation studies show proecting quality habitat areas for rockcod is key CITE Cabral 2016. Need to preserve the adult population, i.e. carrying capacity is more important than network topology.
 
+Need to protect the Juvenile habitats - Eustarine protection?
 
 
 Limitations
 - Did we use the correct larvae values (assumptions)
+- We considered constant larval production, so not yearly variation (therefore vairation is through oceans currents)
 
 future validation
 - Can we match with areas of high settlement ?
-
+- need to ground-truth models
+- also understand the complete life-cycle of black cod, where do they go before they settle as adults in rocks? what are the local-recruitment values for these black-cod?
+-
 
 Conclusion
 

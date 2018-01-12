@@ -181,7 +181,7 @@ nmds.plot.years <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=year)) + geom_point(siz
 ggsave("../../figs/nmds-years.png", nmds.plot.years)
 
 nmds.plot.regions <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites)) + geom_point(size=3) + theme_classic() + theme(legend.position = "right")   + scale_colour_manual(values = coul, labels=region.names, name="Source \nregion") + stat_ellipse() 
-ggsave("../../figs/nmds-regions.png", nmds.plot.regions, width=8.17, height=7.43, units=c("in"))
+ggsave("../../figs/nmds-regions.png", nmds.plot.regions, width=9, height=6, units=c("in"))
 
 
 adonis(community_matrix ~ year, community, perm=200)

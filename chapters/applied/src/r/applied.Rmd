@@ -30,14 +30,14 @@ australia <- ggmap(coast)
 
 coul = brewer.pal(9, "Set1")
 coul = colorRampPalette(coul)(19)
-map <- australia + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, group=REGION, colour=REGION), size=1.5, data=sites) + theme(legend.position = "bottom") + labs(x="Longitude", y="Latitude") + scale_color_manual(labels = c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "EM Reefs"), name="Region", values = coul) 
+map <- australia + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, group=REGION, colour=REGION), size=1.5, data=sites) + theme(legend.position = "right", legend.text = element_text(size=10)) + labs(x="Longitude", y="Latitude") + scale_color_manual(labels = c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "EM Reefs"), name="Region", values = coul)  #+ guides(colour=guide_legend(ncol=2))
 
 map
 
 
 #eddies <- ggdraw() + draw_image("../../figs/nsw-eddies.gif", scale=0.9)
 #plot_grid(map,eddies, labels="AUTO")
-ggsave("../../figs/release-sites.png", map, width=5, height=5, units=c("in"))
+ggsave("../../figs/release-sites.png", map, width=7, height=5, units=c("in"))
 ```
 
 Trajectories
