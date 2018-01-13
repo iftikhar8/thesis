@@ -1,19 +1,31 @@
 
-# CHAPTER 5: Larval connectivity of Black Cod *Epinephelus daemelii* along the south-eastern coast of Australia and implications for its conservation management
+# Larval connectivity of Black Cod *Epinephelus daemelii* along the south-eastern coast of Australia and implications for its conservation management
 
-# Introduction
+## Introduction
+
+### Black cod intoruction
+
+
+### Connectivity introduction
+
+
+## Connectiivty and marine parks
+
 
 
 ## Black cod threats.
 
+
+
 - while illegal to fish for black cod either recreational or commercial
 - there is bycatch threat
 
+
+
 AIMS:
 
-1. To investigate the realised connectivity patterns from all spawning regions
-2. To investigate the realised connectivity patterns from known spawning regions
-3. Does the current marine park network protect areas of strong demographic connectivity?
+1. To investigate the potential connectivity patterns of black cod larvae along the NSW coastline.
+2. To investigate the if the current NSW and Commonwealth marine park network protect areas of strong demographic connectivity of black cod larvae.
 
 # Methods
 

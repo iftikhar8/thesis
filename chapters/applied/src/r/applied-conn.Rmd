@@ -28,8 +28,8 @@ region.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt
 ```{r}
 blackcod.2011.conn.regions <- blackcod.2011.conn.regions[,-20]
 blackcod.2011.sr <- selfRecruitment(blackcod.2011.conn.regions/eggs)
-blackcod.2011.lr <- localRetention(blackcod.2011.conn.regions/eggs)
-blackcod.2011.rlr <- relativeLocalRetention(blackcod.2011.conn.regions/eggs)
+blackcod.2011.lr <- localRetention(blackcod.2011.conn.regions)
+blackcod.2011.rlr <- relativeLocalRetention(blackcod.2011.conn.regions)
 blackcod.2011.ss <- settlementSuccess(blackcod.2011.conn.regions/eggs)
 ```
 
