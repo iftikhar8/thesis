@@ -111,7 +111,7 @@
     </verticalMigrationOntogeneticProbabilities>
     <pelagicLarvalDuration>
       <mean>60</mean>
-      <stdev>15</stdev>
+      <stdev>10</stdev>
       <distribution>Normal</distribution>
       <pldType>Random</pldType>
 <nonSettlementPeriod>40</nonSettlementPeriod>
