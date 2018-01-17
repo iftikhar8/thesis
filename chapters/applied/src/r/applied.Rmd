@@ -4,6 +4,7 @@ output: html_notebook
 ---
 
 ```{r}
+require(tidyverse)
 require(maps)
 require(mapdata)
 require(rgdal)
@@ -62,5 +63,14 @@ p10 <- ggdraw() + draw_image("../../figs/trajectories/2010.png")
 p11 <- ggdraw() + draw_image("../../figs/trajectories/2011.png")
 trajectories.grid <- plot_grid(p04,p05,p06,p07,p08,p09,p10,p11,labels=c("2004","2005","2006","2007","2008","2009","2010","2011"), ncol=3, nrow=3, align="vh")
 save_plot("../../figs/trajectories-years.png",trajectories.grid, ncol=3, nrow=3)
+```
+
+OVM strategy
+```{r}
+ovm.data <- read_csv("../../data/ovm.csv")
+ovm.data <- ovm.data %>% gather(key= stage, value=proportion, 3:5)
+ovm.data$stage <- factor(ovm.data$stage, levels=c("preflexion","flexion","postflexion"))
+ovm.plot <- ggplot(data= ovm.data, aes(x=depth, y=proportion, group=stage, colour=stage)) + geom_line() + coord_flip() + theme_classic() + labs(x="Depth", y="Proportion") + scale_color_discrete(name="Ontogenetic stage") + theme(legend.position = "right")
+save_plot("../../figs/ovm.png", ovm.plot)
 ```
 
