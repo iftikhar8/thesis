@@ -35,6 +35,7 @@ Labels for the data
 years <- c("2011","2010","2009","2008","2007","2006","2005","2004")
 applied <- data.frame(years)
 region.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs")
+region.names.numbered <- c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans Bay","16 Merimbula","17 Eden","18 Lord Howe Is","19 EM Reefs")
 settle.names <- c("Queensland","Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Victoria","Lord Howe Is","EM Reefs", "Norfolk Is", "New Zealand")
 region.names.known <- c("Solitary Is","Nambucca","Pt Stephens","Lord Howe Is","E&M Reefs")
 settle.names.known <- c("Queensland","Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs")
@@ -45,20 +46,22 @@ coul21 = colorRampPalette(coul)(21)
 
 NMDS for regions using mean total settlement
 ```{r}
+
 regions.data[is.na(regions.data)] <- 0
 regions.data.mean <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(source.region, settle.region) %>% summarise(settlers = mean(value)) %>% spread(settle.region, settlers)
 regions.data.mean[is.na(regions.data.mean)] <- 0
 regions.mean.nmds <- metaMDS(regions.data.mean[,-1],distance="bray", k=2)
 regions.mean.nmds.data <- data.frame(regions.mean.nmds$points)
 regions.mean.nmds.data$region <- regions.data.mean$source.region
-regions.mean.nmds.plot <- ggplot(regions.mean.nmds.data, aes(MDS1, MDS2)) + geom_label_repel(size=3, label=region.names) + theme_classic() + theme(legend.position = "none") + geom_point(size=3)
+regions.mean.nmds.plot <- ggplot(regions.mean.nmds.data, aes(MDS1, MDS2)) + geom_label_repel(size=3, label=region.names.numbered) + theme_classic() + theme(legend.position = "none") + geom_point(size=3)
 regions.mean.nmds$stress
 #ggsave("../../figs/mean-settle-nmds.png", regions.mean.nmds.plot)
 ```
 
 NMDS for years using total settlement
 ```{r}
-years.data.mean <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(year, settle.region) %>% summarise(value = sum(value)) %>% spread(settle.region, value)
+years.data <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(year, settle.region) %>% summarise(value = sum(value)) 
+years.data.mean <- years.data %>% spread(settle.region, value)
 years.data.mean[is.na(years.data.mean)] <- 0
 years.data.mds <- metaMDS(years.data.mean[,-1],distance="bray", k=2)
 MDS_xy <- data.frame(years.data.mds$points)
@@ -66,12 +69,17 @@ MDS_xy$year <- years.data.mean$year
 year.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2)) + geom_label_repel(size=3, label=rev(years)) + theme_classic() + theme(legend.position = "none") + geom_point(size=3)
 years.data.mds$stress
 ggsave("../../figs/years-settle-nmds.png", year.nmds.plot)
+
+years.data.cca <- years.data.mean[,-1]
+cap <- capscale(years.data.cca ~ year, years.data.mean, distance="bray", metaMDSdist=TRUE, sqrt.dist=TRUE)
+plot <- autoplot(cap, legend.position = "none")
+ggsave("../../figs/cca-years.png", plot)
 ```
 
 CCA for years data
 ```{r}
 years.data.matrix <- spread(years.data.mean, settle.region, value)
-years.matrix <- as.data.frame(years.data.matrix[-1])
+years.matrix <- as.data.frame(years.data.mean[-1])
 colnames(years.matrix) <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs","Queensland","Victoria")
 rownames(years.matrix) <- rev(years)
 years.ca <- CA(years.matrix, graph=FALSE)
@@ -116,11 +124,11 @@ Variation of total settlement
 ```{r}
 cv.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs","Queensland","Victoria")
 regions.data.cv <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% mutate(value=value/eggs)  %>% group_by(settle.region, year) %>% summarise(settlers = sum(value)) %>% summarise(mean = mean(settlers), cv = (sd(settlers)/mean(settlers))*100)
-regions.data.cv.plot <- ggplot(regions.data.cv, aes(mean,cv)) + geom_point() + geom_text_repel(size=4, label=cv.names) + theme(legend.position = "none") + labs(x="", y="Coefficient of variation") + xlim(0, 0.016)
+regions.data.cv.plot <- ggplot(regions.data.cv, aes(mean,cv)) + geom_point() + geom_text_repel(size=4, label=cv.names) + theme(legend.position = "none") + labs(x="", y="Coefficient of variation (%)") + xlim(0, 0.016)
 #ggsave("../../figs/settlement-cv.png", regions.data.cv.plot, width=8.17, height=7.43, unit=c("in"))
 
 regions.data.cv.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% filter(source.region=="NSW05" | source.region=="NSW06" | source.region=="NSW09" | source.region=="NSW18" | source.region=="NSW19") %>% mutate(value=value/eggs) %>% group_by(settle.region, year) %>% summarise(settlers = sum(value)) %>% summarise(mean = mean(settlers), cv = (sd(settlers)/mean(settlers))*100)
-regions.data.cv.known.plot <- ggplot(regions.data.cv.known, aes(mean,cv)) + geom_point() + geom_text_repel(size=4, label=cv.names[-21]) + theme(legend.position = "none") + labs(x="Mean annual larval settlement (Pr)", y="Coefficient of variation") + xlim(0, 0.016)
+regions.data.cv.known.plot <- ggplot(regions.data.cv.known, aes(mean,cv)) + geom_point() + geom_text_repel(size=4, label=cv.names[-21]) + theme(legend.position = "none") + labs(x="Mean annual larval settlement (Pr)", y="Coefficient of variation (%)") + xlim(0, 0.016)
 #ggsave("../../figs/settlement-cv.png", regions.data.cv.known.plot, width=8.17, height=7.43, unit=c("in"))
 
 p <- plot_grid(regions.data.cv.plot,regions.data.cv.known.plot, labels="AUTO", align="v", nrow=2)
@@ -131,7 +139,7 @@ regions.lm.known <- lm(settlers ~ year + settle.region, data=regions.data.lm.kno
 anova(regions.lm.known)
 ```
 
-NNDS using all reefs (or regions)
+NNDS using all regions
 ```{r}
 regions <- colnames(blackcod.2011.conn.regions)
 data.2011 <- as_tibble(blackcod.2011.conn.regions)
@@ -180,18 +188,16 @@ coul = colorRampPalette(coul)(19)
 nmds.plot.years <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=year)) + geom_point(size=4) + theme_bw() + theme(legend.position = "right")   + scale_colour_brewer(name="", palette="Paired")
 ggsave("../../figs/nmds-years.png", nmds.plot.years)
 
-nmds.plot.regions <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites)) + geom_point(size=3) + theme_classic() + theme(legend.position = "right")   + scale_colour_manual(values = coul, labels=region.names, name="Source \nregion") + stat_ellipse() 
+nmds.plot.regions <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites)) + geom_point(size=2) + theme_classic() + theme(legend.position = "right")   + scale_colour_manual(values = coul, labels=region.names.numbered, name="Source \nregion") + stat_ellipse(type="norm")
 ggsave("../../figs/nmds-regions.png", nmds.plot.regions, width=9, height=6, units=c("in"))
 
 
 adonis(community_matrix ~ year, community, perm=200)
 
-adonis(community_matrix ~ sites, community, perm=200)
-
 mod <- with(community, betadisper(vegdist(community_matrix,"bray"), year))
 
-phase2.dist <- vegdist(phase2.community_matrix,"bray")
-phase2.anosim <- anosim(phase2.dist, phase2.community$sites)
+phase2.dist <- vegdist(community_matrix,"bray")
+phase2.anosim <- anosim(phase2.dist, community$year)
 summary(phase2.anosim)
 
 ```
