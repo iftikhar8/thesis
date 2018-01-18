@@ -1,4 +1,5 @@
 
+
 word-template=templates/custom-reference.docx
 pdf-template=templates/format.sty
 bibliography=/Users/steve/Dropbox/Research/library.bib
@@ -22,10 +23,13 @@ theoretical:
 		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc  --bibliography=$(bibliography) --csl=$(csl) chapters/theoretical/docs/theoretical.md -o out/theoretical.docx
 
 applied:
-		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc  --bibliography=$(bibliography) --csl=$(csl) chapters/applied/docs/applied.md -o out/applied.docx
+		pandoc --toc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc  --bibliography=$(bibliography) --csl=$(csl) chapters/applied/docs/applied.md -o out/applied.docx
 
-thesis:
-	pandoc --filter pandoc-crossref --filter pandoc-citeproc -H $(pdf-template) -V fontsize=12pt --bibliography=$(bibliography) --csl=$(csl) chapters/sections/title.md chapters/lit-review/docs/lit-review.md -o out/thesis.pdf
+thesis-pdf:
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc -H $(pdf-template) -V fontsize=12pt --bibliography=$(bibliography) --csl=$(csl) chapters/sections/title.md chapters/lit-review/docs/lit-review.md chapters/empirical/docs/empirical.md chapters/theoretical/docs/theoretical.md chapters/applied/docs/applied.md -o out/thesis.pdf
+
+thesis-docx:
+	pandoc  --reference-doc=$(word-template) -M $(yaml) --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) chapters/sections/title.md chapters/lit-review/docs/lit-review.md chapters/empirical/docs/empirical.md chapters/theoretical/docs/theoretical.md chapters/applied/docs/applied.md -o out/thesis.docx
 
 clean:
 	rm out/*.docx
