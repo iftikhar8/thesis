@@ -1,20 +1,16 @@
-
+connectivity
 # Larval connectivity of Black Cod *Epinephelus daemelii* along the south-eastern coast of Australia and implications for its conservation management
 
 ## Introduction
 
-### Black cod background
-
 Black cod, *Epinephelus daemelii* (Gunther, 1876), also known commonly as the black rockcod, the saddled rockcod, and the potted black grouper, is a large grouper of the teleost family Serranidae. *E. daemelii* is native to Australia and New Zealand in the south-western Pacific Ocean.
 Its known distribution ranges from eastern Australia (southern Queensland down to Bass Strait) to Northern New Zealand and the Kermadec Islands, with populations on Lord Howe Island, Norfolk Island, and Elizabeth and Middleton Reefs [CITE Fish base, Atlas of living australia]. Along eastern Australia, the black cod is primarily distributed along the temperate waters off the New South Wales (NSW) coastline. Adults live in the caves and crevices found on rocky reefs at depths of up to 50 m.  Post-settlement juveniles are found in rock pools and shallow reef intertidal habitats, migrating to estuaries as they grow older [@Harasti:2014fk; @Francis:2016kl]. *E. daemelii* can reach the age of 65 years, grow up to 170 cm total length (TL) and weighing 80 kg. Like many large groupers, it protogynous hermaphrodite with protogyny not occurring until the fish reaches lengths of over 100 cm (TL), which occurs at approximately 25 years of age [@Francis:2016kl]. *E. daemelii* spawn pelagic eggs with a pelagic larval stage estimated to last 60 days [@Francis:2016kl]. Anecdotally they are thought to spawn April-May, as this is when aggregations have been seen on the north coast of NSW (D Harasti 2017, personal communication, 9 March).
 
-### Black cod threatened status
-
 *E. daemelii* has traditionally been under fishing pressure in Australia, considered a trophy fish for spearfishers and as a valuable food species for commercial and recreational fishers [it was commonly sold at the Sydney fish markets; @Francis:2016kl]. The biological factors of long life span, late sexual maturity, specific habitat requirements, and sedentary/curious behaviour, make *E. daemelii* vulnerable to fishing pressure. Declines in populations were first noticed in 1916, and listed for protection in 1983 in NSW due to dwindling numbers, with notable population declines during the rise in popularity of spearfishing in the late 1960s and 1970s [CITE pognoskwoe ]. Black cod is currently listed as "Near Threatened" on the ICUN red list [CITE ICUN] and listed as "Vulnerable" under the Australian Commonwealth *Environment Protection and Biodiversity Conservation Act* since 2006 [CITE oz gov webregion]. Although it has been protected since 1983, signs of population recovery have not been seen, with it still missing from many habitats where it was known to occur in prolific numbers [@Harasti:2013hq].
 
-### Connectivity of black cod and marine parks
+Due to the total ban on fishing black cod, the current threats of fishing pressure to population recovery is via by-catch (or unintended catch) and illegal fishing. Protecting black cod involves firstly protecting known (and potential) areas of aggregation of mature sexually active *E. daemelii*  adults from fishing pressure, allowing strong reproductive output. Fish populations with such k-selected life histories are sensitive to low levels of fishing mortality, even within no-take reserves [@Abesamis:2016bc]. The K-selected life history of *E. daemelii* makes population recovery is a slow process, the current NSW black cod recovery plan has a 20 year goal to de-list it as a vulnerable species [CITE recovery plan]. Secondly, there has to be habitat protection for the intertidal, rocky reef and estuarine habitats it uses throughout its lifecycle [@Harasti:2013hq]. Marine protected areas are a useful management tool to conserve and grow exisiting *E. daemelii* populations, protecting them from fishing pressure within no take areas and keeping essential habitats protected from development. Black cod are known to exist, in divergent population sizes, in all of the NSW marine protected areas and a few of the aquatic reserves, along with two of the Commonwealth marine protected areas (Cod Grounds and Lord Howe Island Marine Reserve) [CITE NSW MPA document].
 
-Due to the total ban on fishing black cod, the current threats of fishing pressure to population recovery is via by-catch (or unintended catch) and illegal fishing. Protecting black cod involves firstly protecting known (and potential) areas of aggregation of mature sexually active *E. daemelii*  adults from fishing pressure, allowing strong reproductive output. Fish populations with such k-selected life histories are sensitive to low levels of fishing mortality, even within no-take reserves [@Abesamis:2016bc]. The K-selected life history of *E. daemelii* makes population recovery is a slow process, the current NSW black cod recovery plan has a 20 year goal to de-list it as a vulnerable species [CITE recovery plan]. Secondly, there has to be habitat protection for the intertidal, rocky reef and estuarine habitats it uses throughout its lifecycle [@Harasti:2013hq]. Marine protected areas are a useful management tool to conserve and grow exisiting *E. daemelii* populations, protecting them from fishing pressure within no take areas and keeping essential habitats protected from development. Black cod are known to exist, in divergent population sizes, in all of the NSW marine protected areas and a few of the aquatic reserves, along with two of the Commonwealth marine protected areas (Cod Grounds and Lord Howe Island Marine Reserve) [CITE NSW MPA document]. This first aim of this chapter is to simulate the potential connectivity patterns of *E. daemelii* larvae along the NSW coastline over the years 2004-2011, using a biophysical dispersal model. Connectivity patterns from both known regions of aggregation to regions across the breadth of its distribution will be used to spawn larvae, to provide insights into the ecology and movement of *E. daemelii*. Using these patterns of connectivity, the second aim is to compare how well the current network of marine protected areas, both NSW and Commonwealth, match up with the larval dispersal patterns.
+The first aim of this chapter is to simulate the potential connectivity patterns of *E. daemelii* larvae along the NSW coastline over the years 2004-2011, using a biophysical dispersal model. Connectivity patterns from both known regions of aggregation to regions across the breadth of its distribution will be used to spawn larvae, to provide insights into the ecology and movement of *E. daemelii*. Using these patterns of connectivity, the second aim is to compare how well the current network of marine protected areas, both NSW and Commonwealth, match up with the larval dispersal patterns.
 
 ## Methods
 
@@ -24,7 +20,7 @@ I used a biophysical dispersal model (BDM) to measure the connectivity of *Epine
 
 The model was parametrised with values obtained from the literature for the species *E. daemelii* where possible. In the cases where values could not be sourced for a particular parameter, values for similar species or averages across species within the genus were used instead. If this was not possible, then general values from the review in Chapter 2 were utilised (@tbl:bio-params). The pelagic larval duration (PLD) was given a gaussian distribution with a mean value of 60 days and a standard deviation of 10 days to account for any uncertainty of PLD values, with a minimum of 40 days (beginning of the settlement competency period, the first date they can settle at a habitat). The larvae was considered to reach post-flexion by 16 days (with individuals given post-flexion age values using 16 days a mean and standard deviation of one day to account for population variation), whereby it was considered they could swim and start to navigate towards reefs using their olfactory senses over a distance of 10 km. Olfactory lamellae, the lateral line and inner ears fully develop during the period post-flexion to PLD period in a similar species, *Epinephelus fuscoguttatus* (CITE Lim and Mukai). Using their olfactory senses, *E. daemelii* larvae were given a U*crit* speed of 0.3 ms^-1^, which was tempered by a lower in situ swimming potential of 16% of the U*crit*. They were given an endurance of 50%, which period within a time step the fish can swim (one hour every two hours in this model). Using similar values for reef fish in other connectivity studies, a mortality rate of 10% per day was applied to the larvae using random selection at midnight each day. The black cod larvae were considered to exhibit ontogenetic vertical migration behaviour, and I used general values found for Serranidae larvae off the eastern Australian coast in Chapter 3 (@fig:ovm).
 
-While specific areas of spawning are unknown, the largest populations within the model domain occur at the regions Solitary Islands, Nambucca (Fish Rock), Port Stephens, Lord Howe Island, and Elizabeth and Middleton reefs (@Harasti:2013hq). Patterns of annual settlement were assessed for the period 2004-2011 by spawning and tracking the settlement of larvae along the coast of NSW and offshore islands. Nineteen spawning regions were identified, 17 along the NSW coast (approximately equally sized covering ~125 km of coastline each), and two off-shore regions, Lord Howe Island and Elizabeth and Middleton (EM) reefs (Elizabeth and Middleton reefs were considered one region due to local proximity and strong local demographic connectivity, suggesting a single stock [CITE Van herden; @fig:release-regions].
+While specific areas of spawning are unknown, the largest populations within the model domain occur at the regions Solitary Islands, Nambucca (Fish Rock), Port Stephens, Lord Howe Island, and Elizabeth and Middleton reefs (@Harasti:2013hq). Patterns of annual settlement were assessed for the period 2004-2011 by spawning and tracking the settlement of larvae along the coast of NSW and offshore islands. Nineteen spawning regions were identified, 17 along the NSW coast (approximately equally sized covering ~125 km of coastline each), and two off-shore regions, Lord Howe Island and Elizabeth and Middleton (EM) reefs (Elizabeth and Middleton reefs were considered one region due to local proximity and strong local demographic connectivity, and are thought to be a single stock [@VanHerwerden:2009vv; @fig:release-regions].
 
 Within each region areas of roughly equally sized sections of contiguous reef were demarked as specific reef patches’ (total of 560 in the model domain with about ~25 reef patches per region, except the offshore areas which were considered one continuous reef) (as per Chapter 3) using benthic data obtained from the NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). Larvae were spawned from four reef patches per region (chosen ad-hoc, unless reef patches were known to contain sightings of black cod), daily during the known spawning period, April-May, every year from 2004-2011. For each reef patch, 4000 pelagic eggs were spawned per day (16,000 per region) over the 61-day period. In total, 18.5 million eggs were released each breeding season and 148 million over the course of the experiment. Larvae were allowed to settle to reef & rock intertidal patches if they came within the settlement sensory distance of 7 km, after the settlement competency window and before the pelagic larval duration (@tbl:bio-params). *E. daemelii* were allowed to settle to other areas within their known distribution, i.e. Queensland, Victoria, Norfolk Island, and New Zealand, regions that have small or non-breeding populations [@Francis:2016kl].
 
@@ -130,13 +126,11 @@ Crowdy Bay and Sydney had the least variation in self-recruitment between the ye
 
 The total protected area within the modelled domain was 3297.5 km^2^ (the total marine estate is in excess of 10,000 km^2^; http://www.marine.nsw.gov.au), of which 702 km^2^ or 21.6% are designated as sanctuary zones, providing protection from all fishing activity, i.e. commercial and recreational (both line fishing and spearfishing). However, permits can be obtained to fish in a few of these zones, specifically MPAs managed by the Commonwealth, and several of the sanctuary zones have policing amnesties while marine policy is still being considered. Eleven of the source regions (58%) contain a designated marine protected area (MPA) within the region, ranging from the most comprehensive coverage at 1880 km^2^ (although only 88 km^2^ was reef extent) in the EM Reefs region, down to 0.78 km^2^ within the Tweed region (@tbl:mpas). The Sydney region has to most MPAs within its boundaries (10), but that amounted to only 19 km^2^ of protected area, of which 6 km^2^ is classified as sanctuary zones. It must also be noted all of the sanctuary zones do not contain suitable habitat for *E. daemelii*, i.e. sandy beaches with no rocky reef.
 
-[Communities]
 Of the four sub-communities identified, each community had at least one source region that contained an MPA (@fig:graph A; @tbl:mpas). The offshore community of Lord Howe Island and EM Reefs had the most protection afforded to any of the communities per region, with both regions encompassed by MPAs (EM Reefs has 100% coverage), and containing 58% sanctuary zones at EM Reefs (Middleton Reef) and 27.0% sanctuary zones at Lord Howe Island covering 175 km^2^ (@tbl:mpas). In the northern community, three of the six regions contained MPAs (Tweed, Byron, and Solitary Islands), although the aquatic reserve in Tweed is one of the smallest MPAs in size. The total MPA coverage within this northern community is 941 km^2^, of which 148 km^2^ (15.7%). The central community also contained three regions with MPAs (Port Macquarie, Port Stephens, and Sydney), with a total coverage of 1003 km^2^ (20.5% or 206 km^2^ falls within sanctuary zones). In the southern community, half the regions contained MPAs (Wollongong, Jervis Bay, and Batemans Bay), with 1065 km^2^ coverage, 19.2% (205 km^2^) of the MPAs were sanctuary zoned.
 
 Considering all source regions, regions with the highest self-recruitment (>75%) have only 37.5% have MPAs within the region, Solitary Islands, Pt Stephens, and Batemans Bay (@fig:region-metrics A). Each region has considerable sanctuary zone coverage of at least 80 km^2^ within their respective MPAs (@tbl:mpas). For regions with MPAs, several had significantly lower local retention than other regions (Lord Howe Island, EM Reefs, Tweed, Pt Macquarie, Byron, and Jervis Bay), while out of the region with the two groups with the highest local retention five (Solitary Islands, Batemans Bay, Port Stephens, Sydney, Wollongong) of the ten regions have MPAs (@fig:region-metrics B). Only two of the five regions with the highest successful settlement have MPAs within the boundaries, Solitary Islands and Sydney (@fig:region-metrics C). While the Solitary Islands has 86 km^2^ of sanctuary zones within the Solitary Islands Marine Reserve, Sydney with 10 aquatic reserves only has 6 km^2^. For the known areas of aggregation, only Nambucca does not contain a MPA. The four regions that do have MPAs comprise of 62.3% of total sanctuary zoned area across the entire model domain (@tbl:mpas). Of the four, Solitary Islands has the least amount of sanctuary zone compared to total area, at 86 km^2^.
 
 For *E. daemelii* larvae released from all source regions, of the six regions with the strongest and most consistent settlement, only Solitary Islands, Sydney, and Wollongong have MPAs (@fig:cv A). It should be noted that Sydney and Wollongong only have MPAs with coverage 19 km^2^ and 0.4 km^2^ respectively (@tbl:mpas). Yamba, the region with the most consistent settlement, contains no MPAs. When considering only areas of known aggregation, of the three sites with the the strongest and most consistent settlement, only Solitary Islands and Pt Stephens have large MPAs (@fig:cv A; @tbl:mpas)
-
 
 | Reserve | Region | Management | Size | Sanctuary Zone (%) | Sanctuary Zone (km^2^) |
 |--------|---------|------------|------|--------------------|-----------------------|
@@ -165,130 +159,50 @@ For *E. daemelii* larvae released from all source regions, of the six regions wi
 
 [^mpa]: For the Lord Howe Islands Marine Reserve I only considered the reef extend of the two islands (88 km^2^) instead of the total reserve size covering the region including the open ocean (1880 km^2^).
 
-
 ## Discussion
 
-Aim 1a: Connectivity as a whole
+### Patterns of connectivity
 
-- Explain the variation between regions and years
+I used a biophysical connectivity model to investigate the connectivity patterns of the *Epinephelus daemelii* larvae along the eastern coast of Australia. The results suggested that if black cod larvae were released across their distribution, there would be four sub-populations (northern, central, and southern New South Wales (NSW), and a population at the off-shore islands). The coastal populations appeared to be more closed systems (higher local settlement), and the offshore islands were more open (receiving larvae from many sources). There are potential genetic connections across all of the sub-communities, including between the offshore islands and the NSW coastline, as previously hypothesised [@Appleyard:2007us]. *E. daemelii* larvae tended to settle at the natal region or at the regions directly above or below the natal region, similar to the modelled patterns of connectivity along the NSW coast for fish larvae with similar PLDs (although without explicitly modelling any vertical or horizontal movement behaviour; @Roughan2011628]. This result is also consistent with the knowledge that probability of survival for reef fish larvae decreases with dispersal distance [@Buston:2012jq]. Considering only five known areas of high aggregation the model suggests across years, the larval settlement strongly occurs at the regions Solitary Islands, Nambucca, and Port Stephens. However, larvae from these five regions settled at each of the 19 regions considered, with the lowest connectivity to the far south coast of Merimbula and Eden. While the demographic connectivity to all other regions was low in my model, similar genetic connectivity patterns have been seen for reef fish along the NSW coast [@Curley:2009ki].
 
-Regional Variation.
+The connectivity patterns strongly differ amongst the 19 regions and between the years of release. The primary reason for the variation seen is that the ocean circulation off the New South Wales (NSW) coast is heterogenous. The shallow continental shelf means that larvae are subjected to the East Australia Current (EAC) from northern NSW to the separation zone which occurs on average between 30.7°S - 32.4°S, where it splits off from the coast of NSW [@CetinaHeredia:2014ej]. The water that does not split off here is further carried down the coast, dispersing larvae southward. In the model, the regions Port Macquarie and Crowdy Bay correspond with this separation zone (@fig:release-sites). The phenomena is most distinct at the region Port Macquarie, which has low settlement success, local retention, self-recruitment, and high dispersal distance as larvae are dispersed away from the coast by the EAC. The EAC also explains the strong latitudinal patterns seen in the clustering of mean annual settlement by source region. Counter currents which flow north also allow for the upwards transport seen between regions [@Coleman:2011de]. An unexpected result for ichthyoplankton larvae with such a long pelagic larval duration (30-50 days), were the high self-recruitment values seen across regions, often greater than 50%. While in small areas, self-recruitment of coral reef fish have been shown to have similar small scale levels of dispersion [@Berumen:2012ex; @Swearer:1999ff], the EAC was predicted to settle particles at more southerly regions, lowering self-recruitment. The size of the regions (~125km) could explain the relatively high self-recruitment (and local retention) values seen. The self-recruitment and local retention values seen in our model were higher than seen for a similar modelled species (*Epinephelus marginatus*) in the Mediterranean [@Andrello:2013cc].
 
-The connectivity patterns of *Epinephelus daemelii* larvae strongly differ between the 19 regions and between the years of release. The reason for the variation seen is that the ocean circulation off the New South Wales (NSW) coast is heterogenous. The shallow continental shelf means that larvae are subjected to the East Australia Current (EAC) from northern NSW to the separation zone around 30.7°S - 32.4°S, where it splits off from the coast of NSW [@CetinaHeredia:2014ej]. The water that does not split off here is further carried down the coast, dispersing larvae southward. In the model, the regions Port Macquarie and Crowdy Bay correspond with this separation zone (@fig:release-sites). The phenomena is most distinct at the region Port Macquarie, which has low settlement success, local retention, self-recruitment, and high dispersal distance as larvae are dispersed away from the coast by the EAC.
+The results showed that over the eight years of the model, there strong annual variation in the settlement patterns of the modelled *E. daemelii* larvae. Although the size of the annual variation was dependent on the source region of the larvae. Other studies have seen connectivity increase with the climatic La Nina (summer) and El Nino (winter) conditions [@Roughan2011628], however the annual variation seen in the results cannot be easily explained by these climatic patterns (a moderate El Nino pattern in 2009-2010 and a strong La Nina pattern in 2010-2011; CITE BOM.gov.au). The timing of the release (April-May) could be a factor, with most larvae either settled or dead by August. Settlement pattens appeared to be consistently different apart from a couple of years, but 2004 and 2007 were the outlier years when comparing metrics; showing significantly lower local retention and settlement success. The EAC is known for its annual variation along decadal cycles and southward shift [@Ridgway:2007ez], and combined with the natural variation in wind patterns driving surface currents, serves as a possible explanation. Another related explanation the variability in the timing of formation, size, and rotation speed of mesoscale eddies off the south-east Australian coast, especially in the aptly named 'Eddy Avenue' between 32°S and 39°S [@Everett:2012bj].
 
+The results suggest that if *E. daemelii* larvae were spawned equally across all the 19 regions, the strong sites of settlement would occur in the northern, central and southern areas of the coastline.
+Surveys of juvenile *E. daemelii* have found abundance peaks in rock pools at and below Port Stephens on the NSW coast, with only one juvenile found at northern sites where adult abundance is high [@Harasti:2014fk]. The connectivity patterns from the model for known aggregations suggest that along with Port Stephens, the northern regions of Solitary Islands and Nambucca should also be areas of strong settlement. The surveys also found juvenile *E. daemelii* in the Sydney, Ulladulla and Jervis Bay regions, all of which the model suggested had low settlement from the known areas of aggregation and in the case of Ulladulla, one of the highest annual variations amongst the settlement regions. Reasons for not seeing larvae in the northern regions could be due to post-settlement process, such as high mortality from predation [@Almany:2006uy] or interspecific competition [@McCormick:2012js]. Although the larvae in the northern region could also be using other sub-tidal habitats not considered in the context of the survey.
 
-The connectivity between the offshore areas of Lord Howe Island, and Elizabeth and Middleton Reefs (EM Reefs) has been
+### Effectiveness of current marine protected areas
 
-Annual variation.
+The four sub-populations limited the connectivity between all of the marine protected areas (MPAs) for *E. daemelii* larvae. Similarly, the network of marine reserves in NSW have been shown to provide strong connectivity for some species, but not others [@Coleman:2011de]. While each of the four communities did have sizeable marine protected area coverage within their boundary, the smallest coverage (both total MPA and sanctuary zone area km^2^) occurred in the northern region, with the highest known aggregations of spawning adults on the NSW coast and modelled settlement. The settlement regions of Nambucca and Yamba, both areas of strong potential settlement and high local retention, self-recruitment, and settlement success, do not have any MPAs located inside them.
 
-The annual variation cannot be easily explained by ENSO conditions (a moderate El Nino pattern in 2009-2010 and a strong La Nina pattern in 2010-2011 CITE BOM.gov.au). Settlement pattens appeared to be consistently different apart from a couple of years, but 2004 and 2007 were the outlier years when comparing metrics; showing significantly lower local retention and settlement success. The EAC is known for its annual variation along decadal cycles and southward shift [@Ridgway:2007ez], and combined with the natural variation in wind patterns driving surface currents, serves as a possible explanation. Another related explanation the variability in the timing of formation, size, and rotation speed of mesoscale eddies off the south-east Australian coast, especially in the aptly named 'Eddy Avenue' between 32°S and 39°S [@Everett:2012bj].
-
-
-
-
-How did El Nino / La Nina conditions affect the dispersal ?
-
-- implications
-
-- Explain the patterns seen
-Which regions have communities
-Genetic dispersal
-Surprising they don't settle further away
-
-open (from far away sources) or closed (from local sources).
-
-So coastline populations tend to be closed, but the offshore islands are more open.
-
-- implications
-
-- What are the implications for the black cod population
-
-  - long life before spawning, and potential movement
-
-
-Similar regional and annual variation seen elsewhere [Watson 2010].
-
-
-## Connectivity metrics.
-
-The self-recruitment and local retention values seen in our model were higher than seen for a similar modelled species (*Epinephelus marginatus*) in the Mediterranean [Andrello 2013].
+Total fishing protection since 1983 has not increased the abundance of *E. daemelii* to previous known levels [@Francis:2016kl], suggesting management tools such as sanctuary zones within MPAs are required to limit by-catch, illegal catch, and any mortality that stems from catch and release. To increase the spawning output of *E. daemelii*, reducing fishing pressure is a key component, to both allow *E. daemelii* to reach reproductive age (~25 years), and to be able to aggregate in sufficient numbers to spawn. Therefore sanctuary areas, within their known distribution of *E. daemelii*, are an important tool to assist in maximising the spawning output. The optimum amount of coastline to protect can be measured by the fishing pressure faced, both recreational and commercial [@Botsford:2009dv]. It is also understood that for sedentary species with larvae that can disperse long distances, such as the black cod, contiguous MPAs can be more effective when comprising coastline twice the dispersal distance [@Botsford:2001ec]. However, in contrast the size of the protected coastline for protecting adult black cod can be small, due to its limited movement as an adult [@Green:2014ct]. For a population to persist, local retention is important, therefore you want to create MPAs within regions that exhibit high local retention [@Botsford:2009dv], of which MPAs do occur in several areas of high potential local retention for *E. daemelii*. Although, some simulation studies have shown protecting quality habitat areas (i.e. carrying capacity) for rock cod is more important than preserving sites of connectivity [@Cabral:2016cr]. Therefore the most important way to protect *E. daemelii* populations is to protect all known adults populations, potentially increasing the areas of sanctuary zones containing suitable black cod habitat and protecting more intertidal (post-settlement larvae) and estuarine (juvenile) habitats. Protecting habitats (which cannot move) also safeguards against the potential of moving fish populations with warming oceans, seen for many tropical species along the NSW coast [@Booth:2010ju, @Verges:2014fl], although increased competition with tropical species is also another risk factor for *E. daemelii*.
 
 
 
-
-
-
-
-Aim 1b: Known regions
-
-- What do we know about where larvae are seen? Does it fit the high areas of settement ?
--
-
-Aim 2: Marine reserves
-
-Is it a good network for Black cod?
-
-
-Source regions
-
-To increase the spawning output of *E. daemelii*, reducing fishing pressure is a key component, to both allow *E. daemelii* to reach reproductive age (~25 years), and to be able to aggregate in sufficient numbers to spawn. Therefore sanctuary areas, within their known distribution of  *E. daemelii*, are an important tool to assist in maximising the spawning output.
-
-## How much should be protected?
-
-The optimum amount of coastline to protect can be measured by the fishing pressure faced, both recreational and commercial [@Botsford:2009dv]. It is also understood that for sedentary species with larvae that can disperse long distances, such as the black cod, contiguous MPAs are more effective, comprising coastline twice the dispersal distance [@Botsford:2001ec]. However, the size of the protected coastline for protecting adult black cod can be small, due to its limited movement in adult life [@Green:2014ct].
-
-For a population to persist, local retention is important, therefore you want to create MPAs within regions of high local retention [@Botsford:2009dv].
-
-
-Settlement regions
-
-
-
-Is the current network effective ?
- - compare with known and all
-
-
-
-What about annual variation?
-
-Are there areas we should be protecting?
-- areas of strong connectivity (less variation)
-
-
-
-
-Population persistence is key.
-
-
-
-Spillover is not a dirver (total ban on fishing black cod)
-
-How to get back to anecdotal levels ?
-
-Are there enough sancutary zones (threat to spawning)
-
-
-Are there enough habitat zones (threat to settlement)
-
-Simulation studies show proecting quality habitat areas for rockcod is key CITE Cabral 2016. Need to preserve the adult population, i.e. carrying capacity is more important than network topology.
-
-Need to protect the Juvenile habitats - Eustarine protection?
 
 
 Limitations
+- included OHS (used assumptions for the species)
 - Did we use the correct larvae values (assumptions)
-- We considered constant larval production, so not yearly variation (therefore vairation is through oceans currents)
+- large size of BRAN
+- We considered constant larval production, so not yearly variation (therefore vairation is through oceans currents) - potential and not realsied.
+
+The model has several limitations, most notably the assumptions made for biology of *E. daemelii*, whether using values from related species or averages across species. The need for these assumptions is not specific to this study and occurs in the majority connectivity study with a biophysical dispersal model (BDM). The biggest assumption made for this study was giving the larvae the ability to sense, orientate, and swim towards suitable habitat within a 7 km boundary. From Chapter 4, it has been shown this ability for larval fish to orientate significantly changes dispersal patterns. The likelihood of *E. daemelii* larvae being able to sense habitat is why I chose to make these assumptions (CITE examples). The potential limitation is the coarseness of the oceanographic model used, while Chapter 2 suggested model resolution had no effect on connectivity metrics overall, it could influence the final settlement habitats reached; therefore I used settlement regions instead of specific habitat patches. Validating the results of BDMs are increasingly achievable using empirical methods and an essential next step  [@Burgess:2014cf]. However, this has to be combined with more knowledge of the early-life history of *E. daemelii* to accurately parametrise model input with behaviour, and knowledge of larval production to produce realised connectivity patterns.
+
+
 
 future validation
 - Can we match with areas of high settlement ?
-- need to ground-truth models
+
+
 - also understand the complete life-cycle of black cod, where do they go before they settle as adults in rocks? what are the local-recruitment values for these black-cod?
--
+
 
 ## Conclusion
 
 
-Newcastle tends to be the bottom of the separations zone, which could describe these results. The regions where the separation zone usually occurs -30 to -32, is where the most differences occurred between regions. The yearly variation was largest for the offshore reefs (Lord Howe, Elizabeth, and Middleton). The northern NSW regions of Tweed, Byron, Ballina, Yamba, and Solitary Islands had similar settlement patterns, driven by a strong EAC. The regions in southern NSW from Jervis Bay to Merimbula also had similar settlement patterns.
+
 
 
 
@@ -299,40 +213,6 @@ Newcastle tends to be the bottom of the separations zone, which could describe t
  - Good to see lots of genetic drift also (interesting none to NZ or Norfolk)
 
 
- Solitary Islands
- - Jones Beach and Jones Point Sanctuary Zone (1.3 km)
- - Central Section Sanctuary Zone (3.0 km)
- - Flat Top Point Sanctuary Zone (1.3 km)
- - Southern Section Sanctuary Zone (4.3 km)
- -
-
- Pt Stephens
- -  The Pinnacle Sanctuary Zone (2.5km)
- -  Fingal Island Sanctuary Zone (4.0km)
-
- Sydney
- - Cabbage Tree Bay Aquatic Reserve (20 hectares)
-
- Batemans Bay
- - North Head Sanctuary Zone (4.8 km)
- - Burrewarra (North Section) Sanctuary Zone (4.7 km)
- - Burrewarra (South Section) Sanctuary Zone (2.8)
- - Broulee Island Sanctuary Zone (2.1 km)
-
- Lord Howe Island 460kms
-
- Middleton Reef (Sanctury zone), Elizabeth Reef (Rec fishing with permit)
- (Lord Howe Commonwealth Marine Reserve)
-
- Pt Macquarie
- - Cod Grounds Commonwealth Marine Reserve (4 km^2)
-
-
- Discussion points
- - Strong latitude patterns - why? How do the coastal dynamics match? Seperation zone?
- - e.g. Port macquarie is always low, crowdy bay, solitary and yamba is always high
- - High self-seeding for many regions (oceanographic related , e.g. strong downwards currents and eddies)
- - Some regions showed more yearly variation than others, not consistent. 2007 dispersed more and less local recruitment and settlement success. Not a special climatic year (Strong La nina (2010-11), moderate El-nino (2009-2010).
 
  ### Assessing the realised connectivity patterns from all regions
 
