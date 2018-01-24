@@ -19,6 +19,18 @@ passive.dk.regions <- get_dispersal_distance_regions(passive.data.dk, reefs.id)
 rm(passive.data.conn)
 rm(passive.data.dk)
 
+passive.surface.data.conn <- read_in_connectivity(paste0(prefix,"/chapters/theoretical/data/model-output/passive-surface"))
+passive.surface.reefs <- summarize(group_by(passive.surface.data.conn, settle), count = n())
+passive.surface.regions <- get_regions(passive.surface.reefs, reefs.id)
+passive.surface.reefs <- rename(passive.surface.reefs, passive.surface=count)
+passive.surface.regions <- rename(passive.surface.regions, passive.surface=count)
+passive.surface.conn.reefs <- get_connectivity_matrix_reefs(passive.surface.data.conn)
+passive.surface.conn.regions <- get_connectivity_matrix_regions(passive.surface.data.conn, reefs.id)
+passive.surface.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/passive-surface"))
+passive.surface.dk.regions <- get_dispersal_distance_regions(passive.surface.data.dk, reefs.id)
+rm(passive.surface.data.conn)
+rm(passive.surface.data.dk)
+
 diel.data.conn <- read_in_connectivity(paste0(prefix,"/chapters/theoretical/data/model-output/diel"))
 diel.reefs <- summarize(group_by(diel.data.conn, settle), count = n())
 diel.regions <- get_regions(diel.reefs, reefs.id)
@@ -54,6 +66,18 @@ orientate.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretic
 orientate.dk.regions <- get_dispersal_distance_regions(orientate.data.dk, reefs.id)
 rm(orientate.data.conn)
 rm(orientate.data.dk)
+
+orientate.surface.data.conn <- read_in_connectivity(paste0(prefix,"/chapters/theoretical/data/model-output/orientate-surface"))
+orientate.surface.reefs <- summarize(group_by(orientate.surface.data.conn, settle), count = n())
+orientate.surface.regions <- get_regions(orientate.surface.reefs, reefs.id)
+orientate.surface.reefs <- rename(orientate.surface.reefs, orientate.surface=count)
+orientate.surface.regions <- rename(orientate.surface.regions, orientate.surface=count)
+orientate.surface.conn.reefs <- get_connectivity_matrix_reefs(orientate.surface.data.conn)
+orientate.surface.conn.regions <- get_connectivity_matrix_regions(orientate.surface.data.conn, reefs.id)
+orientate.surface.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/orientate-surface"))
+orientate.surface.dk.regions <- get_dispersal_distance_regions(orientate.surface.data.dk, reefs.id)
+rm(orientate.surface.data.conn)
+rm(orientate.surface.data.dk)
 
 ovm.orientate.data.conn <- read_in_connectivity(paste0(prefix,"/chapters/theoretical/data/model-output/ovm-orientate"))
 ovm.orientate.reefs <- summarize(group_by(ovm.orientate.data.conn, settle), count = n())
@@ -104,9 +128,11 @@ rm(diel.ovm.data.conn)
 rm(diel.ovm.data.dk)
 
 save(passive.reefs,passive.regions, passive.conn.reefs, passive.conn.regions,passive.dk.regions,
+     passive.surface.reefs,passive.surface.regions, passive.surface.conn.reefs, passive.surface.conn.regions,passive.surface.dk.regions,
      ovm.reefs,ovm.regions, ovm.conn.reefs, ovm.conn.regions,ovm.dk.regions,
      diel.reefs,diel.regions, diel.conn.reefs, diel.conn.regions,diel.dk.regions,
      orientate.reefs,orientate.regions, orientate.conn.reefs, orientate.conn.regions,orientate.dk.regions,
+     orientate.surface.reefs,orientate.surface.regions, orientate.surface.conn.reefs, orientate.surface.conn.regions,orientate.surface.dk.regions,
      ovm.orientate.reefs,ovm.orientate.regions, ovm.orientate.conn.reefs, ovm.orientate.conn.regions,ovm.orientate.dk.regions,
      diel.ovm.orientate.reefs,diel.ovm.orientate.regions, diel.ovm.orientate.conn.reefs, diel.ovm.orientate.conn.regions,diel.ovm.orientate.dk.regions,
      diel.ovm.reefs,diel.ovm.regions, diel.ovm.conn.reefs, diel.ovm.conn.regions,diel.ovm.dk.regions,
@@ -237,10 +263,10 @@ save(ovm.timestep.reefs, ovm.timestep.regions, ovm.timestep.conn.reefs, ovm.time
      ovm.stage.reefs, ovm.stage.regions,
      file="phase3.rda")
 
-phase1.reefs.data <- passive.reefs %>% full_join(diel.reefs) %>% full_join(ovm.reefs) %>% full_join(orientate.reefs) %>% 
-  full_join(diel.ovm.orientate.reefs) %>% full_join(ovm.orientate.reefs) %>% full_join(diel.ovm.reefs) %>% full_join(diel.orientate.reefs) 
-phase1.regions.data <- passive.regions %>% full_join(diel.regions) %>% full_join(ovm.regions) %>% full_join(orientate.regions) %>% 
-  full_join(diel.ovm.orientate.regions) %>% full_join(ovm.orientate.regions) %>% full_join(diel.ovm.regions) %>% full_join(diel.orientate.regions)
+phase1.reefs.data <- passive.reefs %>% full_join(passive.surface.reefs) %>% full_join(diel.reefs) %>% full_join(ovm.reefs) %>% full_join(orientate.reefs) %>% 
+  full_join(orientate.surface.reefs) %>% full_join(diel.ovm.orientate.reefs) %>% full_join(ovm.orientate.reefs) %>% full_join(diel.ovm.reefs) %>% full_join(diel.orientate.reefs) 
+phase1.regions.data <- passive.regions %>% full_join(passive.surface.regions) %>% full_join(diel.regions) %>% full_join(ovm.regions) %>% full_join(orientate.regions) %>% 
+  full_join(orientate.surface.regions) %>% full_join(diel.ovm.orientate.regions) %>% full_join(ovm.orientate.regions) %>% full_join(diel.ovm.regions) %>% full_join(diel.orientate.regions)
 
 phase2.reefs.data <- ovm.pomacentrid.reefs %>% full_join(ovm.labrid.reefs) %>% full_join(ovm.mullid.reefs) %>% full_join(ovm.scarid.reefs) %>% 
   full_join(ovm.scorpaenid.reefs) %>% full_join(ovm.serranid.reefs) %>% full_join(ovm.synodontid.reefs)

@@ -40,8 +40,8 @@ regions.community_matrix <- get_community_matrix(regions.data,FALSE)[,-18]
 
 Labels for the data
 ```{r}
-model <- c("passive","dvm","ovm","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
-scenarios <- c("behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-method","ovm-method","ovm-method")
+model <- c("passive","passive-surface","dvm","ovm","ohs","ohs-surface","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
+scenarios <- c("behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-method","ovm-method","ovm-method")
 regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden")
 theoretical <- data.frame(model,scenarios)
 ```
@@ -51,39 +51,45 @@ NNDS using all reefs (or regions)
 ```{r}
 #reefs <- colnames(passive.conn.regions)[-18:-19]
 
-data <- as_tibble(passive.conn.regions/(passive.conn.regions+1))
+data <- as_tibble(passive.surface.conn.regions/(passive.surface.conn.regions+1))
 data$sites <- regions
-data$behaviour <- rep(c("passive"))
-data.diel <- as_tibble(diel.conn.regions/(passive.conn.regions+1))
+data$behaviour <- rep(c("passive-surface"))
+data.passive <- as_tibble(passive.conn.regions/(passive.surface.conn.regions[,-18]+1))
+data.passive$sites <- regions
+data.passive$behaviour <- rep(c("passive"))
+data.diel <- as_tibble(diel.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.diel$sites <- regions
 data.diel$behaviour <- rep(c("dvm"))
-data.ovm <- as_tibble(ovm.conn.regions/(passive.conn.regions+1))
+data.ovm <- as_tibble(ovm.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.ovm$sites <- regions
 data.ovm$behaviour <- rep(c("ovm"))
-data.orientate <- as_tibble(orientate.conn.regions/(passive.conn.regions +1))
+data.orientate <- as_tibble(orientate.conn.regions/(passive.surface.conn.regions[,-18] +1))
 data.orientate$sites <- regions
 data.orientate$behaviour <- rep(c("ohs"))
-data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions/(passive.conn.regions+1))
+data.orientate.surface <- as_tibble(orientate.surface.conn.regions/(passive.surface.conn.regions[,-18] +1))
+data.orientate.surface$sites <- regions
+data.orientate.surface$behaviour <- rep(c("ohs-surface"))
+data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.ovm.orientate$sites <- regions
 data.ovm.orientate$behaviour <- rep(c("ovm+ohs"))
-data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions/(passive.conn.regions+1))
+data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.diel.ovm.orientate$sites <- regions
 data.diel.ovm.orientate$behaviour <- rep(c("dvm+ovm+ohs"))
-data.diel.orientate <- as_tibble(diel.orientate.conn.regions/(passive.conn.regions+1))
+data.diel.orientate <- as_tibble(diel.orientate.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.diel.orientate$sites <- regions
 data.diel.orientate$behaviour <- rep(c("dvm+ohs"))
-data.diel.ovm <- as_tibble(diel.ovm.conn.regions/(passive.conn.regions+1))
+data.diel.ovm <- as_tibble(diel.ovm.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.diel.ovm$sites <- regions
 data.diel.ovm$behaviour <- rep(c("dvm+ovm"))
 
-phase1.community <- data %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.ovm) %>% full_join(data.ovm.orientate) %>% full_join(data.diel.ovm) %>% full_join(data.diel.ovm.orientate) %>% full_join(data.diel.orientate)
+phase1.community <- data %>% full_join(data.passive) %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.orientate.surface) %>% full_join(data.ovm) %>% full_join(data.ovm.orientate) %>% full_join(data.diel.ovm) %>% full_join(data.diel.ovm.orientate) %>% full_join(data.diel.orientate)
 
 
 
 phase1.community_matrix <- dplyr::select(phase1.community, -behaviour, -sites)
 phase1.community_matrix[is.na(phase1.community_matrix)] <- 0
 
-phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=2, trymax=100)
+phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=2, trymax=200)
 #plot(nmds)
 coul = brewer.pal(9, "Set1") 
 coul = colorRampPalette(coul)(17)
@@ -91,7 +97,7 @@ coul = colorRampPalette(coul)(17)
 MDS_xy <- data.frame(phase1.nmds$points)
 MDS_xy$behaviour <- phase1.community$behaviour
 MDS_xy$sites <- factor(phase1.community$sites, levels=regions)
-phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=behaviour, group=sites, label=sites))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,16,17,18)) 
+phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=behaviour, group=sites, label=sites))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,19,17,18,11,14)) 
 #+geom_polygon(aes(fill=sites))
 ggsave("../../figs/phase1-all-nmds.png",phase1.nmds.plot, scale=1.2)
 #save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot,base_aspect_ratio = 3.2)
