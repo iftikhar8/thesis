@@ -83,6 +83,9 @@ summarize(group_by(data.measure,family,stage), count=n())
 summarize(group_by(data.measure,family), count=n())
 summarize(group_by(data.measure,family), avg_length=mean(total_length), sd_length=sd(total_length))
 summarize(group_by(data.measure), count=n())
+summarize(group_by(data.measure,family,feature), count=n())
+summary(data.measure$stage) 
+summary(data.measure$feature) 
 ```
 
 
@@ -313,7 +316,7 @@ lm.length.labrid <- lm(log(total_length) ~ feature * depth + temperature + salin
 summary(lm.length.labrid)
 anova.data.length.labrid <- Anova(lm.length.labrid, type=3)
 anova.data.length.labrid
-lm.length.labrid.lsm <- lsmeans(lm.length.labrid, ~ feature*depth)
+lm.length.labrid.lsm <- lsmeans::lsmeans(lm.length.labrid, ~ feature*depth)
 lm.length.labrid.lsm
 png("../../figs/labrid-length-interaction.png")
 lsmip(lm.length.labrid, feature ~ depth)
