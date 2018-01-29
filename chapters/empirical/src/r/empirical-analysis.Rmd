@@ -551,6 +551,10 @@ data.ontogeny.scorpaenid.posthoc.feature.stage <- lsmeans::lsmeans(model.ontogen
 data.ontogeny.scorpaenid.posthoc.feature.stage
 cld(data.ontogeny.scorpaenid.posthoc.feature.stage, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
 
+data.ontogeny.scorpaenid.posthoc.feature.stage <- lsmeans::lsmeans(model.ontogeny.scorpaenid.nb, pairwise ~ stage | feature, adjust="Tukey", type="response")
+data.ontogeny.scorpaenid.posthoc.feature.stage
+cld(data.ontogeny.scorpaenid.posthoc.feature.stage, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+
 lsmip(model.ontogeny.scorpaenid.nb, stage ~ feature, type="response")
 ```
 
