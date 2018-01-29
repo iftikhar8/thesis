@@ -57,10 +57,10 @@ Study site and station locations
 australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), col="gray90", fill=TRUE)
 #coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
 centre <- geocode("Sydney, AU")
-coast <- get_map(c(lon=154.25, lat=-30.5), zoom = 7, maptype=c("hybrid"))
+coast <- get_map(c(lon=154.25, lat=-30), zoom = 7, maptype=c("hybrid"))
 sites <- dplyr::select(data.tow, site, feature, latitude, longitude) %>% distinct()
 australia <- ggmap(coast)
-map <- australia + geom_point(aes(x=longitude, y=latitude, group=site, colour=feature, shape=feature), size=2.5, data=sites) + theme(legend.position = "top")
+map <- australia + geom_point(aes(x=longitude, y=latitude, group=site, colour=feature, shape=feature), size=2, data=sites) + theme(legend.position = "top")
 eddies <- ggdraw() + draw_image("../../figs/nsw-eddies.gif", scale=0.9)
 plot_grid(map,eddies, labels="AUTO")
 ggsave("../../figs/stations.png")
@@ -69,7 +69,7 @@ ggsave("../../figs/stations.png")
 Ontogenetic stage specimens
 ```{r}
 
-flexion <- ggdraw() + draw_image("../../figs/type_specimens/lab-x-fle.png", scale=0.9)
+flexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid-x-fle.png", scale=0.9)
 preflexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid-z-pre.png", scale=0.9)
 postflexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid-y-pos.png", scale=0.9)
 plot_grid(preflexion,flexion, postflexion, labels="AUTO", align="h", ncol=1, label_colour="white") + theme(panel.background = element_rect(fill="black", colour="black"))
