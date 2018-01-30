@@ -26,19 +26,21 @@ ovm <- tribble(
   "preflexion", 25, 20,
   "preflexion", 50, 10,
   "preflexion", 75, 10,
-  "flexion", 0, 30,
-  "flexion", 25, 30,
+  "flexion", 0, 25,
+  "flexion", 25, 38,
   "flexion", 50, 30,
-  "flexion", 75, 10,
+  "flexion", 75, 7,
   "postflexion", 0, 10,
-  "postflexion", 25, 20,
-  "postflexion", 50, 40,
+  "postflexion", 25, 17,
+  "postflexion", 50, 43,
   "postflexion", 75, 30
 )
 
 ovm$stage <- factor(ovm$stage, levels=c("preflexion","flexion","postflexion"))
-ggplot(ovm, aes(x="", y=probability, fill=factor(depth))) + geom_col(width=1) + coord_polar(theta="y") + facet_wrap(~stage) + theme_classic() + scale_fill_discrete(labels = c("0-25", "25-50", "50-75", "75-100"), name="Depth (m)") + labs(x="", y="Probability")
-ggsave("../../figs/ovm-example.png")
+ovm$depth <- factor(ovm$depth, levels=c("75","50","25","0"))
+p <- ggplot(ovm, aes(x=depth, y=probability, group=stage, colour=stage)) + geom_line(size=2) + theme_classic()  + labs(x="Depth (m)", y="Proportion") + coord_flip() + theme(legend.title = element_text("none"), legend.position = "bottom")
+p <- plot_grid(p)
+cowplot::ggsave("../../figs/ovm-example.png",p, width = 5, height=4)
 
 ```
 

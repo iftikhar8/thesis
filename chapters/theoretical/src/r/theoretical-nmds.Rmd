@@ -89,7 +89,7 @@ phase1.community <- data %>% full_join(data.passive) %>% full_join(data.diel) %>
 phase1.community_matrix <- dplyr::select(phase1.community, -behaviour, -sites)
 phase1.community_matrix[is.na(phase1.community_matrix)] <- 0
 
-phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=2, trymax=200)
+phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=3, trymax=500)
 #plot(nmds)
 coul = brewer.pal(9, "Set1") 
 coul = colorRampPalette(coul)(17)
@@ -97,7 +97,7 @@ coul = colorRampPalette(coul)(17)
 MDS_xy <- data.frame(phase1.nmds$points)
 MDS_xy$behaviour <- phase1.community$behaviour
 MDS_xy$sites <- factor(phase1.community$sites, levels=regions)
-phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=behaviour, group=sites, label=sites))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,19,17,18,11,14)) 
+phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour, group=sites))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_text(aes(label=sites),check_overlap = F) #scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,19,17,18,11,14)) 
 #+geom_polygon(aes(fill=sites))
 ggsave("../../figs/phase1-all-nmds.png",phase1.nmds.plot, scale=1.2)
 #save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot,base_aspect_ratio = 3.2)
