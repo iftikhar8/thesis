@@ -53,7 +53,7 @@ legend.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt
 
 centre <- geocode("Sydney, AU")
 coast <- get_map(c(lon=151, lat=-33), zoom = 6, maptype=c("hybrid"))
-
+load(file="reefs.rda")
 sites <- filter(reefs.id, RELEASE)
 australia <- ggmap(coast)
 
