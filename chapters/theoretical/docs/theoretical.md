@@ -108,7 +108,7 @@ Settlement sites are represented as GIS polygons within the model, using point i
 
 Several behavioural traits for larvae are able to be included in the model including orientated horizontal swimming, vertical migration, and the ability to sense suitable settlement sites (@tbl:bio-params). Vertical migration can be implemented as either diel or ontogenetic vertical migration. Both are based on the probability of being in a specific depth range based on either the time of day (i.e. night or day), or their ontogenetic stage (@fig:ovm-example). The vertical position of a larvae was changed by applying a probability distribution function to determine to which depth the larvae moved. For diel vertical migration this probability distribution function was applied one hour before sunset or sunrise using an approximation calculated using the current latitude / longitude of the larvae.
 
-For ontogenetic vertical migration, there are three choices for the timing of migration; vertically migrating when the next developmental stage is reached [@garcia-garcia2016], daily migration [@puckett2014], or at each time step [within chosen constraints of movement; @paris2007]. Moving larvae vertically with the onset of ontogenetic stage is the simplest, but creates a stratified larval distribution, assuming a gradual migration strategy with ontogeny. Vertically migrating them every day or time-step creates more random process with a centre of mass at specific depths, and the migration is restricted to distributions based on their ontogeny. These strategies allow for modelling vertical behaviour whereby different species of ichthyoplankton change vertical position restricted or unrestricted by depth. It is known many fish larvae are capable of substantial changes in vertical position in relatively short timeframes ([CITE DVM paper])
+For ontogenetic vertical migration, there are three choices for the timing of migration; vertically migrating when the next developmental stage is reached [@garcia-garcia2016], daily migration [@puckett2014], or at each time step [within chosen constraints of movement; @paris2007]. Moving larvae vertically with the onset of ontogenetic stage is the simplest, but creates a stratified larval distribution, assuming a gradual migration strategy with ontogeny. Vertically migrating them every day or time-step creates more random process with a centre of mass at specific depths, and the migration is restricted to distributions based on their ontogeny. These strategies allow for modelling vertical behaviour whereby different species of ichthyoplankton change vertical position restricted or unrestricted by depth.
 
 ![Example of ontogenetic vertical migration input for a fish than migrates downwards with ontogeny, where the proportions of larval occurrence at different depths are specified for each stage (preflexion, flexion, and postflexion), and must add up to one for each developmental stage](chapters/theoretical/figs/ovm-example.png){#fig:ovm-example}
 
@@ -136,34 +136,45 @@ The oceanographic circulation model used was BRAN3 [Bluelink renalysis, version 
 
 #### Biological sub-model
 
-Model parameters are based on characteristics of a temperate rock reef fish from the family Pomacentridae (Damselfishes). We chose this group as it is relatively well studied, thus providing reasonable estimates of the various parameters required for modelling.  The literature on early-life fish histories is biased towards tropical and sub-tropical species, therefore where values for temperate Pomacentridae were not found, information of tropical larvae was utilised (@tbl:bio-params). An individual larvae only settled at the end of their pelagic larval duration if it was within the settlement sensory distance of suitable settlement habitat. The larvae were spawned in the preflexion stage, assuming a species with benthic eggs which is common for Pomacentridae. The lack of velocity data near the coast is an inherent property of the grid structure of the flow model but one that limiting the ability of fish to settle on some reef patches. In order to compensate for this as well as the coarse 10 km resolution of the oceanographic model, larvae were given a settlement sensory zone of 10 km with which to sense settlement reef habitat, which was slightly larger (but within one standard deviation) than the mean settlement sensory zone of 8.3 km (± 5.2) identified in the review of existing studies presented in Chapter 2 (@tbl:bio-base). To orientate and swim towards a reef, the fish were given an reef sensory range of 10 km, which was the maximum extent used in other studies [@wolanski2014a, @staaterman2012], but we assumed the same sensory cues for the larvae as the settlement sensory extent (@tbl:orientate).
+Model parameters are based on characteristics of a temperate rock reef fish from the family Pomacentridae (Damselfishes). We chose this group as it is relatively well studied, thus providing reasonable estimates of the various parameters required for modelling. The literature on early-life fish histories is biased towards tropical and sub-tropical species, therefore where values for temperate Pomacentridae were not found, information of tropical larvae was utilised (@tbl:bio-params). An individual larvae only settled at the end of their pelagic larval duration if it was within the settlement sensory distance of suitable settlement habitat. The larvae were spawned in the preflexion stage, assuming a species with benthic eggs which is common for Pomacentridae. The lack of velocity data near the coast is an inherent property of the grid structure of the flow model but one that limiting the ability of fish to settle on some reef patches. In order to compensate for this as well as the coarse 10 km resolution of the oceanographic model, larvae were given a settlement sensory zone of 10 km with which to sense settlement reef habitat, which was slightly larger (but within one standard deviation) than the mean settlement sensory zone of 8.3 km (± 5.2) identified in the review of existing studies presented in Chapter 2 (@tbl:bio-base).
 
 : Biological features of the Pomacentridae larvae that were used in every model run of the experiment {#tbl:bio-base}
 
-| Biological feature          | Value            |
-|-----------------------------|------------------|
-| PLD                         | 18.3 (±1.5) days [^well] |
-| Preflexion age              | 0 days [^murph]           |
-| Flexion age                 | 5 (±0.5) days [^murph]   |
-| Postflexion age             | 8 (±0.5) days [^murph]   |
+| Biological feature          | Value                    |
+|-----------------------------|--------------------------|
+| PLD                         | 18.3 (± 1.5) days [^well] |
+| Preflexion age              | 0 days [^murph]          |
+| Flexion age                 | 5 (± 0.5) days [^murph]   |
+| Postflexion age             | 8 (± 0.5) days [^murph]   |
 | Settlement sensory distance | 10 km [^chap2]           |
 
 [^well]: [@wellington1989]
 [^murph]: [@murphy2007]
-[^chap2]: Based on review in Chapter 2.
-
-: Orientated horizontal swimming (OHS) parameterisation, used in the swimming equation described above {#tbl:orientate}
-
-| OHS feature  | Value        |
-|------------------------------|-----------------------------------------|
-| Sensory distance           | 10 km [^chap2]       |
-| *U~crit~*                    | 0.463 ms^-1^ [^leis] |
-| *In situ* swimming potential | 0.25% [^leis]
-| Endurance                    | 0.50% [^leis]
-
+[^chap2]: Based on review in Chapter 2
 [^leis]: [@leis2006a]
+[^gray]: [@gray1998]
 
-In order to address the first aim of evaluating the influence of different behaviours on connectivity patterns I ran a series of models to compare patterns resulting from the implementation of 1) diel vertical migration (DVM; @tbl:dvm), 2) ontogenetic vertical migration (OVM; @tbl:scenarios-ovm - Pomacentridae strategy), and 3) orientated horizontal swimming (OHS; @tbl:orientate) implemented. Each behaviour (and combination of congruent behaviours) was compared to a base case of completely passive transport (@tbl:scenarios-behaviour).
+
+[I think its worth defining a term here to describe these things…here’s my stab at it.  You should use the term in chapter 3 as well.  Then use it above when describing OVM and, if you make the figure I suggested, use it there as well.  This will allow you have a term which essentially describes this multi-dimensional parameter which is fundamental to the OVM behavior in the model.]
+
+In order to address the first aim of evaluating the influence of different behaviours on connectivity patterns I ran a series of models to compare patterns resulting from the implementation of 1) restricted or unrestricted vertical movement by currents, 2) diel vertical migration (DVM), 2) ontogenetic vertical migration (OVM), and 3) orientated horizontal swimming (OHS) implemented. Each behaviour (and combination of congruent behaviours) was compared to a base case of passive restricted transport where the larvae are only allowed to change their horizontal position (scenario 1; @tbl:scenarios-behaviour).
+
+: Ten models with combinations of the four different behavioural scenarios were used to test the effects of the four behaviours; No behaviour or orientated horizontal swimming and restricted to moving horizontally or allowed to be advected by the vertical velocity component (models 1,2,5,6), diel vertical migration (DVM; models 3,7,8,10), ontogenetic vertical migration (OVM; models 4,7,9,10), and orientated horizontal swimming (OHS, models 5,6,8,9,10). {#tbl:scenarios-behaviour}
+
+| Model | Restricted | DVM | OVM | OHS |
+|:--------:|:----------:|:---:|:---:|:---:|
+|    1     |    Yes     |  —  |  —  |  —  |
+|    2     |     No     |  -  |  -  |  -  |
+|    3     |            | Yes |  —  |  —  |
+|    4     |            |  —  | Yes |  —  |
+|    5     |    Yes     |  —  |  —  | Yes |
+|    6     |     No     |  -  |  -  | Yes |
+|    7     |            | Yes | Yes |  —  |
+|    8     |            | Yes |  —  | Yes |
+|    9     |            |  —  | Yes | Yes |
+|    10    |            | Yes | Yes | Yes |
+
+The first behavioural scenario compares the difference between larvae that are advected with (unrestricted) our without (restricted) the vertical or *w* component of the current velocities. This scenario only applies to models with no other vertical migration component, as DMV and OVM change the vertical position after it has been advected by the *w* vector (@tbl:scenarios-behaviour). For the second scenario, the larvae were given the DVM probabilities for Pomacentridae derived from an ichthyoplankton study in the same oceanic region [@gray1998]. Larvae were migrated using probability distribution function between 25 m bins within the top 100 m of the water column (@tbl:dvm). The OVM strategy used the values for OVM distribution values for Pomacentridae larvae observed in the empirical study described in Chapter 3 (see Supplementary Table @tbl:scenarios-ovm). The larvae centre of mass moves downwards from the surface during preflexion, to commonly the top 50 m during postflexion. For the OHS scenario, to orientate and swim towards a reef, the larval fish were given an reef sensory range of 10 km, which was the maximum extent used in other studies [@wolanski2014a, @staaterman2012], but we assumed the same sensory cues for the larvae as the settlement sensory extent (@tbl:orientate). The *U~crit~* speed for the larvae was 0.463 ms^-1^, but they were given an *in situ* potential of 25%, therefore the actually swimming speed ranged between (0.463 and 0.116 ms^-1^) and the larvae were able to swim for 50% of the model time step.
 
 : Diel vertical migration (DVM) values used, providing more stratified depth positions during the day and more even distribution at night as seen in temperate fish off NSW [^gray] {#tbl:dvm}
 
@@ -178,34 +189,26 @@ In order to address the first aim of evaluating the influence of different behav
 |             | 51-75           | 0.3         |
 |             | 76-100          | 0.1         |
 
-[^gray]: [@gray1998]
+: Orientated horizontal swimming (OHS) parameterisation, used in the swimming equation described above {#tbl:orientate}
 
-[I think its worth defining a term here to describe these things…here’s my stab at it.  You should use the term in chapter 3 as well.  Then use it above when describing OVM and, if you make the figure I suggested, use it there as well.  This will allow you have a term which essentially describes this multi-dimensional parameter which is fundamental to the OVM behavior in the model.]
+| OHS feature                  | Value                |
+|------------------------------|----------------------|
+| Sensory distance             | 10 km [^chap2]       |
+| *U~crit~*                    | 0.463 ms^-1^ [^leis] |
+| *In situ* swimming potential | 25% [^leis]          |
+| Endurance                    | 50% [^leis]          |
 
 The second aim, to assess the impact on connectivity of using different ontogenetic vertical migration parameters was addressed by conducting model runs using proportional depth stage abundance profiles which represented the seven fish families studied in Chapter 3 (@fig:scenarios-ovm; for the actual values see Supplementary Table @tbl:scenarios-ovm). Ontogenetic vertical migration was implemented such that the larvae moved when they reached their next ontogenetic stage (based on developmental time). Lastly, in order to explore the impact of the OVM implementation strategy on connectivity patterns I compared three different methods of ontogenetic vertical migration (@tbl:scenarios-impl).
-
-: Eight models with combinations of the three different behavioural scenarios were used to test the effects of the three behaviours; No behaviour (scenario 1), diel vertical migration (DVM; scenarios 2,5,6,8), ontogenetic vertical migration (OVM; scenarios 3,5,7,8), and orientated horizontal swimming (OHS, scenarios 4,6,7,8). {#tbl:scenarios-behaviour}
-
-| Scenario | DVM | OVM | OHS |
-|:--------:|:----:|:---:|:-----------:|
-|    1     |  —   |  —  |      —      |
-|    2     | Yes  |  —  |      —      |
-|    3     |  —   | Yes |      —      |
-|    4     |  —   |  —  |     Yes     |
-|    5     | Yes  | Yes |      —      |
-|    6     | Yes  |  —  |     Yes     |
-|    7     |  —   | Yes |     Yes     |
-|    8     | Yes  | Yes |     Yes     |
 
 ![Proportional depth stage abundance profiles for each of the seven fish families evaluated in Chapter 3. Values represent the proportional (within a stage) abundance of each ontogenetic stage (preflexion, flexion, postflexion) within each of three depth ranges (surface: 0-5 m; middle: 6-50 m; deep layer: 51-100 m) and are used to parameterise models run to address Aim 2 of this study.](chapters/theoretical/figs/ovm-strategies.png){#fig:scenarios-ovm}
 
 : The three different scenarios for implementing ichthyoplankton ontogenetic vertical migration (OVM) in the biophysical dispersal model {#tbl:scenarios-impl}
 
-| Scenario | OVM migration timing                            |
-|----------|-------------------------------------------------|
-| 1        | Time step migration |
-| 2        | Daily migration                                 |
-| 3        | Stage migration           |
+| Model | OVM migration timing |
+|-------|----------------------|
+| 1     | Time step migration  |
+| 2     | Daily migration      |
+| 3     | Stage migration      |
 
 ### Data analysis
 
@@ -213,9 +216,11 @@ The second aim, to assess the impact on connectivity of using different ontogene
 
 [These are not clear enough.  I’ve had a go at clarifying but I’m not sure I actually got it right, so check that.  Ideally you want to probably have a section where you talk about univariate metrics and one where you look at multivariate.]
 
-Each individual model run produced as output a connectivity matrix, which represents the connectivity between larval source (row~*i*~) and settlement (column~*j*~) regions where each element~*i,j*~ is the proportion of all larvae spawned at *i* which settled at *j* over the release period. Several univariate measures were extracted from each matrix: settlement site richness (the number of reefs receiving settlers), Shannon-Weiner diversity of settlement (using number of reefs and total larvae settled per reef), self-recruitment, local retention, settlement success, dispersal distance (see Definitions), and connectance (the proportion of the edges connecting natal and settlement sites in a graph compared to the theoretical maximum number of edges). Differences between model scenarios were assessed by comparing each metric amongst different sets of matrices (depending on the aim) with regions (n = 17) used as replicates using one-way repeated measure ANOVAs, to account for the regional oceanographic variation in each model. Tukey's HSD post-hoc pairwise tests were used to assess differences amongst regions where ANOVAs were significant (\&alpha = 0.05). The r package *ConnMattTools* [CITE] was used to obtain connectivity metrics and the package *igraph* [CITE] was used for obtaining measures of connectance.
+Each individual model run produced as output a connectivity matrix, which represents the connectivity between larval source (row~*i*~) and settlement (column~*j*~) regions where each element~*i,j*~ is the proportion of all larvae spawned at *i* which settled at *j* over the release period. Several univariate measures were extracted from each matrix: settlement site richness (the number of reefs receiving settlers), Shannon-Weiner diversity of settlement (using number of reefs and total larvae settled per reef), self-recruitment, local retention, settlement success, dispersal distance (see Definitions), and connectance (the proportion of the edges connecting natal and settlement sites in a graph compared to the theoretical maximum number of edges). Differences between model scenarios were assessed by comparing each metric amongst different sets of matrices (depending on the aim) with regions (n = 17) as replicates in one-way repeated measure ANOVAs, to account for the regional oceanographic variation in each model. Tukey's HSD post-hoc pairwise tests were used to assess differences amongst regions where ANOVAs were significant (\&alpha = 0.05).
 
-Multivariate comparisons of connectivity matrices were made using non-metric multidimensional scaling (NMDS) which allowed for the assessment of the relative similarity of regional patterns (replicates) across different model scenarios (variables). I used the Bray-Curtis dissimilarity measures to get distance matrices and applied a square root transform to account for highly abundant areas of settlement. There were strong differences in settlement patters for the different regions due to variations in regional oceanography. These differences are interesting but can serve to swamp the more pertinent comparisons between models. In order to capture these differences between models more explicitly raw settlement proportions were standardised by settlement proportion values from the passive (no behaviour) connectivity matrix. To test for differences in these multivariate patterns of settlement between models, PERMANOVA tests were conducted using the *adonis* function in the r package *vegan* [CITE vegan]. Constrained correspondence analysis (CCA) using the r package *vegan* [CITE] was used to see which regions were contributing the most to differences amongst models. CCA was also used to compare the treatments by using total settlement to each site per model. Cluster analysis for each model was also used to test for groups of similar models, again using a Bray-Curtis dissimilarity measure and the average-link clustering method.
+Multivariate comparisons of connectivity matrices were made using non-metric multidimensional scaling (NMDS) which allowed for the assessment of the relative similarity of regional patterns (replicates) across different model scenarios (variables). I used the Bray-Curtis dissimilarity measures to get distance matrices and applied a square root transform to down-weight the influence of highly abundant areas of settlement. There were strong differences in settlement patters for the different regions due to variations in regional oceanography. These differences are interesting but can serve to swamp the more pertinent comparisons between models. In order to capture these differences between models more explicitly raw settlement proportions were standardised by settlement proportion values from the passive (no behaviour) connectivity matrix. PERMANOVA was used to test for differences in these multivariate patterns of settlement between models. Constrained correspondence analysis (CCA) was then used to see which regions were contributing the most to differences amongst models. CCA was also used to compare the treatments by using total settlement to each site per model. Cluster analysis for each model was also used to test for groups of similar models, again using a Bray-Curtis dissimilarity measure and the average-link clustering method.
+
+All data analysis was performed using the R statistical programming environment [v3.4.3; @rcoreteam2017]. The package *ConnMattTools* [@connmattools-paper] was used to obtain connectivity metrics and the packages *igraph* [@csardi2006] was used for obtaining measures of connectance. The package *vegan* was used to create dissimilarity matrices, NMDS, PERMANOVA tests using the *adonis* function, and CCA analysis [@oksanen2018].
 
 ## Results
 
