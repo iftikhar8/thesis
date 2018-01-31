@@ -18,11 +18,22 @@ load(file="phase3.rda")
 load(file="reefs.rda")
 ```
 
-Create tibble for connectance graph
+Passive-surface graph analysis
 ```{r}
+rownames(passive.surface.conn.regions) <- passive.surface.regions$settle.region[-18:-20]
+graph.passive.surface <- graph_from_adjacency_matrix(passive.surface.conn.regions[,-18:-20], mode= c("directed"), weighted = TRUE)
+plot(graph.passive.surface, layout=layout.fruchterman.reingold)
 
+as <- authority_score(graph.passive.surface)$vector
+plot(graph.passive.surface, vertex.size = as*30, main="Authorities")
+
+graph.passive.surface.adj <- get.adjacency(graph.passive.surface, sparse = FALSE)
+graph.passive.surface.ind <- GenInd(graph.passive.surface.adj)
+graph.passive.surface.ind$C
+
+connectance.data <- tribble(~scenario, ~model, ~connectance,
+                            "behaviour", "passive-surface", graph.passive.surface.ind$C)
 ```
-
 
 Passive graph analysis
 ```{r}
@@ -37,9 +48,9 @@ graph.passive.adj <- get.adjacency(graph.passive, sparse = FALSE)
 graph.passive.ind <- GenInd(graph.passive.adj)
 graph.passive.ind$C
 
-connectance.data <- tribble(~scenario, ~model, ~connectance,
-                            "behaviour", "passive", graph.passive.ind$C)
+connectance.data <- add_row(connectance.data, scenario = "behaviour", model = "passive", connectance = graph.passive.ind$C)
 ```
+
 
 diel graph analysis
 ```{r}
@@ -84,6 +95,22 @@ graph.orientate.adj <- get.adjacency(graph.orientate, sparse = FALSE)
 graph.orientate.ind <- GenInd(graph.orientate.adj)
 graph.orientate.ind$C
 connectance.data <- add_row(connectance.data, scenario = "behaviour", model = "ohs", connectance = graph.orientate.ind$C)
+```
+
+orientate-surface graph analysis
+```{r}
+orientate.surface.regions <- orientate.surface.regions[-18,]
+rownames(orientate.surface.conn.regions) <- orientate.surface.regions$settle.region[-18:-19]
+graph.orientate.surface <- graph_from_adjacency_matrix(orientate.surface.conn.regions[,-18:-19], mode= c("directed"), weighted = TRUE)
+plot(graph.orientate.surface, layout=layout.fruchterman.reingold)
+
+as <- authority_score(graph.orientate.surface)$vector
+plot(graph.orientate.surface, vertex.size = as*30, main="Authorities")
+
+graph.orientate.surface.adj <- get.adjacency(graph.orientate, sparse = FALSE)
+graph.orientate.surface.ind <- GenInd(graph.orientate.surface.adj)
+graph.orientate.surface.ind$C
+connectance.data <- add_row(connectance.data, scenario = "behaviour", model = "ohs-surface", connectance = graph.orientate.surface.ind$C)
 ```
 
 ovm.orientate graph analysis

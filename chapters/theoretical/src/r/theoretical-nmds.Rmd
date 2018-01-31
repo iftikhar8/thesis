@@ -40,7 +40,7 @@ regions.community_matrix <- get_community_matrix(regions.data,FALSE)[,-18]
 
 Labels for the data
 ```{r}
-model <- c("passive","passive-surface","dvm","ovm","ohs","ohs-surface","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
+model <- c("passive-surface","passive","dvm","ovm","ohs-surface","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
 scenarios <- c("behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-method","ovm-method","ovm-method")
 regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden")
 theoretical <- data.frame(model,scenarios)
@@ -63,12 +63,12 @@ data.diel$behaviour <- rep(c("dvm"))
 data.ovm <- as_tibble(ovm.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.ovm$sites <- regions
 data.ovm$behaviour <- rep(c("ovm"))
-data.orientate <- as_tibble(orientate.conn.regions/(passive.surface.conn.regions[,-18] +1))
-data.orientate$sites <- regions
-data.orientate$behaviour <- rep(c("ohs"))
 data.orientate.surface <- as_tibble(orientate.surface.conn.regions/(passive.surface.conn.regions[,-18] +1))
 data.orientate.surface$sites <- regions
 data.orientate.surface$behaviour <- rep(c("ohs-surface"))
+data.orientate <- as_tibble(orientate.conn.regions/(passive.surface.conn.regions[,-18] +1))
+data.orientate$sites <- regions
+data.orientate$behaviour <- rep(c("ohs"))
 data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.ovm.orientate$sites <- regions
 data.ovm.orientate$behaviour <- rep(c("ovm+ohs"))
@@ -91,7 +91,7 @@ phase1.community_matrix[is.na(phase1.community_matrix)] <- 0
 
 phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=3, trymax=500)
 #plot(nmds)
-coul = brewer.pal(9, "Set1") 
+coul = brewer.pal(10, "Set1") 
 coul = colorRampPalette(coul)(17)
 
 MDS_xy <- data.frame(phase1.nmds$points)
@@ -158,6 +158,7 @@ data.serranid$sites <- reefs
 data.serranid$fish <- rep(c("serranidae"))
 
 phase2.community <- data.labrid %>% full_join(data.serranid) %>% full_join(data.pomacentrid) %>% full_join(data.synodontid) %>% full_join(data.mullid) %>% full_join(data.scorpaenid) %>% full_join(data.scarid)
+phase2.community$fish <- factor(phase2.community$fish)
 phase2.community_matrix <- dplyr::select(phase2.community, -fish, -sites)
 phase2.community_matrix[is.na(phase2.community_matrix)] <- 0
 
@@ -252,14 +253,6 @@ anova(phase3.lme.richness)
 #anova(phase3.mva.model)
 ```
 
-```{r}
-mva <- mvabund(community[,1:17])
-par(mar=c(2,10,2,2)) # adjusts the margins
-boxplot(community[,1:17],horizontal = TRUE,las=2)
-meanvar.plot(mva)
-p <- plot(mva~community$behaviour, height=9, width=6, cex.axis=0.8, cex=0.8)
-model <- manyglm(mva~community$behaviour)
-```
 
 
 ```{r}
@@ -361,7 +354,7 @@ ordilabel(phase2.regions.rda, display = "species",priority = priSpp, font = 2 ,
 CA analysis 
 
 ```{r}
-models <- c("passive","dvm","ovm","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
+models <- c("passive-surface","passive","dvm","ovm","ohs-surface","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
 regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden", "Victoria")
 rownames(phase1.regions.community_matrix) <- models
 colnames(phase1.regions.community_matrix) <- regions
@@ -480,12 +473,12 @@ rowSums(phase3.reefs.data.t > 0)
 
 Metrics graphs
 ```{r}
-model.levels <- c("passive","dvm","ovm","ohs","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ovm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
+model.levels <- c("passive-surface","passive","dvm","ovm","ohs-surface","ohs","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ovm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
 
-metrics <- dplyr::select(phase1.community, diversity, richness, behaviour) %>% mutate(scenario = "behaviour")
+metrics1 <- dplyr::select(phase1.community, diversity, richness, behaviour) %>% mutate(scenario = "behaviour")
 metrics2 <- dplyr::select(phase2.community, diversity, richness, fish) %>% mutate(scenario = "ovm-strategy")
 metrics3 <- dplyr::select(phase3.community, diversity, richness, methods) %>% mutate(scenario = "ovm-methods")
-metrics <- metrics %>% full_join(metrics2) %>% full_join(metrics3) %>% gather(key="scenarios",value="model", behaviour, fish, methods) %>% filter(model != "NA")
+metrics <- metrics1 %>% full_join(metrics2) %>% full_join(metrics3) %>% gather(key="scenarios",value="model", behaviour, fish, methods) %>% filter(model != "NA")
 
 metrics$model <- factor(metrics$model, levels=rev(model.levels))
 
