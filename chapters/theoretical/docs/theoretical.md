@@ -122,17 +122,22 @@ $$s = U_{crit} \times X_{[S_{p},1]} \times E_{p}$${#eq:swim}
 
 *U~crit~* is the critical swimming speed (ms^-1^), *X* is a random number with a distribution contrained by a minimum *S~p~*, which is is the *in situ* swimming potential (expressed as a proportion of *U~crit~*) and the maximum of 1, and *E~p~* is the endurance potential (proportion of time step it is expected to swim) of the fish larvae. \theta is the orientated angle towards a sensed settlement habitat.
 
+
+0.00002199002 = 0.219 km^2
+0.00039556719 = 39.6  km^2
+0.00011463490 = 11 hectares
+
 ### Model configuration
 
 #### Study location
 
-The New South Wales (NSW) coastline (2,137 km) was divided into approximately 17 equally sized regions (approximately 125 km each). Rocky reef patches were identified using freely available benthic data obtained from NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). Within each sub-region, four rocky reef patches (approximately X m^2^ each) from across the sub-region were chosen as spawning sites. Larvae were released weekly from the centre of each spawning site in batches of 1000 over the period July 2007 to June 2008. In total 3.5 million larvae were released. Larvae were allowed to settle to the identified rocky reef patches or benthic habitat patches marked as unknown, as unmapped patches could be potential rocky reef settlement sites.
+The New South Wales (NSW) coastline (2,137 km) was divided into approximately 17 equally sized regions (approximately 125 km each). Rocky reef patches were identified using freely available benthic data obtained from NSW Office of Environment and Heritage (OEH; http://data.environment.nsw.gov.au). Within each sub-region, four rocky reef patches (approximately 30 hectares in size) from across the sub-region were chosen as spawning sites. Larvae were released weekly from the centre of each spawning site in batches of 1000 over the period July 2007 to June 2008. In total 3.5 million larvae were released. Larvae were allowed to settle to the identified rocky reef patches or benthic habitat patches marked as unknown, as unmapped patches could be potential rocky reef settlement sites.
 
 ![The 17 regions (each containing four rock reef patches) used to spawn the reef fish larvae along the coastline of New South Wales, Australia](chapters/theoretical/figs/release-sites.png){#fig:release-sites.png}
 
 #### Physical sub-model
 
-The oceanographic circulation model used was BRAN3 [Bluelink renalysis, version 3p5; @oke2013], a hindcast model based on the Ocean Forecasting Australia Model (OFAM). BRAN is a data-assimilating model that aims to resolve mesoscale eddies in 3-dimensions, at the scale of 10 km in the horizontal (0.1° latitude and longitude) and 5-10 m vertically (15 depth bins between 0 and 105 m). The model consists of mean daily current velocities, sea-level anomaly, sea-surface temperature, and salinity over the period January 1993 to September 2012. An eddy diffusivity value *K* of 300 ms^-1^ was used, as per similar studies in the region [@condie2016, @chiswell2011]. The time-step of the model was two hours.
+The oceanographic circulation model used was BRAN3 [Bluelink renalysis, version 3p5; @oke2013], a hindcast model based on the Ocean Forecasting Australia Model (OFAM). BRAN is a data-assimilating model that aims to resolve mesoscale eddies in 3-dimensions, at the scale of 10 km in the horizontal (0.1° latitude and longitude) and 5-10 m vertically (15 depth bins between 0 and 105 m). The model consists of mean daily current velocities, sea-level anomaly, sea-surface temperature, and salinity over the period January 1993 to September 2012. An eddy diffusivity value *K* of 300 ms^-1^ was used, as per similar studies in the region [@condie2016; @chiswell2011]. The time-step of the model was two hours.
 
 #### Biological sub-model
 
@@ -164,17 +169,17 @@ In order to address the first aim of evaluating the influence of different behav
 | Model | Restricted | DVM | OVM | OHS |
 |:--------:|:----------:|:---:|:---:|:---:|
 |    1     |    Yes     |  —  |  —  |  —  |
-|    2     |     No     |  -  |  -  |  -  |
-|    3     |            | Yes |  —  |  —  |
-|    4     |            |  —  | Yes |  —  |
+|    2     |     No     |  —  |  —  |  —  |
+|    3     |     —     | Yes |  —  |  —  |
+|    4     |    —     |  —  | Yes |  —  |
 |    5     |    Yes     |  —  |  —  | Yes |
-|    6     |     No     |  -  |  -  | Yes |
-|    7     |            | Yes | Yes |  —  |
-|    8     |            | Yes |  —  | Yes |
-|    9     |            |  —  | Yes | Yes |
-|    10    |            | Yes | Yes | Yes |
+|    6     |     No     |  —  | —  | Yes |
+|    7     |     —    | Yes | Yes |  —  |
+|    8     |     —     | Yes |  —  | Yes |
+|    9     |    —     |  —  | Yes | Yes |
+|    10    |     —     | Yes | Yes | Yes |
 
-The first behavioural scenario compares the difference between larvae that are advected with (unrestricted) our without (restricted) the vertical or *w* component of the current velocities. This scenario only applies to models with no other vertical migration component, as DMV and OVM change the vertical position after it has been advected by the *w* vector (@tbl:scenarios-behaviour). For the second scenario, the larvae were given the DVM probabilities for Pomacentridae derived from an ichthyoplankton study in the same oceanic region [@gray1998]. Larvae were migrated using probability distribution function between 25 m bins within the top 100 m of the water column (@tbl:dvm). The OVM strategy used the values for OVM distribution values for Pomacentridae larvae observed in the empirical study described in Chapter 3 (see Supplementary Table @tbl:scenarios-ovm). The larvae centre of mass moves downwards from the surface during preflexion, to commonly the top 50 m during postflexion. For the OHS scenario, to orientate and swim towards a reef, the larval fish were given an reef sensory range of 10 km, which was the maximum extent used in other studies [@wolanski2014a, @staaterman2012], but we assumed the same sensory cues for the larvae as the settlement sensory extent (@tbl:orientate). The *U~crit~* speed for the larvae was 0.463 ms^-1^, but they were given an *in situ* potential of 25%, therefore the actually swimming speed ranged between (0.463 and 0.116 ms^-1^) and the larvae were able to swim for 50% of the model time step.
+The first behavioural scenario compares the difference between larvae that are advected with (unrestricted) our without (restricted) the vertical or *w* component of the current velocities. This scenario only applies to models with no other vertical migration component, as DMV and OVM change the vertical position after it has been advected by the *w* vector (@tbl:scenarios-behaviour). For the second scenario, the larvae were given the DVM probabilities for Pomacentridae derived from an ichthyoplankton study in the same oceanic region [@gray1998]. Larvae were migrated using probability distribution function between 25 m bins within the top 100 m of the water column (@tbl:dvm). The OVM strategy used the values for OVM distribution values for Pomacentridae larvae observed in the empirical study described in Chapter 3 (see Supplementary Table @tbl:scenarios-ovm). The larvae centre of mass moves downwards from the surface during preflexion, to commonly the top 50 m during postflexion. For the OHS scenario, to orientate and swim towards a reef, the larval fish were given an reef sensory range of 10 km, which was the maximum extent used in other studies [@wolanski2014a; @staaterman2012], but we assumed the same sensory cues for the larvae as the settlement sensory extent (@tbl:orientate). The *U~crit~* speed for the larvae was 0.463 ms^-1^, but they were given an *in situ* potential of 25%, therefore the actually swimming speed ranged between (0.463 and 0.116 ms^-1^) and the larvae were able to swim for 50% of the model time step.
 
 : Diel vertical migration (DVM) values used, providing more stratified depth positions during the day and more even distribution at night as seen in temperate fish off NSW [^gray] {#tbl:dvm}
 
@@ -243,14 +248,13 @@ Note you could perhaps go the other way around…look at specific diffs first an
 
 #### Connectivity patterns from source to settle regions
 
-Considering the patterns from each source region to each settlement region (standardised by the restricted passive model), the variation between settlement patterns appeared to be principally driven by regional differences in hydrodynamics (@fig:behaviour-nmds). There was no significant difference between behavioural models (F~model(9,169)~ = 1.19, p > 0.05, r^2^ = 0.06), and it explained only a small amount of variation. Again, the models with OHS clustered together for each source region and were more similar than the other models. The model with only DVM showed the most dissimilarity to all other behavioural models (@fig:behaviour-nmds). The effect of behaviour on settlement patterns also varied between regions; region 5 had large dissimilarities between all the behaviours, contrasting with region 6, where the settlement patterns were more similar. Regions also varied the dissimilarity between models, regions 1 and 2 had similar groupings of settlement patterns for models including OHS, yet the differences between DVM+OVM+OHS and DVM+OHS was greater for region 2 (@fig:behaviour-nmds).
+Considering the patterns from each source region to each settlement region (standardised by the restricted passive model), the variation between settlement patterns appeared to be principally driven by regional differences in hydrodynamics (@fig:behaviour-nmds). There was no significant difference between behavioural models (F~model(9,169)~ = 1.19, p > 0.05, r^2^ = 0.06), and it explained only a small amount of variation. For each source region (1-17), the settlement patterns of models with orientated horizontal swimming included (OHS) clustered together and were more similar than the other models (@fig:behaviour-nmds). The model with only diel vertical migration (DVM) showed the most dissimilarity to all other behavioural models. The effect of behaviour on settlement patterns varied within regions; region 5 had large dissimilarities between all the behaviours, contrasting with region 6, where the settlement patterns were more similar. Regions also varied the dissimilarity between models, regions 1 and 2 had similar groupings of settlement patterns for models including OHS, yet the differences between DVM+OVM+OHS and DVM+OHS was greater for region 2 (@fig:behaviour-nmds).
 
-![NMDS ordination plot (2D stress = 0.06) using Bray-Curtis dissimilarities between the different source-settlement patterns for each of the 17 source regions for the models within the behaviour scenario (Passive = no behaviour, Surface = restricted to horizontal movement only, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming).](chapters/theoretical/figs/phase1-all-nmds.png){#fig:behaviour-nmds}
+![NMDS ordination plot (2D stress = 0.06) using Bray-Curtis dissimilarities between the different source-settlement patterns for each of the 17 source regions for the models within the behaviour scenario (Passive = no behaviour, Surface = restricted to horizontal movement only, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming).](chapters/theoretical/figs/phase1-nmds.png){#fig:behaviour-nmds}
 
-[Insert writing about the CAP]
+![NMDS ordination plot (2D stress = 0.06) using Bray-Curtis dissimilarities between the different source-settlement patterns for each of the 17 source regions for the models within the behaviour scenario and normalised using the passive behaviour scenario (Passive = no behaviour, Surface = restricted to horizontal movement only, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming).](chapters/theoretical/figs/phase1-nmds-normal.png){#fig:behaviour-nmds}
 
-
-
+The settlement patterns showed strong clustering of the different behavioural models with OHS compared to all others, which did not form strong groupings (@fig:behaviour-cap). The only other grouping was between OVM and DVM+OVM. Including behaviour in a model, and different combinations of behaviour, changed the connectivity patterns of the larvae. DVM migration was more dissimilar to passive migration than OVM and OHS was the most dissimilar (@fig:behaviour-cap). Restricting the larvae to the surface or allowing the particle to be moved vertically by the currents produc
 
 ![Constrained analysis of principal coordinates (CAP) for the models within the behaviour scenario using Bray-Curtis dissimilarities between the different source-settlement patterns for each of the 17 source regions. (Passive = no behaviour, Surface = restricted to horizontal movement only, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming)](chapters/theoretical/figs/phase1-cap.png){#fig:behaviour-cap}
 

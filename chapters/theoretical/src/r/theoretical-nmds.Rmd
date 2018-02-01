@@ -49,49 +49,49 @@ theoretical <- data.frame(model,scenarios)
 ```
 
 
-NNDS using all reefs (or regions)
+NNDS normalised
 ```{r}
 #reefs <- colnames(passive.conn.regions)[-18:-19]
 
-data <- as_tibble(passive.surface.conn.regions/(passive.surface.conn.regions+1))
+data <- as_tibble((passive.surface.conn.regions+1)/(passive.surface.conn.regions+1))
 data$sites <- regions
 data$behaviour <- rep(c("passive-surface"))
-data.passive <- as_tibble(passive.conn.regions/(passive.surface.conn.regions[,-18]+1))
+data.passive <- as_tibble((passive.conn.regions+1)/(passive.surface.conn.regions[,-18]+1))
 data.passive$sites <- regions
 data.passive$behaviour <- rep(c("passive"))
-data.diel <- as_tibble(diel.conn.regions/(passive.surface.conn.regions[,-18]+1))
+data.diel <- as_tibble((diel.conn.regions+1)/(passive.surface.conn.regions[,-18]+1))
 data.diel$sites <- regions
 data.diel$behaviour <- rep(c("dvm"))
-data.ovm <- as_tibble(ovm.conn.regions/(passive.surface.conn.regions[,-18]+1))
+data.ovm <- as_tibble((ovm.conn.regions+1)/(passive.surface.conn.regions[,-18]+1))
 data.ovm$sites <- regions
 data.ovm$behaviour <- rep(c("ovm"))
-data.orientate.surface <- as_tibble(orientate.surface.conn.regions/(passive.surface.conn.regions[,-18] +1))
+data.orientate.surface <- as_tibble((orientate.surface.conn.regions+1)/(passive.surface.conn.regions[,-18] +1))
 data.orientate.surface$sites <- regions
 data.orientate.surface$behaviour <- rep(c("ohs-surface"))
-data.orientate <- as_tibble(orientate.conn.regions/(passive.surface.conn.regions[,-18] +1))
+data.orientate <- as_tibble((orientate.conn.regions+1)/(passive.surface.conn.regions[,-18] +1))
 data.orientate$sites <- regions
 data.orientate$behaviour <- rep(c("ohs"))
-data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions/(passive.surface.conn.regions[,-18]+1))
+data.ovm.orientate <- as_tibble((ovm.orientate.conn.regions+1)/(passive.surface.conn.regions[,-18]+1))
 data.ovm.orientate$sites <- regions
 data.ovm.orientate$behaviour <- rep(c("ovm+ohs"))
-data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions/(passive.surface.conn.regions[,-18]+1))
+data.diel.ovm.orientate <- as_tibble((diel.ovm.orientate.conn.regions+1)/(passive.surface.conn.regions[,-18]+1))
 data.diel.ovm.orientate$sites <- regions
 data.diel.ovm.orientate$behaviour <- rep(c("dvm+ovm+ohs"))
-data.diel.orientate <- as_tibble(diel.orientate.conn.regions/(passive.surface.conn.regions[,-18]+1))
+data.diel.orientate <- as_tibble((diel.orientate.conn.regions+1)/(passive.surface.conn.regions[,-18]+1))
 data.diel.orientate$sites <- regions
 data.diel.orientate$behaviour <- rep(c("dvm+ohs"))
-data.diel.ovm <- as_tibble(diel.ovm.conn.regions/(passive.surface.conn.regions[,-18]+1))
+data.diel.ovm <- as_tibble((diel.ovm.conn.regions+1)/(passive.surface.conn.regions[,-18]+1))
 data.diel.ovm$sites <- regions
 data.diel.ovm$behaviour <- rep(c("dvm+ovm"))
 
 phase1.community <- data %>% full_join(data.passive) %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.orientate.surface) %>% full_join(data.ovm) %>% full_join(data.ovm.orientate) %>% full_join(data.diel.ovm) %>% full_join(data.diel.ovm.orientate) %>% full_join(data.diel.orientate)
 
-
+#phase1.community <- filter(phase1.community, behaviour=="passive-surface")
 
 phase1.community_matrix <- dplyr::select(phase1.community, -behaviour, -sites)
 phase1.community_matrix[is.na(phase1.community_matrix)] <- 0
 
-phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=3, trymax=500)
+phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=2, trymax=200)
 #plot(nmds)
 coul = brewer.pal(10, "Paired") 
 #coul = colorRampPalette(coul)(10)
@@ -104,12 +104,68 @@ phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour, group=sites
 #+ geom_point()
 #+ stat_ellipse() #scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,19,17,18,11,14)) 
 #+geom_polygon(aes(fill=sites))
-ggsave("../../figs/phase1-all-nmds.png",phase1.nmds.plot, scale=1.2)
+ggsave("../../figs/phase1-nmds-normal.png",phase1.nmds.plot, scale=1.2)
 #save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot,base_aspect_ratio = 3.2)
 
-phase1.adonis <- adonis(phase1.community_matrix ~ sites, phase1.community, perm=200)
-phase1.adonis
-phase1.adonis <- adonis(phase1.community_matrix ~ behaviour, phase1.community, perm=200)
+#phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
+#anova(phase1.mva.model)
+```
+
+## Phase 1 NMDS
+```{r}
+data <- as_tibble(passive.surface.conn.regions)
+data$sites <- regions
+data$behaviour <- rep(c("passive-surface"))
+data.passive <- as_tibble(passive.conn.regions)
+data.passive$sites <- regions
+data.passive$behaviour <- rep(c("passive"))
+data.diel <- as_tibble(diel.conn.regions)
+data.diel$sites <- regions
+data.diel$behaviour <- rep(c("dvm"))
+data.ovm <- as_tibble(ovm.conn.regions)
+data.ovm$sites <- regions
+data.ovm$behaviour <- rep(c("ovm"))
+data.orientate.surface <- as_tibble(orientate.surface.conn.regions)
+data.orientate.surface$sites <- regions
+data.orientate.surface$behaviour <- rep(c("ohs-surface"))
+data.orientate <- as_tibble(orientate.conn.regions)
+data.orientate$sites <- regions
+data.orientate$behaviour <- rep(c("ohs"))
+data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions)
+data.ovm.orientate$sites <- regions
+data.ovm.orientate$behaviour <- rep(c("ovm+ohs"))
+data.diel.ovm.orientate <- as_tibble(diel.ovm.orientate.conn.regions)
+data.diel.ovm.orientate$sites <- regions
+data.diel.ovm.orientate$behaviour <- rep(c("dvm+ovm+ohs"))
+data.diel.orientate <- as_tibble(diel.orientate.conn.regions)
+data.diel.orientate$sites <- regions
+data.diel.orientate$behaviour <- rep(c("dvm+ohs"))
+data.diel.ovm <- as_tibble(diel.ovm.conn.regions)
+data.diel.ovm$sites <- regions
+data.diel.ovm$behaviour <- rep(c("dvm+ovm"))
+
+phase1.community <- data %>% full_join(data.passive) %>% full_join(data.diel) %>% full_join(data.orientate) %>% full_join(data.orientate.surface) %>% full_join(data.ovm) %>% full_join(data.ovm.orientate) %>% full_join(data.diel.ovm) %>% full_join(data.diel.ovm.orientate) %>% full_join(data.diel.orientate)
+
+#phase1.community <- filter(phase1.community, behaviour=="passive-surface")
+
+phase1.community_matrix <- dplyr::select(phase1.community, -behaviour, -sites)
+phase1.community_matrix[is.na(phase1.community_matrix)] <- 0
+phase1.community_matrix <- phase1.community_matrix[,-18:-20]
+
+phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=2, trymax=200)
+#plot(nmds)
+coul = brewer.pal(10, "Paired") 
+#coul = colorRampPalette(coul)(10)
+
+MDS_xy <- data.frame(phase1.nmds$points)
+MDS_xy$behaviour <- phase1.community$behaviour
+MDS_xy$sites <- factor(phase1.community$sites, levels=regions)
+MDS_xy$codes <- rep(c(1:17),10)
+phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour, group=sites,fill=behaviour))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white") + scale_fill_manual(name="Behaviour", values = coul)
+ggsave("../../figs/phase1-nmds.png",phase1.nmds.plot, scale=1.2)
+
+phase1.community$latitude <- factor(phase1.community$latitude)
+phase1.adonis <- adonis(phase1.community_matrix ~ sites + behaviour, phase1.community, perm=200)
 phase1.adonis
 
 phase1.mod <- with(phase1.community, betadisper(vegdist(phase1.community_matrix,"bray"), behaviour))
@@ -130,11 +186,8 @@ phase1.lme.diversity <- lme(diversity ~ behaviour , random = ~1 | sites/behaviou
 anova(phase1.lme.diversity)
 summary(glht(phase1.lme.diversity, linfct=mcp(behaviour="Tukey")))
 lets <- cld(glht(phase1.lme.diversity, linfct=mcp(behaviour="Tukey")))
-
-
-#phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
-#anova(phase1.mva.model)
 ```
+
 
 CAP Phase1
 ```{r}
@@ -148,9 +201,9 @@ phase1.cca <- phase1.cca %>% filter(Score == "centroids")
 phase1.cca$behaviour <- behaviour.names
 
 
-plot <- ggplot(phase1.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=behaviour)) + geom_point()
+phase1.cca.plot <- ggplot(phase1.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=behaviour)) + geom_point()
 
-ggsave("../../figs/behaviours-cap.png", plot)
+cowplot::ggsave("../../figs/phase1-cap.png", phase1.cca.plot)
 ```
 
 
@@ -198,7 +251,7 @@ phase2.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=fish, group=sites,fill
 #+geom_polygon(aes(fill=sites))
 ggsave("../../figs/phase2-all-nmds.png",phase2.nmds.plot, scale=1.2)
 
-phase2.adonis <- adonis(phase2.community_matrix ~ fish, phase2.community, perm=200)
+phase2.adonis <- adonis(phase2.community_matrix ~ fish + sites, phase2.community, perm=200)
 phase2.adonis
 
 mod <- with(phase2.community, betadisper(vegdist(phase2.community_matrix,"bray"), fish))
@@ -235,9 +288,9 @@ phase2.cca <- phase2.cca %>% filter(Score == "centroids")
 phase2.cca$fish <- fish
 
 
-plot <- ggplot(phase2.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=fish)) + geom_point()
+phase2.cca.plot <- ggplot(phase2.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=fish)) + geom_point()
 
-ggsave("../../figs/phase1-cap.png", plot)
+ggsave("../../figs/phase2-cap.png", phase2.cca.plot)
 ```
 
 NNDS using all reefs (or regions) for implementatinos
@@ -306,12 +359,12 @@ phase3.data.cca <- as.data.frame(phase3.community_matrix)
 phase3.cap <- capscale(phase3.data.cca ~ methods, phase3.community, dist="bray", metaMDS=TRUE, sqrt.dist = TRUE)
 phase3.cca <- as.tibble(fortify(phase3.cap)) 
 phase3.cca <- phase3.cca %>% filter(Score == "centroids")
-phase3.cca$fish <- methods
+phase3.cca$methods <- methods
 
 
-plot <- ggplot(phase3.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=methods)) + geom_point()
+phase3.cap.plot <- ggplot(phase3.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=methods)) + geom_point()
 
-cowplot::ggsave("../../figs/methods-cca.png", plot)
+cowplot::ggsave("../../figs/phase3-cap.png", phase3.cap.plot)
 ```
 
 
@@ -432,13 +485,14 @@ rownames(phase1.regions.community_matrix) <- models
 colnames(phase1.regions.community_matrix) <- c(1:19)
 phase1.ca.data <- phase1.regions.community_matrix[,-18:-19]
 phase1.ca <- CA(phase1.ca.data, graph=FALSE)
-summary(all.ca)
-fviz_screeplot(all.ca, addlabels=TRUE)
+summary(phase1.ca)
+fviz_screeplot(phase1.ca, addlabels=TRUE)
 phase1.biplot <- fviz_ca_biplot(phase1.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
 fviz_ca_row(all.ca, repel=TRUE)
 fviz_ca_col(all.ca, repel=TRUE)
-row <- get_ca_row(all.ca)
+row <- get_ca_row(phase1.ca)
 row$contrib
+cowplot::ggsave("../../figs/phase1-cca.png", phase1.biplot)
 ```
 
 Phase 2 - Total settlement CCA
@@ -454,7 +508,7 @@ fviz_ca_row(phase2.ca, repel=TRUE)
 fviz_ca_col(phase2.ca, repel=TRUE)
 row <- get_ca_row(phase2.ca)
 row$contrib
-cowplot::ggsave("../../figs/fish-total-cca.png", phase2.biplot)
+cowplot::ggsave("../../figs/phase2-cca.png", phase2.biplot)
 ```
 
 Phase 3 - Total settlement CCA
@@ -471,5 +525,5 @@ fviz_ca_row(phase3.ca, repel=TRUE)
 fviz_ca_col(phase3.ca, repel=TRUE)
 row <- get_ca_row(phase3.ca)
 row$contrib
-cowplot::ggsave("../../figs/method-total-cca.png", phase3.biplot)
+cowplot::ggsave("../../figs/phase3-cca.png", phase3.biplot)
 ```
