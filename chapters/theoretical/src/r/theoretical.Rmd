@@ -49,7 +49,7 @@ Study sites diagram
 ```{r}
 #australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), col="gray90", fill=TRUE)
 #coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
-legend.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden")
+legend.names <- c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans","16 Merimbula","17 Eden")
 
 centre <- geocode("Sydney, AU")
 coast <- get_map(c(lon=151, lat=-33), zoom = 6, maptype=c("hybrid"))
@@ -59,7 +59,7 @@ australia <- ggmap(coast)
 
 coul = brewer.pal(9, "Set1")
 coul = colorRampPalette(coul)(17)
-map <- australia + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, group=REGION, colour=REGION), size=1.5, data=sites) + theme(legend.position = "right") + labs(x="Longitude", y="Latitude") + scale_color_manual(labels = c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden"), name="NSW region", values = coul) 
+map <- australia + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, group=REGION, colour=REGION), size=1.5, data=sites) + theme(legend.position = "right") + labs(x="Longitude", y="Latitude") + scale_color_manual(labels = c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans","16 Merimbula","17 Eden"), name="Source region", values = coul) 
 
 map
 

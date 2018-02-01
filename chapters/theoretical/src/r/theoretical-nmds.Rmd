@@ -8,6 +8,8 @@ Packages required
 library(tidyverse)
 library(vegan)
 library(lme4)
+library(nlme)
+library(multcomp)
 library(ggdendro)
 library(ggrepel)
 library(ggvegan)
@@ -91,13 +93,16 @@ phase1.community_matrix[is.na(phase1.community_matrix)] <- 0
 
 phase1.nmds <- metaMDS(phase1.community_matrix,distance="bray", k=3, trymax=500)
 #plot(nmds)
-coul = brewer.pal(10, "Set1") 
-coul = colorRampPalette(coul)(17)
+coul = brewer.pal(10, "Paired") 
+#coul = colorRampPalette(coul)(10)
 
 MDS_xy <- data.frame(phase1.nmds$points)
 MDS_xy$behaviour <- phase1.community$behaviour
 MDS_xy$sites <- factor(phase1.community$sites, levels=regions)
-phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour, group=sites))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_text(aes(label=sites),check_overlap = F) #scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,19,17,18,11,14)) 
+MDS_xy$codes <- rep(c(1:17),10)
+phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour, group=sites,fill=behaviour))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white") + scale_fill_manual(name="Behaviour", values = coul)
+#+ geom_point()
+#+ stat_ellipse() #scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,19,17,18,11,14)) 
 #+geom_polygon(aes(fill=sites))
 ggsave("../../figs/phase1-all-nmds.png",phase1.nmds.plot, scale=1.2)
 #save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot,base_aspect_ratio = 3.2)
@@ -130,6 +135,24 @@ lets <- cld(glht(phase1.lme.diversity, linfct=mcp(behaviour="Tukey")))
 #phase1.mva.model <- manyglm(phase1.mva~phase1.regions.mva$behaviour)
 #anova(phase1.mva.model)
 ```
+
+CAP Phase1
+```{r}
+behaviour.names <- c("dvm","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ohs","ohs-surface","ovm","ovm+ohs","passive","passive-surface")
+phase1.data.cca <- as.data.frame(phase1.community_matrix)
+#phase1.data.cca[is.na(phase1.data.cca)] <- 0
+#phase1.dist <- vegdist(phase1.data.cca,"bray")
+phase1.cap <- capscale(phase1.data.cca ~ behaviour, phase1.community, dist="bray", metaMDS=TRUE, sqrt.dist = TRUE)
+phase1.cca <- as.tibble(fortify(phase1.cap)) 
+phase1.cca <- phase1.cca %>% filter(Score == "centroids")
+phase1.cca$behaviour <- behaviour.names
+
+
+plot <- ggplot(phase1.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=behaviour)) + geom_point()
+
+ggsave("../../figs/behaviours-cap.png", plot)
+```
+
 
 
 NNDS using all reefs (or regions) for fish
@@ -165,10 +188,13 @@ phase2.community_matrix[is.na(phase2.community_matrix)] <- 0
 phase2.nmds <- metaMDS(phase2.community_matrix,distance="bray", k=2, trymax=100)
 #plot(nmds)
 
+coul = brewer.pal(7, "Paired") 
+
 MDS_xy <- data.frame(phase2.nmds$points)
 MDS_xy$fish <- phase2.community$fish
 MDS_xy$sites <- factor(phase2.community$sites, levels=reefs)
-phase2.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=fish, group=sites, label=sites))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="OVM Strategy",values=c(3,4,7,8,15,16,17,18)) 
+MDS_xy$codes <- rep(c(1:17),7)
+phase2.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=fish, group=sites,fill=fish))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white") + scale_fill_manual(name="OVM strategy", values = coul)
 #+geom_polygon(aes(fill=sites))
 ggsave("../../figs/phase2-all-nmds.png",phase2.nmds.plot, scale=1.2)
 
@@ -197,6 +223,23 @@ anova(phase2.lme.richness)
 #anova(phase2.mva.model)
 ```
 
+CCA Phase2
+```{r}
+fish <- c("labridae","mullidae","pomacentridae","scaridae","scorpaenidae","serranidae","synodontidae")
+phase2.data.cca <- as.data.frame(phase2.community_matrix)
+#phase1.data.cca[is.na(phase1.data.cca)] <- 0
+#phase1.dist <- vegdist(phase1.data.cca,"bray")
+phase2.cap <- capscale(phase2.data.cca ~ fish, phase2.community, dist="bray", metaMDS=TRUE, sqrt.dist = TRUE)
+phase2.cca <- as.tibble(fortify(phase2.cap)) 
+phase2.cca <- phase2.cca %>% filter(Score == "centroids")
+phase2.cca$fish <- fish
+
+
+plot <- ggplot(phase2.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=fish)) + geom_point()
+
+ggsave("../../figs/phase1-cap.png", plot)
+```
+
 NNDS using all reefs (or regions) for implementatinos
 ```{r}
 reefs <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden")
@@ -214,15 +257,16 @@ phase3.community <- data.timestep %>% full_join(data.daily) %>% full_join(data.s
 phase3.community_matrix <- dplyr::select(phase3.community, -methods, -sites)
 phase3.community_matrix[is.na(phase3.community_matrix)] <- 0
 
-phase3.nmds <- metaMDS(phase3.community_matrix,distance="bray", k=2, trymax=100)
+phase3.nmds <- metaMDS(phase3.community_matrix,distance="bray", k=2, trymax=200)
 #plot(nmds)
 
 MDS_xy <- data.frame(phase3.nmds$points)
 MDS_xy$methods <- phase3.community$methods
 MDS_xy$sites <- factor(phase3.community$sites, levels=reefs)
-phase3.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites, shape=methods, group=sites, label=sites))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + scale_color_manual(name="Region", values = coul) + geom_point(size=3) + scale_shape_manual(name="OVM Method",values=c(15,16,17)) 
+MDS_xy$codes <- rep(c(1:17),3)
+phase3.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=methods, group=sites,fill=methods))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white") + scale_fill_manual(name="OVM method", values = coul)
 #+geom_polygon(aes(fill=sites))
-ggsave("../../figs/phase3-all-nmds.png",phase3.nmds.plot)
+cowplot::ggsave("../../figs/phase3-all-nmds.png",phase3.nmds.plot)
 #save_plot("../../figs/phase3-all-nmds.png",phase3.nmds.plot)
 
 phase3.adonis <- adonis(phase3.community_matrix ~ methods, phase3.community, perm=200)
@@ -253,146 +297,29 @@ anova(phase3.lme.richness)
 #anova(phase3.mva.model)
 ```
 
-
-
+CCA Phase3
 ```{r}
+methods <- c("daily","stage","timestep")
+phase3.data.cca <- as.data.frame(phase3.community_matrix)
+#phase1.data.cca[is.na(phase1.data.cca)] <- 0
+#phase1.dist <- vegdist(phase1.data.cca,"bray")
+phase3.cap <- capscale(phase3.data.cca ~ methods, phase3.community, dist="bray", metaMDS=TRUE, sqrt.dist = TRUE)
+phase3.cca <- as.tibble(fortify(phase3.cap)) 
+phase3.cca <- phase3.cca %>% filter(Score == "centroids")
+phase3.cca$fish <- methods
 
-#models <- c("passive","dvm","ovm","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
-regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden", "Victoria","Lord Howe Is")
-#rownames(phase1.regions.community_matrix) <- models
-colnames(regions.community_matrix) <- regions
-all.ca <- CA(regions.community_matrix, graph=FALSE)
-summary(all.ca)
-fviz_screeplot(all.ca, addlabels=TRUE)
-all.biplot <- fviz_ca_biplot(all.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
-fviz_ca_row(all.ca, repel=TRUE)
-fviz_ca_col(all.ca, repel=TRUE)
-row <- get_ca_row(all.ca)
-row$contrib
-#ggsave("../../figs/phase1-ca.png",phase1.biplot)
 
-regions.bray = vegdist(regions.community_matrix, "bray")
-mds <- wcmdscale(regions.bray, k=2)
-ca <- cca(regions.community_matrix)
-all.ca.data <- fortify(ca)
-all.ca.data <- filter(all.ca.data, Score=="sites")
-all.ca.data$scenario <- scenarios
-all.ca.data$model <- model
-plot(mds)
+plot <- ggplot(phase3.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=methods)) + geom_point()
 
-all.nmds.plot <- ggplot(all.ca.data, aes(CA1, CA2, colour=scenario, group=scenario, label=model))  + theme_classic() + theme(legend.position = "right") + geom_point(size=3) + geom_text_repel(size=4) + scale_colour_discrete(name="Scenario")
-ggsave("../../figs/all-nmds.png",all.nmds.plot)
-#+geom_polygon(aes(fill=sites))
-
+cowplot::ggsave("../../figs/methods-cca.png", plot)
 ```
 
 
-```{r}
-
-phase1.regions.cca <- cca(sqrt(phase1.regions.community_matrix))
-layout(matrix(1:2,1,2,byrow = TRUE))
-plot(phase1.regions.cca, display="sites", main="Behaviours", scaling="sites")
-#text(phase1.regions.cca, display="sites", scaling="sites")
-plot(phase1.regions.cca, display="species", main="Regions", scaling="species",cex=2)
-#text(phase1.regions.cca, display="species", scaling="species")
-
-phase1.regions.cca <- cca(sqrt(phase1.regions.community_matrix))
-plot(phase1.regions.cca,scaling=3)
-phase2.regions.cca <- cca(sqrt(phase2.regions.community_matrix))
-plot(phase2.regions.cca,scaling=3)
-phase3.regions.cca <- cca(sqrt(phase3.regions.community_matrix))
-plot(phase3.regions.cca,scaling=2)
-
-phase1.reefs.cca <- cca(sqrt(phase1.reefs.community_matrix))
-plot(phase1.reefs.cca, scaling=2)
-```
-
-
-```{r}
 
 
 
 
-# PCA
-jpeg('../../figs/regions-phase1-pca.jpg')
-phase1.regions.rda <- rda(phase1.regions.community_matrix, scale = TRUE)
-biplot(phase1.regions.rda, display=c("sites","species"), type=c("points","text"))
-orditorp(phase1.regions.rda, display="species")
-ordilabel(phase1.regions.rda, scaling = 3)
-dev.off()
 
-jpeg('../../figs/regions-phase2-pca.jpg')
-phase2.regions.rda <- rda(phase2.regions.community_matrix, scale = TRUE)
-biplot(phase2.regions.rda, display=c("sites","species"), type=c("points","text"))
-orditorp(phase2.regions.rda, display="species")
-ordilabel(phase2.regions.rda, scaling = 3, col="blue",font=1)
-dev.off()
-
-jpeg('../../figs/regions-phase3-pca.jpg')
-phase3.regions.rda <- rda(phase3.regions.community_matrix, scale = TRUE)
-priSpp <- diversity(phase3.regions.community_matrix, index = "invsimpson", MARGIN = 2)
-priSite <- diversity(phase3.regions.community_matrix, index = "invsimpson", MARGIN = 1)
-#biplot(phase3.regions.rda, display=c("sites","species"), scaling = 3)
-plot(phase3.regions.rda, type = "n", scaling = 3)
-ordilabel(phase3.regions.rda, display = "sites",priority = priSite, font = 3, fill = "hotpink",
-          col = "blue")
-ordilabel(phase3.regions.rda, display = "species",priority = priSpp, font = 2)
-dev.off()
-#orditorp(phase3.regions.rda, display="species")
-
-phase2.regions.rda <- rda(phase2.regions.community_matrix, scale = TRUE)
-priSpp <- diversity(phase2.regions.community_matrix, index = "invsimpson", MARGIN = 2)
-priSite <- diversity(phase2.regions.community_matrix, index = "invsimpson", MARGIN = 1)
-#biplot(phase2.regions.rda, display=c("sites","species"), scaling = 3)
-plot(phase2.regions.rda, type = "n", scaling = 3)
-ordilabel(phase2.regions.rda, display = "sites",priority = priSite, font = 3, fill = "hotpink",
-          col = "blue", scaling = 3)
-ordilabel(phase2.regions.rda, display = "species",priority = priSpp, font = 2 ,
-          scaling = 3)
-
-```
-CA analysis 
-
-```{r}
-models <- c("passive-surface","passive","dvm","ovm","ohs-surface","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
-regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden", "Victoria")
-rownames(phase1.regions.community_matrix) <- models
-colnames(phase1.regions.community_matrix) <- regions
-phase1.ca <- CA(phase1.regions.community_matrix, graph=FALSE)
-summary(phase1.ca)
-fviz_screeplot(phase1.ca, addlabels=TRUE)
-phase1.biplot <- fviz_ca_biplot(phase1.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
-fviz_ca_row(phase1.ca, repel=TRUE)
-fviz_ca_col(phase1.ca, repel=TRUE)
-row <- get_ca_row(phase1.ca)
-row$contrib
-ggsave("../../figs/phase1-ca.png",phase1.biplot)
-
-regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden", "Victoria", "Lord Howe Is")
-colnames(phase2.regions.community_matrix) <- regions
-phase2.ca <- CA(phase2.regions.community_matrix, graph=FALSE)
-summary(phase2.ca)
-fviz_screeplot(phase2.ca, addlabels=TRUE)
-phase2.biplot <- fviz_ca_biplot(phase2.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
-fviz_ca_row(phase2.ca, repel=TRUE)
-fviz_ca_col(phase2.ca, repel=TRUE)
-row <- get_ca_row(phase2.ca)
-row$contrib
-ggsave("../../figs/phase2-ca.png",phase2.biplot)
-
-regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden", "Victoria")
-colnames(phase3.regions.community_matrix) <- regions
-phase3.ca <- CA(phase3.regions.community_matrix, graph=FALSE)
-summary(phase3.ca)
-fviz_screeplot(phase3.ca, addlabels=TRUE)
-phase3.biplot <- fviz_ca_biplot(phase3.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
-fviz_ca_row(phase3.ca, repel=TRUE)
-fviz_ca_col(phase3.ca, repel=TRUE)
-row <- get_ca_row(phase3.ca)
-row$contrib
-ggsave("../../figs/phase3-ca.png",phase3.biplot)
-
-```
 
 Biodiversity index
 ```{r}
@@ -498,3 +425,51 @@ metrics.legend <- plot_grid(metrics.grid, legend, rel_widths=c(1,.2))
 save_plot("../../figs/settle-metrics.png", metrics.legend, ncol=2, nrow=2)
 ```
 
+Phase 1 - Total settlement CCA
+```{r}
+models <- c("passive","passive-surface","dvm","ovm","ohs","ohs-surface","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
+rownames(phase1.regions.community_matrix) <- models
+colnames(phase1.regions.community_matrix) <- c(1:19)
+phase1.ca.data <- phase1.regions.community_matrix[,-18:-19]
+phase1.ca <- CA(phase1.ca.data, graph=FALSE)
+summary(all.ca)
+fviz_screeplot(all.ca, addlabels=TRUE)
+phase1.biplot <- fviz_ca_biplot(phase1.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
+fviz_ca_row(all.ca, repel=TRUE)
+fviz_ca_col(all.ca, repel=TRUE)
+row <- get_ca_row(all.ca)
+row$contrib
+```
+
+Phase 2 - Total settlement CCA
+```{r}
+#models <- c("passive","passive-surface","dvm","ovm","ohs","ohs-surface","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
+#rownames(phase2.regions.community_matrix) <- models
+colnames(phase2.regions.community_matrix) <- c(1:19)
+phase2.ca.data <- phase2.regions.community_matrix[,-18:-19]
+phase2.ca <- CA(phase2.ca.data, graph=FALSE)
+fviz_screeplot(phase2.ca, addlabels=TRUE)
+phase2.biplot <- fviz_ca_biplot(phase2.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
+fviz_ca_row(phase2.ca, repel=TRUE)
+fviz_ca_col(phase2.ca, repel=TRUE)
+row <- get_ca_row(phase2.ca)
+row$contrib
+cowplot::ggsave("../../figs/fish-total-cca.png", phase2.biplot)
+```
+
+Phase 3 - Total settlement CCA
+```{r}
+#models <- c("passive","passive-surface","dvm","ovm","ohs","ohs-surface","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
+#rownames(phase2.regions.community_matrix) <- models
+colnames(phase3.regions.community_matrix) <- c(1:18)
+phase3.ca.data <- phase3.regions.community_matrix[,-18]
+phase3.ca <- CA(phase3.ca.data, graph=FALSE)
+summary(phase3.ca)
+fviz_screeplot(phase3.ca, addlabels=TRUE)
+phase3.biplot <- fviz_ca_biplot(phase3.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
+fviz_ca_row(phase3.ca, repel=TRUE)
+fviz_ca_col(phase3.ca, repel=TRUE)
+row <- get_ca_row(phase3.ca)
+row$contrib
+cowplot::ggsave("../../figs/method-total-cca.png", phase3.biplot)
+```
