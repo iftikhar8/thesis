@@ -148,6 +148,9 @@ project/plugins/project/
 
 # Created by https://www.gitignore.io/api/premake-gmake
 
+# Pages
+*.pages
+
 ### premake-gmake ###
 Makefile
 makefile
