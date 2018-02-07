@@ -217,7 +217,7 @@ phase1.cca$behaviour <- behaviour.names
 
 phase1.cca.plot <- ggplot(phase1.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=behaviour)) + geom_point()
 
-cowplot::ggsave("../../figs/phase1-cap.png", phase1.cca.plot, width=4, height=4, units=c("in"))
+ggsave("../../figs/phase1-cap.png", phase1.cca.plot)
 ```
 
 

@@ -2,28 +2,26 @@
 
 ## Introduction
 
-## Background on modelling
+### Background on modelling - context
 
 Biophysical dispersal models are popular tools to understand the influence of various processes (both physical and biological) on marine dispersal, and thus the underlying marine ecosystems.
 
 
-# Behaviours affecting connectivity
+### Migration behaviours affecting connectivity
 
 Orientation CITE different examples
 
 
-# Ontogenetic vertical migration strategies
+### Ontogenetic vertical migration strategies
 
 
-# Do implementation choices matter?
+### Why did we do we did?
 
-Examples of (daily, timestep, stage?)
+- find out the most influential behaviours on dispersal
 
-## What have people done before
+### What did we do?
 
-
-
-## Significance
+#### Combinations of behaviours
  - know what to look for when modelling
  - comparison of many behaviours - is it specific to the area (australia coastline)
 
@@ -32,9 +30,6 @@ Aims:
 1. To investigate how connectivity patterns are affected by the implementation of different forms of larval behaviour, specifically-- diel vertical migration (DVM), ontogenetic vertical migration (OVM), and orientated horizontal swimming (OHS)
 
 2. To investigate how different implementation methods (modelling choices) and strategies (reflecting species differences) of ontogenetic vertical migration affect connectivity patterns.
-
-
-The more I think about it…I think you might want to combine these two aims.  So the aim would be to evaluate the impact of OVM implementation strategy, method and parametrization, on patterns.  You know there is likely to be differences in patterns based on parameters used, i.e. for different speices…but the issue is that there are also different ways of implementing OVM in a biophysical model. You want to know how much patterns are affected by the method as opposed to parameters to know if this is important.  If variability is mainly from params, that’s fine and good to know…but if its from method then we need to suggest what is best and probably be doing the same thing.
 
 Hypothesis:
 1. Compared to passive practice, should reduce SR, increase LR, reduce DD
@@ -90,17 +85,17 @@ Biological traits are specified using a configurable XML file as input to the mo
 |  | Flexion  | Age of flexion development  | Days (Gaussian)
 |  | Postflexion  | Age of postflexion development | Days (Gaussian)
 | Spawning sites  | Location  | The latitude and longitude of larval release location  | GPS Coordinates
-|  | Depth  | The depth the larvae are spawned  |  Metres
+|  | Depth  | The depth the larvae are spawned  |  m
 |  | Number | The number of larvae to spawn  |  Positive integer
 |  | Period  | The period to release the larvae over  | Date range
 |  | Interval  | The number of days between releases  | Days (e.g. 1 = daily, 7 = weekly)
 | Settlement sites  | - | The sites of settlement for the larvae given as GIS polygons  | GIS Shapefile
-| Mortality  | Linear  | The percentage of larvae to be randomly killed each day  | Rate (% per day~-1~)
+| Mortality  | Linear  | The percentage of larvae to be randomly killed each day  | Rate (% per day^-1^)
 | Vertical migration  | Diel  | Vertically migrates the particles twice daily at sunset and sunrise  | Probabilities of the larvae being found at user specified depths during the day or at night
 |  | Ontogenetic  | Vertically migrates the fish based to another depth on their ontogenetic stage  | Probabilities
-| Settlement sensory distance  | - |  The distance at which a larva can sense a reef to settle  | Kilometres
-| Olfactory distance  | - | The distance at which a larva can sense a reef and orientate towards it | Kilometres
-| Horizontal swimming  | Critical swimming speed (*U~crit~*)  | The speed at which a fish can swim before it fatigues as measured in a laboratory setting | ms~-1~
+| Settlement sensory distance  | - |  The distance at which a larva can sense a reef to settle  | km
+| Olfactory distance  | - | The distance at which a larva can sense a reef and orientate towards it | km
+| Horizontal swimming  | Critical swimming speed (*U~crit~*)  | The speed at which a fish can swim before it fatigues as measured in a laboratory setting | ms^-1^
 |  | In situ swimming speed  | The swimming speed of the fish larvae recorded by divers *in situ* as a proportion of the *U~crit~* |  Proportion
 |  | Swimming endurance  | The proportion of time the fish can spend swimming  | Proportion
 
@@ -108,7 +103,7 @@ Settlement sites are represented as GIS polygons within the model, using point i
 
 Several behavioural traits for larvae are able to be included in the model including orientated horizontal swimming, vertical migration, and the ability to sense suitable settlement sites (@tbl:bio-params). Vertical migration can be implemented as either diel or ontogenetic vertical migration. Both are based on the probability of being in a specific depth range based on either the time of day (i.e. night or day), or their ontogenetic stage (@fig:ovm-example). The vertical position of a larvae was changed by applying a probability distribution function to determine to which depth the larvae moved. For diel vertical migration this probability distribution function was applied one hour before sunset or sunrise using an approximation calculated using the current latitude / longitude of the larvae.
 
-For ontogenetic vertical migration, there are three choices for the timing of migration; vertically migrating when the next developmental stage is reached [@garcia-garcia2016], daily migration [@puckett2014], or at each time step [within chosen constraints of movement; @paris2007]. Moving larvae vertically with the onset of ontogenetic stage is the simplest, but creates a stratified larval distribution, assuming a gradual migration strategy with ontogeny. Vertically migrating them every day or time-step creates more random process with a centre of mass at specific depths, and the migration is restricted to distributions based on their ontogeny. These strategies allow for modelling vertical behaviour whereby different species of ichthyoplankton change vertical position restricted or unrestricted by depth.
+For ontogenetic vertical migration, there are three choices for the timing of migration; vertically migrating when the next developmental stage is reached [@garcia-garcia2016], daily migration [@puckett2014], or at each time step [within chosen constraints of movement; @paris2007a]. Moving larvae vertically with the onset of ontogenetic stage is the simplest, but creates a stratified larval distribution, assuming a gradual migration strategy with ontogeny. Vertically migrating them every day or time-step creates more random process with a centre of mass at specific depths, and the migration is restricted to distributions based on their ontogeny. These strategies allow for modelling vertical behaviour whereby different species of ichthyoplankton change vertical position restricted or unrestricted by depth.
 
 ![Example of ontogenetic vertical migration input for a fish than migrates downwards with ontogeny, where the proportions of larval occurrence at different depths are specified for each stage (preflexion, flexion, and postflexion), and must add up to one for each developmental stage](chapters/theoretical/figs/ovm-example.png){#fig:ovm-example}
 
@@ -121,11 +116,6 @@ $$v^{\prime} = v + s \times \sin(\theta)$${#eq:v}
 $$s = U_{crit} \times X_{[S_{p},1]} \times E_{p}$${#eq:swim}
 
 *U~crit~* is the critical swimming speed (ms^-1^), *X* is a random number with a distribution contrained by a minimum *S~p~*, which is is the *in situ* swimming potential (expressed as a proportion of *U~crit~*) and the maximum of 1, and *E~p~* is the endurance potential (proportion of time step it is expected to swim) of the fish larvae. \theta is the orientated angle towards a sensed settlement habitat.
-
-
-0.00002199002 = 0.219 km^2
-0.00039556719 = 39.6  km^2
-0.00011463490 = 11 hectares
 
 ### Model configuration
 
@@ -145,13 +135,13 @@ Model parameters are based on characteristics of a temperate rock reef fish from
 
 : Biological features of the Pomacentridae larvae that were used in every model run of the experiment {#tbl:bio-base}
 
-| Biological feature          | Value                    |
-|-----------------------------|--------------------------|
-| PLD                         | 18.3 (± 1.5) days [^@wellington1989] |
-| Preflexion age              | 0 days [^@murphy2007]          |
-| Flexion age                 | 5 (± 0.5) days [^@murphy2007]   |
-| Postflexion age             | 8 (± 0.5) days [^@murphy2007]   |
-| Settlement sensory distance | 10 km [^Based on review in Chapter 2]           |
+| Biological feature          | Value                                            |
+|-----------------------------|--------------------------------------------------|
+| PLD                         | 18.3 (± 1.5) days ^[[@wellington1989]]           |
+| Preflexion age              | 0 days ^[[@murphy2007]]                          |
+| Flexion age                 | 5 (± 0.5) days ^[[@murphy2007]]                  |
+| Postflexion age             | 8 (± 0.5) days ^[[@murphy2007]]                  |
+| Settlement sensory distance | 10 km ^[Based on the meta-analysis in Chapter 2] |
 
 [I think its worth defining a term here to describe these things…here’s my stab at it.  You should use the term in chapter 3 as well.  Then use it above when describing OVM and, if you make the figure I suggested, use it there as well.  This will allow you have a term which essentially describes this multi-dimensional parameter which is fundamental to the OVM behavior in the model.]
 
@@ -160,21 +150,21 @@ In order to address the first aim of evaluating the influence of different behav
 : Ten models with combinations of the four different behavioural scenarios were used to test the effects of the four behaviours; No behaviour or orientated horizontal swimming and restricted to moving horizontally or allowed to be advected by the vertical velocity component (models 1,2,5,6), diel vertical migration (DVM; models 3,7,8,10), ontogenetic vertical migration (OVM; models 4,7,9,10), and orientated horizontal swimming (OHS, models 5,6,8,9,10). {#tbl:scenarios-behaviour}
 
 | Model | Restricted | DVM | OVM | OHS |
-|:--------:|:----------:|:---:|:---:|:---:|
-|    1     |    Yes     |  —  |  —  |  —  |
-|    2     |     No     |  —  |  —  |  —  |
-|    3     |     —     | Yes |  —  |  —  |
-|    4     |    —     |  —  | Yes |  —  |
-|    5     |    Yes     |  —  |  —  | Yes |
-|    6     |     No     |  —  | —  | Yes |
-|    7     |     —    | Yes | Yes |  —  |
-|    8     |     —     | Yes |  —  | Yes |
-|    9     |    —     |  —  | Yes | Yes |
-|    10    |     —     | Yes | Yes | Yes |
+|:-----:|:----------:|:---:|:---:|:---:|
+|   1   |    Yes     |  —  |  —  |  —  |
+|   2   |     No     |  —  |  —  |  —  |
+|   3   |     —      | Yes |  —  |  —  |
+|   4   |     —      |  —  | Yes |  —  |
+|   5   |    Yes     |  —  |  —  | Yes |
+|   6   |     No     |  —  |  —  | Yes |
+|   7   |     —      | Yes | Yes |  —  |
+|   8   |     —      | Yes |  —  | Yes |
+|   9   |     —      |  —  | Yes | Yes |
+|  10   |     —      | Yes | Yes | Yes |
 
 The first behavioural scenario compares the difference between larvae that are advected with (unrestricted) our without (restricted) the vertical or *w* component of the current velocities. This scenario only applies to models with no other vertical migration component, as DMV and OVM change the vertical position after it has been advected by the *w* vector (@tbl:scenarios-behaviour). For the second scenario, the larvae were given the DVM probabilities for Pomacentridae derived from an ichthyoplankton study in the same oceanic region [@gray1998]. Larvae were migrated using probability distribution function between 25 m bins within the top 100 m of the water column (@tbl:dvm). The OVM strategy used the values for OVM distribution values for Pomacentridae larvae observed in the empirical study described in Chapter 3 (see Supplementary Table @tbl:scenarios-ovm). The larvae centre of mass moves downwards from the surface during preflexion, to commonly the top 50 m during postflexion. For the OHS scenario, to orientate and swim towards a reef, the larval fish were given an reef sensory range of 10 km, which was the maximum extent used in other studies [@wolanski2014a; @staaterman2012], but we assumed the same sensory cues for the larvae as the settlement sensory extent (@tbl:orientate). The *U~crit~* speed for the larvae was 0.463 ms^-1^, but they were given an *in situ* potential of 25%, therefore the actually swimming speed ranged between (0.463 and 0.116 ms^-1^) and the larvae were able to swim for 50% of the model time step.
 
-: Diel vertical migration (DVM) values used, providing more stratified depth positions during the day and more even distribution at night as seen in temperate fish off NSW [^gray] {#tbl:dvm}
+: Diel vertical migration (DVM) values used, providing more stratified depth positions during the day and more even distribution at night as seen in temperate fish off NSW ^[[@gray1998]] {#tbl:dvm}
 
 | Time of day | Depth range (m) | Probability |
 |-------------|-----------------|:-----------:|
@@ -189,12 +179,12 @@ The first behavioural scenario compares the difference between larvae that are a
 
 : Orientated horizontal swimming (OHS) parameterisation, used in the swimming equation described above {#tbl:orientate}
 
-| OHS feature                  | Value                |
-|------------------------------|----------------------|
-| Sensory distance             | 10 km [^chap2]       |
-| *U~crit~*                    | 0.463 ms^-1^ [^leis] |
-| *In situ* swimming potential | 25% [^leis]          |
-| Endurance                    | 50% [^leis]          |
+| OHS feature                  | Value                                            |
+|------------------------------|--------------------------------------------------|
+| Sensory distance             | 10 km ^[Based on the meta-analysis in Chapter 2] |
+| *U~crit~*                    | 0.463 ms^-1^ ^[[@leis2006a]]                     |
+| *In situ* swimming potential | 25% ^[[@leis2006a]]                              |
+| Endurance                    | 50% ^[[@leis2006a]]                              |
 
 The second aim, to assess the impact on connectivity of using different ontogenetic vertical migration parameters was addressed by conducting model runs using proportional depth stage abundance profiles which represented the seven fish families studied in Chapter 3 (@fig:scenarios-ovm; for the actual values see Supplementary Table @tbl:scenarios-ovm). Ontogenetic vertical migration was implemented such that the larvae moved when they reached their next ontogenetic stage (based on developmental time). Lastly, in order to explore the impact of the OVM implementation strategy on connectivity patterns I compared three different methods of ontogenetic vertical migration (@tbl:scenarios-impl).
 
@@ -328,18 +318,29 @@ Differences in behaviour were more influential in determining the settlement ric
 
 ### Behaviour
 
-- metrics OVM (this strategy) did not increase retention?
-### OVM strategy
+This study further confirms the paradigm, as hypothesised, that larval fish have the ability to influence their dispersal patterns through inherent behaviours. While the spawning location (and presumably timing, which was not a factor in our experiment) accounts for most of the variation between settlement patterns, behaviour allows larval fish to increase local retention to the natal region, reduce the distance of dispersal (restricting the connectivity pathways), and increase their chances of settlement success. The strength of this effect is variable between both the behaviours of the larvae and the spawning locations due to differences in hydrodynamics. As more empirical studies discover the swimming (horizontal and vertical) and sensory abilities of larval fish, the effects of these behaviours on connectivity are exemplified by the potential connectivity patterns from the biophysical dispersal model (BDM) used.
 
-- Suggesting behavioural influence on settlement patterns is are more influential at specific regions.
+Orientated horizontal swimming (OHS) was the behaviour that most affected the resulting connectivity patterns. OHS increased the local retention to the natal region, increasing self-recruitment and therefore reducing the dispersal distance of the larvae. In addition, giving larvae the ability to sense, orientate, and swim towards a reef sizeably increased their chances of settlement success. These results agree with other studies that have shown OHS to increase the local retention and self-recruitment of larval fish at similar levels [@wolanski2014a] and to increase the settlement success and reduce the dispersal distance [@staaterman2012]. The method of OHS utilised in this study was closer to the method implemented by @staaterman2012 than @wolanski2014a, which increased the swimming potential with ontogeny. It shows the ability of larval fish to sense and orientate towards a reef provides significant benefits to their settlement success, and provides the ability for them to influence their dispersal trajectory. The effect of OHS was so strong that even restricting the larvae to the surface or advecting them using the vertical component of the velocity made almost no difference, and subsequent additions of vertical behavioural traits only marginally modified the connectivity patterns. The influence of OHS on connectivity patterns relative to DVM and OVM could be due to the larvae making an informed decision (sensing a reef and orientating towards it), rather than migrating without any information as to the benefit of that decision. Another explanation is that the method of OHS used is unrepresentative of *in situ* behaviour and overemphasised to ability of fish to orientate and swim horizontally towards reefs. One limitation of this approach was giving all larvae the strong sense to orientate towards the closest reef, removing any natural variation in orientating behaviours as is known to occur [@leis2014].
 
-### OVM method
+Surprisingly, the results of this study found OVM did not have an effect on local retention, only increasing the self-recruitment of a region and no effect on settlement success. Previous studies have found ontogenetic vertical migration (OVM) to noticeably increase local retention and change the resultant connectivity patterns compared to non-swimming (passive) larvae [@paris2007a; @butler2011], and also increasing settlement success [@aiken2011]. This suggests that the effect size of vertical migration on larval retention is dependent on the regional hydrodynamics. Spawning location and timing are known to have the strongest effect on the connectivity patterns compared to vertical migration behaviours [@puckett2014]. The hydrodynamics of the region are dominated by a small continental shelf, a poleward boundary current (the East Australia Current) that separates off the coast about regions 7 and 8 and generating mesoscale eddies, which all influence larval dispersal [@suthers2011]. However, OVM did moderately increase the settlement success and lower the dispersal distance of the larvae. Interestingly diel vertical migration (DVM) had a stronger effect on the connectivity patterns and connectivity metrics than OVM (where OVM used the stage based method described above), suggesting the frequency larvae vertical migration has an effect on local retention. Non-swimming larvae (passive), which were moved by a vertical component, had connectivity patterns that were more similar to models with OVM than the non-swimming larvae restricted to the surface waters (passive-surface). This suggests that when modelling a species known to vertically migrate, but there is limited knowledge on the patterns of vertical migration, then advecting the larvae using the vertical component of the velocity is a better approach than restricting them to the surface.
 
+### Ontogenetic vertical migration
 
-### Comparison
+The hypothesis that strategy of ontogenetic vertical migration (OVM) would influence the patterns and metrics of dispersal was supported, however, the overall effect of strategy was surprisingly small. The largest differences were seen between the direction of the strategies (upward or downward migration with ontogeny). Migrating to deeper depths has been shown to reduce transport [@huebert2011], yet these results did not find differences between migrating to the middle (5-50 m) or deep (50-100 m) layers. This suggests that the choice of vertical migration strategy, while having a small effect on dispersal, is most likely driven by other factors such as predator avoidance or, choice of prey or growth strategies [@lampert1989]. These results suggest that using generalised OVM data for modelling a specific species might not effect the connectivity patterns much, as long as the direction of migration is accurately defined, helped by the fact most species are known to migrate downwards [@cowen2002].
 
+The method of OVM produced significant differences in the patterns of dispersal, between the two extremes of fast movement (time step) and slow movement (stage), and the daily migration method, contrary to our hypothesis of minimal differences. In similar results, different speeds of vertical migration have been shown to alter the direction and distance of dispersal [@sundelof2012]. It is unclear why daily migration is more different to migrating every time step than migrating with change of ontogenetic stage, as it is a faster vertical migration method. Interestingly, differences in the speed (method) of vertical migration were greater than differences in distribution (strategy). Therefore careful consideration must be made when adding ontogenetic vertical migration to a BDM, as choice of method of vertical migration has the potential to influence the connectivity more than the given distribution. There is also an argument to include different strategies to account for the individual variation seen in larval fish [@nanninga2014].
 
-### Furture direcitions (i.e. what to model)
+### Future directions (i.e. what to model)
+
+When considering a biophysical dispersal model to measure connectivity of ichthyoplankton, this study suggests that the modelling choice of swimming behaviours (vertical and horizontal) to include is a more important decision on the connectivity patterns than the actual parameterisation or method of implementation of the behaviour. Therefore more emphasises should be placed on what behaviours are specific to a species, and then general values can be utilised when no specific values are available in the literature.
+
+Therefore
+
+The strong effect of OHS raises the need for more empirical studies on the ability of different taxa to sense settlement habitat, the frequency at which they orientate towards sensed habitat and the sustained speeds at which the larvae swim towards the sensed habitat. In this BDM study, each settlement reef was considered to be equally attractive to the larval fish. This is unrealistic, as it has been demonstrated that reef fish can sense natal reefs [@bottesch2016] and can most likely discriminate between other sensed reefs. The settlement sensory distance was also kept constant for all larvae, which again doesn't reflect the individual variation of sensory abilities for larvae and does not capture how settlement cues could be affected by hydrodynamics (i.e. odour; @gerlach2007a), location of sun (i.e. sight; @berenshtein2014a), or environmental variables such as temperature and salinity (i.e. sound; @sallares2009) . While out of scope for this study, further modelling studies should follow suggestions by @staaterman2014 and investigate the effect of different sensory abilities and their environmental cues on connectivity patterns.
+
+## Conclusion
+
+In summary, this study emphasises the importance of giving ichthyoplankton in biophysical dispersal models the ability to horizontally or vertically migrate, and not only passively advecting them by currents with a neutral buoyancy. Orientated horizontal swimming appears to be especially influential on potential connectivity patterns. The caveat to including migration behaviour is that there needs to be empirical data underlying its inclusion in the model. However, this study shows that for ontogenetic vertical migration (OVM), in a region influenced by a boundary current, general taxa specific data might not give patterns much different to species-specific data. Instead of focusing on the distributional patterns for OVM , more thought and research is required on the processes of OVM (e.g. fast or slow), as it is shown to affect the connectivity patterns more.
 
 
 
@@ -348,6 +349,7 @@ Differences in behaviour were more influential in determining the settlement ric
 - perhaps OHS was too strong at 10 km?
 
 - shows the influence of the currents
+
 
 
 ## Phase 1
@@ -360,7 +362,7 @@ Differences in behaviour were more influential in determining the settlement ric
 - What have behaviours found before?
 
 
-Orientation has been seen to increase settlement success, inreasing as the size of olflactor window increases (Staatermann 2010)
+
 
 ## Phase 2
 

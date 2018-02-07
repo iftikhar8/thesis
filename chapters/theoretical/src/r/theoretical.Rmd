@@ -38,9 +38,9 @@ ovm <- tribble(
 
 ovm$stage <- factor(ovm$stage, levels=c("preflexion","flexion","postflexion"))
 ovm$depth <- factor(ovm$depth, levels=c("75","50","25","0"))
-p <- ggplot(ovm, aes(x=depth, y=probability, group=stage, colour=stage)) + geom_line(size=2) + theme_classic()  + labs(x="Depth (m)", y="Proportion") + coord_flip() + theme(legend.title = element_text("none"), legend.position = "bottom")
-p <- plot_grid(p)
-cowplot::ggsave("../../figs/ovm-example.png",p, width = 5, height=4)
+p <- ggplot(ovm, aes(x=depth, y=probability, group=stage, colour=stage)) + geom_line() + geom_point() + theme_classic()  + labs(x="Depth (m)", y="Proportion") + coord_flip() + theme(legend.position = "right")
+cowplot::ggsave("../../figs/ovm-example.png",p, width=5.14, height=4.25) 
+
 
 ```
 
@@ -52,7 +52,7 @@ Study sites diagram
 legend.names <- c("1 (Tweed)","2 (Byron)","3 (Ballina)","4 (Yamba)","5 (Solitary Is)","6 (Nambucca)","7 (Pt Macquarie)","8 (Crowdy Bay)","9 (Pt Stephens)","10 (Newcastle)","11 (Sydney)","12 (Wollongong)","13 (Jervis Bay)","14 (Ulladulla)","15 (Batemans)","16 (Merimbula)","17 (Eden)")
 
 centre <- geocode("Sydney, AU")
-coast <- get_map(c(lon=151, lat=-33), zoom = 6, maptype=c("hybrid"))
+coast <- get_map(c(lon=151, lat=-33), maptype=c("hybrid"), source="google")
 load(file="reefs.rda")
 sites <- filter(reefs.id, RELEASE)
 australia <- ggmap(coast)
