@@ -2,40 +2,18 @@
 
 ## Introduction
 
-### Background on modelling - context
 
-Biophysical dispersal models are popular tools to understand the influence of various processes (both physical and biological) on marine dispersal, and thus the underlying marine ecosystems.
+### Background on Migration behaviours affecting connectivity
 
+Recent empirical studies have demonstrated how the larval fish during their pelagic phase, far from being passive as previously thought, can exhibit a variety of behaviours to influence where they settle. The swimming behaviours that effect the dispersal paths are vertical migration, both ontogenetic [@paris2004a] and diel [@huebert2011], and orientated horizontal swimming towards preferred settlement habitat [@gerlach2007a].
 
-### Migration behaviours affecting connectivity
+Biophysical dispersal modelling (BDM) is a useful tool to understand the influence of physical and biological processes on marine larval dispersal. As we understand more about the early-life history of ichthyoplankton and the behaviours affecting dispersal, including these behaviours in modelling studies becomes important to get more realistic patterns of dispersal. The limiting factor to including these behaviours are the lack of empirical knowledge about the early-life history of specific species of interest, and how many assumptions we can use in the models. Modelling studies have observed the swimming behaviours described above, ontogenetic [@paris2007a], diel [@aiken2011], [@staaterman2012], all influence connectivity patterns by reducing dispersal distance and increasing local retention. The problem for modellers and empirical researchers is to decide where to focus both the models (what data is important to include) and empirical research (what data should we be focused on collecting).
 
-Orientation CITE different examples
+Even when we know the importance that a specific behaviour, e.g. ontogenetic vertical migration, has on local retention. Often modellers are forced to use generalisations due to lack of specific data (e.g. data averaged over a taxa [exmaple] or using data for a substitute species [exmaple]). The other issue is how the process of the behaviour works, which is unknown and therefore assumptions have to be made, e.g. do the larval vertically migrate slowly or fast?, when larvae are getting advected by offshore currents. do they swim at a speed seen in laboratories or is it close t the in situ speed divers see around reefs?
 
+In order to understand the effects of those modelling choices and focus future research effort, the first aim of this study is to compare how implementing different swimming behaviours (ontogenetic vertical migration, diel vertical migration, and orientated horizontal swimming) affect the connectivity patterns of a larval fish, within a region strongly influenced by a near-shore boundary current. It is hypothesised that all behaviours will significantly affect dispersal patterns compared to no swimming behaviour, and that vertical migration will have a stronger effect than horizontal swimming due, as vertical swimming influences dispersal throughout the pelagic larval stage, whereas horizontal swimming has to be within a sensory distance before it can influence dispersal.
 
-### Ontogenetic vertical migration strategies
-
-
-### Why did we do we did?
-
-- find out the most influential behaviours on dispersal
-
-### What did we do?
-
-#### Combinations of behaviours
- - know what to look for when modelling
- - comparison of many behaviours - is it specific to the area (australia coastline)
-
-
-Aims:
-1. To investigate how connectivity patterns are affected by the implementation of different forms of larval behaviour, specifically-- diel vertical migration (DVM), ontogenetic vertical migration (OVM), and orientated horizontal swimming (OHS)
-
-2. To investigate how different implementation methods (modelling choices) and strategies (reflecting species differences) of ontogenetic vertical migration affect connectivity patterns.
-
-Hypothesis:
-1. Compared to passive practice, should reduce SR, increase LR, reduce DD
-  i. Comment on effect of different types of flow regimes on the differences?
-2. The patterns should differ as places within the water column change the currents the larvae are moved by
-3. There should be an effect, but is predicted to be minimal [Why?]
+The second aim of this study is to investigate how different implementation methods (modelling choices) and strategies (reflecting species differences) of ontogenetic vertical migration affect connectivity patterns. The first part will aim to answer the question about how connectivity patterns are affected by small changes in parameters, giving modellers an idea about how precise the input data needs to be. It is expected that different strategies will significantly effect the dispersal, as the position in the water column determines the speed and direction the larvae is advected. The second part will give insight about the effect of modelling choices on the connectivity output. To implement a behaviour, modellers are required to make decisions on the processes of the behaviour which may not yet be fully understood. The prediction is that while different methods of the same behaviour, using the same patterns, will produce different patterns, these differences should not be significant, as the patterns not the processes should drive the connectivity. Connectivity patterns were compared using both multivariate and univariate analysis to understand the influence of behaviours.
 
 ## Methods
 
