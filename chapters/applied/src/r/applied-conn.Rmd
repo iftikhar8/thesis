@@ -20,7 +20,7 @@ source("applied-functions.R")
 ```{r}
 eggs <- 976000
 years <- c("2011","2010","2009","2008","2007","2006","2005","2004")
-region.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs")
+region.names <- c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans Bay","16 Merimbula","17 Eden","18 Lord Howe Is","19 EM Reefs")
 ```
 
 
@@ -221,7 +221,8 @@ Graphs
 blackcod.metrics.plot <- plot_grid(blackcod.sr.plot + geom_text(data = blackcod.sr.snk.region, aes(x = desc, y=1.05, label = groups)), 
                                    blackcod.lr.plot + geom_text(data = blackcod.lr.snk.region, aes(x = desc, y=0.0101, label = groups)), 
                                    blackcod.ss.plot + geom_text(data = blackcod.ss.snk.region, aes(x = desc, y=0.015, label = groups)), 
-                                   blackcod.dk.plot + geom_text(data = blackcod.dk.snk.region, aes(x = desc, y=1525, label = groups)), labels = c("A", "B", "C", "D"), ncol = 2, nrow=2, align="hv")
+                                   blackcod.dk.plot + geom_text(data = blackcod.dk.snk.region, aes(x = desc, y=1525, label = groups)),
+                                   labels = c("A", "B", "C", "D"), ncol = 2, nrow=2, align="hv")
 save_plot("../../figs/region-metrics.png", blackcod.metrics.plot,
           ncol = 2, # we're saving a grid plot of 2 columns
           nrow = 2 # and 2 rows

@@ -9,6 +9,7 @@ library(tidyverse)
 library(vegan)
 library(ggdendro)
 library(ggrepel)
+library(ggvegan)
 library(cowplot)
 library(RColorBrewer)
 library(FactoMineR)
@@ -192,13 +193,51 @@ nmds.plot.regions <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=sites)) + geom_point(
 ggsave("../../figs/nmds-regions.png", nmds.plot.regions, width=9, height=6, units=c("in"))
 
 
-adonis(community_matrix ~ year, community, perm=200)
+adonis(community_matrix ~ sites + year, community, perm=200)
 
 mod <- with(community, betadisper(vegdist(community_matrix,"bray"), year))
 
-phase2.dist <- vegdist(community_matrix,"bray")
-phase2.anosim <- anosim(phase2.dist, community$year)
-summary(phase2.anosim)
+```
+
+```{r}
+community$diversity <- vegan::diversity(community_matrix)
+community$richness <- rowSums(community_matrix != 0)
+sites.diversity <- ggplot(community, aes(sites, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic()
+sites.richness <- ggplot(community, aes(sites, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic()
+years.diversity <- ggplot(community, aes(year, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic()
+years.richness <- ggplot(community, aes(year, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic()
+p <- plot_grid(sites.diversity, sites.richness, years.diversity, years.richness)
+
+```
+
+```{r}
+#behaviour.names <- c("dvm","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ohs","ohs-surface","ovm","ovm+ohs","passive","passive-surface")
+data.cca <- as.data.frame(community_matrix)
+#phase1.data.cca[is.na(phase1.data.cca)] <- 0
+#phase1.dist <- vegdist(phase1.data.cca,"bray")
+cap <- capscale(data.cca ~ sites + year, community, dist="bray", metaMDS=TRUE, sqrt.dist = TRUE)
+
+anova(cap)
+anova(cap, by = "margin")
+#anova(phase1.cap, by = "axis", perm.max=500)
+anova(cap, by = "terms", permu=200)
+
+cca <- as.tibble(fortify(cap)) 
+cca <- cca %>% filter(Score == "centroids")
+cca.years <- cca[-1:-19,]
+cca.years$year <- rev(c("2011","2010","2009","2008","2007","2006","2005","2004"))
+cca.sites <- cca[-20:-27,]
+cca.sites$sites <- c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans Bay","16 Merimbula","17 Eden","18 Lord Howe Is","19 EM Reefs")
+#mod <- varpart(phase1.community_matrix, ~ sites, ~ behaviour, data = phase1.community)
+
+cca.plot.year <- ggplot(cca.years, aes(CAP1, CAP2))  + theme_classic() + geom_text_repel(aes(label=year)) + geom_point()
+cca.plot.sites <- ggplot(cca.sites, aes(CAP1, CAP2))  + theme_classic() + geom_text_repel(aes(label=sites)) + geom_point()
+
+ggsave("../../figs/cap-years.png", cca.plot.year)
+ggsave("../../figs/cap-sites.png", cca.plot.sites)
+
+p <- plot_grid(cca.plot.sites,cca.plot.year, labels="AUTO", align="v", nrow=2)
+save_plot("../../figs/cap.png", p, base_aspect_ratio = 1.1, scale=2)
 
 ```
 
