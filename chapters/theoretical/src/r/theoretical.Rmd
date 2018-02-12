@@ -39,9 +39,7 @@ ovm <- tribble(
 ovm$stage <- factor(ovm$stage, levels=c("preflexion","flexion","postflexion"))
 ovm$depth <- factor(ovm$depth, levels=c("75","50","25","0"))
 p <- ggplot(ovm, aes(x=depth, y=probability, group=stage, colour=stage)) + geom_line() + geom_point() + theme_classic()  + labs(x="Depth (m)", y="Proportion") + coord_flip() + theme(legend.position = "right")
-ggplot2::ggsave("../../figs/ovm-example.png",p) 
-
-
+ggplot2::ggsave("../../figs/ovm-example.png",p)
 ```
 
 
