@@ -4,4 +4,5 @@ figPrefix: "Figure"
 eqnPrefix: "Equation"
 tblPrefix: "Table"
 chapters: True
-chaptersDepth: 4
+chaptersDepth: 1
+figureTemplate: '**$$figureTitle$$ $$i$$**$$titleDelim$$ $$t$$'
