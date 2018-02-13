@@ -9,6 +9,7 @@ require(maps)
 require(mapdata)
 require(rgdal)
 require(ggmap)
+require(OpenStreetMap)
 require(broom)
 require(multcompView)
 require(cowplot)
@@ -19,34 +20,56 @@ library(RColorBrewer)
 Study sites diagram
 ```{r}
 load("reefs.rda")
+sites <- filter(reefs.id, !is.na(LON_RELEASE)) %>% mutate(known=ifelse(REGION == 'NSW05' | REGION == 'NSW06' | REGION == 'NSW09' | REGION=='NSW18' | REGION=='NSW19', TRUE, FALSE)) #%>% mutate(mpa=ifelse(REGION=='NSW05))
+#sites <- add_column(sites, known=FALSE, mpa=FALSE)
+
 #australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), col="gray90", fill=TRUE)
 #coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
 legend.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "EM Reefs")
 
-centre <- geocode("Sydney, AU")
-coast <- get_map(c(lon=153, lat=-33), zoom = 6, maptype=c("hybrid"))
+map <- openmap(c(lat= -27, lon= 149), c(lat= -38, lon= 160), type="osm")
+mapLatLon <- openproj(map)
+g <- autoplot(mapLatLon)
+coul <- brewer.pal(9, "Set1")
+coul <- colorRampPalette(coul)(19)
+g <- g + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, color=factor(REGION), shape=known), size=2, data=sites) + theme(legend.position = "bottom", legend.text = element_text(size=10)) + labs(x="Longitude", y="Latitude") +
+scale_color_manual(labels = c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans","16 Merimbula","17 Eden","18 Lord Howe Is", "19 EM Reefs"), name=NULL, values = coul) + 
+scale_shape_manual(values=c(16, 1)) + guides(colour=guide_legend(ncol=4),shape="none")
+ggplot2::ggsave("../../figs/release-sites.png", g)
 
-sites <- filter(reefs.id, RELEASE)
-australia <- ggmap(coast)
+p1 <- ggdraw() + draw_image("../../figs/release-sites.png")
+p2 <- ggdraw() + draw_image("../../figs/NSW-marine-protected-area-map.pdf")
+maps.grid <- plot_grid(p1,p2,labels="AUTO")
 
-coul = brewer.pal(9, "Set1")
-coul = colorRampPalette(coul)(19)
-map <- australia + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, group=REGION, colour=REGION), size=1.5, data=sites) + theme(legend.position = "right", legend.text = element_text(size=10)) + labs(x="Longitude", y="Latitude") + scale_color_manual(labels = c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "EM Reefs"), name="Region", values = coul)  #+ guides(colour=guide_legend(ncol=2))
-
-map
-
-
-#eddies <- ggdraw() + draw_image("../../figs/nsw-eddies.gif", scale=0.9)
-#plot_grid(map,eddies, labels="AUTO")
-ggsave("../../figs/release-sites.png", map, width=7, height=5, units=c("in"))
 ```
 
 Trajectories
+
 ```{r}
-p1 <- ggdraw() + draw_image("../../figs/all-trajectories.png")
-p2 <- ggdraw() + draw_image("../../figs/known-trajectories.png")
-trajectories.grid <- plot_grid(p1,p2,labels="AUTO")
-save_plot("../../figs/trajectories-comp.png",trajectories.grid, nrow=1, ncol=2)
+map <- openmap(c(lat= -27, lon= 149), c(lat= -38, lon= 160), type="osm")
+mapLatLon <- openproj(map)
+g <- autoplot(mapLatLon)
+
+
+shapefile <- readOGR("../../data/model-output/2004/blackcod-nsw01", "blackcod-nsw01-dispersal")
+
+# Next the shapefile has to be converted to a dataframe for use in ggplot2
+shapefile_df <- fortify(shapefile)
+
+# Now the shapefile can be plotted as either a geom_path or a geom_polygon.
+# Paths handle clipping better. Polygons can be filled.
+# You need the aesthetics long, lat, and group.
+map <- ggplot() +
+geom_path(data = shapefile_df, 
+          aes(x = long, y = lat, group = group),
+          color = 'gray', fill = 'white', size = .2)
+```
+
+```{r}
+p1 <- ggdraw() + draw_image("../../figs/trajectories/coastline.png")
+p2 <- ggdraw() + draw_image("../../figs/trajectories/off-shore.png")
+trajectories.grid <- plot_grid(p1,p2,labels="AUTO", align="hv")
+save_plot("../../figs/trajectories-panel.png",trajectories.grid)
 ```
 
 Trajectories by year

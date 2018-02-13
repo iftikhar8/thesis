@@ -28,7 +28,7 @@ region.names <- c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 N
 ```{r}
 blackcod.2011.conn.regions <- blackcod.2011.conn.regions[,-20]
 blackcod.2011.sr <- selfRecruitment(blackcod.2011.conn.regions/eggs)
-blackcod.2011.lr <- localRetention(blackcod.2011.conn.regions)
+blackcod.2011.lr <- localRetention(blackcod.2011.conn.regions/eggs)
 blackcod.2011.rlr <- relativeLocalRetention(blackcod.2011.conn.regions)
 blackcod.2011.ss <- settlementSuccess(blackcod.2011.conn.regions/eggs)
 ```
@@ -107,7 +107,7 @@ blackcod.sr$year <- as.factor(blackcod.sr$year)
 blackcod.sr$regions <- factor(blackcod.sr$regions)
 blackcod.sr$desc <- factor(region.names, levels=rev(region.names[order(blackcod.sr$regions)]))
 blackcod.sr.plot <- ggplot(data=blackcod.sr, aes(x=desc,y=sr)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Source region", y="Self-recruitment")
-blackcod.sr.plot.year <- ggplot(data=blackcod.sr, aes(x=year,y=sr)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + theme_classic() + labs(x="", y="Self-recruitment")
+blackcod.sr.plot.year <- ggplot(data=blackcod.sr, aes(x=year,y=sr)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") +coord_flip() + theme_classic() + labs(x="Year", y="Self-recruitment")
 ggsave("../../figs/blackcod-region-sr.png", blackcod.sr.plot)
 ```
 
@@ -122,7 +122,7 @@ blackcod.ss$year <- as.factor(blackcod.ss$year)
 blackcod.ss$regions <- as.factor(blackcod.ss$regions)
 blackcod.ss$desc <- factor(region.names,levels=rev(region.names[order(blackcod.ss$regions)]))
 blackcod.ss.plot <- ggplot(data=blackcod.ss, aes(x=desc,y=ss)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + theme_classic() + coord_flip() + labs(x="Source region", y="Settlement success")
-blackcod.ss.plot.year <- ggplot(data=blackcod.ss, aes(x=year,y=ss)) +stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + theme_classic() + labs(x="Year", y="Settlement success")
+blackcod.ss.plot.year <- ggplot(data=blackcod.ss, aes(x=year,y=ss)) +stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Year", y="Settlement success")
 ggsave("../../figs/blackcod-region-ss.png",blackcod.ss.plot)
 ```
 
@@ -134,10 +134,11 @@ colnames(blackcod.lr) <- years
 blackcod.lr$regions <- colnames(blackcod.2008.conn.regions)
 blackcod.lr <- gather(blackcod.lr, year, lr, -regions)
 blackcod.lr$year <- as.factor(blackcod.lr$year)
+blackcod.lr$year <- factor(years,levels=rev(years[order(blackcod.lr$year)]))
 blackcod.lr$regions <- as.factor(blackcod.lr$regions)
 blackcod.lr$desc <- factor(region.names,levels=rev(region.names[order(blackcod.lr$regions)]))
 blackcod.lr.plot <- ggplot(data=blackcod.lr, aes(x=desc,y=lr)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + theme_classic() + coord_flip()+ labs(x="", y="Local retention") 
-blackcod.lr.plot.year <- ggplot(data=blackcod.lr, aes(x=year,y=lr)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") +  labs(x="", y="Local retention") + theme_classic()
+blackcod.lr.plot.year <- ggplot(data=blackcod.lr, aes(x=year,y=lr)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") +  labs(x="", y="Local retention") + coord_flip() + theme_classic()
 ggsave("../../figs/blackcod-regions-lr.png",blackcod.lr.plot)
 ```
 
@@ -167,7 +168,7 @@ blackcod.dk$year <- as.factor(blackcod.dk$year)
 blackcod.dk$regions <- as.factor(blackcod.dk$regions)
 blackcod.dk$desc <- factor(region.names, levels=rev(region.names[order(blackcod.dk$regions)]))
 blackcod.dk.plot <- ggplot(data=blackcod.dk, aes(x=desc,y=dk)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + theme_classic() + coord_flip() + labs(x="", y="Dispersal distance (km)")
-blackcod.dk.plot.year <- ggplot(data=blackcod.dk, aes(x=year,y=dk)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + theme_classic() + labs(x="Year", y="Dispersal distance (km)")
+blackcod.dk.plot.year <- ggplot(data=blackcod.dk, aes(x=year,y=dk)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="", y="Dispersal distance (km)")
 ggsave("../../figs/blackcod-regions-dk.png",blackcod.dk.plot)
 ```
 
@@ -215,7 +216,7 @@ blackcod.dk.snk.year$year <- rownames(blackcod.dk.snk.year)
 
 ```
 
-Graphs
+Graphs with SNK
 ```{r}
 
 blackcod.metrics.plot <- plot_grid(blackcod.sr.plot + geom_text(data = blackcod.sr.snk.region, aes(x = desc, y=1.05, label = groups)), 
@@ -223,7 +224,7 @@ blackcod.metrics.plot <- plot_grid(blackcod.sr.plot + geom_text(data = blackcod.
                                    blackcod.ss.plot + geom_text(data = blackcod.ss.snk.region, aes(x = desc, y=0.015, label = groups)), 
                                    blackcod.dk.plot + geom_text(data = blackcod.dk.snk.region, aes(x = desc, y=1525, label = groups)),
                                    labels = c("A", "B", "C", "D"), ncol = 2, nrow=2, align="hv")
-save_plot("../../figs/region-metrics.png", blackcod.metrics.plot,
+save_plot("../../figs/region-metrics-snk.png", blackcod.metrics.plot,
           ncol = 2, # we're saving a grid plot of 2 columns
           nrow = 2 # and 2 rows
           )
@@ -233,12 +234,32 @@ blackcod.metrics.plot.year <- plot_grid(blackcod.sr.plot.year + geom_text(data =
                                         blackcod.ss.plot.year+ geom_text(data = blackcod.ss.snk.year, aes(x = year, y=0.015, label = groups)), 
                                         blackcod.dk.plot.year, 
                                         labels = c("A", "B", "C", "D"), ncol = 2, nrow=2, align="hv")
-save_plot("../../figs/year-metrics.png", blackcod.metrics.plot.year,
+save_plot("../../figs/year-metrics-snk.png", blackcod.metrics.plot.year,
           ncol = 2, # we're saving a grid plot of 2 columns
           nrow = 2 # and 2 rows
           )
 ```
 
+```{r}
+
+blackcod.metrics.plot <- plot_grid(blackcod.sr.plot, 
+                                   blackcod.lr.plot, 
+                                   blackcod.ss.plot, 
+                                   blackcod.dk.plot,
+                                   labels = c("A", "B", "C", "D"), ncol = 2, nrow=2, align="hv")
+save_plot("../../figs/region-metrics.png", blackcod.metrics.plot,ncol = 2, nrow = 2)
+
+blackcod.metrics.plot.year <- plot_grid(blackcod.sr.plot.year, 
+                                        blackcod.lr.plot.year, 
+                                        blackcod.ss.plot.year, 
+                                        blackcod.dk.plot.year, 
+                                        labels = c("A", "B", "C", "D"), ncol = 2, nrow=2, align="hv")
+save_plot("../../figs/year-metrics.png", blackcod.metrics.plot.year,
+          ncol = 2, # we're saving a grid plot of 2 columns
+          nrow = 2 # and 2 rows
+          )
+
+```
 
 ```{r}
 sols.sr <- filter(blackcod.sr, regions=='NSW05')

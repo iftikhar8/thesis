@@ -211,12 +211,12 @@ community$yeardesc <- factor(years, levels=years[order(community$year)])
 
 sites.diversity <- ggplot(community, aes(sitedesc, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Source region",y="Settlement diversity")
 sites.richness <- ggplot(community, aes(sitedesc, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Source region",y="Settlement richness")
-years.diversity <- ggplot(community, aes(yeardesc, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Year", y="Settlement diversity")
-years.richness <- ggplot(community, aes(yeardesc, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Year", y="Settlement richness")
-p.sites <- plot_grid(sites.diversity, sites.richness, labels="AUTO", ncol=2,align ="hv")
-p.years <- plot_grid(years.diversity, years.richness, labels="AUTO", ncol=2,align ="hv")
-cowplot::ggsave("../../figs/diversity-regions.png",p.sites,b)
-ggsave("../../figs/diversity-years.png",p.years)
+years.diversity <- ggplot(community, aes(year, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Year", y="Settlement diversity")
+years.richness <- ggplot(community, aes(year, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot")  + coord_flip + theme_classic() + labs(x="Year", y="Settlement richness")
+p.sites <- plot_grid(sites.richness, sites.diversity,  labels="AUTO", ncol=2,align ="hv")
+p.years <- plot_grid(years.richness, years.diversity,  labels="AUTO", ncol=2,align ="hv")
+ggsave("../../figs/diversity-regions.png",p.sites, width = 8, height=3)
+ggsave("../../figs/diversity-years.png",p.years, width = 8, height=3)
 
 ```
 
