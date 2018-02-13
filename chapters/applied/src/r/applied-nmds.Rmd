@@ -77,22 +77,7 @@ plot <- autoplot(cap, legend.position = "none")
 ggsave("../../figs/cca-years.png", plot)
 ```
 
-CCA for years data
-```{r}
-years.data.matrix <- spread(years.data.mean, settle.region, value)
-years.matrix <- as.data.frame(years.data.mean[-1])
-colnames(years.matrix) <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs","Queensland","Victoria")
-rownames(years.matrix) <- rev(years)
-years.ca <- CA(years.matrix, graph=FALSE)
-summary(years.ca)
-fviz_screeplot(years.ca, addlabels=TRUE)
-years.biplot <- fviz_ca_biplot(years.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
-fviz_ca_row(years.ca, repel=TRUE)
-fviz_ca_col(years.ca, repel=TRUE)
-row <- get_ca_row(years.ca)
-row$contrib
-ggsave("../../figs/cca-years.png",years.biplot, width=7.5, height=5, units=c("in"))
-```
+
 
 ```{r}
 settlement.grid <- plot_grid(regions.mean.nmds.plot,year.nmds.plot, labels="AUTO", align ="h", ncol=2, nrow=1)
@@ -202,11 +187,36 @@ mod <- with(community, betadisper(vegdist(community_matrix,"bray"), year))
 ```{r}
 community$diversity <- vegan::diversity(community_matrix)
 community$richness <- rowSums(community_matrix != 0)
-sites.diversity <- ggplot(community, aes(sites, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic()
-sites.richness <- ggplot(community, aes(sites, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic()
-years.diversity <- ggplot(community, aes(year, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic()
-years.richness <- ggplot(community, aes(year, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic()
-p <- plot_grid(sites.diversity, sites.richness, years.diversity, years.richness)
+
+diversity.lm <- lm(diversity ~ year + sites, data=community)
+anova(diversity.lm)
+diversity.sites.snk <- SNK.test(aov(diversity.lm),"sites")$group
+diversity.sites.snk$site <- rownames(diversity.sites.snk)
+diversity.sites.snk <- diversity.sites.snk[order(diversity.sites.snk$site),]
+diversity.sites.snk$desc <- region.names.numbered
+diversity.years.snk <- SNK.test(aov(diversity.lm),"year")$group
+diversity.years.snk$year <- rownames(diversity.years.snk)
+
+richness.lm <- lm(richness ~ year + sites, data=community)
+anova(richness.lm)
+richness.sites.snk <- SNK.test(aov(richness.lm),"sites")$group
+richness.sites.snk$site <- rownames(richness.sites.snk)
+richness.sites.snk <- richness.sites.snk[order(richness.sites.snk$site),]
+richness.sites.snk$desc <- region.names.numbered
+richness.years.snk <- SNK.test(aov(richness.lm),"year")$group
+richness.years.snk$year <- rownames(richness.years.snk)
+
+community$sitedesc <- factor(region.names.numbered, levels=rev(region.names.numbered[order(community$sites)]))
+community$yeardesc <- factor(years, levels=years[order(community$year)])
+
+sites.diversity <- ggplot(community, aes(sitedesc, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Source region",y="Settlement diversity")
+sites.richness <- ggplot(community, aes(sitedesc, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Source region",y="Settlement richness")
+years.diversity <- ggplot(community, aes(yeardesc, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Year", y="Settlement diversity")
+years.richness <- ggplot(community, aes(yeardesc, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Year", y="Settlement richness")
+p.sites <- plot_grid(sites.diversity, sites.richness, labels="AUTO", ncol=2,align ="hv")
+p.years <- plot_grid(years.diversity, years.richness, labels="AUTO", ncol=2,align ="hv")
+cowplot::ggsave("../../figs/diversity-regions.png",p.sites,b)
+ggsave("../../figs/diversity-years.png",p.years)
 
 ```
 
