@@ -212,12 +212,11 @@ community$yeardesc <- factor(years, levels=years[order(community$year)])
 sites.diversity <- ggplot(community, aes(sitedesc, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Source region",y="Settlement diversity")
 sites.richness <- ggplot(community, aes(sitedesc, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Source region",y="Settlement richness")
 years.diversity <- ggplot(community, aes(year, diversity)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot") + coord_flip() + theme_classic() + labs(x="Year", y="Settlement diversity")
-years.richness <- ggplot(community, aes(year, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot")  + coord_flip + theme_classic() + labs(x="Year", y="Settlement richness")
+years.richness <- ggplot(community, aes(year, richness)) + stat_summary(fun.data = min.mean.sd.max, geom = "boxplot")  + coord_flip() + theme_classic() + labs(x="Year", y="Settlement richness")
 p.sites <- plot_grid(sites.richness, sites.diversity,  labels="AUTO", ncol=2,align ="hv")
 p.years <- plot_grid(years.richness, years.diversity,  labels="AUTO", ncol=2,align ="hv")
 ggsave("../../figs/diversity-regions.png",p.sites, width = 8, height=3)
 ggsave("../../figs/diversity-years.png",p.years, width = 8, height=3)
-
 ```
 
 ```{r}
@@ -234,13 +233,13 @@ anova(cap, by = "terms", permu=200)
 
 cca <- as.tibble(fortify(cap)) 
 cca <- cca %>% filter(Score == "centroids")
-cca.years <- cca[-1:-19,]
+cca.years <- cca[20:27,]
 cca.years$year <- rev(c("2011","2010","2009","2008","2007","2006","2005","2004"))
-cca.sites <- cca[-20:-27,]
+cca.sites <- cca[1:19,]
 cca.sites$sites <- c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans Bay","16 Merimbula","17 Eden","18 Lord Howe Is","19 EM Reefs")
 #mod <- varpart(phase1.community_matrix, ~ sites, ~ behaviour, data = phase1.community)
 
-cca.plot.year <- ggplot(cca.years, aes(CAP1, CAP2))  + theme_classic() + geom_text_repel(aes(label=year)) + geom_point()
+cca.plot.year <- ggplot(cca.years, aes(CAP1, CAP2))  + theme_classic() + geom_text_repel(aes(label=years)) + geom_point()
 cca.plot.sites <- ggplot(cca.sites, aes(CAP1, CAP2))  + theme_classic() + geom_text_repel(aes(label=sites)) + geom_point()
 
 ggsave("../../figs/cap-years.png", cca.plot.year)

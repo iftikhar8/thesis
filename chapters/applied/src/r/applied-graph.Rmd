@@ -8,6 +8,8 @@ Packages required
 library(igraph)
 library(NetIndices)
 library(ggdendro)
+library(tidyverse)
+library(cowplot)
 ```
 
 
@@ -15,12 +17,14 @@ Load the data
 ```{r,include=FALSE}
 load(file="blackcod.rda")
 load(file="reefs.rda")
+load(file="nmds.rda")
 ```
 
 Graph analysis for regions
 ```{r}
 
 region.names <- c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans Bay","16 Merimbula","17 Eden","18 Lord Howe Is","19 EM Reefs")
+region.names.known <- c("5 Solitary Is","6 Nambucca","9 Pt Stephens","18 Lord Howe Is","19 EM Reefs")
 
 X <- list(blackcod.2011.conn.regions[,-20],blackcod.2010.conn.regions[-20:-21],blackcod.2009.conn.regions[,-20:-21],blackcod.2008.conn.regions[,-20:-21],blackcod.2007.conn.regions[,-20:-21],blackcod.2006.conn.regions[,-20:-21],blackcod.2005.conn.regions[,-20:-21],blackcod.2004.conn.regions[,-20:-21])
 
@@ -42,17 +46,69 @@ plot(graph.simple, edge.arrow.size=0.2, edge.curved=0.1, edge.width=E(graph)$wei
 ```
 
 ```{r}
-regions.data.graph <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(source.region, settle.region) %>% summarise(weight = round(mean(value),0), cv = round((sd(value)/mean(value))*100,0)) %>% filter(settle.region != "VIC" & settle.region != "QLD")
+regions.data.graph <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(source.region, settle.region) %>% summarise(weight = round(mean(value),0), cv = round((sd(value)/mean(value))*100,0)) %>% filter(settle.region != "VIC" & settle.region != "QLD") %>% replace_na(list(weight = 0, cv= 0))
 
 blackcod.graph.directed <- graph_from_data_frame(regions.data.graph, directed=TRUE)
-regions.data.graph <- ungroup(regions.data.graph)
-mean(regions.data.graph$settlers)
-regions.data.graph <- group_by(regions.data.graph, source.region, settle.region) %>% spread(settle.region, settlers, fill=0) %>% ungroup() %>% as.data.frame()
-rownames(regions.data.graph) <- regions.data.graph$source.region
-regions.data.graph <- regions.data.graph[,-1]
-regions.data.graph <- regions.data.graph[,-20:-21]
-blackcod.graph.directed <- graph_from_adjacency_matrix(as.matrix(regions.data.graph), mode=c("directed"), weighted=TRUE)
-blackcod.graph.undirected <- graph_from_adjacency_matrix(as.matrix(regions.data.graph), mode=c("undirected"), weighted=TRUE)
+# regions.data.graph <- regions.data.graph %>% ungroup()
+# mean(regions.data.graph$weight)
+# regions.data.graph <- regions.data.graph %>% spread(settle.region, weight, fill=0) 
+# rownames(regions.data.graph) <- regions.data.graph$source.region
+# 
+# regions.data.graph <- regions.data.graph[,-1]
+# regions.data.graph <- regions.data.graph[,-20:-21]
+# blackcod.graph.directed <- graph_from_adjacency_matrix(as.matrix(regions.data.graph), mode=c("directed"), weighted=TRUE)
+# blackcod.graph.undirected <- graph_from_adjacency_matrix(as.matrix(regions.data.graph), mode=c("undirected"), weighted=TRUE)
+
+wc <- walktrap.community(blackcod.graph.directed)
+
+png(filename="../../figs/dendo-all-regions.png", width=800, height=800)
+plot_dendrogram(wc, mode="hclust", label=region.names, cex=1.5,palette=c("mediumpurple","tomato","turquoise1","limegreen"))
+dev.off()
+
+blackcod.graph.directed <- igraph::simplify(blackcod.graph.directed, remove.multiple = FALSE, remove.loops=TRUE)
+mean.cut.off <- mean(E(blackcod.graph.directed)$weight)
+cv.cut.off <- mean(E(blackcod.graph.directed)$cv[E(blackcod.graph.directed)$cv > 0])
+#graph.sp <- delete_edges(graph, E(graph)[weight < cut.off])
+
+png(filename="../../figs/network-all-regions.png", width=800, height=800)
+blackcod.graph.directed.minimal <- delete.edges(blackcod.graph.directed, E(blackcod.graph.directed)[cv > cv.cut.off])
+blackcod.graph.directed.minimal <- delete.edges(blackcod.graph.directed.minimal, E(blackcod.graph.directed.minimal)[weight < mean.cut.off])
+plot(wc,blackcod.graph.directed.minimal, edge.arrow.size=1, edge.curved=0.1, edge.width=E(blackcod.graph.directed.minimal)$weight/500, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=1.5, vertex.label=region.names, vertex.label.dist=2, vertex.size=5, layout=layout_in_circle)
+dev.off()
+
+p1 <- ggdraw() + draw_image("../../figs/dendo-all-regions.png")
+p2 <- ggdraw()+ draw_image("../../figs/network-all-regions.png")
+grid <- plot_grid(p1,p2, labels="AUTO", align="v", nrow=2, ncol=1)
+save_plot("../../figs/graph-all.png", grid, nrow=2, ncol=1, base_aspect_ratio = 1.1)
+```
+
+```{r}
+regions.data.graph.known <- regions.data.graph %>% filter(source.region == 'NSW05' | source.region == 'NSW06' | source.region == 'NSW09' | source.region == 'NSW18' | source.region == 'NSW19') %>% filter(settle.region == 'NSW05' | settle.region == 'NSW06' | settle.region == 'NSW09' | settle.region == 'NSW18' | settle.region == 'NSW19')
+
+
+
+blackcod.graph.directed.known <- graph_from_data_frame(regions.data.graph.known, directed=TRUE)
+wc.known <- walktrap.community(blackcod.graph.directed.known)
+png(filename="../../figs/dendo-known-regions.png", width=800, height=800)
+plot_dendrogram(wc.known, mode="hclust", label=region.names.known, cex=1.5, palette=c("mediumpurple","tomato"))
+dev.off()
+
+
+#graph.sp <- delete_edges(graph, E(graph)[weight < cut.off])
+blackcod.graph.directed.known <- igraph::simplify(blackcod.graph.directed.known, remove.multiple = FALSE, remove.loops=TRUE)
+mean.cut.off.known <- mean(E(blackcod.graph.directed.known)$weight)
+cv.cut.off.known <- mean(E(blackcod.graph.directed.known)$cv[E(blackcod.graph.directed.known)$cv > 0])
+blackcod.graph.directed.known.minimal <- igraph::delete.edges(blackcod.graph.directed.known, E(blackcod.graph.directed.known)[cv > cv.cut.off.known])
+blackcod.graph.directed.known.minimal <- delete.edges(blackcod.graph.directed.known.minimal, E(blackcod.graph.directed.known.minimal)[weight < mean.cut.off.known])
+png(filename="../../figs/network-known-regions.png", width=800, height=800)
+plot(wc.known,blackcod.graph.directed.known.minimal, edge.arrow.size=1, edge.curved=0.1, edge.width=E(blackcod.graph.directed.known.minimal)$weight/500, vertex.label.family="Helvetica", vertex.label = region.names.known, vertex.label.color="black", vertex.label.cex=1.5, vertex.label.dist=2, vertex.size=5, layout=layout_in_circle)
+dev.off()
+
+p1 <- ggdraw() + draw_image("../../figs/dendo-known-regions.png")
+p2 <- ggdraw()+ draw_image("../../figs/network-known-regions.png")
+grid <- plot_grid(p1,p2, labels="AUTO", align="v", nrow=2, ncol=1)
+save_plot("../../figs/graph-known.png", grid, nrow=2, ncol=1, base_aspect_ratio = 1.1)
+
 ```
 
 Hubs and Authorities
@@ -131,28 +187,6 @@ dendPlot(ceb, mode="hclust", label=region.names, color=c("purple","red","green",
 plot(ceb, blackcod.graph, vertex.size = as*50, edge.arrow.size=0.1, edge.curved=0.1, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=1.5,vertex.label=region.names)
 
 clp <- cluster_fast_greedy(as.undirected(blackcod.graph.undirected))
-wc <- walktrap.community(blackcod.graph.directed)
-
-png(filename="../../figs/dendo-all-regions.png")
-plot_dendrogram(wc, mode="hclust", label=region.names, cex=1.5,palette=c("mediumpurple","tomato","turquoise1","limegreen"))
-dev.off()
-ggdendrogram(wc, rotate = FALSE, size = 2)
-
-mean.cut.off <- mean(E(blackcod.graph.directed)$weight)
-cv.cut.off <- mean(E(blackcod.graph.directed)$cv)
-#graph.sp <- delete_edges(graph, E(graph)[weight < cut.off])
-png(filename="../../figs/network-all-regions.png")
-blackcod.graph.directed.minimal <- delete.edges(blackcod.graph.directed, E(blackcod.graph.directed)[cv > 50])
-blackcod.graph.directed.minimal <- delete.edges(blackcod.graph.directed.minimal, E(blackcod.graph.directed.minimal)[weight < mean.cut.off])
-blackcod.graph.directed.minimal <- simplify(blackcod.graph.directed.minimal)
-plot(wc,blackcod.graph.directed.minimal, edge.arrow.size=0.1, edge.curved=0.1, edge.width=E(blackcod.graph.directed.minimal)$weight/500, vertex.label.family="Helvetica", vertex.label.color="black", vertex.label.cex=1.5, vertex.label=region.names, vertex.label.dist=2, vertex.size=5, layout=layout_in_circle)
-dev.off()
-
-p1 <- ggdraw() + draw_image("../../figs/dendo-all-regions.png")
-p2 <- ggdraw()+ draw_image("../../figs/network-all-regions.png")
-grid <- plot_grid(p1,p2, labels="AUTO", align="h", nrow=1)
-save_plot("../../figs/graph.png", grid, nrow=1, ncol=2, base_aspect_ratio = 1.1)
-
 
 sg <- spinglass.community(graph)
 graph5 <- qgraph(cormatrix, graph="glasso", layout="spring", sampleSize = nrow(data),groups=group.spinglass, 
