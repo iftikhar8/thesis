@@ -239,7 +239,7 @@ cca.sites <- cca[1:19,]
 cca.sites$sites <- c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans Bay","16 Merimbula","17 Eden","18 Lord Howe Is","19 EM Reefs")
 #mod <- varpart(phase1.community_matrix, ~ sites, ~ behaviour, data = phase1.community)
 
-cca.plot.year <- ggplot(cca.years, aes(CAP1, CAP2))  + theme_classic() + geom_text_repel(aes(label=years)) + geom_point()
+cca.plot.year <- ggplot(cca.years, aes(CAP1, CAP2))  + theme_classic() + geom_text_repel(aes(label=year)) + geom_point()
 cca.plot.sites <- ggplot(cca.sites, aes(CAP1, CAP2))  + theme_classic() + geom_text_repel(aes(label=sites)) + geom_point()
 
 ggsave("../../figs/cap-years.png", cca.plot.year)

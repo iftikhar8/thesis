@@ -92,7 +92,12 @@ OVM strategy
 ovm.data <- read_csv("../../data/ovm.csv")
 ovm.data <- ovm.data %>% gather(key= stage, value=proportion, 3:5)
 ovm.data$stage <- factor(ovm.data$stage, levels=c("preflexion","flexion","postflexion"))
-ovm.plot <- ggplot(data= ovm.data, aes(x=depth, y=proportion, group=stage, colour=stage)) + geom_violin() + coord_flip() + theme_classic() + labs(x="Depth", y="Proportion") + scale_color_discrete(name="Ontogenetic stage") + theme(legend.position = "right")
+ovm.plot <- ggplot(data= ovm.data, aes(x=depth, fill=factor(stage))) + geom_violin() + theme_classic() + labs(x="Depth", y="Proportion") + scale_color_discrete(name="Ontogenetic stage") + theme(legend.position = "right") + facet_grid(. ~ stage)
+
+ggplot(mtcars, aes(x = mpg, fill = factor(cyl))) + 
+  geom_density(trim = TRUE) + 
+  coord_flip() +
+  facet_grid(. ~ cyl)
 save_plot("../../figs/ovm.png", ovm.plot)
 ```
 

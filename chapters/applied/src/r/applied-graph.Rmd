@@ -90,7 +90,7 @@ regions.data.graph.known <- regions.data.graph %>% filter(source.region == 'NSW0
 blackcod.graph.directed.known <- graph_from_data_frame(regions.data.graph.known, directed=TRUE)
 wc.known <- walktrap.community(blackcod.graph.directed.known)
 png(filename="../../figs/dendo-known-regions.png", width=800, height=800)
-plot_dendrogram(wc.known, mode="hclust", label=region.names.known, cex=1.5, palette=c("mediumpurple","tomato"))
+plot_dendrogram(wc.known, mode="hclust", label=region.names.known, cex=1.5, palette=c("turquoise1","tomato"))
 dev.off()
 
 
