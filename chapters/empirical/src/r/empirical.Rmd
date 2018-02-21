@@ -15,6 +15,7 @@ require(maps)
 require(mapdata)
 require(rgdal)
 require(ggmap)
+require(OpenStreetMap)
 require(broom)
 require(multcompView)
 require(cowplot)
@@ -58,9 +59,14 @@ australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), co
 #coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
 centre <- geocode("Sydney, AU")
 coast <- get_map(c(lon=154.25, lat=-30), zoom = 7, maptype=c("hybrid"))
+
+map <- openmap(c(lat= -26, lon= 150), c(lat= -34, lon= 156), type="osm")
+mapLatLon <- openproj(map)
+g <- autoplot(mapLatLon)
+
 sites <- dplyr::select(data.tow, site, feature, latitude, longitude) %>% distinct()
-australia <- ggmap(coast)
-map <- australia + geom_point(aes(x=longitude, y=latitude, group=site, colour=feature, shape=feature), size=2, data=sites) + theme(legend.position = "top")
+#australia <- ggmap(coast)
+map <- g + geom_point(aes(x=longitude, y=latitude, group=site, colour=feature, shape=feature), size=2, data=sites) + theme(legend.position = "top")
 eddies <- ggdraw() + draw_image("../../figs/nsw-eddies.gif", scale=0.9)
 plot_grid(map,eddies, labels="AUTO")
 ggsave("../../figs/stations.png")
@@ -86,6 +92,13 @@ summarize(group_by(data.measure), count=n())
 summarize(group_by(data.measure,family,feature), count=n())
 summary(data.measure$stage) 
 summary(data.measure$feature) 
+```
+
+```{r}
+length.check <- summarise(group_by(data.measure, family, stage, preservation_method), length.p = mean(standard_length)) %>% filter(stage=="POS")
+length.check.post <- filter(data.measure, stage=="POS" & family=="scaridae")
+length.check.lm <- lm(standard_length ~ preservation_method , data=length.check.post)
+summary(length.check.lm)
 ```
 
 

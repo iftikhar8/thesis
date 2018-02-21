@@ -137,36 +137,38 @@ ggsave("../../figs/depth-stage-feature.png")
 
 ```{r}
 data.length$depth.r <- factor(data.length$depth, levels=c("75","25","0"))
+data.length$family.label <- factor(data.length$family,labels=c("Labridae*","Mullidae*","Pomacentridae*","Scaridae*","Scorpaenidae*","Serranidae*","Synodontidae"))
 dat_text <- data.frame(
-  family = c("labridae","mullidae","pomacentridae","scorpaenidae","serranidae"),
-  x = c(3.15, 3.15, 3.15, 3.15, 3.15),
-  y = c(12,12,12,12,12)
+  family = c("labridae","mullidae","pomacentridae","scaridae","scorpaenidae","serranidae"),
+  x = c(3.15, 3.15, 3.15, 3.15, 3.15, 3.15),
+  y = c(6.10,10,4.3,6.4,5.7,4.6)
 )
 
-p <- ggplot(aes(y=standard_length, x=depth.r, group=1), data=data.length)+stat_summary_bin(fun.y="mean", geom="point") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) +stat_summary(fun.y="mean", geom="line")+ facet_wrap(~family,ncol=4) + theme_bw() + coord_flip() +labs(x="Depth (m)", y=expression("Length (mm)"))
-p <- p + geom_text(
-  data    = dat_text,
-  mapping = aes(x = x, y = y, label = "*"),
-  size = 8
-)
-ggsave("../../figs/length-depth-family.png", plot=p, width=7.29, height=4.51, units=c("in"))
+p <- ggplot(aes(y=standard_length, x=depth.r, group=1), data=data.length)+stat_summary_bin(fun.y="mean", geom="point") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) +stat_summary(fun.y="mean", geom="line")+ facet_wrap(~family.label,ncol=4, scales = "free") + coord_flip() +labs(x="Depth (m)", y=expression("Length (mm)"))
+# p <- p + geom_text(
+#   data    = dat_text,
+#   mapping = aes(x = x, y = y, label = "*"),
+#   size = 8
+# )
+cowplot::ggsave("../../figs/length-depth-family.png", plot=p, width=7.29, height=4.51, units=c("in"))
 ```
 
 ```{r}
 data.length$depth.r <- factor(data.length$depth, levels=c("75","25","0"))
+data.length$family.label <- factor(data.length$family,labels=c("Labridae*","Mullidae*","Pomacentridae*","Scaridae","Scorpaenidae*","Serranidae*","Synodontidae*"))
 dat_text <- data.frame(
   family = c("labridae","mullidae","pomacentridae","scorpaenidae","serranidae","synodontidae"),
   x = c(2.15, 2.15, 2.15, 2.15, 2.15, 2.15),
   y = c(12,12,12,12,12,12)
 )
-p<- ggplot(aes(y=standard_length, x=feature), data=data.length) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family, ncol=4) + theme_bw() + labs(x="Feature", y=expression("Length (mm)"))
-p <- p + geom_text(
-  data    = dat_text,
-  mapping = aes(x = x, y = y, label = "*"),
-  size = 8,
-  show.legend = FALSE
-)
-ggsave("../../figs/length-family-feature.png", plot=p, width=6.46, height=3.93, units=c("in"))
+p<- ggplot(aes(y=standard_length, x=feature, fill=feature), data=data.length) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family.label, ncol=4) + labs(x="", y=expression("Length (mm)")) + scale_fill_viridis(name="Feature",discrete=TRUE) +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
+# p <- p + geom_text(
+#   data    = dat_text,
+#   mapping = aes(x = x, y = y, label = "*"),
+#   size = 8,
+#   show.legend = FALSE
+# )
+cowplot::ggsave("../../figs/length-family-feature.png", plot=p, width=6.46, height=3.93, units=c("in"))
 ```
 
 
@@ -181,21 +183,42 @@ Abundance and feature
 ```{r}
 #data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
 data.ontogeny <- mutate(data.ontogeny, conc.t = conc*1000)
+data.ontogeny$family.label <- factor(data.ontogeny$family,labels=c("Labridae*","Mullidae*","Pomacentridae","Scaridae*","Scorpaenidae","Serranidae","Synodontidae"))
 dat_text <- data.frame(
   family = c("labridae","mullidae","pomacentridae","scaridae","scorpaenidae","serranidae","synodontidae"),
   x = c(2.25, 2.25, 2.25, 2.25, 2.25, 2.25,2.25),
   y = c(0.0105,0.0105,0.0105,0.0105,0.0105,0.0105,0.0105)
 )
-p <- ggplot(aes(y=conc, x=feature), data=data.ontogeny) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family, ncol=4) + theme_bw() + labs(x="Feature", y=expression("Concentration (mm)"))
-p <- p + geom_text(
-  data    = dat_text,
-  mapping = aes(x = x, y = y, label = "*"),
-  size = 8,
-  show.legend = FALSE
-)
-ggsave("../../figs/feature-abundance.png", plot=p, width=6.46, height=3.93, units=c("in"))
+p<- ggplot(aes(y=conc.t, x=feature, fill=feature), data=data.ontogeny) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family.label, ncol=4, scales = "free") + labs(x="", y=expression("Concentration per 1000"~m^{3})) + scale_fill_viridis(name="Feature",discrete=TRUE) +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
+cowplot::ggsave("../../figs/feature-abundance.png", plot=p, width=7, height=4, units=c("in"))
 ```
 
+```{r}
+
+data.ontogeny$family.label <- factor(data.ontogeny$family, labels=c("Labridae*","Mullidae*","Pomacentridae","Scaridae","Scorpaenidae*","Serranidae*","Synodontidae*"))
+
+data.ontogeny$stage.label <- factor(data.ontogeny$stage, labels=c("Preflexion","Flexion","Postflexion"))
+
+data.ontogeny.weighted.total <- data.ontogeny %>% filter(conc != 'NA') %>% mutate(depth.w = if_else(depth==0,5,if_else(depth==25,28,75.5))) %>% group_by(family.label, stage.label, depth.w) %>% summarise(count= sum(count),conc.sum = sum(conc)) %>% mutate(prop = count / (sum(count)+0.000001)) %>% mutate(depth.z = depth.w*prop) %>% group_by(family.label, stage.label) %>% summarise(depth.weighted = sum(depth.z))
+
+plot <- ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=family.label),data=data.ontogeny.weighted.total)  + scale_y_reverse() + geom_line(size=1.5, alpha=0.75) + scale_colour_brewer(name="Family", palette = "Set2") + labs(x="Stage",y="Depth (m)") 
+#+ geom_ribbon(aes(ymin=depth.weighted-depth.sd, ymax=depth.weighted+depth.sd, fill=family.label), alpha=0.05)
+ggsave("../../figs/weighted-depth.png", plot, width=6, height=3)
+
+data.ontogeny.weighted.station <- data.ontogeny %>% filter(conc != 'NA') %>% mutate(depth.w = if_else(depth==0,5,if_else(depth==25,28,75.5))) %>% group_by(site, family, stage, depth.w) %>% summarise(count= sum(count),conc.sum = sum(conc)) %>% mutate(prop = count / (sum(count)+0.000001)) %>% mutate(depth.z = depth.w*prop) %>% group_by(site, family, stage) %>% summarise(depth.weighted = sum(depth.z))
+data.ontogeny.weighted.station$depth.scale <- data.ontogeny.weighted.station$depth.weighted
+
+
+data.ontogeny.prop <- data.ontogeny %>% filter(conc != 'NA') %>% group_by(family.label, stage.label, depth) %>% summarise(count= sum(count),conc.sum = sum(conc)) %>% mutate(prop = count / (sum(count)+0.000001))
+
+data.ontogeny.prop$depth.scale <- as.numeric(data.ontogeny.prop$depth)
+data.ontogeny.prop <- data.ontogeny.prop %>% mutate(depth.scale = if_else(depth.scale==1,2.5,if_else(depth.scale==2,28,75.5)))
+
+plot <- ggplot(aes(x=stage.label,y=depth.scale, weight=prop, fill=stage.label), data=data.ontogeny.prop)  + scale_y_reverse(limits=c(100,0)) + geom_violin(adjust = .85, trim=FALSE) + facet_wrap(~ family.label, ncol=4) +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) + labs(y="Depth (m)", x="")  + scale_fill_viridis(name="Stage", discrete = TRUE)
+ggsave("../../figs/stages-by-family.png", plot, width=8, height=6)
+
+
+```
 
 ```{r}
 ggplot(aes(y=conc.m, x=temperature), data=data.ontogeny)+ geom_point()+theme_bw() +labs(x="Temperature (C)", y=expression("Concentration 1000m  "~m^{3})) + facet_wrap(~family, scales="free",ncol=4) + geom_smooth(data=filter(data.ontogeny, family == "labridae" | family == 'scaridae' | family == 'scorpaenidae' | family=="synodontidae"), inherit.aes = FALSE, aes(y=count, x=temperature), method=MASS::glm.nb)
@@ -251,7 +274,7 @@ testZeroInflation(model.ontogeny.labrid.resids)
 
 ### Post-hoc
 ```{r}
-Anova(model.ontogeny.labrid.nb, type="II", test="Wald")
+Anova(model.ontogeny.labrid.nb, type="III", test="Wald")
 
 data.ontogeny.labrid.posthoc.ovm.stage <- lsmeans::lsmeans(model.ontogeny.labrid.nb, pairwise ~ depth|stage, adjust="Tukey", type="response")
 data.ontogeny.labrid.posthoc.ovm.stage
@@ -322,7 +345,7 @@ gof <- 1 - pchisq(summary(model.ontogeny.mullid.nb)$deviance, summary(model.onto
 
 ### Post-hoc
 ```{r}
-Anova(model.ontogeny.mullid.nb, type="II", test="Wald")
+Anova(model.ontogeny.mullid.nb, type="III", test="Wald")
 
 data.ontogeny.mullid.posthoc.ovm <- lsmeans::lsmeans(model.ontogeny.mullid.nb, pairwise ~ depth|stage, adjust="Tukey", type="response")
 data.ontogeny.mullid.posthoc.ovm
@@ -410,7 +433,7 @@ summary(data.ontogeny.pom.lsmfeature)
 ```
 
 ```{r}
-Anova(model.ontogeny.pomacentrid.nb, type="II", test="Wald")
+Anova(model.ontogeny.pomacentrid.nb, type="III", test="Wald")
 
 data.ontogeny.pomacentrid.posthoc.depth <- lsmeans::lsmeans(model.ontogeny.pomacentrid.nb, pairwise ~ depth, adjust="Tukey", type="response")
 data.ontogeny.pomacentrid.posthoc.depth
@@ -461,7 +484,7 @@ data.scarid.length <- filter(data.length, family=="scaridae")
 data.scarid.ontogeny$stage.prefle <- data.scarid.ontogeny$stage %>% fct_collapse(POSFLE = c("PRE","FLE"))
 #data.scarid.ontogeny$stage.prefle <- factor(data.pomacentrid.ontogeny$stage.posfle, levels = c("PREFLE", "POS"))
 
-summary(model.ontogeny.scarid.nb <- glm.nb(count ~ offset(log(volume)) + feature + depth+ stage + scale(temperature) + scale(dissolved_oxygen)*depth +scale(salinity)*depth, data=data.scarid.ontogeny))
+summary(model.ontogeny.scarid.nb <- glm.nb(count ~ offset(log(volume)) + feature + depth+ stage + scale(temperature) + scale(dissolved_oxygen) +scale(salinity), data=data.scarid.ontogeny))
 
 model.ontogeny.scarid.resids <- simulateResiduals(model.ontogeny.scarid.nb)
 testOverdispersion(model.ontogeny.scarid.resids)
@@ -469,7 +492,7 @@ testZeroInflation(model.ontogeny.scarid.resids)
 ```
 
 ```{r}
-Anova(model.ontogeny.scarid.nb, type="II", test="Wald")
+Anova(model.ontogeny.scarid.nb, type="III", test="Wald")
 
 data.ontogeny.scarid.posthoc.stage <- lsmeans::lsmeans(model.ontogeny.scarid.nb, pairwise ~ stage, adjust="Tukey", type="response")
 data.ontogeny.scarid.posthoc.stage
@@ -489,8 +512,9 @@ lsmip(model.ontogeny.scarid.nb, ~ depth, type="response")
 ## Length
 ```{r}
 hist(data.scarid.length$standard_length)
-summary(model.length.scarid.gamma <- glm(standard_length ~ depth + temperature + salinity, family = Gamma, data=data.scarid.length))
+summary(model.length.scarid.gamma <- glm(standard_length ~ depth + temperature + salinity, family=Gamma, data=data.scarid.length))
 plot(model.length.scarid.gamma)
+
 ```
 
 ## Length post-hoc analysis
@@ -535,7 +559,7 @@ testZeroInflation(model.ontogeny.scorpaenid.resids)
 
 ### Post-hoc
 ```{r}
-Anova(model.ontogeny.scorpaenid.nb, type="II", test="Wald")
+Anova(model.ontogeny.scorpaenid.nb, type="III", test="Wald")
 
 data.ontogeny.scorpaenid.posthoc.ovm <- lsmeans::lsmeans(model.ontogeny.scorpaenid.nb, pairwise ~ depth|stage, adjust="Tukey", type="response")
 data.ontogeny.scorpaenid.posthoc.ovm
@@ -570,7 +594,7 @@ plot(model.length.scorpaenid.gamma)
 
 ## Length post-hoc analysis
 ```{r}
-Anova(model.length.scorpaenid.gamma, type="II", test="Wald")
+Anova(model.length.scorpaenid.gamma, type="III", test="Wald")
 
 model.length.scorpaenid.posthoc <- lsmeans(model.length.scorpaenid.gamma, pairwise ~ depth, adjust="Tukey", type="response")
 
@@ -602,9 +626,10 @@ testZeroInflation(model.ontogeny.serranid.resids)
 ```
 
 ```{r}
-Anova(model.ontogeny.serranid.nb, type="II", test="Wald")
+Anova(model.ontogeny.serranid.nb, type="III", test="Wald")
 
 data.ontogeny.serranid.posthoc.ovm <- lsmeans::lsmeans(model.ontogeny.serranid.nb, pairwise ~ depth|stage, adjust="Tukey", type="response")
+
 data.ontogeny.serranid.posthoc.ovm
 cld(data.ontogeny.serranid.posthoc.ovm, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
 
@@ -655,7 +680,7 @@ testZeroInflation(model.ontogeny.synodontid.resids)
 ```
 
 ```{r}
-Anova(model.ontogeny.synodontid.nb, type="II", test="Wald")
+Anova(model.ontogeny.synodontid.nb, type="III")
 
 data.ontogeny.synodontid.posthoc.ovm <- lsmeans::lsmeans(model.ontogeny.synodontid.nb, pairwise ~ depth|stage, adjust="Tukey", type="response")
 data.ontogeny.synodontid.posthoc.ovm
@@ -688,7 +713,7 @@ lsmip(model.ontogeny.synodontid.nb, depth ~ feature, type="response")
 ## Length
 ```{r}
 #summary(model.length.synodontid.gauss <- glm(total_length ~ feature*depth + temperature + salinity + dissolved_oxygen, family = gaussian(link="log"), data=data.synodontid.length))
-summary(model.length.synodontid.gamma <- glm(standard_length ~ feature + depth + dissolved_oxygen, family = Gamma(link="log"), data=data.synodontid.length), type="response")
+summary(model.length.synodontid.gamma <- glm(standard_length ~ feature + depth + dissolved_oxygen, family = Gamma, data=data.synodontid.length), type="response")
 ```
 ## Length post-hoc analysis
 ```{r}
