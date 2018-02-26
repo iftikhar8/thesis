@@ -42,7 +42,7 @@ regions.community_matrix <- get_community_matrix(regions.data,FALSE)[,-18]
 
 Labels for the data
 ```{r}
-model <- c("passive-surface","passive","dvm","ovm","ohs-surface","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
+model <- c("passive","passive-va","dvm","ovm","ohs","ohs-va","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
 scenarios <- c("behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-method","ovm-method","ovm-method")
 regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden")
 theoretical <- data.frame(model,scenarios)
@@ -54,10 +54,10 @@ theoretical <- data.frame(model,scenarios)
 ```{r}
 data <- as_tibble(passive.surface.conn.regions)
 data$sites <- regions
-data$behaviour <- rep(c("passive-surface"))
+data$behaviour <- rep(c("passive"))
 data.passive <- as_tibble(passive.conn.regions)
 data.passive$sites <- regions
-data.passive$behaviour <- rep(c("passive"))
+data.passive$behaviour <- rep(c("passive-va"))
 data.diel <- as_tibble(diel.conn.regions)
 data.diel$sites <- regions
 data.diel$behaviour <- rep(c("dvm"))
@@ -66,10 +66,10 @@ data.ovm$sites <- regions
 data.ovm$behaviour <- rep(c("ovm"))
 data.orientate.surface <- as_tibble(orientate.surface.conn.regions)
 data.orientate.surface$sites <- regions
-data.orientate.surface$behaviour <- rep(c("ohs-surface"))
+data.orientate.surface$behaviour <- rep(c("ohs"))
 data.orientate <- as_tibble(orientate.conn.regions)
 data.orientate$sites <- regions
-data.orientate$behaviour <- rep(c("ohs"))
+data.orientate$behaviour <- rep(c("ohs-va"))
 data.ovm.orientate <- as_tibble(ovm.orientate.conn.regions)
 data.ovm.orientate$sites <- regions
 data.ovm.orientate$behaviour <- rep(c("ovm+ohs"))
@@ -102,7 +102,7 @@ MDS_xy <- data.frame(phase1.nmds$points)
 MDS_xy$behaviour <- phase1.community$behaviour
 MDS_xy$sites <- factor(phase1.community$sites, levels=regions)
 MDS_xy$codes <- rep(c(1:17),10)
-phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour, group=sites,fill=behaviour))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white") + scale_fill_manual(name="Behaviour", values = coul)
+phase1.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=behaviour, group=sites,fill=behaviour))  + theme_classic() + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white", size=3) + scale_fill_manual(name="Behaviour", values = coul)
 cowplot::ggsave("../../figs/phase1-nmds.png",phase1.nmds.plot, scale=1.2)
 ```
 
@@ -137,10 +137,10 @@ NNDS normalised
 
 data.norm <- as_tibble((passive.surface.conn.regions+1)/(passive.surface.conn.regions+1))
 data.norm$sites <- regions
-data.norm$behaviour <- rep(c("passive-surface"))
+data.norm$behaviour <- rep(c("passive"))
 data.norm.passive <- as_tibble((passive.conn.regions+1)/(passive.surface.conn.regions[,-18]+1))
 data.norm.passive$sites <- regions
-data.norm.passive$behaviour <- rep(c("passive"))
+data.norm.passive$behaviour <- rep(c("passive-va"))
 data.norm.diel <- as_tibble((diel.conn.regions+1)/(passive.surface.conn.regions[,-18]+1))
 data.norm.diel$sites <- regions
 data.norm.diel$behaviour <- rep(c("dvm"))
@@ -149,10 +149,10 @@ data.norm.ovm$sites <- regions
 data.norm.ovm$behaviour <- rep(c("ovm"))
 data.norm.orientate.surface <- as_tibble((orientate.surface.conn.regions+1)/(passive.surface.conn.regions[,-18] +1))
 data.norm.orientate.surface$sites <- regions
-data.norm.orientate.surface$behaviour <- rep(c("ohs-surface"))
+data.norm.orientate.surface$behaviour <- rep(c("ohs"))
 data.norm.orientate <- as_tibble((orientate.conn.regions+1)/(passive.surface.conn.regions[,-18] +1))
 data.norm.orientate$sites <- regions
-data.norm.orientate$behaviour <- rep(c("ohs"))
+data.norm.orientate$behaviour <- rep(c("ohs-va"))
 data.norm.ovm.orientate <- as_tibble((ovm.orientate.conn.regions+1)/(passive.surface.conn.regions[,-18]+1))
 data.norm.ovm.orientate$sites <- regions
 data.norm.ovm.orientate$behaviour <- rep(c("ovm+ohs"))
@@ -182,14 +182,14 @@ phase1.points.norm <- data.frame(phase1.nmds.norm$points)
 phase1.points.norm$behaviour <- phase1.community.norm$behaviour
 phase1.points.norm$sites <- factor(phase1.community.norm$sites, levels=regions)
 phase1.points.norm$codes <- rep(c(1:17),10)
-phase1.nmds.plot.norm <- ggplot(phase1.points.norm, aes(MDS1, MDS2, colour=behaviour, group=sites,fill=behaviour))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white") + scale_fill_manual(name="Behaviour", values = coul)
+phase1.nmds.plot.norm <- ggplot(phase1.points.norm, aes(MDS1, MDS2, colour=behaviour, group=sites,fill=behaviour))  + theme_classic() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white", size=3) + scale_fill_manual(name="Behaviour", values = coul)
 #+ geom_point()
 #+ stat_ellipse() #scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,19,17,18,11,14)) 
 #+geom_polygon(aes(fill=sites))
 ggsave("../../figs/phase1-nmds-normal.png",phase1.nmds.plot.norm, scale=1.2)
 #save_plot("../../figs/phase1-all-nmds.png",phase1.nmds.plot,base_aspect_ratio = 3.2)
 
-phase1.adonis.norm <- adonis(phase1.community.norm_matrix ~ sites + behaviour, phase1.community.norm, perm=200)
+phase1.adonis.norm <- adonis(phase1.community.norm_matrix[-1:-17,] ~ sites + behaviour, phase1.community.norm[-1:-17,], perm=200)
 phase1.adonis.norm
 ```
 
