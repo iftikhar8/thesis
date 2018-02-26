@@ -36,9 +36,9 @@ ovm <- tribble(
   "postflexion", 75, 30
 )
 
-ovm$stage <- factor(ovm$stage, levels=c("preflexion","flexion","postflexion"))
-ovm$depth <- factor(ovm$depth, levels=c("75","50","25","0"))
-p <- ggplot(ovm, aes(x=depth, y=probability, group=stage, colour=stage)) + geom_line() + geom_point() + theme_classic()  + labs(x="Depth (m)", y="Proportion") + coord_flip() + theme(legend.position = "right")
+ovm$stage <- factor(ovm$stage, levels=c("preflexion","flexion","postflexion"), labels=c("Preflexion","Flexion","Postflexion"))
+#ovm$depth <- factor(ovm$depth, levels=c("75","50","25","0"))
+p <- ggplot(ovm, aes(x=stage, y=depth, weight=probability, fill=stage)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_classic()  + labs(y="Depth (m)", x="Ontogenetic stage") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_brewer(palette = "Paired")
 ggplot2::ggsave("../../figs/ovm-example.png",p)
 ```
 
@@ -72,9 +72,9 @@ OVM proportions diagram
 
 ```{r}
 ovm.data <- read_csv("../../data/ovm.csv")
-ovm.data <- ovm.data %>% gather(key= stage, value=proportion, 3:5)
+ovm.data <- ovm.data %>% gather(key= stage, value=proportion, 4:6)
 ovm.data$stage <- factor(ovm.data$stage, levels=c("preflexion","flexion","postflexion"))
-ovm.plot <- ggplot(data= ovm.data, aes(x=depth, y=proportion, group=stage, colour=stage)) + geom_line() + geom_point() + facet_wrap(~fish, ncol=2, shrink = TRUE) + coord_flip() + theme_bw() + labs(x="Depth", y="Proportion") + scale_color_discrete(name="Ontogenetic stage") + theme(legend.position = "right")
+ovm.plot <- ggplot(data= ovm.data, aes(x=stage, y=depth, weight=proportion, fill=stage)) + labs(y="Depth (m)", x="Ontogenetic stage") + facet_wrap(~fish, ncol=2, shrink = TRUE) + theme_classic() + scale_fill_brewer(palette="Paired", name="Ontogenetic stage") + theme(legend.position = "right") +scale_y_reverse(limits=c(100,0)) + geom_violin(adjust = .85, trim=FALSE) 
 ggsave("../../figs/ovm-strategies.png", ovm.plot)
 
 
