@@ -17,6 +17,7 @@ library(cowplot)
 library(FactoMineR)
 library(factoextra)
 library(RColorBrewer)
+library(wesanderson)
 source("theoretical-functions.R")
 ```
 
@@ -175,14 +176,15 @@ phase1.community.norm_matrix[is.na(phase1.community.norm_matrix)] <- 0
 
 phase1.nmds.norm <- metaMDS(phase1.community.norm_matrix,distance="bray", k=2, trymax=200)
 #plot(nmds)
-coul = brewer.pal(10, "Paired") 
+coul = brewer.pal(10,"Paired") 
+
 #coul = colorRampPalette(coul)(10)
 
 phase1.points.norm <- data.frame(phase1.nmds.norm$points)
 phase1.points.norm$behaviour <- factor(phase1.community.norm$behaviour, levels=c("passive","passive+va","dvm","ovm","ohs","ohs+va","dvm+ovm","dvm+ohs","ovm+ohs","dvm+ovm+ohs"))
 phase1.points.norm$sites <- factor(phase1.community.norm$sites, levels=regions)
 phase1.points.norm$codes <- rep(c(1:17),10)
-phase1.nmds.plot.norm <- ggplot(phase1.points.norm, aes(MDS1, MDS2, colour=behaviour, group=sites,fill=behaviour))  + theme_classic() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white", size=3) + scale_fill_manual(name="Behaviour", values = coul)
+phase1.nmds.plot.norm <- ggplot(phase1.points.norm, aes(MDS1, MDS2, colour=behaviour, group=sites,fill=behaviour))  + theme_classic() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white", size=3) + scale_fill_manual(name="Behaviour", values = coul) 
 #+ geom_point()
 #+ stat_ellipse() #scale_shape_manual(name="Behaviour",values=c(3,4,7,8,15,19,17,18,11,14)) 
 #+geom_polygon(aes(fill=sites))
@@ -197,7 +199,7 @@ phase1.adonis.norm
 
 CAP Phase1
 ```{r}
-behaviour.names <- c("dvm","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ohs","ohs-surface","ovm","ovm+ohs","passive","passive-surface")
+behaviour.names <- c("dvm","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ohs","ohs+va","ovm","ovm+ohs","passive","passive+va")
 phase1.data.cca <- as.data.frame(phase1.community_matrix)
 #phase1.data.cca[is.na(phase1.data.cca)] <- 0
 #phase1.dist <- vegdist(phase1.data.cca,"bray")
@@ -215,7 +217,7 @@ phase1.cca$behaviour <- behaviour.names
 
 #mod <- varpart(phase1.community_matrix, ~ sites, ~ behaviour, data = phase1.community)
 
-phase1.cca.plot <- ggplot(phase1.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=behaviour)) + geom_point()
+phase1.cca.plot <- ggplot(phase1.cca, aes(CAP1, CAP2)) + theme_classic() + geom_label_repel(aes(label=behaviour), size=3) + geom_point() + labs(x="CAP1 (25.7% explained)",y="CAP2 (10.4% explained)")
 
 ggsave("../../figs/phase1-cap.png", phase1.cca.plot)
 ```
@@ -225,7 +227,7 @@ ggsave("../../figs/phase1-cap.png", phase1.cca.plot)
 
 Phase 1 - Total settlement CCA
 ```{r}
-models <- c("passive","passive-surface","dvm","ovm","ohs","ohs-surface","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
+models <- c("passive+va","passive","dvm","ovm","ohs+va","ohs","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs")
 rownames(phase1.regions.community_matrix) <- models
 colnames(phase1.regions.community_matrix) <- c(1:19)
 phase1.ca.data <- phase1.regions.community_matrix[,-18:-19]
@@ -233,8 +235,8 @@ phase1.ca <- CA(phase1.ca.data, graph=FALSE)
 summary(phase1.ca)
 fviz_screeplot(phase1.ca, addlabels=TRUE)
 phase1.biplot <- fviz_ca_biplot(phase1.ca, map="colgreen", arrow=c(FALSE,TRUE), repel=TRUE, title = "") + theme_classic()
-fviz_ca_row(all.ca, repel=TRUE)
-fviz_ca_col(all.ca, repel=TRUE)
+fviz_ca_row(phase1.ca, repel=TRUE)
+fviz_ca_col(phase1.ca, repel=TRUE)
 row <- get_ca_row(phase1.ca)
 row$contrib
 cowplot::ggsave("../../figs/phase1-cca.png", phase1.biplot)
@@ -283,12 +285,13 @@ phase2.nmds <- metaMDS(phase2.community_matrix,distance="bray", k=2, trymax=200)
 #plot(nmds)
 
 coul = brewer.pal(7, "Paired") 
+pal = wes_palette("Zissou",7,type="continuous")
 
 MDS_xy <- data.frame(phase2.nmds$points)
 MDS_xy$fish <- phase2.community$fish
 MDS_xy$sites <- factor(phase2.community$sites, levels=reefs)
 MDS_xy$codes <- rep(c(1:17),7)
-phase2.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=fish, group=sites,fill=fish))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white") + scale_fill_manual(name="OVM strategy", values = coul)
+phase2.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=fish, group=sites,fill=fish))  + theme_classic() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white") + scale_fill_manual(name="OVM strategy", values = coul)
 #+geom_polygon(aes(fill=sites))
 ggsave("../../figs/phase2-nmds.png",phase2.nmds.plot, scale=1.2)
 
@@ -383,7 +386,7 @@ phase2.cca <- phase2.cca[-1:-17,]
 phase2.cca$fish <- fish
 
 
-phase2.cca.plot <- ggplot(phase2.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=fish)) + geom_point()
+phase2.cca.plot <- ggplot(phase2.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=fish),size=3) + geom_point() + labs(x="CAP1 (30.0% explained)",y="CAP2 (14.4% explained)")
 
 ggsave("../../figs/phase2-cap.png", phase2.cca.plot)
 ```
@@ -486,7 +489,7 @@ plase3.points.norm <- data.frame(phase3.nmds$points)
 plase3.points.norm$methods <- phase3.community.norm$methods
 plase3.points.norm$sites <- factor(phase3.community.norm$sites, levels=reefs)
 plase3.points.norm$codes <- rep(c(1:17),3)
-phase3.nmds.plot.norm <- ggplot(plase3.points.norm, aes(MDS1, MDS2, colour=methods, group=sites,fill=methods))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white") + scale_fill_manual(name="OVM method", values = coul)
+phase3.nmds.plot.norm <- ggplot(plase3.points.norm, aes(MDS1, MDS2, colour=methods, group=sites,fill=methods))  + theme_bw() + theme(legend.position = "right") + guides(fill=guide_legend(title.position = "top")) + geom_label(aes(label=codes), fontface="bold", color="white",size=3) + scale_fill_manual(name="OVM Method", values = coul)
 #+geom_polygon(aes(fill=sites))
 
 phase3.adonis <- adonis(phase3.community_matrix.norm ~ sites + methods, phase3.community.norm, perm=200)
@@ -512,7 +515,7 @@ phase3.cca <- phase3.cca[-1:-17,]
 phase3.cca$methods <- methods
 
 
-phase3.cap.plot <- ggplot(phase3.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=methods)) + geom_point()
+phase3.cap.plot <- ggplot(phase3.cca, aes(CAP1, CAP2))  + theme_classic() + geom_label_repel(aes(label=methods)) + geom_point() + labs(x="CAP1 (26.9% explained)",  y="CAP2 (13.9% explained)")
 
 cowplot::ggsave("../../figs/phase3-cap.png", phase3.cap.plot)
 ```
@@ -536,7 +539,8 @@ plot(phase1.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarit
 phase1.plot <- ggdendrogram(phase1.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="Behaviour", y="Bray-Curtis dissimilarity")
 
 phase1.plot
-cowplot::ggsave("../../figs/cluster.png", phase1.plot)
+grid <- plot_grid(phase1.plot,phase1.biplot, labels="AUTO", align="v",nrow=2,ncol=1)
+save_plot("../../figs/phase1-cluster.png", grid, nrow=2,ncol=2)
 ```
 
 Biodiversity index for Phase 2
@@ -547,8 +551,10 @@ hist(phase2.reefs.bray)
 phase2.reefs.cluster <- hclust(phase2.reefs.bray, method="average")
 phase2.reefs.dendrogram <- as.dendrogram(phase2.reefs.cluster) 
 plot(phase2.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-phase2.plot <- ggdendrogram(phase2.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM strategies", y="Bray-Curtis dissimilarity")
+phase2.plot <- ggdendrogram(phase2.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM Strategies", y="Bray-Curtis dissimilarity")
 phase2.plot
+grid <- plot_grid(phase2.plot,phase2.biplot, labels="AUTO", align="v",nrow=2,ncol=1)
+save_plot("../../figs/phase2-cluster.png", grid, nrow=2,ncol=2)
 ```
 
 Biodiversity index for Phase 3
@@ -568,13 +574,15 @@ hist(phase3.reefs.bray)
 phase3.reefs.cluster <- hclust(phase3.reefs.bray, method="average")
 phase3.reefs.dendrogram <- as.dendrogram(phase3.reefs.cluster) 
 plot(phase3.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-phase3.plot <- ggdendrogram(phase3.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM methods", y="Bray-Curtis dissimilarity")
+phase3.plot <- ggdendrogram(phase3.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_classic() + labs(x="OVM Methods", y="Bray-Curtis dissimilarity")
 phase3.plot
+grid <- plot_grid(phase3.plot,phase3.biplot, labels="AUTO", align="h")
+save_plot("../../figs/phase3-cluster.png", grid, nrow=1,ncol=2)
 ```
 
 ```{r}
 grid <- plot_grid(phase1.plot,phase2.plot, phase3.plot, labels="AUTO", align ="hv")
-save_plot("../../figs/cluster.png", grid, ncol=2, nrow=2)
+save_plot("../../figs/cluster.png", grid, ncol=2, nrow=1)
 ```
 
 MVABUND
@@ -678,8 +686,9 @@ all.cca <- all.cca[-1:-17,]
 all.cca$models <- sort(model.levels)
 all.cca$scenario <- c("ovm-method","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-method","ovm-strategy","ovm-method")
 
-all.cap.plot <- ggplot(all.cca, aes(CAP1, CAP2, label=models, colour=scenario))  + theme_classic() +geom_label_repel(show.legend = FALSE) + geom_point(size=2) + labs(x="CAP1 (23.4% explained)", y="CAP2 (12.6% explained)")
-cowplot::ggsave("../../figs/all-cap.png", all.cap.plot)
+pal <- wes_palette(name="Zissou",3,type="continuous")
+all.cap.plot <- ggplot(all.cca, aes(CAP1, CAP2, label=models, colour=scenario, shape=scenario))  + theme_classic() +geom_label_repel(show.legend = FALSE,size=3) + geom_point(size=2) + labs(x="CAP1 (23.4% explained)", y="CAP2 (12.6% explained)") + scale_color_manual(name="Scenario",values=pal) + scale_shape(name="Scenario")
+save_plot("../../figs/all-cap.png", all.cap.plot,ncol=2)
 
 
 
