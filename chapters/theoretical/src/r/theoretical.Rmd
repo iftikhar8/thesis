@@ -38,7 +38,8 @@ ovm <- tribble(
 
 ovm$stage <- factor(ovm$stage, levels=c("preflexion","flexion","postflexion"), labels=c("Preflexion","Flexion","Postflexion"))
 #ovm$depth <- factor(ovm$depth, levels=c("75","50","25","0"))
-p <- ggplot(ovm, aes(x=stage, y=depth, weight=probability, fill=stage)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_classic()  + labs(y="Depth (m)", x="Ontogenetic stage") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_brewer(palette = "Paired")
+pal <- canva_pal("Timeless and nautical")(4)
+p <- ggplot(ovm, aes(x=stage, y=depth, weight=probability, fill=stage)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_classic()  + labs(y="Depth (m)", x="Ontogenetic stage") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_manual(values = pal)
 ggplot2::ggsave("../../figs/ovm-example.png",p)
 ```
 
