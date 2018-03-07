@@ -18,7 +18,7 @@ For marine species, this connectivity often occurs primarily during a pelagic la
 
 Connectivity has often been overlooked when designing marine protected areas (MPAs) in favour of protecting habitat [@crowder2006]. Global change in the time of the Anthropocene, means designing well connected MPAs is important for ensuring resilience of marine metapopulations from threats such climate change, overfishing and diseases [@almany2009; @botsford2009]. Well connected MPA networks can satisfy the objectives of both conservation and fisheries management [@gaines2010; @christie2010]. Understanding and measuring connectivity within a marine metapopulation is critically important in order to design effective networks MPAs, with optimal locations, size, and spacing.
 
-Black cod, *Epinephelus daemelii* (Gunther, 1876), also known commonly as the black rockcod, the saddled rockcod, and the potted black grouper, a large grouper of the teleost family Serranidae, is one such species with a pelagic larvae stage contributing to its dispersal. *E. daemelii* is native to Australia and New Zealand in the south-western Pacific Ocean. Its known distribution ranges from eastern Australia (southern Queensland down to Bass Strait) to Northern New Zealand and the Kermadec Islands, with populations on Lord Howe Island, Norfolk Island, and Elizabeth and Middleton Reefs [@froese2017; @zotero-2862]. Along eastern Australia, the black cod is primarily distributed along the temperate waters off the New South Wales (NSW) coastline. Adults live in the caves and crevices found on rocky reefs at depths of up to 50 m. Post-settlement juveniles are found in rock pools and shallow reef intertidal habitats, migrating to estuaries as they grow older [@harasti2014a; @francis2016]. *E. daemelii* can reach the age of 65 years, grow up to 170 cm total length (TL) and weigh 80 kg. Like many large groupers, its a protogynous hermaphrodite, with protogyny not occurring until the fish reaches lengths of over 100 cm (TL), which occurs at approximately 25 years of age [@francis2016]. *E. daemelii* spawn pelagic eggs with a pelagic larval stage estimated to last 60 days [@francis2016]. Anecdotally they are thought to spawn April-May, as this is when aggregations have been seen on the north coast of NSW (@harasti2017, personal communication, 9 March).
+Black cod, *Epinephelus daemelii* (Gunther, 1876), also known commonly as the black rockcod, the saddled rockcod, and the potted black grouper, a large grouper of the teleost family Serranidae, is one such species with a pelagic larvae stage contributing to its dispersal. *E. daemelii* is native to Australia and New Zealand in the south-western Pacific Ocean. Its known distribution ranges from eastern Australia (southern Queensland down to Bass Strait) to Northern New Zealand and the Kermadec Islands, with populations on Lord Howe Island, Norfolk Island, and Elizabeth and Middleton Reefs [@froese2017; @ala2018]. Along eastern Australia, the black cod is primarily distributed along the temperate waters off the New South Wales (NSW) coastline. Adults live in the caves and crevices found on rocky reefs at depths of up to 50 m. Post-settlement juveniles are found in rock pools and shallow reef intertidal habitats, migrating to estuaries as they grow older [@harasti2014a; @francis2016]. *E. daemelii* can reach the age of 65 years, grow up to 170 cm total length (TL) and weigh 80 kg. Like many large groupers, its a protogynous hermaphrodite, with protogyny not occurring until the fish reaches lengths of over 100 cm (TL), which occurs at approximately 25 years of age [@francis2016]. *E. daemelii* spawn pelagic eggs with a pelagic larval stage estimated to last 60 days [@francis2016]. Anecdotally they are thought to spawn April-May, as this is when aggregations have been seen on the north coast of NSW (D. Harasti, personal communication, 9 March 2017).
 
 *E. daemelii* has traditionally been under fishing pressure in Australia, considered a trophy fish for spearfishers and as a valuable food species for commercial and recreational fishers [it was commonly sold at the Sydney fish markets; @francis2016]. The biological factors of long life span, late sexual maturity, (anecdotally) aggregate spawners, have specific habitat requirements, and sedentary/curious behaviour, make *E. daemelii* vulnerable to fishing pressure. Declines in populations were first noticed in 1916, and the species was listed for protection in 1983 in NSW due to dwindling numbers, with notable population declines during the rise in popularity of spearfishing in the late 1960s and 1970s [@pogonoski2002]. Black cod is currently listed as "Near Threatened" on the ICUN red list [@iucn2006] and listed as "Vulnerable" under the Australian Commonwealth *Environment Protection and Biodiversity Conservation Act* since 2006 [@departmentoftheenvironment2018]. Although it has been protected since 1983, signs of population recovery have not been seen, with it still missing from many habitats where it was known to occur in prolific numbers [@harasti2013].
 
@@ -219,6 +219,33 @@ PAGEBREAKLANDSCAPE
 | Pt Macquarie  |   \-   |       \-       |  Agg   |          No           |
 | Crowdy Bay    |   \-   |       \-       |  Dist  |          No           |
 | Ulladulla     |   \-   |       \-       |  Dist  |          No           |
+
+Area : Small / Medium / Large
+Connectivity: Strong / Weak / Moderate
+
+| Region   | Known | MPA | Protect Area | Source | Settle |
+|:---------|-------|-----|-----------------|--------|--------|
+| Tweed   | - | Yes | Small |
+| Byron   | - | Yes | Medium |
+| Ballina | - | No | - |
+| Yamba  | -
+| Solitary Is   | Yes
+| Nambucca | Yes
+| Pt Macquarie   | -
+| Crowdy Bay  | -
+| Pt Stephens   | Yes
+| Newcastle   | -
+| Sydney | -
+| Wollongong   | -
+| Jervis Bay | -
+| Ulladulla   | -
+| Batemans Bay   | -
+| Merimbula   | -
+| Eden   | -
+| Lord Howe Is   | Yes
+| EM Reefs   | Yes
+
+"Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "EM Reefs")
 
 For the known source regions, four of the five regions contained sanctuary zones (@tbl:mpas-connectivity). Nambucca was the one region that did not have any sanctuary zone coverage. The protected areas within the four known aggregation regions had relatively substantial areas of sanctuary zones, with only the Solitary Islands region having less than 20% zoned as no take protection. For the strongest source regions across the distribution, only Sydney contained a sanctuary zone (@tbl:mpas-connectivity). However, the size of the area (km^2^) listed as sanctuary zone in Sydney was 7.2% of the area protected in the Solitary Islands region. The other areas of Ballina, Yamba, and Newcastle have no sanctuary zone to protect potential breeding populations.
 

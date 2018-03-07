@@ -91,13 +91,12 @@ OVM strategy
 ```{r}
 ovm.data <- read_csv("../../data/ovm.csv")
 ovm.data <- ovm.data %>% gather(key= stage, value=proportion, 3:5)
-ovm.data$stage <- factor(ovm.data$stage, levels=c("preflexion","flexion","postflexion"))
-ovm.plot <- ggplot(data= ovm.data, aes(x=depth, fill=factor(stage))) + geom_violin() + theme_classic() + labs(x="Depth", y="Proportion") + scale_color_discrete(name="Ontogenetic stage") + theme(legend.position = "right") + facet_grid(. ~ stage)
+ovm.data$stage <- factor(ovm.data$stage, levels=c("preflexion","flexion","postflexion"), labels=c("Preflexion","Flexion","Postflexion"))
 
-ggplot(mtcars, aes(x = mpg, fill = factor(cyl))) + 
-  geom_density(trim = TRUE) + 
-  coord_flip() +
-  facet_grid(. ~ cyl)
+pal <- canva_pal("Grecian holiday")(4)
+pal <- canva_pal("Fresh and energetic")(4)
+
+ovm.plot <- ggplot(ovm.data, aes(x=stage, y=depth, weight=proportion, fill=stage)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_classic() + labs(y="Depth (m)", x="Ontogenetic stage") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_manual(values = pal)
 save_plot("../../figs/ovm.png", ovm.plot)
 ```
 

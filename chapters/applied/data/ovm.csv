@@ -1,1 +1,4 @@
-﻿fish,depth,preflexion,flexion,postflexionserranidae,surface,0.45,0.275,0.1serranidae,middle,0.45,0.35,0.3serranidae,deep,0.1,0.375,0.6
+fish,depth,preflexion,flexion,postflexion
+serranidae,0,0.45,0.275,0.1
+serranidae,25,0.45,0.35,0.3
+serranidae,75,0.1,0.375,0.6
