@@ -152,7 +152,6 @@ project/plugins/project/
 *.pages
 
 ### premake-gmake ###
-Makefile
 makefile
 *.make
 obj/
