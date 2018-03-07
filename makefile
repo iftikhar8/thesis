@@ -1,6 +1,6 @@
 
 
-word-template=templates/custom-reference.docx
+word-template=templates/thesis-template.docx
 pdf-template=templates/format.sty
 bibliography=/Users/Steven/Dropbox/Research/my-library.bib
 yaml="crossrefYaml=templates/pandoc-crossref.yaml"
@@ -26,7 +26,7 @@ theoretical-drop:
 		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc --filter pandoc-docx-pagebreak --bibliography=$(bibliography) --csl=$(csl) chapters/theoretical/docs/theoretical.md -o /Users/Steven/Dropbox/theoretical.docx
 
 applied:
-		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc --filter pandoc-docx-pagebreak --bibliography=$(bibliography) --csl=$(csl) chapters/applied/docs/applied.md -o out/applied.docx
+		pandoc --filter pandoc-docx-pagebreak --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc --reference-doc=$(word-template) --bibliography=$(bibliography) --csl=$(csl) chapters/applied/docs/applied.md -o out/applied.docx
 
 applied-drop:
 		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc  --bibliography=$(bibliography) --csl=$(csl) chapters/applied/docs/applied.md -o /Users/Steven/Dropbox/applied.docx
