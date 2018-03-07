@@ -1,31 +1,62 @@
-i'm fascinated by connectivity
-how do there tiny little larvae have a chance to influence where they end up? easy to be swayed to the argument THEY DONT
-But I want to believe (im a bioligst after all)
+General Introduction
+====================
 
-Let the fish go up and down, up and down. OVM. We know it happens. We know it can influence connectivity patterns? Why don't people implement these ideas?
-As a biologist thats my connundrum. Why the FUCK don't people do this?
+What is connectivity?
+---------------------
 
+-	General meaning
+-	bipartite Life styles etc.
 
+Broad statement on thesis. What is this thesis trying to achieve?
+-----------------------------------------------------------------
 
-# Current empirical techniques
+Why is connectivity important?
+------------------------------
 
-## Population genetics
+-	Understanding population dynamics
+-	Many species with bipartite life cycles.
+-	Conservation, e.g. MPAs
 
+How do we measure connectivity ?
+--------------------------------
 
-## Parentage analysis
+-	Population genetics
+-	Parentage analysis
+-	Otolith tagging
+-	Isotope tagging
+-	All these are difficult... so: Biophyscial dispersal modelling
+-	General backgorund and what does it mean
 
+Important of Models
+-------------------
 
-## Otolith tagging
+-	what can they tell us, e.g. applications of the modelling
 
+What are the issues we face with modelling ?
+--------------------------------------------
 
-## Isotope tagging
+-	empirical data issues
+-	complexity of modelling choices
 
-## Modelling approaches
+Introduction to chapters
+------------------------
 
+CHAPTER 2: Meta-analysis: what was I trying to achieve
+------------------------------------------------------
 
+-	Find out what parameters were important ? How did parameter choice effect modelling choice ? -
 
+CHAPTER 3: empirical
+--------------------
 
-## THEORY of biological connectivity
+-	getting local data for fish species
 
+CHAPTER 4: theoretical
+----------------------
 
-## APPLICATIONS of understanding larval connectivity (Chapter 4)
+-	what are some important features?
+
+CHAPTER 5: black cod
+--------------------
+
+-	using connectivity ,can we see if the networks are effective?
