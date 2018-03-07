@@ -201,51 +201,31 @@ PAGEBREAK
 
 PAGEBREAKLANDSCAPE
 
-[Communities] Of the four sub-communities identified, each community had at least one source region that contained an sanctuary zone (@fig:graph-all A; @tbl:mpas). The offshore community of Lord Howe Island and EM Reefs had the most protection afforded to any of the communities per region, with both regions encompassed by MPAs (EM Reefs has 100% coverage), and containing 58% sanctuary zones at EM Reefs (Middleton Reef) and 27.0% sanctuary zones at Lord Howe Island covering 175 km^2^ (@tbl:mpas). In the northern community, three of the six regions contained MPAs (Tweed, Byron, and Solitary Islands), although the aquatic reserve in Tweed is one of the smallest MPAs in size. The total MPA coverage within this northern community is 941 km^2^, of which 148 km^2^ (15.7%) is sanctuary zones. The central community also contained three regions with MPAs (Port Macquarie, Port Stephens, and Sydney), with a total coverage of 1003 km^2^ (20.5% or 206 km^2^ falls within sanctuary zones). In the southern community, half the regions contained MPAs (Wollongong, Jervis Bay, and Batemans Bay), with 1065 km^2^ coverage, 19.2% (205 km^2^) of the MPAs were sanctuary zoned.
+Of the four sub-communities identified, each community had at least one source region that contained an sanctuary zone (@fig:graph-all A; @tbl:mpas). The offshore community of Lord Howe Island and EM Reefs had the most protection afforded to any of the communities per region, with both regions encompassed by MPAs (EM Reefs has 100% coverage), and containing 58% sanctuary zones at EM Reefs (Middleton Reef) and 27.0% sanctuary zones at Lord Howe Island covering 175 km^2^ (@tbl:mpas). In the northern community, three of the six regions contained MPAs (Tweed, Byron, and Solitary Islands), although the aquatic reserve in Tweed is one of the smallest MPAs in size. The total MPA coverage within this northern community is 941 km^2^, of which 148 km^2^ (15.7%) is sanctuary zones. The central community also contained three regions with MPAs (Port Macquarie, Port Stephens, and Sydney), with a total coverage of 1003 km^2^ (20.5% or 206 km^2^ falls within sanctuary zones). In the southern community, half the regions contained MPAs (Wollongong, Jervis Bay, and Batemans Bay), with 1065 km^2^ coverage, 19.2% (205 km^2^) of the MPAs were sanctuary zoned.
 
-: Indicates the zoning of sanctuary or marine protected areas inside the five regions of strongest source and settlement using the known distribution and the known aggregations (Dist, Agg, or Both). Strong sources were measured using settlement success of the region. Strong settlement was measured using the coefficient of variation for settlement at the region. {#tbl:mpas-connectivity}
+: For each region if the region is a known site of aggregating adult black cod, the size of the sanctuary zone area if present (small is less than 50 km^2^, medium is more than 50 and less than 100 km^2^, and large is more than 100 km^2^), and the strength (i.e. weak, moderate, or strong) of the region as a larval source (measured using settlement success), and as a stable larval settlement area (measured using the the mean annual settlement and the coefficient of variation for stability). {#tbl:mpas-connectivity}
 
-| Region        | Source | Sanctuary zone | Settle | Marine protected area |
-|:--------------|:------:|:--------------:|:------:|:---------------------:|
-| Ballina       |  Dist  |       No       |   \-   |          \-           |
-| Yamba         |  Dist  |       No       |  Dist  |          No           |
-| Solitary Is.  |  Both  |      Yes       |  Both  |          Yes          |
-| Newcastle     |  Dist  |       No       |  Agg   |          No           |
-| Sydney        |  Dist  |      Yes       |  Dist  |          Yes          |
-| Nambucca      |  Agg   |       No       |  Agg   |          No           |
-| Pt Stephens   |  Agg   |      Yes       |  Agg   |          Yes          |
-| Lord Howe Is. |  Agg   |      Yes       |   \-   |          \-           |
-| EM reefs      |  Agg   |      Yes       |   \-   |          \-           |
-| Pt Macquarie  |   \-   |       \-       |  Agg   |          No           |
-| Crowdy Bay    |   \-   |       \-       |  Dist  |          No           |
-| Ulladulla     |   \-   |       \-       |  Dist  |          No           |
-
-Area : Small / Medium / Large
-Connectivity: Strong / Weak / Moderate
-
-| Region   | Known | MPA | Protect Area | Source | Settle |
-|:---------|-------|-----|-----------------|--------|--------|
-| Tweed   | - | Yes | Small |
-| Byron   | - | Yes | Medium |
-| Ballina | - | No | - |
-| Yamba  | -
-| Solitary Is   | Yes
-| Nambucca | Yes
-| Pt Macquarie   | -
-| Crowdy Bay  | -
-| Pt Stephens   | Yes
-| Newcastle   | -
-| Sydney | -
-| Wollongong   | -
-| Jervis Bay | -
-| Ulladulla   | -
-| Batemans Bay   | -
-| Merimbula   | -
-| Eden   | -
-| Lord Howe Is   | Yes
-| EM Reefs   | Yes
-
-"Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden","Lord Howe", "EM Reefs")
+| Region       | Known | Sanctuary zone |  Source  |  Settle  |
+|:-------------|:-----:|:--------------:|:--------:|:--------:|
+| Tweed        |  \-   |     Small      |   Weak   |   Weak   |
+| Byron        |  \-   |     Medium     | Moderate | Moderate |
+| Ballina      |  \-   |       \-       |  Strong  | Moderate |
+| Yamba        |  \-   |       \-       |  Strong  |  Strong  |
+| Solitary Is  |  Yes  |     Medium     |  Strong  |  Strong  |
+| Nambucca     |  Yes  |       \-       | Moderate | Moderate |
+| Pt Macquarie |  \-   |     Small      |   Weak   |   Weak   |
+| Crowdy Bay   |  \-   |       \-       | Moderate |  Strong  |
+| Pt Stephens  |  Yes  |     Large      | Moderate | Moderate |
+| Newcastle    |  \-   |       \-       |  Strong  | Moderate |
+| Sydney       |  \-   |     Small      |  Strong  |  Strong  |
+| Wollongong   |  \-   |     Small      | Moderate |  Strong  |
+| Jervis Bay   |  \-   |     Small      | Moderate | Moderate |
+| Ulladulla    |  \-   |       \-       | Moderate |  Strong  |
+| Batemans Bay |  \-   |     Large      | Moderate | Moderate |
+| Merimbula    |  \-   |       \-       |   Weak   |   Weak   |
+| Eden         |  \-   |       \-       |   Weak   | Moderate |
+| Lord Howe Is |  Yes  |     Large      |   Weak   |   Weak   |
+| EM Reefs     |  Yes  |     Medium     |   Weak   |   Weak   |
 
 For the known source regions, four of the five regions contained sanctuary zones (@tbl:mpas-connectivity). Nambucca was the one region that did not have any sanctuary zone coverage. The protected areas within the four known aggregation regions had relatively substantial areas of sanctuary zones, with only the Solitary Islands region having less than 20% zoned as no take protection. For the strongest source regions across the distribution, only Sydney contained a sanctuary zone (@tbl:mpas-connectivity). However, the size of the area (km^2^) listed as sanctuary zone in Sydney was 7.2% of the area protected in the Solitary Islands region. The other areas of Ballina, Yamba, and Newcastle have no sanctuary zone to protect potential breeding populations.
 
