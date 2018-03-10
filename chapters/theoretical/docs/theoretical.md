@@ -4,13 +4,9 @@ Comparing the influence of the implementation of different larval behavioural st
 Introduction
 ------------
 
-### Background on Migration behaviours affecting connectivity
+Recent empirical studies have demonstrated how pelagic larval fish, far from being passive as previously thought, can exhibit a variety of behaviours to influence where they settle [@leis2006]. The swimming behaviours of larval fish that are able to influence the dispersal paths are vertical migration—ontogenetic [@paris2004a] and diel [@huebert2011]—and orientated horizontal swimming [towards preferred settlement habitat @gerlach2007a]. These behaviours allow ichthyoplankton to remain closer to the natal reef, by avoiding strong wind-driven surface currents advecting them away, and by swimming in the direction of identifiable reef using cues (e.g. their natal reef). However, understanding the effect of these migration behaviours on the entire connectivity across a region is difficult to do empirically [@cowen2009]. Connectivity itself is a challenging problem to empirically study, even with recent advancements in empirical techniques [@jones2005; @williamson2016; @gillanders2002]. Understanding the early life history of ichthyoplankton and it influences dispersal *in situ* is an even greater challenge due to the size of larvae and the expansive nature of the marine environment. Biophysical dispersal modelling (BDM), using coupled complex physical (hydrodynamics) and biological (larval behaviour) models, becomes a useful tool to infer the influence of process on marine larval dispersal [@werner2007].
 
-Recent empirical studies have demonstrated how pelagic larval fish, far from being passive as previously thought, can exhibit a variety of behaviours to influence where they settle [@leis2006]. The swimming behaviours of larval fish that are able to influence the dispersal paths are; vertical migration—ontogenetic [@paris2004a] and diel [@huebert2011]—and orientated horizontal swimming [ towards preferred settlement habitat; @gerlach2007a]. These behaviours allow ichthyoplankton to remain closer to the natal reef, by avoiding strong wind-driven surface currents advecting them away, and by swimming in the direction of identifiable reef using cues (e.g. their natal reef). However, understanding the effect of these migration behaviours on the entire connectivity across a region is difficult to do empirically [@cowen2009]. Connectivity itself is a challenging problem to empirically study, even with recent advancements in empirical techniques [@jones2005; @hedgecock2007; @gillanders2002]. Understanding the early life history of ichthyoplankton and it influences dispersal *in situ* is an even greater challenge due to the size of larvae and the expansive nature of the marine environment. Biophysical dispersal modelling (BDM), using coupled complex physical (hydrodynamics) and biological (larval behaviour) models, becomes a useful tool to infer the influence of process on the marine larval dispersal [@werner2007]. As the understanding of ichthyoplankton behavioural abilities during their early-life history develops, how these behaviours influence their dispersal becomes an important question.
-
-Modelling studies have implemented different migration behaviours; ontogenetic vertical migration [OVM; @paris2007a], diel vertical migration [DVM; @aiken2011], and orientated horizontal swimming [OHS; @staaterman2012], and found that all influence connectivity patterns by reducing dispersal distance and increasing local retention. The problem for modellers and empirical researchers is to decide where to focus both the models (i.e. what behaviours are most important to include) and empirical research (i.e. what data should we be focused on collecting to parameterise these models).
-
-Even when there is consensus on the importance of a specific behaviour on connectivity, i.e. OVM, there is often only empirical data for a few species available in the literature [@leis2006]. OVM has been included in many modelling studies [@holstein2014; @donahue2015; @rochette2012], yet the specific values for a species or taxa of ichthyoplankton are often unavailable in the literature. Modellers are forced to choose between limiting the behaviour [@andrello2013], using generalisations or substitute species [@young2012], or parameterising the model with generic larval traits and not a particular species or taxa [@corell2012].
+As the understanding of ichthyoplankton behavioural abilities during their early-life history develops, how these behaviours influence their dispersal becomes an important question. Modelling studies have implemented different migration behaviours; ontogenetic vertical migration [OVM; @paris2007a], diel vertical migration [DVM; @aiken2011], and orientated horizontal swimming [OHS; @staaterman2012], and found that all influence connectivity patterns by reducing dispersal distance and increasing local retention. The problem for modellers and empirical researchers is to decide where to focus both the models (i.e. what behaviours are most important to include) and empirical research (i.e. what data should we be focused on collecting to parameterise these models). Even when there is consensus on the importance of a specific behaviour on connectivity, i.e. OVM, there is often only empirical data for a few species available in the literature [@leis2006]. OVM has been included in many modelling studies [@holstein2014; @donahue2015; @rochette2012], yet the specific values for a species or taxa of ichthyoplankton are often unavailable in the literature. Modellers are forced to choose between limiting the behaviour [@andrello2013], using generalisations or substitute species [@young2012], or parameterising the model with generic larval traits and not a particular species or taxa [@corell2012].
 
 The other decision modellers are required to make is how to model the processes that drive the behaviour. Due to the difficulty of obtaining field data, this information is often unknown, leading to assumptions, e.g. how do larvae vertically migrate with ontogeny - is it a slow or fast process, or when larvae are getting advected by offshore currents - do they swim at a speeds closer as observed in flow chambers [@fisher2000] or *in situ* close to settlement reefs [@leis1997]. The exact mechanisms behind this movement with ontogeny are less understood [@irisson2010]. Leading to different methods of implementing the underlying processes seen amongst BDMs [@garcia-garcia2016; @puckett2014; @paris2007a]
 
@@ -130,7 +126,7 @@ Model parameters are based on characteristics of a temperate rock reef fish from
 : Biological features of the Pomacentridae larvae that were used in every model run of this study {#tbl:bio-base}
 
 | Biological feature | Value                                            |
-|--------------------|--------------------------------------------------|
+|:-------------------|:-------------------------------------------------|
 | PLD                | 18.3 (± 1.5) days ^[@wellington1989]             |
 | Preflexion age     | 0 days ^[@murphy2007]                            |
 | Flexion age        | 5 (± 0.5) days ^[@murphy2007]                    |
@@ -159,7 +155,7 @@ The first movement mechanism allows for an assessment of the impact of allowing 
 : Diel vertical migration (DVM) values used, providing more stratified depth positions during the day and more even distribution at night as seen in temperate fish off NSW ^[@gray1998] {#tbl:dvm}
 
 | Time of day | Depth range (m) | Probability |
-|-------------|-----------------|:-----------:|
+|:------------|:----------------|:-----------:|
 | Day         | 0-25            |     0.1     |
 |             | 26-50           |     0.3     |
 |             | 51-75           |     0.4     |
@@ -172,7 +168,7 @@ The first movement mechanism allows for an assessment of the impact of allowing 
 : Orientated horizontal swimming (OHS) parameterisation, used in the swimming equation described above {#tbl:orientate}
 
 | OHS feature                  | Value                                            |
-|------------------------------|--------------------------------------------------|
+|:-----------------------------|:-------------------------------------------------|
 | Sensory distance             | 10 km ^[Based on the meta-analysis in Chapter 2] |
 | *U~crit~*                    | 0.463 ms^-1^ ^[@leis2006a]                       |
 | *In situ* swimming potential | 25% ^[@leis2006a]                                |
@@ -187,7 +183,7 @@ Lastly, in order to explore the impact of the OVM implementation strategy on con
 : The three different scenarios for implementing ichthyoplankton ontogenetic vertical migration (OVM) in the biophysical dispersal model {#tbl:models-impl}
 
 | Model | OVM migration timing |
-|-------|----------------------|
+|:------|:---------------------|
 | 1     | Time step migration  |
 | 2     | Daily migration      |
 | 3     | Stage migration      |
@@ -322,7 +318,7 @@ Supplementary material
 : Proportional depth stage abundance profiles for each of the seven fish families evaluated in Chapter 3. Values represent the proportional (within a stage) abundance of each stage within each of three depth ranges (surface: 0-5 m; mixed layer: 5-50 m; deep layer: 50-100 m) and are used to parameterise models run to address Aim 2 of this study.
 
 | Model         | Depth (m) | Preflexion | Flexion | Postflexion |
-|---------------|-----------|:-----------|:--------|:------------|
+|:--------------|:----------|:-----------|:--------|:------------|
 | Labridae      | 0-5       | .275       | .250    | .350        |
 |               | 5-50      | .650       | .550    | .400        |
 |               | 50-100    | .075       | .200    | .250        |
