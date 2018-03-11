@@ -16,6 +16,8 @@ OHS DISCUSSION
 
 Shown OHS is an important factor, making issues of ocean acidification, which can remove ability to sense an even greater issue [@rossi2016], and could possibly make this finding mute.
 
+OHS - did not account for variations in temperature waters - perhaps temeprature should be a factor in the equation. Tropical fish are known to be better swimmers than teperatre fish etc....
+
 Modelling Issues
 ----------------
 
