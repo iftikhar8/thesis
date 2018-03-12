@@ -31,19 +31,19 @@ ZISSOU accesses ocean circulation or hydrodynamic data as network common data fo
 
 Runge-Kutta fourth-order integration (RK4) is the ordinary differential equations solver used to move the particle through space and time [@north2009], calculating a weighted average over four increments using the chosen model time step (@eq:rk4). The velocity at any given position in space is interpolated using a tri-cubic interpolation scheme on the hydrodynamic model grid, such that the velocity for a given particle in the oceanographic space is interpolated from neighbouring grids using 64 points (4^3^; @eq:interpolation). If this is not possible, for example due to boundary conditions, trilinear interpolation using 8 points (2^3^) is substituted.
 
-$$f(x,y,z)=\sum *{{i=0}}^{3}\sum _{{j=0}}^{3}\sum _{{k=0}}^{3}v*{{ijk}}x^{i}y^{j}z^{k}$${#eq:interpolation}
+$$ f(x,y,z) = \sum_{i=0}^3 \sum_{j=0}^3 \sum_{k=0}^3 v_{ijk} x^i y^j z^k $${#eq:interpolation}
 
 where the velocity *v* at the point *(x,y,z)*; *x* is the longitude, *y* is the latitude, and *z* is the depth; is interpolated using the 64 nearest neighbours.
 
-$$\overrightarrow{v*{t+h}} = \overrightarrow{v*{t}} + \frac{1}{6} (k*{1} + 2k*{2} + 2k*{3} + k*{4})h$${#eq:rk4}
+$$\overrightarrow{ v_{t+h} } = \overrightarrow{v_t} + \frac{1}{6} (k_1 + 2k_2 + 2k_3 + k_4) h$${#eq:rk4}
 
-$$k*{1} = f(x*{0(t)},y*{0(t)},z*{0(t)})$$
+$$k_1 = f(x_0(t),y_0(t),z_0(t))$$
 
-$$k*{2} = f(x*{1(t + \frac{1}{2}h)}, y*{1(t + \frac{1}{2}h)}, z*{1(t + \frac{1}{2}h)})$$
+$$k_2 = f\left(x_1(t + \frac{1}{2}h), y_1(t + \frac{1}{2}h), z_1(t + \frac{1}{2}h)\right)$$
 
-$$k*{3} = f(x*{2(t + \frac{1}{2}h)}, y*{2(t + \frac{1}{2}h)}, z*{2(t + \frac{1}{2}h)})$$
+$$k_3 = f(x_2(t + \frac{1}{2}h), y_2(t + \frac{1}{2}h), z_2(t + \frac{1}{2}h))$$
 
-$$k*{4} = f(x*{3(t + h)}, y*{3(t + h)}, z*{3(t + h)})$$
+$$k_4 = f(x_3(t + h), y_3(t + h), z_3(t + h))$$
 
 where the integrated velocity vector (*v~t+h~*), at time *t* and time step *h* is calculated using the weighted average of the four separate interpolations (*k~1~, k~2~, k~3~, k~4~*). The velocities are interpolated at the current time, two midpoint approximations of the time with half the time step added, and at the time incremented by the time step. The tri-cubic interpolation function *f(x,y,z)* calculates the velocities as described above (@eq:interpolation).
 
@@ -99,7 +99,7 @@ A settlement buffer can be specified that enables the larvae to discover settlem
 
 The sensory distance allows larvae to "sense" settlement habitat if they pass within a specified distance, acting as pseudo-behaviour for cues such as vision, hearing or olfaction [@leis2006; @kingsford2002]. The distance is specified in kilometres (km), as reef fish larvae have been shown to smell reefs from distances of several kilometres [@paris2013b]. Larvae can be given a horizontal swimming speed (@eq:swim), whereby when settlement habitat is "sensed" the larvae can orientate ad swim in the sensed direction, while also getting advected by the oceanographic currents (@eq:u; @eq:v).
 
-$$s = U{crit} \times X\{[S{p},1]} \times E{p}$${#eq:swim}
+$$s = U_{crit} \times X_{[S_p,1]} \times E_p$${#eq:swim}
 
 $$u^{\prime} = u + s \times \cos(\theta)$${#eq:u}
 
