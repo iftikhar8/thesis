@@ -10,6 +10,8 @@ csl=templates/inter-research-science-center.csl
 abstract:
 	pandoc --reference-doc=$(word-template) chapters/abstract/abstract.md -o out/abstract.docx
 
+intro:
+		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc --filter pandoc-docx-pagebreak --bibliography=$(bibliography) --csl=$(csl) chapters/introduction/docs/introduction.md -o out/introduction.docx
 lit-review:
 	pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc  --bibliography=$(bibliography) --csl=$(csl) chapters/lit_review/docs/lit-review.md -o out/lit-review.docx
 
