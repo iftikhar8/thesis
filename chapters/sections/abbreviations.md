@@ -1,22 +1,42 @@
 List of Abbreviations
 =====================
 
-OVM: Ontogenetic vertical migration
+OVM: Ontogenetic Vertical Migration
 
-DVM: Diel vertical migration
+DVM: Diel Vertical Migration
 
-ZISSOU: Zooplankton.....
+ZISSOU: Zooplankton interconnections and source-sink observation utility
 
-OHS: Orientated horizontal swimming
+OHS: Orientated Horizontal Swimming
 
-BDM: Biophysical dispersal modelling
+BDM: Biophysical Dispersal Modelling
 
-VA: vertical advection
+VA: Vertical Advection
 
-MPA: Marine protected area
+MPA: Marine Protected Area
 
 NSW: New South Wales
 
-RFU: Relative fluorescence units
+RFU: Relative Fluorescence Units
 
 SNK: Student Newman‐Kuel’s test
+
+NetCDF: Network Common Data Form
+
+OPeNDAP: Open-source Project for a Network Data Access Protocol
+
+RK4: Runge-Kutta fourth-order integration
+
+GPS: Global Positioning System
+
+GIS: Geographic Information System
+
+PERMANOVA: Permutational Multivariate Analysis Of Variance
+
+CAP: Constrained Analysis of Principal Coordinates
+
+CCA: Constrained Coordinates Analysis
+
+ANOVA: Analysis Of Variance
+
+NMDS: Non-metric Multidimensional Scaling

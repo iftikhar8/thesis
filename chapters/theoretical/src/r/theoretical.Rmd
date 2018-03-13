@@ -14,6 +14,7 @@ require(cowplot)
 require(magick)
 library(RColorBrewer)
 library(tidyverse)
+library(ggthemes)
 ```
 
 
@@ -22,27 +23,51 @@ OVM example diagram
 
 ovm <- tribble(
   ~stage, ~depth, ~probability,
-  "preflexion", 0, 60,
-  "preflexion", 25, 20,
-  "preflexion", 50, 10,
-  "preflexion", 75, 10,
-  "flexion", 0, 25,
-  "flexion", 25, 38,
-  "flexion", 50, 30,
-  "flexion", 75, 7,
-  "postflexion", 0, 10,
-  "postflexion", 25, 17,
-  "postflexion", 50, 43,
-  "postflexion", 75, 30
+  "preflexion", 12.5, 60,
+  "preflexion", 37.5, 20,
+  "preflexion", 62.5, 10,
+  "preflexion", 87.5, 10,
+  "flexion", 12.5, 25,
+  "flexion", 37.5, 38,
+  "flexion", 62.5, 30,
+  "flexion", 87.5, 7,
+  "postflexion", 12.5, 10,
+  "postflexion", 37.5, 17,
+  "postflexion", 62.5, 43,
+  "postflexion", 87.5, 30
 )
 
 ovm$stage <- factor(ovm$stage, levels=c("preflexion","flexion","postflexion"), labels=c("Preflexion","Flexion","Postflexion"))
 #ovm$depth <- factor(ovm$depth, levels=c("75","50","25","0"))
-pal <- canva_pal("Timeless and nautical")(4)
+pal <- canva_pal("Fresh and energetic")(4)
 p <- ggplot(ovm, aes(x=stage, y=depth, weight=probability, fill=stage)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_classic()  + labs(y="Depth (m)", x="Ontogenetic stage") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_manual(values = pal)
-ggplot2::ggsave("../../figs/ovm-example.png",p)
+ggplot2::ggsave("../../figs/ovm-example.png",p, width=5, height=4)
 ```
 
+Diel diagram
+```{r}
+
+diel <- tribble(
+  ~time, ~depth, ~probability,
+  "day", 12.5, 10,
+  "day", 37.5, 30,
+  "day", 62.5, 40,
+  "day", 87.5, 20,
+  "night", 12.5, 30,
+  "night", 37.5, 30,
+  "night", 62.5, 30,
+  "night", 87.5, 10,
+  "night", 0, 10,
+)
+
+diel$time <- factor(diel$time, levels=c("day","night"), labels=c("Day","Night"))
+#ovm$depth <- factor(ovm$depth, levels=c("75","50","25","0"))
+#pal <- canva_pal("Timeless and nautical")(4)
+#pal <- canva_pal("Grecian holiday")(4)
+pal <- canva_pal("Fresh and energetic")(4)
+p <- ggplot(diel, aes(x=time, y=depth, weight=probability, fill=time)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_classic()  + labs(y="Depth (m)", x="Time of day") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_manual(values = pal)
+ggplot2::ggsave("../../figs/diel-example.png",p, width=3, height=4)
+```
 
 Study sites diagram
 ```{r}
@@ -77,7 +102,6 @@ ovm.data <- ovm.data %>% gather(key= stage, value=proportion, 4:6)
 ovm.data$stage <- factor(ovm.data$stage, levels=c("preflexion","flexion","postflexion"))
 ovm.plot <- ggplot(data= ovm.data, aes(x=stage, y=depth, weight=proportion, fill=stage)) + labs(y="Depth (m)", x="Ontogenetic stage") + facet_wrap(~fish, ncol=2, shrink = TRUE) + theme_classic() + scale_fill_brewer(palette="Paired", name="Ontogenetic stage") + theme(legend.position = "right") +scale_y_reverse(limits=c(100,0)) + geom_violin(adjust = .85, trim=FALSE) 
 ggsave("../../figs/ovm-strategies.png", ovm.plot)
-
 
 
 data.ontogeny$stage.r <- factor(data.ontogeny$stage, levels=c("PRE","FLE","POS"))
