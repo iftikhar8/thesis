@@ -14,6 +14,8 @@ library(cowplot)
 library(RColorBrewer)
 library(FactoMineR)
 library(factoextra)
+library(wesanderson)
+library(ggthemes)
 source("applied-functions.R")
 ```
 
@@ -111,8 +113,8 @@ ggsave("../../figs/heatmap-known.png",heatmap.known.plot, width=9.0, height=2.5,
 Variation of total settlement
 ```{r}
 cv.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is","EM Reefs","Queensland","Victoria")
-regions.data.cv <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% mutate(value=value/eggs)  %>% group_by(settle.region, year) %>% summarise(settlers = sum(value)) %>% summarise(mean = mean(settlers), cv = (sd(settlers)/mean(settlers))*100)
-regions.data.cv.plot <- ggplot(regions.data.cv, aes(mean,cv)) + geom_point() + geom_text_repel(size=4, label=cv.names) + theme(legend.position = "none") + labs(x="", y="Coefficient of variation (%)") + xlim(0, 0.016)
+regions.to.data.cv <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% mutate(value=value/eggs)  %>% group_by(settle.region, year) %>% summarise(settlers = sum(value)) %>% summarise(to.mean = mean(settlers), to.cv = (sd(settlers)/mean(settlers))*100)
+regions.data.cv.plot <- ggplot(regions.to.data.cv, aes(to.mean,to.cv)) + geom_point() + geom_text_repel(size=4, label=cv.names) + theme(legend.position = "none") + labs(x="", y="Coefficient of variation (%)") + xlim(0, 0.016)
 #ggsave("../../figs/settlement-cv.png", regions.data.cv.plot, width=8.17, height=7.43, unit=c("in"))
 
 regions.data.cv.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% filter(source.region=="NSW05" | source.region=="NSW06" | source.region=="NSW09" | source.region=="NSW18" | source.region=="NSW19") %>% mutate(value=value/eggs) %>% group_by(settle.region, year) %>% summarise(settlers = sum(value)) %>% summarise(mean = mean(settlers), cv = (sd(settlers)/mean(settlers))*100)
@@ -127,6 +129,57 @@ regions.lm.known <- lm(settlers ~ year + settle.region, data=regions.data.lm.kno
 anova(regions.lm.known)
 ```
 
+
+Variation of settlement success
+```{r}
+cv.from.names <- c("Tweed","Byron","Ballina","Yamba","Solitary Is (‡)","Nambucca (‡)","Pt Macquarie","Crowdy Bay","Pt Stephens (‡)","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans Bay","Merimbula","Eden","Lord Howe Is (‡)","EM Reefs (‡)")
+regions.from.data.cv <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% mutate(value=value/eggs)  %>% group_by(source.region, year) %>% summarise(settlers = sum(value)) %>% summarise(from.mean = mean(settlers), from.cv = (sd(settlers)/mean(settlers))*100)
+regions.from.data.cv.plot <- ggplot(regions.from.data.cv, aes(from.mean,from.cv)) + geom_point() + geom_text_repel(size=4, label=cv.from.names) + theme(legend.position = "none") + labs(x="", y="Coefficient of variation (%)") + xlim(0, 0.016)
+#ggsave("../../figs/settlement-cv.png", regions.data.cv.plot, width=8.17, height=7.43, unit=c("in"))
+
+from.to.data <- full_join(regions.from.data.cv,regions.to.data.cv, by = c("source.region" = "settle.region")) %>% mutate(CV = (from.cv + to.cv) /2)
+
+
+mpas <- tribble(
+  ~region, ~mpa,
+  "NSW01", "Small",
+"NSW02", "Medium",
+"NSW03", "None",
+  "NSW04", "None",
+"NSW05", "Medium",
+"NSW06", "None",
+  "NSW07", "Small",
+"NSW08", "None",
+"NSW09", "Large",
+  "NSW10", "None",
+"NSW11", "Small",
+"NSW12", "Small",
+  "NSW13", "Small",
+"NSW14", "None",
+"NSW15", "Large",
+  "NSW16", "None",
+"NSW17", "None",
+"NSW18", "Large",
+  "NSW19", "Medium"
+)
+
+pal <- canva_pal("Fresh and energetic")(4)
+from.to.mpa.data <- from.to.data[-20:-21,] %>% left_join(mpas, by=c("source.region" = "region"))
+from.to.mpa.data$mpa <- factor(from.to.mpa.data$mpa, levels=c("Small","Medium","Large","None"))
+from.to.plot <- ggplot(aes(y=from.mean,x=to.mean),data=from.to.mpa.data) + geom_point(aes(size=CV,color=mpa) ) + geom_text_repel(size=4, label=cv.from.names) + scale_color_manual(values = pal,name="Sanctuary zone") + labs(x="Settlement to", y="Settlement from") 
+save_plot("../../figs/mpa.png", from.to.plot)
+
+regions.data.cv.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% filter(source.region=="NSW05" | source.region=="NSW06" | source.region=="NSW09" | source.region=="NSW18" | source.region=="NSW19") %>% mutate(value=value/eggs) %>% group_by(settle.region, year) %>% summarise(settlers = sum(value)) %>% summarise(mean = mean(settlers), cv = (sd(settlers)/mean(settlers))*100)
+regions.data.cv.known.plot <- ggplot(regions.data.cv.known, aes(mean,cv)) + geom_point() + geom_text_repel(size=4, label=cv.names[-21]) + theme(legend.position = "none") + labs(x="Mean annual larval settlement (Pr)", y="Coefficient of variation (%)") + xlim(0, 0.016)
+#ggsave("../../figs/settlement-cv.png", regions.data.cv.known.plot, width=8.17, height=7.43, unit=c("in"))
+
+p <- plot_grid(regions.data.cv.plot,regions.data.cv.known.plot, labels="AUTO", align="v", nrow=2)
+save_plot("../../figs/settlement-cv.png", p, base_aspect_ratio = 1.1, scale=2)
+
+regions.data.lm.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% filter(source.region=="NSW05" | source.region=="NSW06" | source.region=="NSW09" | source.region=="NSW18" | source.region=="NSW19") %>% mutate(value=value/eggs) %>% group_by(settle.region, year) %>% summarise(settlers = sum(value))
+regions.lm.known <- lm(settlers ~ year + settle.region, data=regions.data.lm.known)
+anova(regions.lm.known)
+```
 NNDS using all regions
 ```{r}
 regions <- colnames(blackcod.2011.conn.regions)
