@@ -1,7 +1,12 @@
-Appendix
+Appendix A - Supplementary materials for Chapter 2
 ----------------------
+A1. List of references used in the meta-analysis
 
-## Appendix B - Supplementary materials for Chapter 4
+A2. Comparing choice of particle tracking models with the metrics of local retention (%; a), self-recruitment (%; b), settlement success (%; c) and dispersal distance (km; d).![](chapters/lit_review/figs/bdm-models.png)
+
+A3. Comparing choice of hydrodynamic models with the metrics of local retention (%; a), self-recruitment (%; b), settlement success (%; c) and dispersal distance (km; d).![](chapters/lit_review/figs/physical-models.png)
+
+# Appendix B - Supplementary materials for Chapter 4
 
 ### Table B1
 
