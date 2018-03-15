@@ -1,10 +1,12 @@
-Appendix A - Supplementary materials for Chapter 2
-----------------------
+# Appendix A - Supplementary materials for Chapter 2
+
 A1. List of references used in the meta-analysis
 
 A2. Comparing choice of particle tracking models with the metrics of local retention (%; a), self-recruitment (%; b), settlement success (%; c) and dispersal distance (km; d).![](chapters/lit_review/figs/bdm-models.png)
 
 A3. Comparing choice of hydrodynamic models with the metrics of local retention (%; a), self-recruitment (%; b), settlement success (%; c) and dispersal distance (km; d).![](chapters/lit_review/figs/physical-models.png)
+
+PAGEBREAK
 
 # Appendix B - Supplementary materials for Chapter 4
 
@@ -38,7 +40,7 @@ A3. Comparing choice of hydrodynamic models with the metrics of local retention 
 
 ### Table B2
 
-: Diel vertical migration (DVM) values used, providing more stratified depth positions during the day and more even distribution at night as seen in temperate fish off NSW ^[@gray1998] {#tbl:dvm-table}
+: Diel vertical migration (DVM) values used, providing more stratified depth positions during the day and more even distribution at night as seen in temperate fish off NSW [@gray1998]. {#tbl:dvm-table}
 
 | Time of day | Depth range (m) | Probability |
 |:------------|:----------------|:-----------:|
@@ -53,8 +55,8 @@ A3. Comparing choice of hydrodynamic models with the metrics of local retention 
 
 ### Figure B1
 
-![nMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration strategies for reef fish (2D stress = 0.06)](chapters/theoretical/figs/phase2-nmds.png)
+![NMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration strategies for reef fish (2D stress = 0.06)](chapters/theoretical/figs/phase2-nmds.png)
 
 ### Figure B2
 
-![nMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration methods (2D stress = 0.08)](chapters/theoretical/figs/phase3-nmds.png)
+![NMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration methods (2D stress = 0.08)](chapters/theoretical/figs/phase3-nmds.png)
