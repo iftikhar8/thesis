@@ -237,10 +237,10 @@ Settlement richness was decreased when OHS or DVM behaviour was in a model, but 
 
 ![The metrics of mean settlement richness (A; a measure of the number of regions settled), settlement diversity (B; a measure of richness and abundance using the Shannon-Weiner index), and connectance (C; a measure of describing the proportion of all links between the natal and settlement sites that are realised) for each region, as measured for each modelling scenario grouped by the three aims; behaviour (Passive = no behaviour, VA = vertical advection, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming), OVM strategy, and OVM method. The whisker plots denote the mean, one standard deviation either side of the mean and min/max values.](chapters/theoretical/figs/settle-metrics.png){#fig:settle-metrics}
 
-Comparison of ontogenetic vertical migration scenarios
-------------------------------------------------------
+### Comparison of ontogenetic vertical migration scenarios
 
-### Ontogenetic migration strategies
+
+#### Ontogenetic migration strategies
 
 The effect (difference from base case) of different strategies was strongly regional, with the northern (1-5), central (6-10), and southern sites (11-17) clustering together (@fig:nmds-ovm-std). The variation described by OVM strategies using the standardised connectivity patterns from source regions was negligible (R^2^ < 0.01, p > 0.05) compared to the variation between regions (R^2^ = 0.95, p = 0.005). The differences between strategies also was not constant across regions, e.g. the OVM strategies Pomacentridae and Scorpaenidae were more similar at region 6 than region 2.
 
@@ -256,7 +256,7 @@ Two clusters were identified when comparing the total settlement of the differen
 
 Differences in OVM strategy affected each of the reported connectivity metrics; self-recruitment (F~(6,96)~ = 31.88, p \< 0.05; @fig:conn-metrics A); local retention (F~(6,96)~ = 40.90, p \< 0.05; @fig:conn-metrics B); settlement success (F~(6,96)~ = 42.84, p \< 0.05; @fig:conn-metrics C); and dispersal distance (F~(6,96)~ = 63.25, p \< 0.05; @fig:conn-metrics D). The strategy of remaining close to the surface during all stages of ontogeny, i.e. Mullidae, produced the lowest self-recruitment, local retention, settlement success, and the furthest dispersal distance. In contrast, the strategy of migrating downwards with ontogeny, most pronounced in the Serranidae and Scorpaenidae strategies, increased self-recruitment, local retention, settlement success, and lowered the dispersal distances. Different OVM strategies did not produce any differences in richness (F~(6,96)~ = 1.11, p > 0.05; @fig:settle-metrics A) or diversity (F~(6,96)~ = 0.79, p > 0.05; @fig:settle-metrics B). The strategies with the lowest connectance occurred with the Labridae and Scaridae strategies, while Synodontidae had the highest connectance values (@fig:settle-metrics C).
 
-### Ontogenetic vertical migration methods
+#### Ontogenetic vertical migration methods
 
 Ontogenetically migrating larvae daily produced different connectivity patterns to the OVM methods of stage and time step (R^2^ = 0.10; p = 0.005). The stage and time step methods had more consistent overlap of settlement patterns at most source regions (@fig:nmds-impl-std). The effect of daily migration was diminished in the southern regions (13-17), where more overlap between all three methods was observed. The central regions (6-9) showed the strongest regional variation, both between and within for OVM methods. The CAP analysis showed all three methods as dissimilar to each other, with stage marginally more similar to time step, than the daily method of OVM (@fig:cap-impl).
 
