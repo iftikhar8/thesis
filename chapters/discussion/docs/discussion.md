@@ -53,7 +53,7 @@ The most notable limitation of this biophysical dispersal modelling approach is 
 * Data gaps
 * Generalities in connectivity modelling.
     * empirical data
-    * what changes in theroretical . OHS, why don’t people change as much
+    * what changes in theoretical . OHS, why don’t people change as much
     * OVM. were there generalities? was there a variation
     * where do we go from here - lack of uniformity and reporting.
     * summaries. connectivity is powerful, probably the tool due to hard empirical . knowledge gaps. going forward.
@@ -77,7 +77,7 @@ Chapter 2 demonstrated that while the trend in biophysical dispersal modelling (
 
 Chapter 3 aimed to measure the vertical distribution of reef fish off the coast of NSW, to see if there were any distributional patterns across depths with ontogeny or length. Across the measures, ontogenetic shifts in the distribution were found across the seven reef associated families. The general pattern was to increase with age and length as the centre of mass moved downwards. The exception to this rule was Mullidae, where the centre of mass moved upwards towards the surface.
 
-- talk about the lack of behaviour - why so many passive? chapter 3 shows differences in vertical distrubtion between fish families. Chapter 4 shows that implementing behaviour connectivity patterns
+- talk about the lack of behaviour - why so many passive? chapter 3 shows differences in vertical distribution between fish families. Chapter 4 shows that implementing behaviour connectivity patterns
 
 To address knowledge gaps in the ontogenetic vertical migration behaviour of larval fish off the New South Wales coast, Chapter 3 measured the vertical distribution of seven fish families. The ontogenetic stage and length of the larval fish were measured at three different depth bins from the surface down to a depth of 100 m. The experimental methodology used cannot capture the actual behaviour of the fish, but it does give an estimate of where the centre of mass is for each ontogenetic stage. I found that in general the larval fish moved downwards with ontogeny, seen in other studies.
 
@@ -102,23 +102,36 @@ OHS paragraph
 
 Vertical migration paragraph
 - OVM was found to affect patterns
-- OVM was found to be a downwards shift for most species (although some different results, which has also been seen accross studies)
+- OVM was found to be a downwards shift for most species (although some different results, which has also been seen across studies)
 
 Modelling processes
 - Looked at a bit in chapter 2 (explain different methods seen)
 - There was a large effect, need to test sensitivity of models to processes and not just parameters.
-- Examples, spawnign depth (seen), spawning time, pld (fixed vs random), OHS implementation (the three different kinds).
+- Examples, spawning depth (seen), spawning time, pld (fixed vs random), OHS implementation (the three different kinds).
+
+
+Sticky reefs not captured on this scale, which have been shown to be important for settlement [@golbuu2012]
 
 
 
 ### Limitations and future directions.
 
-An important limitation to note of this thesis is that there was not attempted validation of the model using empirical data. This is particularly important for Chapter 4, where I am giving management advice. The most common validation technique is to use genetic markers [@feutry2013; @sunday2014; @coscia2012; @munguia-vega2014; @crandall2012] or elemental markers [i.e. otolith chemistry, @crochelet2013] to compare the observed structure of distributions with the connectivity patterns. these multidisciplinary approaches do provide some validation of the predicted larval dispersal, but to not capture the temporal and spatial variability. It has also been argued comparisons across two models with differing levels of uncertainty can be fraught, although solutions to this have been sought [@nolasco2018]. Limited validation of models using recent recruitment data has been done, some studies have compared using lights traps - which explained 70% of the temporal variation seen in the model [@sponaugle2012]. An important next step would be to validate the dispersal patterns of a fish species with known recruitment data for years with corresponding hydrodynamic data. Model validation would also tell us about the ability of the hydrodynamic models, specifically predictive ability of the low resolution near the coastal settlement sites and how realistic the given settlement buffer is. Chapter 2 suggested that model resolution had no effect on connectivity metrics, it is more reasonable to suggest this will depending on the coastal dynamics While for rare species like the black cod it is hard to use recruitment data to validate the results, if confidence in the model can be obtained using well studied species it is a desired results. Accepting that fact assumptions about empirical data will always exist for reef fish, at least in the short-term, and balancing it up that it is important to included larval behavioural traits, an important step is to try and understand the effect of these assumptions, which I tried to partly address in Chapter 4 by testing the effects of different OVM strategies.
+An important limitation to note of this thesis is that there was not attempted validation of the model using empirical data. This is particularly important for Chapter 4, where I am giving management advice. The most common validation technique is to use genetic markers [@feutry2013; @sunday2014; @coscia2012; @munguia-vega2014; @crandall2012; @galindo2010] or elemental markers [i.e. otolith chemistry, @crochelet2013] to compare the observed structure of distributions with the connectivity patterns. these multidisciplinary approaches do provide some validation of the predicted larval dispersal, but to not capture the temporal and spatial variability. It has also been argued comparisons across two models with differing levels of uncertainty can be fraught, although solutions to this have been sought [@nolasco2018]. Limited validation of models using recent recruitment data has been done, some studies have compared using lights traps - which explained 70% of the temporal variation seen in the model [@sponaugle2012]. An important next step would be to validate the dispersal patterns of a fish species with known recruitment data for years with corresponding hydrodynamic data. Model validation would also tell us about the ability of the hydrodynamic models, specifically predictive ability of the low resolution near the coastal settlement sites and how realistic the given settlement buffer is. Chapter 2 suggested that model resolution had no effect on connectivity metrics, it is more reasonable to suggest this will depending on the coastal dynamics While for rare species like the black cod it is hard to use recruitment data to validate the results, if confidence in the model can be obtained using well studied species it is a desired results. Accepting that fact assumptions about empirical data will always exist for reef fish, at least in the short-term, and balancing it up that it is important to included larval behavioural traits, an important step is to try and understand the effect of these assumptions, which I tried to partly address in Chapter 4 by testing the effects of different OVM strategies.
+
+#### Modelling directions
+- adding more biology (buoyancy using salinity [@sundby2015])
 
 [assumptions of empirical data]
 [coarseness of the hydrodynamic model]
 
 The most notable limitation of this biophysical dispersal modelling approach is the assumptions made for biology of *E. daemelii*, whether using values from related species or averages across species. The need for these assumptions is not specific to this study and occurs in the majority connectivity study with a biophysical dispersal model (BDM). The biggest assumption made for this study was giving the larvae the ability to sense, orientate, and swim towards suitable habitat within a 7 km boundary. From Chapter 4, it has been shown this ability for larval fish to orientate significantly changes dispersal patterns. The likelihood of *E. daemelii* larvae being able to sense habitat is why I chose to make these assumptions [@leis2010]. Another potential limitation is the coarseness of the oceanographic model used, while Chapter 2 suggested model resolution had no effect on connectivity metrics overall, it could influence the final settlement habitats reached; therefore I used settlement regions instead of specific habitat patches. This model coarseness also creates a limitation in not effectively capturing nearshore processes. Validating the results of BDMs are increasingly achievable using empirical methods and an essential next step [@burgess2014]. However, this has to be combined with more knowledge of the early-life history of *E. daemelii* to accurately parametrise model input with behaviour, and knowledge of larval production to produce realised connectivity patterns. The model included constant larval production across all regions and across all years, which is unrealistic in nature.
+
+Error and uncertainty will exist with ocean models [@fossette2012].
+
+### collecting empirical data
+- using laboritory techniques [@martinez-quintana2014]
+
+
 
 ## Conclusion
 
@@ -133,21 +146,57 @@ OHS - did not account for variations in temperature waters - perhaps temeprature
 
 Another future idea is to implement a Reynolds number (can account for the viscosity between tropical and temperate waters)
 
+Shown OHS is an important factor, making issues of ocean acidification, which can remove ability to sense an even greater issue [@rossi2016], and could possibly render this finding useless [@leis2018].
+(Stretch out to a paragraph)
+
+Chemosensation, Hearing, Vision, Physio-chemical, Habitat cue, Swimming, Lateralization, Settlement timing
+
 Modelling Issues
 ----------------
 
 Need to validate Without validation these models are also only models.
 
-
-
 #### MPA connectivity
 
+It has been known that we need to address this variability of connectivity patterns [@cudney-bueno2009]
 
+What species? Benthic, pelagic, etc.. Complexity abounds.
 
+Dispersal relies on egg production and developmental size and time [@burgess2015]
 
+Australia is in an enviable position with the ability to legislate for protection over the range of entire populations due to our geography, although there is still negotiation required between states and also federal governments depending on the jurisdiction. In this study we only looked at New South Wales, but the black cod also do have populations in Queensland and Victoria, with their own marine protected area rules and regulations and to counter range shift states will need to come up with multilateral mechanisms to protect species such as the black cod, i.e. [@anzecctaskforceonmarineprotectedareas1999].
 
-Shown OHS is an important factor, making issues of ocean acidification, which can remove ability to sense an even greater issue [@rossi2016], and could possibly make this finding mute.
+Much needed information is missing on key harvested species in NSW, let alone conservation priorities like black cod [@curley2013].
+Knowledge of the population biology, life- history ecology and scales of pre and post-settlement movement of marine species are needed to inform effective conservation management strategies,
 
+The ability to protect variable changes in connectivity is a difficult question. (Triage)
+
+Dynamic protected areas can even out the distribution of the biomass [@game2009], but also create management difficulties (increase management complexity). Although the complexity managing for larval dispersal can be less than managing for other environmental variables, especially if self-recruitment is high [@bode2016a]
+
+Advanced computing increases the options of connectivity modelling [@mumby2017]
+
+Traits that help conservation with a long latitudinal range (positive), but is thought not to move much as an adult (negative) [@sunday2015]
+
+Modelling multiple species to inform conservation management [@treml2012a].
+
+Black cod has protection from fishing, e.g. Southern and Eastern Scalefish and Shark Fishery (SESSF) [@georgeson2014]
+
+Include - publishing or making available results of sensitivity studies, e.g. [@simons2013]. These are of interest to the community!
+
+Variation in habitat quality can produce differences in metapopulation dynamics in terrestrial systems, similar connotations can occur in marine [@fernandez2016]
+
+Mortality is complicated [@johnson2015] (Put in theoretical chapter perhaps)
+
+DVM increases the spread of larvae [@ospina-alvarez2012]
+
+Reproducibility in ecology is inherently hard due to variation [@schnitzer2016]
+
+Trend towards supplementary material [@kenyon2014]
+
+Metacommunities provide for ecosystem diversity, which might require novel empirical techniques to be developed [@grainger2016]
+(In metacommunities, species-specific dispersal rates influence the order in which individuals arrive at a local patch, and, through priority effects, this order of arrival can alter coexistence and diversity. The relationship between dispersal rates and priority effects is therefore a potentially important, but largely unexplored, mechanism through which dispersal can alter metacommunity diversity.)
+
+Expected dispersal patterns (and coastal connectivity) show strong dependencies on particle-release location, season and year, reflecting annual and interannual circulation patterns in the SCB [@mitarai2009].
 
 
 
@@ -157,13 +206,13 @@ A trait common to nearly all biophysical connectivity studies is that they are a
 
 ### Models and reproducibility
 
-Reproducibility, a term often synonymous with open science, is an important facet in assessing the scientific merit of a published paper. It can be difficult to achieve in large empirical studies due to experimental variance [@opensciencecollaboration2015], however, the same challenges do not exist in computational modelling [@peng2011]. Ideally for reproducibility, the model configurations, source code and the output data is made available at the time of publishing. Transparency provides both confidence to the reader, and importantly the peer reviewer, about the outcome and interpretations of the study.
+Reproducibility, a term often synonymous with open science, is an important facet in assessing the scientific merit of a published paper. It can be difficult to achieve in large empirical studies due to experimental variance [@opensciencecollaboration2015], however, the same challenges do not exist in computational modelling [@peng2011]. Ideally for reproducibility, the model configurations, source code and the output data is made available at the time of publishing. Transparency provides both confidence to the reader, and importantly the peer reviewer, about the outcome and interpretations of the study [@sudhof2016]. Utilising common frameworks for designing, coding, and testing BDMs, e.g. TRACE [@grimm2014], is another important step to produce realistic and reliable models.
 
 @sandve2013 produced ten rules of reproducibility for computational research, which all apply to studies involving a biophysical model. Most are intuitive, such as tracking exactly how results were obtained, automating as many steps as possible, and using version control for scripts, code & software. Others are not thought about as often, like recording the seed used for random number generators, which was not seen amongst the connectivity studies. The most visible facet to a researcher reading a published study is Rule 10; "all input data, scripts, versions, parameters, and intermediate results should be made publicly and easily accessible" [@sandve2013]. Ignoring the reporting of the random number seed and providing access to source code, only 34% of the studies in our review could be considered reproducible.
 
 Transparency is difficult when performing complex modelling because of all the parameters used. In our review, there were many common and rectifiable omissions that prevented reproducibility, deduced while inspecting the methods and the supporting information (if available). 12% of the studies did not mention the years used for their oceanographic model in their simulation. 34% did not mention the time-step used when advecting the particles in their model. 69% mentioned using diffusion in their model, but only 51% of these published the diffusion coefficient used. When mortality was implemented into the biophysical model, 25% of these studies either did not include the mortality curve or rate used. It is advised, where possible, to use oceanographic models that are freely available to the public. Fortunately, this is happening more, whether it is government funded ocean models becoming available through legislative requirements or studies using open hydrodynamics models such as the Regional Ocean Modelling System (ROMS) or the Princeton Ocean Model (POM), which can be coupled with higher resolution models for specific site locations. Transparency amongst models (providing source code) allows for other researchers without the necessary coding skills to utilise the system. There are several examples of this already [e.g. Ichthyop [@lett2008], CMS [@paris2013], MGET @roberts2010], suggesting popular support for model reuse amongst the community.
 
-Complexity in biophysical models derives from coupling two distinct models, biological and physical, creating an additive effect on the number of input parameters.  However, it is impossible to reproduce a biophysical connectivity study without all of these parameters, hence the importance of publishing these parameters along with the results. The strong trend towards supplementary information in journals allows for publication of these parameters without obscuring the primary scientific message. The cost of reproducible research for biophysical studies is minimal, many free online repositories exist for both source code and data, two popular examples being GitHub (http://github.com) and Dryad (http://datadryad.org). Only two studies in the review uploaded their data using such a portal, both choosing to use Dryad. Several journals are also making reproducibility a requirement and providing mechanisms for online storage of data (e.g. PLOS Biology).
+Complexity in biophysical models derives from coupling two distinct models, biological and physical, creating an additive effect on the number of input parameters. However, it is impossible to reproduce a biophysical connectivity study without all of these parameters, hence the importance of publishing these parameters along with the results. The strong trend towards supplementary information in journals allows for publication of these parameters without obscuring the primary scientific message. The cost of reproducible research for biophysical studies is minimal, many free online repositories exist for both source code and data, two popular examples being GitHub (http://github.com) and Dryad (http://datadryad.org). Only two studies in the review uploaded their data using such a portal, both choosing to use Dryad. Several journals are also making reproducibility a requirement and providing mechanisms for online storage of data (e.g. PLOS Biology).
 
 ### A common approach
 
@@ -210,3 +259,6 @@ To provide transparency between studies on how the biophysical model is implemen
 |            | Settlement strategies   | How did the particles choose a settlement site (e.g. passively, sites were buffered 10 kms, sensory cues)                                                                                                                                       |   |
 
 In order to advance our understanding of connectivity in marine systems, biophysical modelling studies need to start publishing consistent quantitative metrics of dispersal and connectivity so that comparisons can be made. Studies must also provide more transparency on the parameters used. We have attempted to provide a template for the basic information we think necessary based on our review. We suggest this template be used as the basis for discussion amongst scientists in the field, but strongly encourage all researches publishing the results of biophysical connectivity studies to adopt at least the principles of cohesion, consistency and transparency which are at its core. We feel that such an approach will greatly speed advancements in our understanding of the drivers and outcomes of connectivity more generally. Ultimately it is confidence in the generality of the results of these models which, along with more empirical validation of the modelled output, will allow for their more widespread use within management and conservation initiatives.
+
+
+## Future studies
