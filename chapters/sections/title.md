@@ -1,4 +1,4 @@
-# Modelling reef fish connectivity: investigating the biological mechanisms that influence connectivity patterns.
+# Modelling reef fish connectivity: investigating the biological mechanisms that influence connectivity patterns
 
 Steven Maxwell Hawes
 
