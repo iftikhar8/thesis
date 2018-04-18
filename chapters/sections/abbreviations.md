@@ -40,3 +40,13 @@ CCA: Constrained Coordinates Analysis
 ANOVA: Analysis Of Variance
 
 NMDS: Non-metric Multidimensional Scaling
+
+SE: Standard Error
+
+TRACE: Transparent and Comprehensive Model Evaluation
+
+EAC: East Australian Current
+
+EM Reefs: Elizabeth and Middleton Reefs
+
+PLD: Pelagic Larval Duration
