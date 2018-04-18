@@ -16,6 +16,7 @@ library(FactoMineR)
 library(factoextra)
 library(wesanderson)
 library(ggthemes)
+library(agricolae)
 source("applied-functions.R")
 ```
 
@@ -91,11 +92,11 @@ Create connectivity matrix heatmaps
 eggs <- 976000
 regions.data.heatmap <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(source.region, settle.region) %>% summarise(settlers = mean(value)/eggs)
 regions.data.heatmap <- ungroup(regions.data.heatmap)
-regions.data.heatmap <- regions.data.heatmap %>% add_row(source.region="NSW19",settle.region="NFI",settlers=0) %>% add_row( source.region="NSW19",settle.region="NZ",settlers=0)
 regions.data.heatmap <- group_by(regions.data.heatmap, source.region, settle.region)
 regions.data.heatmap$source.region <- factor(regions.data.heatmap$source.region,levels=rev(c("NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","NSW18","NSW19")))
 regions.data.heatmap$settle.region <- factor(regions.data.heatmap$settle.region, levels=c("QLD","NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","VIC","NSW18","NSW19","NFI","NZ"))
 pal <- wes_palette("Zissou", 100, type = "continuous")
+#pal <- canva_pal("Fresh and energetic")(4)
 #pal <- canva_pal("Timeless and nautical")(100)
 heatmap.plot <- ggplot(regions.data.heatmap, aes(settle.region,source.region)) + geom_tile(aes(fill=sqrt(sqrt(settlers))), colour="white") + scale_fill_gradientn(colours=pal,name="Proportion settled\n(4th root)") + theme(legend.position = "right", axis.text.x = element_text(angle=330, hjust=0)) + scale_y_discrete(labels=rev(region.names)) + scale_x_discrete(labels=settle.names) +labs(y="Source region",x="Settlement region")
 ggsave("../../figs/heatmap-all.png",heatmap.plot, width=9.17, height=5.43, units=c("in"))
@@ -121,8 +122,8 @@ regions.data.cv.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) 
 regions.data.cv.known.plot <- ggplot(regions.data.cv.known, aes(mean,cv)) + geom_point() + geom_text_repel(size=4, label=cv.names[-21]) + theme(legend.position = "none") + labs(x="Mean annual larval settlement (Pr)", y="Coefficient of variation (%)") + xlim(0, 0.016)
 #ggsave("../../figs/settlement-cv.png", regions.data.cv.known.plot, width=8.17, height=7.43, unit=c("in"))
 
-p <- plot_grid(regions.data.cv.plot,regions.data.cv.known.plot, labels="AUTO", align="v", nrow=2)
-save_plot("../../figs/settlement-cv.png", p, base_aspect_ratio = 1.1, scale=2)
+cv.settlement.plot <- plot_grid(regions.data.cv.plot,regions.data.cv.known.plot, labels="AUTO", align="v", nrow=2)
+save_plot("../../figs/settlement-cv.png", cv.settlement.plot, base_aspect_ratio = 1.1, scale=2)
 
 regions.data.lm.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% filter(source.region=="NSW05" | source.region=="NSW06" | source.region=="NSW09" | source.region=="NSW18" | source.region=="NSW19") %>% mutate(value=value/eggs) %>% group_by(settle.region, year) %>% summarise(settlers = sum(value))
 regions.lm.known <- lm(settlers ~ year + settle.region, data=regions.data.lm.known)
@@ -166,8 +167,8 @@ mpas <- tribble(
 pal <- canva_pal("Fresh and energetic")(4)
 from.to.mpa.data <- from.to.data[-20:-21,] %>% left_join(mpas, by=c("source.region" = "region"))
 from.to.mpa.data$mpa <- factor(from.to.mpa.data$mpa, levels=c("Small","Medium","Large","None"))
-from.to.plot <- ggplot(aes(y=from.mean,x=to.mean),data=from.to.mpa.data) + geom_point(aes(size=CV,color=mpa) ) + geom_text_repel(size=4, label=cv.from.names) + scale_color_manual(values = pal,name="Sanctuary zone") + labs(x="Settlement to", y="Settlement from") 
-save_plot("../../figs/mpa.png", from.to.plot)
+from.to.plot <- ggplot(aes(y=from.mean,x=to.mean),data=from.to.mpa.data) + geom_point(aes(size=CV,color=mpa) ) + geom_text_repel(size=4, label=cv.from.names) + scale_color_manual(values = pal,name="Sanctuary zone") + labs(x="Settlement to (Pr)", y="Settlement from (Pr)") + guides(colour = guide_legend(override.aes = list(size=4)))
+ggsave("../../figs/mpa.png", from.to.plot, width=7.79, height=5.79)
 
 regions.data.cv.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% filter(source.region=="NSW05" | source.region=="NSW06" | source.region=="NSW09" | source.region=="NSW18" | source.region=="NSW19") %>% mutate(value=value/eggs) %>% group_by(settle.region, year) %>% summarise(settlers = sum(value)) %>% summarise(mean = mean(settlers), cv = (sd(settlers)/mean(settlers))*100)
 regions.data.cv.known.plot <- ggplot(regions.data.cv.known, aes(mean,cv)) + geom_point() + geom_text_repel(size=4, label=cv.names[-21]) + theme(legend.position = "none") + labs(x="Mean annual larval settlement (Pr)", y="Coefficient of variation (%)") + xlim(0, 0.016)
@@ -222,9 +223,10 @@ MDS_xy$sites <- community$sites
 #color = colorRampPalette(rev(brewer.pal(n = 8, name = "Paired"))(19))
 # Classic palette BuPu, with 4 colors
 coul = brewer.pal(9, "Set1") 
+pal <- canva_pal("Fresh and energetic")(4)
  
 # I can add more tones to this palette :
-coul = colorRampPalette(coul)(19)
+coul = colorRampPalette(pal)(19)
 
 nmds.plot.years <- ggplot(MDS_xy, aes(MDS1, MDS2, colour=year)) + geom_point(size=4) + theme_bw() + theme(legend.position = "right")   + scale_colour_brewer(name="", palette="Paired")
 ggsave("../../figs/nmds-years.png", nmds.plot.years)
