@@ -33,14 +33,15 @@ g <- autoplot(mapLatLon)
 coul <- brewer.pal(9, "Set1")
 coul <- colorRampPalette(coul)(19)
 g <- g + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, color=factor(REGION), shape=known), size=2, data=sites) + theme(legend.position = "bottom", legend.text = element_text(size=10)) + labs(x="Longitude", y="Latitude") +
-scale_color_manual(labels = c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans","16 Merimbula","17 Eden","18 Lord Howe Is", "19 EM Reefs"), name=NULL, values = coul) + 
-scale_shape_manual(values=c(16, 1)) + guides(colour=guide_legend(ncol=4),shape="none")
+scale_color_manual(labels = c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans","16 Merimbula","17 Eden","18 Lord Howe Is", "19 EM Reefs"), name="Release regions", values = coul) + 
+scale_shape_manual(values=c(1, 16), labels=c("Known","Unknown"),name="Sites of aggreation") + guides(colour=guide_legend(ncol=3,title.position = "top"),shape=guide_legend(ncol=1,title.position = "top"))
 ggplot2::ggsave("../../figs/release-sites.png", g)
 
-p1 <- ggdraw() + draw_image("../../figs/release-sites.png")
-p2 <- ggdraw() + draw_image("../../figs/NSW-marine-protected-area-map.pdf")
-maps.grid <- plot_grid(p1,p2,labels="AUTO")
-
+#p1 <- ggdraw() + draw_image("../../figs/release-sites.png")
+p1 <- ggdraw() + draw_image("../../figs/NSW-marine-protected-area-map.pdf")
+p2 <- ggdraw() + draw_image("../../figs/map-te-network_0.jpg")
+maps.grid <- plot_grid(p1,p2,labels="AUTO", align="h")
+save_plot("../../figs/mpa-locations.png",maps.grid)
 ```
 
 Trajectories
@@ -93,10 +94,9 @@ ovm.data <- read_csv("../../data/ovm.csv")
 ovm.data <- ovm.data %>% gather(key= stage, value=proportion, 3:5)
 ovm.data$stage <- factor(ovm.data$stage, levels=c("preflexion","flexion","postflexion"), labels=c("Preflexion","Flexion","Postflexion"))
 
-pal <- canva_pal("Grecian holiday")(4)
 pal <- canva_pal("Fresh and energetic")(4)
 
 ovm.plot <- ggplot(ovm.data, aes(x=stage, y=depth, weight=proportion, fill=stage)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_classic() + labs(y="Depth (m)", x="Ontogenetic stage") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_manual(values = pal)
-save_plot("../../figs/ovm.png", ovm.plot)
+ggsave("../../figs/ovm.png", ovm.plot, width=4.5, height=4)
 ```
 
