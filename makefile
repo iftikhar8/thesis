@@ -4,7 +4,9 @@ word-template=templates/thesis-template.docx
 pdf-template=templates/format.sty
 bibliography=/Users/Steven/Dropbox/Research/my-library.bib
 yaml="crossrefYaml=templates/pandoc-crossref.yaml"
-csl=templates/inter-research-science-center.csl
+csl=templates/austral-ecology.csl
+csl-meps=templates/inter-research-science-center.csl
+csl-elsevier=templates/elsevier-harvard.csl
 
 
 abstract:
@@ -41,7 +43,10 @@ thesis-pdf:
 	pandoc --filter pandoc-crossref --filter pandoc-citeproc -H $(pdf-template) -V fontsize=12pt --bibliography=$(bibliography) --csl=$(csl) chapters/sections/title.md chapters/lit-review/docs/lit-review.md chapters/empirical/docs/empirical.md chapters/theoretical/docs/theoretical.md chapters/applied/docs/applied.md -o out/thesis.pdf
 
 thesis-docx:
-	pandoc  --reference-doc=$(word-template) -M $(yaml) --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) chapters/sections/title.md --toc chapters/introduction/docs/introduction.md chapters/lit-review/docs/lit-review.md chapters/empirical/docs/empirical.md chapters/theoretical/docs/theoretical.md chapters/applied/docs/applied.md chapters/discussion/docs/discussion.md -o out/thesis.docx
+	pandoc  --reference-doc=$(word-template) -M $(yaml) --filter pandoc-docx-pagebreak --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) chapters/sections/title.md chapters/sections/quotes.md chapters/sections/abbreviations.md chapters/introduction/docs/introduction.md chapters/lit-review/docs/lit-review.md chapters/empirical/docs/empirical.md chapters/theoretical/docs/theoretical.md chapters/applied/docs/applied.md chapters/discussion/docs/discussion.md -o out/thesis.docx
+
+amsa-award-2018:
+	pandoc  --reference-doc=$(word-template) -M $(yaml) --filter pandoc-docx-pagebreak --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) conferences/amsa2018/amsa-award.md -o out/amsa-award-2018.docx
 
 clean:
 	rm out/*.docx
