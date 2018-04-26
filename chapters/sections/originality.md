@@ -9,3 +9,7 @@ I certify that the intellectual content of this thesis is the product of my own 
 [](chapters/sections/figs/signature.png)
 
 Steven Hawes
+
+
+
+Will Figueria
