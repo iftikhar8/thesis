@@ -73,7 +73,7 @@
   </macro>
   <macro name="access">
     <choose>
-      <if variable="URL">
+      <if type="webpage">
         <text value="[online]. Available from:" suffix=" "/>
         <text variable="URL"/>
         <group prefix=" [" suffix="]">
@@ -202,13 +202,20 @@
                 <group prefix=". ">
                   <text variable="volume" font-weight="bold"/>
                 </group>
+                <!-- <group prefix="(" suffix=")">
+                  <text variable="issue"/>
+                </group> -->
                 <group prefix=", ">
                   <text variable="page"/>
                 </group>
               </if>
               <else>
-                <!-- Online version before inclusion in an issue -->
-                <text variable="DOI" prefix=" doi: "/>
+                <group prefix=". ">
+                  <text variable="volume" font-weight="bold"/>
+                </group>
+                <group prefix=", ">
+                  <text variable="page"/>
+                </group>
               </else>
             </choose>
           </group>
