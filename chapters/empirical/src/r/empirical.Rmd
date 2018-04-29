@@ -20,6 +20,7 @@ require(broom)
 require(multcompView)
 require(cowplot)
 require(magick)
+require(ggthemes)
 ```
 
 
@@ -55,18 +56,19 @@ data.measure <- mutate(data.measure, total_length = standard_length + caudal_fin
 
 Study site and station locations
 ```{r}
-australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), col="gray90", fill=TRUE)
-#coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
-centre <- geocode("Sydney, AU")
-coast <- get_map(c(lon=154.25, lat=-30), zoom = 7, maptype=c("hybrid"))
+# australia <- map("worldHires", "Australia", xlim=c(140,160), ylim=c(-45,-10), col="gray90", fill=TRUE)
+# #coast = get_openstreetmap(c(147.041,-36.593,159.662,-24.247))
+# centre <- geocode("Sydney, AU")
+# coast <- get_map(c(lon=154.25, lat=-30), zoom = 7, maptype=c("hybrid"))
 
-map <- openmap(c(lat= -26, lon= 150), c(lat= -34, lon= 156), type="osm")
+map <- openmap(c(lat= -26.5, lon= 151.5), c(lat= -33.5, lon= 155.5), type="osm")
 mapLatLon <- openproj(map)
 g <- autoplot(mapLatLon)
-
+pal <- canva_pal("Fresh and energetic")(4)
 sites <- dplyr::select(data.tow, site, feature, latitude, longitude) %>% distinct()
 #australia <- ggmap(coast)
-map <- g + geom_point(aes(x=longitude, y=latitude, group=site, colour=feature, shape=feature), size=2, data=sites) + theme(legend.position = "top")
+map <- g + geom_point(aes(x=longitude, y=latitude, group=site, colour=feature, shape=feature), size=2, data=sites) + theme(legend.position = "top", legend.text = element_text(size=12)) + labs(x="Longitude", y="Latitude") + scale_color_manual(values = pal, labels=c("Coastal","Eddy"),name="Oceanic feature") + scale_shape_manual(values = c(17,19), labels=c("Coastal","Eddy"),name="Oceanic feature")
+  
 eddies <- ggdraw() + draw_image("../../figs/nsw-eddies.gif", scale=0.9)
 plot_grid(map,eddies, labels="AUTO")
 ggsave("../../figs/stations.png")
