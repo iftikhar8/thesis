@@ -4,16 +4,9 @@ Comparing the influence of the implementation of different larval behavioural st
 Abstract
 --------
 
-Background & aims
+Many species of marine teleost fish have a pelagic larval phase, and until recently it was assumed that any behaviour during this larval stage had little effect on dispersal. Biophysical dispersal models allow us to infer the relative influence of different physical and biological processes on connectivity and dispersal patterns. The aim of this chapter was to investigate the influence on dispersal of a combination of behaviours: ontogenetic vertical migration, diel vertical migration, and orientated horizontal swimming. Also, to compare how changing the values and processes of ontogenetic vertical migration affects the dispersal patterns. The study system for the models was New South Wales, a near-shore poleward boundary current. The results showed that while the largest driver of connectivity was the location and timing of spawning, larval behaviour also was an important driver. The behaviours with the most influence on connectivity patterns was orientated horizontal swimming, and ontogenetic vertical migration had the least influence. Therefore, future modelling connectivity studies should strive to include orientated horizontal swimming, and more empirical research is required into understanding the cues of settlement. Different values of ontogenetic vertical migration also had little effect on connectivity, however, the processes (timing) of the migration had a stronger effect. For modellers, this result suggests that decisions on how to encapsulate a behaviour is more important than making assumptions on behaviour when parameterising a model.
 
-methods
-
-results
-
-DISCUSSION
-
-Conclusion
-
+PAGEBREAK
 
 Introduction
 ------------
