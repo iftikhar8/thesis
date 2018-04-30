@@ -1,52 +1,79 @@
 List of Abbreviations
 =====================
 
-OVM: Ontogenetic Vertical Migration
+ANOVA
+: Analysis Of Variance
 
-DVM: Diel Vertical Migration
+BDM
+: Biophysical Dispersal Modelling
 
-ZISSOU: Zooplankton interconnections and source-sink observation utility
+CAP
+: Constrained Analysis of Principal Coordinates
 
-OHS: Orientated Horizontal Swimming
+CCA
+: Constrained Coordinates Analysis
 
-BDM: Biophysical Dispersal Modelling
+DVM
+: Diel Vertical Migration
 
-VA: Vertical Advection
+EAC
+: East Australian Current
 
-MPA: Marine Protected Area
+EM Reefs
+: Elizabeth and Middleton Reefs
 
-NSW: New South Wales
+GIS
+: Geographic Information System
 
-RFU: Relative Fluorescence Units
+GPS
+: Global Positioning System
 
-SNK: Student Newman‐Kuel’s test
+MPA
+: Marine Protected Area
 
-NetCDF: Network Common Data Form
+NetCDF
+: Network Common Data Form
 
-OPeNDAP: Open-source Project for a Network Data Access Protocol
+NMDS
+: Non-metric Multidimensional Scaling
 
-RK4: Runge-Kutta fourth-order integration
+NSW
+: New South Wales
 
-GPS: Global Positioning System
+OHS
+: Orientated Horizontal Swimming
 
-GIS: Geographic Information System
+OPeNDAP
+: Open-source Project for a Network Data Access Protocol
 
-PERMANOVA: Permutational Multivariate Analysis Of Variance
+OVM
+: Ontogenetic Vertical Migration
 
-CAP: Constrained Analysis of Principal Coordinates
+PERMANOVA
+: Permutational Multivariate Analysis Of Variance
 
-CCA: Constrained Coordinates Analysis
+PLD
+: Pelagic Larval Duration
 
-ANOVA: Analysis Of Variance
+RFU
+: Relative Fluorescence Units
 
-NMDS: Non-metric Multidimensional Scaling
+RK4
+: Runge-Kutta fourth-order integration
 
-SE: Standard Error
+SE
+: Standard Error
 
-TRACE: Transparent and Comprehensive Model Evaluation
+SNK
+: Student Newman‐Kuel’s test
 
-EAC: East Australian Current
+TRACE
+: Transparent and Comprehensive Model Evaluation
 
-EM Reefs: Elizabeth and Middleton Reefs
+ZISSOU
+: Zooplankton interconnections and source-sink observation utility
 
-PLD: Pelagic Larval Duration
+VA
+: Vertical Advection
+
+PAGEBREAK
