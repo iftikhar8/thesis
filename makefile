@@ -10,7 +10,7 @@ csl-elsevier=templates/elsevier-harvard.csl
 
 
 abstract:
-	pandoc --reference-doc=$(word-template) chapters/abstract/abstract.md -o out/abstract.docx
+	pandoc --reference-doc=$(word-template) chapters/sections/abstract.md -o out/abstract.docx
 
 intro:
 		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc --filter pandoc-docx-pagebreak --bibliography=$(bibliography) --csl=$(csl) chapters/introduction/docs/introduction.md -o out/introduction.docx
@@ -43,7 +43,7 @@ thesis-pdf:
 	pandoc --filter pandoc-crossref --filter pandoc-citeproc -H $(pdf-template) -V fontsize=12pt --bibliography=$(bibliography) --csl=$(csl) chapters/sections/title.md chapters/lit-review/docs/lit-review.md chapters/empirical/docs/empirical.md chapters/theoretical/docs/theoretical.md chapters/applied/docs/applied.md -o out/thesis.pdf
 
 thesis-docx:
-	pandoc  --reference-doc=$(word-template) -M $(yaml) --filter pandoc-docx-pagebreak --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) chapters/sections/title.md chapters/sections/quotes.md chapters/sections/abbreviations.md chapters/introduction/docs/introduction.md chapters/lit-review/docs/lit-review.md chapters/empirical/docs/empirical.md chapters/theoretical/docs/theoretical.md chapters/applied/docs/applied.md chapters/discussion/docs/discussion.md -o out/thesis.docx
+	pandoc  --reference-doc=$(word-template) -M $(yaml) --filter pandoc-docx-pagebreak --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) chapters/sections/title.md chapters/sections/quotes.md chapters/sections/originality.md chapters/sections/acknowledgement.md chapters/sections/abbreviations.md chapters/sections/abstract.md chapters/introduction/docs/introduction.md chapters/lit-review/docs/lit-review.md chapters/empirical/docs/empirical.md chapters/theoretical/docs/theoretical.md chapters/applied/docs/applied.md chapters/discussion/docs/discussion.md chapters/sections/references.md chapters/sections/appendix.md -o out/thesis.docx
 
 amsa-award-2018:
 	pandoc  --reference-doc=$(word-template) -M $(yaml) --filter pandoc-docx-pagebreak --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) conferences/amsa2018/amsa-award.md -o out/amsa-award-2018.docx
