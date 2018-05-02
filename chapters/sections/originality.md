@@ -1,5 +1,6 @@
 
-# Statement of originality
+Statement of originality
+========================
 
 This is to certify that to the best of my knowledge, the content of this thesis is my own work. This thesis has not been submitted for any degree or other purposes.
 
