@@ -1,4 +1,4 @@
-List of Abbreviations
+Abbreviations
 =====================
 
 ANOVA
