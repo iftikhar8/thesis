@@ -60,3 +60,5 @@ PAGEBREAK
 ### Figure B2
 
 ![NMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration methods (2D stress = 0.08)](chapters/theoretical/figs/phase3-nmds.png)
+
+PAGEBREAK
