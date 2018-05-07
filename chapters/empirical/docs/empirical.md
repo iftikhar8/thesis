@@ -118,6 +118,7 @@ In general, most larvae across all ontogenetic stages were captured in the middl
 
 ![Proportion weighted average depth for each reef fish family by ontogenetic stage. A significant interaction between stage and depth is denoted by an asterisk(*). Note these are the same means presented in @fig:stage-prop, overlaid here for ease of comparison amongst different families.](chapters/empirical/figs/weighted-depth.png){#fig:stage-weight}
 
+\ 
 Each reef fish family had depth as a predictor of length (@tbl:results-models), however, it was only a significant predictor for six of the families, with Synodontidae showing no effect (@tbl:length-glm-output). The effect of depth on length exhibited three general patterns; the larvae were shorter in the middle depth and longer at the surface and the deep (1), the larvae increased in length in the deep layer (2), or the larvae were shortest at the surface (3; @fig:length-depth). Pattern (1) was observed for Labridae and Mullidae larvae. Scaridae, Serranidae and Scorpaenidae larvae all displayed pattern (2). Pomacentridae was the only family to display pattern (3). Apart from Synodontidae, where length was not different across the three depths, the larvae were longer on average in the deep layer.
 
 PAGEBREAK
@@ -139,7 +140,7 @@ PAGEBREAKLANDSCAPE
 
 ![Boxplot of the length distribution (mm) of larval fish of seven temperate reef families (Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae) at three depths (surface = 0-5 m, middle = 5-50 m, deep = 50-100 m), sampled from 16 different stations along the NSW coast. The straight line highlights the median, the box hinges represent first and third quartiles, and the points are outliers.](chapters/empirical/figs/length-depth-family.png){#fig:length-depth}
 
-### Does vertical migration change within an Eddy?
+### Effect of eddies on vertical migration distributions
 
 Feature (eddy or coastal waters) was not found to change the patterns of vertical migration. For stage-abundance, the only parsimonious model that included the three-way interaction of Feature x Stage x Depth was Pomacentridae, but the interaction was not significant (@tbl:ontogeny-glm-output). An interaction between Feature x Depth was not included in any of the parsimonious length models (@tbl:results-models). In general, eddies had higher abundances (@fig:conc-feature; @tbl:ontogeny-glm-output) and longer ichthyoplankton (@fig:length-feature; @tbl:length-glm-output), than the coastal waters. Although, this was not consistent across all families, with no effect of feature on the concentration of Labridae, Mullidae, and Scaridae, and no effect of feature on the length of Scaridae. Eddies did have different makeups of ontogenetic stages for some families, either entraining older larvae (e.g. Labridae and Scorpaenidae) or in the case of Mullidae, younger larvae. The eddy also had depth effects on larval concentration, increasing the number at the surface waters for Labridae, and decreasing the concentration at the deep layer for Pomacentridae.
 
@@ -157,24 +158,24 @@ PAGEBREAK
 
 : Summary of the effect of water characteristics; temperature (°C), salinity (Practical Salinity Units), dissolved oxygen (mg/L), and fluorescence (Relative Fluorescence Units) on the length and abundance of the larvae for seven temperate reef-associated families; Labridae, Mullidae, Pomacentridae, Scaridae, Scorpaenidae, Serranidae, and Synodontidae collected at 16 stations off the coast of New South Wales, Australia. The arrows denote the direction of the significant predictor of the generalised linear model. No arrow indicates the water characteristic was not significant and therefore not included in the model. {#tbl:water-summary}
 
-| Family        | Temperature | Salinity | Dissolved oxygen | Fluorescence |
-|:--------------|:-----------:|:--------:|:----------------:|:------------:|
-| Abundance     |             |          |                  |              |
-| Labridae      |      ↑      |          |                  |              |
-| Mullidae      |             |          |                  |      ↓       |
-| Pomacentridae |      ↓      |          |                  |      ↓       |
-| Scaridae      |      ↑      |    ↓     |        ↓         |              |
-| Scorpaenidae  |      ↑      |          |                  |              |
-| Serranidae    |             |          |        ↑         |              |
-| Synodontidae  |      ↑      |          |                  |              |
-| Length        |             |          |                  |              |
-| Labridae      |      ↓      |          |                  |      ↓       |
-| Mullidae      |      ↓      |          |                  |              |
-| Pomacentridae |      ↓      |    ↓     |        ↑         |              |
-| Scaridae      |             |    ↓     |                  |              |
-| Scorpaenidae  |             |    ↑     |                  |              |
-| Serranidae    |      ↑      |          |                  |              |
-| Synodontidae  |             |          |                  |              |
+| Measure   | Family        | Temperature | Salinity | Dissolved oxygen | Fluorescence |
+|:----------|:--------------|:-----------:|:--------:|:----------------:|:------------:|
+| Abundance |               |             |          |                  |              |
+|           | Labridae      |      ↑      |          |                  |              |
+|           | Mullidae      |             |          |                  |      ↓       |
+|           | Pomacentridae |      ↓      |          |                  |      ↓       |
+|           | Scaridae      |      ↑      |    ↓     |        ↓         |              |
+|           | Scorpaenidae  |      ↑      |          |                  |              |
+|           | Serranidae    |             |          |        ↑         |              |
+|           | Synodontidae  |      ↑      |          |                  |              |
+| Length    |               |             |          |                  |              |
+|           | Labridae      |      ↓      |          |                  |      ↓       |
+|           | Mullidae      |      ↓      |          |                  |              |
+|           | Pomacentridae |      ↓      |    ↓     |        ↑         |              |
+|           | Scaridae      |             |    ↓     |                  |              |
+|           | Scorpaenidae  |             |    ↑     |                  |              |
+|           | Serranidae    |      ↑      |          |                  |              |
+|           | Synodontidae  |             |          |                  |              |
 
 ### Family summaries
 

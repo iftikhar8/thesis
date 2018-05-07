@@ -8,13 +8,13 @@ PAGEBREAK
 
 ### Figure A2.
 
-![Comparing choice of particle tracking models with the metrics of local retention (%; a), self-recruitment (%; b), \settlement success (%; c) and dispersal distance (km; d).](chapters/lit_review/figs/bdm-models.png)
+![Comparing choice of particle tracking models with the metrics of local retention (%; a), self-recruitment (%; b), \settlement success (%; c) and dispersal distance (km; d).](chapters/lit-review/figs/bdm-models.png)
 
 PAGEBREAK
 
 ### Figure A3.
 
-![Comparing choice of hydrodynamic models with the metrics of local retention (%; a), self-recruitment (%; b), settlement success (%; c) and dispersal distance (km; d).](chapters/lit_review/figs/physical-models.png)
+![Comparing choice of hydrodynamic models with the metrics of local retention (%; a), self-recruitment (%; b), settlement success (%; c) and dispersal distance (km; d).](chapters/lit-review/figs/physical-models.png)
 
 PAGEBREAK
 

@@ -32,10 +32,10 @@ mapLatLon <- openproj(map)
 g <- autoplot(mapLatLon)
 coul <- brewer.pal(9, "Set1")
 coul <- colorRampPalette(coul)(19)
-g <- g + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, color=factor(REGION), shape=known), size=2, data=sites) + theme(legend.position = "bottom", legend.text = element_text(size=10)) + labs(x="Longitude", y="Latitude") +
+g <- g + geom_point(aes(x=LON_RELEASE, y=LAT_RELEASE, color=factor(REGION), shape=known), size=2, data=sites) + theme(legend.position = "right", legend.text = element_text(size=10)) + labs(x="Longitude", y="Latitude") +
 scale_color_manual(labels = c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","6 Nambucca","7 Pt Macquarie","8 Crowdy Bay","9 Pt Stephens","10 Newcastle","11 Sydney","12 Wollongong","13 Jervis Bay","14 Ulladulla","15 Batemans","16 Merimbula","17 Eden","18 Lord Howe Is", "19 EM Reefs"), name="Release regions", values = coul) + 
-scale_shape_manual(values=c(1, 16), labels=c("Known","Unknown"),name="Sites of aggreation") + guides(colour=guide_legend(ncol=3,title.position = "top"),shape=guide_legend(ncol=1,title.position = "top"))
-ggplot2::ggsave("../../figs/release-sites.png", g)
+scale_shape_manual(values=c(1, 16), labels=c("Unnown","Known"),name="Sites of\n aggregation") + guides(colour=guide_legend(ncol=1,title.position = "top"),shape=guide_legend(ncol=1,title.position = "top"))
+ggplot2::ggsave("../../figs/release-sites.png", g, height=6, width=5, scale=1.5)
 
 #p1 <- ggdraw() + draw_image("../../figs/release-sites.png")
 p1 <- ggdraw() + draw_image("../../figs/NSW-marine-protected-area-map.pdf")

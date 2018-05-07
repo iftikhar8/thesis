@@ -46,6 +46,7 @@ data.all <- data.all %>% mutate(movement =
                                   horizontal_swimming_ability |
                                   sinking_velocity  | 
                                   diel_vertical_migration) %>% mutate(sensory_ability = ifelse(buffer_size > 0, TRUE, FALSE)) %>% replace_na(list(sensory_ability = FALSE))
+pal <- canva_pal("Fresh and energetic")(4)
 ```
 
 Summary of all the data
@@ -68,18 +69,20 @@ Figure 1: Publication years
 ```{r}
 data.all$published <- as.factor(data.all$published)
 years.data <- data.all  %>% distinct(paper_id, published)
-years.plot <- ggplot(years.data,aes(published)) + geom_bar() + labs(x="Year published", y="Number of studies") + theme_few() + scale_colour_few()
+years.plot <- ggplot(years.data,aes(published)) + geom_bar(fill=pal[1]) + labs(x="Year published", y="Number of studies") + theme_few()
+
 years.plot
-ggsave("../../figs/years.png", plot=years.plot, width=81, height=70, units="mm", dpi=300)
+ggsave("../../figs/years.png", plot=years.plot, width=7, height=4, units="cm", dpi=96, scale=2)
 ```
 
 Figure 2: The taxa modelled
 ```{r}
 data.all$species_type <- as.factor(data.all$species_type)
 taxa.plot <- ggplot(data=data.all,aes(sort_factor(species_type))) + 
-  geom_bar() + coord_flip() + ylab("Number of models") + xlab("Modelled taxa") + scale_x_discrete(labels = c("Cnidarian","Gastropod","Macroalgae","Echinoderm","Polychaete","Coral","Crustacean","Mollusc","Bivalvia","Fish","Generic")) +
-  theme_few() + scale_colour_few()
-ggsave("../../figs/taxa.png", plot=taxa.plot, width=81, height=60, units="mm", dpi=300)
+  geom_bar(fill = pal[1]) + coord_flip() + ylab("Number of models") + xlab("Modelled taxa") + scale_x_discrete(labels = c("Cnidarian","Gastropod","Macroalgae","Echinoderm","Polychaete","Coral","Crustacean","Mollusc","Bivalvia","Fish","Generic")) + theme_few()
+
+  
+ggsave("../../figs/taxa.png", plot=taxa.plot, width=90, height=55, units="mm", dpi=96, scale=2)
 taxa.plot
 ```
 
@@ -223,7 +226,7 @@ papers.comparisons <- data.all %>% gather(behaviours, implemented,passive_moveme
 papers.comparisons <- papers.comparisons %>% distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
   mutate(taxa = if_else(is_fish == TRUE & is_invert == FALSE, 'Fish', if_else(is_invert == TRUE, 'Invertebrate', 'NA'))) %>% filter( taxa == 'Fish' | taxa == 'Invertebrate')
 
-comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of models") +theme_few()+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
+comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of models") +theme_few()+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_manual(values=pal,breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE)) 
 
 
 papers.comparisons.prop <- papers.comparisons %>%
@@ -231,7 +234,7 @@ papers.comparisons.prop <- papers.comparisons %>%
   summarise (n = n()) %>%
   mutate(freq = n / sum(n))
 
-prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_few() + theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_grey(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("c","d"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
+prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_few() + theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_manual(values = pal,breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("c","d"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
 
 p <- grid.arrange(comparisons.plot,prop.plot,ncol=2, bottom="Publication year")
 ggsave("../../figs/comparisons.png",plot=p,width = 169, height=120, units="mm",dpi=300)

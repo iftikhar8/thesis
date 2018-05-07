@@ -112,7 +112,7 @@ $$u^{\prime} = u + s_{fish} \cos \theta $${#eq:u}
 
 $$v^{\prime} = v + s_{fish} \sin \theta $${#eq:v}
 
-where *s~fish~* is the horizontal swimming speed *s~fish~*, *U~crit~* is the critical swimming speed, *Z* is a random number with a minimum value of the *in situ* swimming potential *s_p* and a maximum value of 1, and *E_p* is the endurance potential. *u* is the longitude vector, *v* is the latitude vector, and *θ* is the angle of orientation towards the sensed reef.
+where *s~fish~* is the horizontal swimming speed, *U~crit~* is the critical swimming speed, *Z* is a random number with a minimum value of the *in situ* swimming potential *s~p~* and a maximum value of 1, and *E~p~* is the endurance potential. *u* is the longitude vector, *v* is the latitude vector, and *θ* is the angle of orientation towards the sensed reef.
 
 ### Model configuration
 
@@ -140,31 +140,35 @@ Model parameters are based on characteristics of a temperate rock reef fish from
 | Postflexion age    | 8 (± 0.5) days    | @murphy2007     |
 | Settlement buffer  | 10 km             | Chapter 2       |
 
+\
 In order to address the first aim of evaluating the influence of different behaviours on connectivity patterns I ran a series of models with varying combinations of the behaviours to compare patterns resulting from the implementation of (1) vertical advection (VA), (2) diel vertical migration (DVM), (3) ontogenetic vertical migration (OVM), and (4) orientated horizontal swimming (OHS). Each behaviour (and a combination of congruent behaviours) was compared to a base case of passive, vertically-restricted (no movement in the horizontal direction, either passive or active) transport (scenario 1, @tbl:models-behaviour).
 
 : Summary of the implementation of the four-movement mechanisms (one passive and three behaviours) in the ten different model scenarios run in the study. Mechanisms are abbreviated as: VA = vertical advection, DVM = diel vertical migration, OVM = ontogenetic vertical migration, and OHS = orientated horizontal swimming. {#tbl:models-behaviour}
 
 | Model | VA  | DVM | OVM | OHS |
 |:-----:|:---:|:---:|:---:|:---:|
-|   1   |  -  |  —  |  —  |  —  |
+|   1   |  —  |  —  |  —  |  —  |
 |   2   | Yes |  —  |  —  |  —  |
 |   3   |  —  | Yes |  —  |  —  |
 |   4   |  —  |  —  | Yes |  —  |
-|   5   |  -  |  —  |  —  | Yes |
+|   5   |  —  |  —  |  —  | Yes |
 |   6   | Yes |  —  |  —  | Yes |
 |   7   |  —  | Yes | Yes |  —  |
 |   8   |  —  | Yes |  —  | Yes |
 |   9   |  —  |  —  | Yes | Yes |
 |  10   |  —  | Yes | Yes | Yes |
 
+\
 The vertical advection scenarios were included because the implementation of this in existing models is varied and has the potential to impact connectivity like the behaviourally driven vertical movement. This mechanism only applies to models with no other vertical migration component, as DVM and OVM change the vertical position of the larvae after it has been advected by the *w* (vertical) vector (@tbl:models-behaviour). Larvae were given the DVM probabilities for Pomacentridae derived from an ichthyoplankton study in the same oceanic region [@gray1998]. Larvae were migrated using a probability distribution function between 25 m depth bins within the top 100 m of the water column (@fig:dvm).
 
 ![The diel vertical distribution patterns used in the model for the day and night time.](chapters/theoretical/figs/diel-example.png){#fig:dvm}
 
+\
 The OVM models used the values for OVM distribution values of Pomacentridae larvae observed in the empirical study described in Chapter 3 (see Appendix B). This data indicated that the larvae centre of mass moves downwards from the surface during preflexion, commonly to the top 50 m during postflexion (@fig:models-ovm).
 
 ![Proportional depth stage abundance profiles for each of the seven fish families evaluated in Chapter 3. Values represent the proportional (within a stage) abundance of each ontogenetic stage (preflexion, flexion, postflexion) within each of three depth ranges (surface: 0-5 m; middle: 5-50 m; deep layer: 50-100 m) and are used to parameterise models run to address Aim 2 of this study.](chapters/theoretical/figs/ovm-strategies.png){#fig:models-ovm}
 
+\
 For the OHS scenario, to orientate and swim towards a reef, the larval fish were given a reef sensory distance of 10 km, which was the maximum extent used in other studies [@wolanski2014; @staaterman2012; @tbl:orientate]. The swimming ability of the larvae was based on the common tropical Pomacentridae species *Abudefduf vaigensis*. Tropical species are strongly represented in studies of larval fish swimming speeds, and therefore more data is available. They are predicted to swim faster than temperate species due to hydrodynamic differences in temperature [@herbing2002] and viscosity [@fuiman1997]; however, this study only comparing the effect of including swimming behaviour and not predicting realistic patterns of connectivity for the region. Each larval fish was given a critical swimming speed (U~crit~) of 0.463 ms^-1^ and an *in situ* potential of 25%, values observed for *A. vaigensis* [@leis2006a]; therefore the actual swimming speed ranged between 0.116 to 0.463 ms^-1^. Pomacentridae larval fish are competent swimmers, having been seen to sustain constant speeds on average for 50 hours and with a maximum effort of more than 230 hours in laboratory settings [@stobutzki1997]. In this study I used a conservative estimate of endurance, only allowing the larval fish to swim for 50% of each time step (one hour), similar to a metric of *FV~50~* (50% fatigue velocity) used in other studies to measure the sustained speed over a 1-2 hour period [@jenkins2002]. It is reasonable to believe this speed is less than U~crit~ [@leis2006].
 
 : Orientated horizontal swimming (OHS) parameterisation, used in the swimming equation described above {#tbl:orientate}
@@ -176,6 +180,7 @@ For the OHS scenario, to orientate and swim towards a reef, the larval fish were
 | *In situ* swimming potential | 25%          | @leis2006a                              |
 | Endurance                    | 50%          | @stobutzki1997, @jenkins2002, @leis2006 |
 
+\
 The second aim, to assess the impact on connectivity of using different ontogenetic vertical migration parameters was addressed by conducting model runs using proportional depth stage abundance profiles which represented the seven fish families studied in Chapter 3 (@fig:models-ovm; for the actual values see Appendix B). Ontogenetic vertical migration was implemented such that the larvae moved when they reached their next ontogenetic stage (based on developmental time).
 
 Lastly, to explore the impact of the OVM implementation strategy on connectivity patterns I compared three different methods of ontogenetic vertical migration; time step, daily and ontogenetic stage migration (@tbl:models-impl). The vertical position of the larvae are changed using a probability distribution function at the different times in the model iterations (1) at each time step, (2) after 24 hours in the model, and (3) when the larvae change ontogenetic stage. Settlement stage Pomacentridae larvae of *Chromis atripectoralis* have been seen to change vertical position up to 15 m within six minutes [@leis2004], but the behaviour of less developed larval fish is unknown. Therefore for the migration method in (1), due to the higher frequency of positional change, larvae are restricted to moving only 25 m or less.
@@ -211,10 +216,12 @@ There were strong differences in source region connectivity patterns which displ
 
 ![NMDS ordination plot (2D stress = 0.06) using Bray-Curtis dissimilarities between the different source-settlement patterns for each of the 17 source regions for the models within the behaviour scenario (Passive = no behaviour, VA = vertical advection, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming).](chapters/theoretical/figs/phase1-nmds.png){#fig:nmds-behaviour}
 
+\
 Standardising the settlement patterns by the passive model in multivariate space reduces the passive model to a single point (@fig:nmds-behaviour-std) and therefore the size of the effect of behaviour is measured by the distance from this centremost point of passive connectivity. When standardised by the settlement patterns from the passive model, the strong clustering of OHS behaviours seen in @fig:nmds-behaviour becomes less distinct (@fig:nmds-behaviour-std). The effect of models with OHS is considerably stronger than models without OHS, with the models OVM and OVM+DVM showing little differentiation for most regions (@fig:nmds-behaviour-std). Interestingly for all the behavioural models, the settlement from source regions 11-13 was similar to the passive model. The effects of source region are strongest for the models with OHS included. For some source regions the models with OHS still clustered strongly (e.g. 3, 8, and 9), but for other regions, there were considerable dissimilarities between models with OHS (e.g 1, 5, and 6). The model with diel vertical migration (DVM) showed unique settlement patterns, with little overlap from other models. PERMANOVA found no differences between the standardised settlement patterns from the sources regions for the different behavioural models (R^2^ = 0.03, p > 0.05), instead regional patterns explained most of the variation (R^2^ = 0.60, p < 0.001).
 
 ![NMDS ordination plot (2D stress = 0.19) using Bray-Curtis dissimilarities between the different source-settlement patterns for each of the 17 source regions for the models within the behaviour scenario and normalised using the passive behaviour scenario (Passive = no behaviour, VA = with vertical advection, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming).](chapters/theoretical/figs/phase1-nmds-normal.png){#fig:nmds-behaviour-std}
 
+\
 The CAP analysis indicated including behaviour in a model, and different combinations of behaviour changed the connectivity patterns of the larvae (@fig:cap-behaviour; F~(9,144)~ = 1.35; p = 0.031). The settlement patterns formed two clusters: models with or without OHS. Models with OHS were grouped in tighter clusters than models without OHS. Of the models without OHS, models with DVM migration were less similar than models with OVM to the passive model. The passive model with vertical advection was more similar to the model with OVM than the passive model alone. The most dissimilar models were the passive and the model with all three behaviours (DVM+OVM+OHS). Restricting the larvae to the surface (Passive) or allowing the particle to be advected vertically (Passive+VA) produced dissimilar connectivity patterns, but when combined with OHS the connectivity patterns were identical.
 
 ![Constrained analysis of principal coordinates (CAP) for the models within the behaviour scenario using Bray-Curtis dissimilarities between the different source-settlement patterns for each of the 17 source regions. (Passive = no behaviour, VA = vertical advection, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming). The first two axes explain 39.4% of the inertia.](chapters/theoretical/figs/phase1-cap.png){#fig:cap-behaviour}
@@ -225,6 +232,7 @@ Comparing the connectivity of the behavioural models to settlement region, clust
 
 ![Comparison of the total settlement to source regions for the different models within the behaviour scenario (Passive = no behaviour, VA = vertical advection, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming). Cluster analysis (A) using a Bray-Curtis dissimilarity measure and clustered using the average-link method and constrained correspondence analysis (B) using Euclidean distance metrics. ](chapters/theoretical/figs/phase1-cluster.png){#fig:settlement-behaviour}
 
+\
 Comparisons of the connectivity to settlement regions using CCA analysis also produced two clusters, similar to the CAP analysis on the entire connectivity matrix (@fig:settlement-behaviour B; @fig:cap-behaviour). However, the dissimilarity between models within a cluster displayed opposite patterns, whereby using the total settlement OHS models were less similar than the non-OHS models (excluding DVM). The models with OHS are more dissimilar to each other using total settlement as compared to the analysis using regional settlement patterns. The variation between behaviour scenario models was explained by a combination of settlement regions (@fig:settlement-behaviour B). OHS models had increased settlement at regions 1, 2 ,3, and 16 and decreased settlement at the regions 5, 6, and 10.
 
 #### Connectivity metrics
@@ -233,6 +241,7 @@ Including behaviour in models increased self-recruitment to a region, compared t
 
 ![The connectivity metrics of mean self-recruitment (%; A), local-retention (%; B), settlement success (%; C) and dispersal distance (km; D) for each region, as measured for each modelling scenario grouped by the three aims; behaviour (Passive = no behaviour, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming), OVM strategy, and OVM method. The whisker plots denote the mean, one standard deviation either side of the mean and min/max values.](chapters/theoretical/figs/conn-metrics.png){#fig:conn-metrics}
 
+\
 Settlement richness was decreased when OHS or DVM behaviour was in a model, but increased with OVM behaviour (F~7,144~ = 17.50, p \< 0.05; @fig:settle-metrics A). The settlement diversity showed a similar effect as behaviour on richness, with OHS and DVM reducing diversity (F~7,144~ = 18.79, p \< 0.05; @fig:settle-metrics B). The variation of settlement diversity between regions was increased with OHS and DVM. Connectance was highest for the models with only OVM behaviour or the passive models, and lowest for models with OHS behaviours (@fig:settle-metrics C). DVM behaviour was observed to reduce the connectance between regions.
 
 ![The metrics of mean settlement richness (A; a measure of the number of regions settled), settlement diversity (B; a measure of richness and abundance using the Shannon-Weiner index), and connectance (C; a measure of describing the proportion of all links between the natal and settlement sites that are realised) for each region, as measured for each modelling scenario grouped by the three aims; behaviour (Passive = no behaviour, VA = vertical advection, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming), OVM strategy, and OVM method. The whisker plots denote the mean, one standard deviation either side of the mean and min/max values.](chapters/theoretical/figs/settle-metrics.png){#fig:settle-metrics}
@@ -245,14 +254,17 @@ The effect (difference from base case) of different strategies was strongly regi
 
 ![NMDS ordination plot (2D stress = 0.06) using the standardised Bray-Curtis dissimilarities between the different source-settlement patterns for each of the 17 source regions for the models within the behaviour scenario and normalised using the passive behaviour scenario (Passive = no behaviour, VA = vertical advection, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming).](chapters/theoretical/figs/phase2-nmds-norm.png){#fig:nmds-ovm-std}
 
+\ 
 The CAP analysis showed groupings between strategies of vertical migration upwards with ontogeny (Mullidae) and migrations downwards with ontogeny (the other six strategies; @fig:cap-ovm). However, the groupings were not significantly different to each other (F~(6,96)~ = 0.95, p > 0.05), likely due to the strong regional differences described above. Scaridae and Pomacentridae had the closest connectivity patterns between the OVM strategies.
 
 ![Constrained analysis of principal coordinates (CAP) for the models within the ontogenetic vertical migration strategies (of seven reef fish families) scenario using Bray-Curtis dissimilarities between the different source-settlement patterns for each of the 17 source regions. The first two axes explain 39.4% of the inertia.](chapters/theoretical/figs/phase2-cap.png){#fig:cap-ovm}
 
+\
 Two clusters were identified when comparing the total settlement of the different migration strategies. The first cluster contained only the Mullidae strategy, and the second comprised all the other OVM strategies (@fig:settlement-ovm A). Within the latter group the sub-groupings were based on strategy, with one sub-group consisting of a strategy that migrated deepest with increasing ontogeny (Serranidae and Scorpaenidae), and the other group using the OVM strategy whereby the centre of mass is in the 5-50 m depth layer at postflexion (Labridae, Pomacentridae, Scaridae, and Synodontidae). The differences in the total settlement were driven by small regional changes, with the most notable effect of increased settlement at region 1 for the OVM strategies that migrated deeper with ontogeny (@fig:settlement-ovm B)
 
 ![Comparison of the total settlement to source regions for the different OVM strategies. Cluster analysis (A) using a Bray-Curtis dissimilarity measure and clustered using the average-link method and constrained correspondence analysis (B) using Euclidean distance metrics. ](chapters/theoretical/figs/phase2-cluster.png){#fig:settlement-ovm}
 
+\
 Differences in OVM strategy affected each of the reported connectivity metrics; self-recruitment (F~(6,96)~ = 31.88, p \< 0.05; @fig:conn-metrics A); local retention (F~(6,96)~ = 40.90, p \< 0.05; @fig:conn-metrics B); settlement success (F~(6,96)~ = 42.84, p \< 0.05; @fig:conn-metrics C); and dispersal distance (F~(6,96)~ = 63.25, p \< 0.05; @fig:conn-metrics D). The strategy of remaining close to the surface during all stages of ontogeny, i.e. Mullidae, produced the lowest self-recruitment, local retention, settlement success, and the furthest dispersal distance. In contrast, the strategy of migrating downwards with ontogeny, most pronounced in the Serranidae and Scorpaenidae strategies, increased self-recruitment, local retention, settlement success, and lowered the dispersal distances. Different OVM strategies did not produce any differences in richness (F~(6,96)~ = 1.11, p > 0.05; @fig:settle-metrics A) or diversity (F~(6,96)~ = 0.79, p > 0.05; @fig:settle-metrics B). The strategies with the lowest connectance occurred with the Labridae and Scaridae strategies, while Synodontidae had the highest connectance values (@fig:settle-metrics C).
 
 #### Ontogenetic vertical migration methods
@@ -263,10 +275,12 @@ Daily migration of larvae as a function of ontogenetic stage produced different 
 
 ![Constrained analysis of principal coordinates (CAP) for the models within the ontogenetic vertical migration methods (stage-based, daily, and time step) scenario using Bray-Curtis dissimilarities between the different source-settlement patterns for each of the 17 source regions. The first two axes explain 40.7% of the inertia.](chapters/theoretical/figs/phase3-cap.png){#fig:cap-impl}
 
+\
 Comparisons of total settlement to regions found time step to have the most dissimilar settlement patterns (@fig:settlement-impl A). The differences were again driven by small regional differences, most notably an increased settlement at region 1 for stage and time step compared to the daily migration model (@fig:settlement-impl B).
 
 ![Comparison of the total settlement to source regions for the different OVM methods. Cluster analysis (A) using a Bray-Curtis dissimilarity measure and clustered using the average-link method and constrained correspondence analysis (B) using Euclidean distance metrics. ](chapters/theoretical/figs/phase3-cluster.png){#fig:settlement-impl}
 
+\
 There were significant differences between self-recruitment (F~(2,32)~ = 5.68, p < 0.05), with the daily method having lower self-recruitment than stage based migration (@fig:conn-metrics A). Time step migration had the lowest mean local retention (F~(2,32)~ = 9.83, p < 0.05; @fig:conn-metrics B) and settlement success (F~(2,32)~ = 32.48, p < 0.05; @fig:conn-metrics C) between the OVM methods. Larvae in the daily and time step methods dispersed significantly further than the stage OVM method (F~(2,32)~ = 11.00, p < 0.05; @fig:conn-metrics D). The variation of dispersal distance for the daily OVM method had a standard deviation estimated to be 30% greater than the other methods. OVM methods did not have an effect on settlement site richness (F~(2,32)~ = 1.04, p \> 0.05; @fig:settle-metrics A) though there was an effect on diversity (F~(2,32)~ = 11.02, p < 0.05; @fig:settle-metrics B). This effect was caused by the OVM method of daily migration, which had lower settlement site diversity than the other OVM methods. However, the daily method of migration had the highest value of connectance (@fig:settle-metrics C).
 
 ### Overall context
@@ -275,6 +289,7 @@ The settlement patterns of the models in the behaviour scenario were the least s
 
 ![Constrained analysis of principal coordinates (CAP) of the connectivity matrices for each scenario within each of the treatments using Bray-Curtis dissimilarities; behaviour (Passive = no behaviour, VA = vertical advection, DVM = diel vertical migration, OVM = ontogenetic vertical migration; OHS = orientated horizontal swimming), ontogenetic vertical migration (OVM) strategy (strategies based on seven reef fish families), and OVM method (the larvae migrate at the time step (2 hours), daily, or ontogenetic stage based migration such that the larvae migrate vertically when the next stage of ontogeny is reached). The first two axes explain 36.0% of the inertia.](chapters/theoretical/figs/all-cap.png){#fig:all-cap}
 
+\
 Differences in behaviour were more influential in determining the settlement richness, diversity, and connectance between regions (@fig:settle-metrics). Diversity was impacted more by changes in OVM method than the strategy choice (@fig:settle-metrics B). Similar trends were seen in the connectivity metrics, where different behaviours affected the metrics more than changes within OVM strategy or OVM methodology (@fig:conn-metrics). The one exception is dispersal distance, which also exhibited variation with both different OVM strategies and methods (@fig:conn-metrics D).
 
 PAGEBREAK

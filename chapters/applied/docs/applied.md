@@ -50,7 +50,7 @@ The physical model was forced with hydrodynamic flow data from BRAN3 [Bluelink r
 
 The biological model was parametrised with values obtained from the literature for the species *E. daemelii* where possible. In the cases where values could not be sourced for a particular parameter, values for similar species or averages across species within the genus were used instead. If this was not possible, then general values from the review in Chapter 2 were utilised (@tbl:blackcod-params).
 
-PAGEBREAKLANDSCAPE
+PAGEBREAK
 
 : Biological parametrisation for the larvae of *Epinephelus daemelii* in the biophysical dispersal model. For sourcing parameters, if no specific values were found, general values used across ichthyoplankton connectivity studies seen in chapter 2 were used. {#tbl:blackcod-params}
 
@@ -70,7 +70,7 @@ PAGEBREAKLANDSCAPE
 | Endurance                    | 0.5              | *Epinephelus spp.*       | ^@leis2006a                                      |
 | Mortality                    | 10% day^-1^      | General                  | Values taken from the meta-analysis in Chapter 2 |
 
-PAGEBREAK
+PAGEBREAKLANDSCAPE
 
 Larvae were released from four reef patches per region daily (chosen ad hoc, unless specific reef patches were known to contain sightings of *E. daemelii*), during the hypothesised spawning months April-May, over eight years (2004-2011). For each reef patch, 4000 pelagic eggs were spawned per day (16,000 per region) over the 61-day period. In total, 18.5 million eggs were released each breeding season and 148 million over the course of the experiment. Larvae were allowed to settle at rocky reef & rocky intertidal patches if they came within the settlement buffer distance of 7 km, after the settlement competency window and before the pelagic larval duration (@tbl:blackcod-params). A settlement buffer [settlement sensory or sticky water concept; @andutta2012] is a common concept used in many BDM studies (refer to Chapter 2) and helps overcome the coarseness of the hydrodynamic model (~10 km), whereby some reefs will fall outside the physical model domain as the grid structure is mapped to the contours of the coastline.
 
