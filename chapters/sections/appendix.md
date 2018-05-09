@@ -2,17 +2,19 @@
 
 ## Supplementary materials for Chapter 2
 
-### A1. List of references used in the meta-analysis
+### A1. Methods
+
+List of references used in the meta-analysis can be found https://doi.org/10.6084/m9.figshare.6230513.v2
 
 PAGEBREAK
 
-### Figure A2.
+### Figure A1.
 
 ![Comparing choice of particle tracking models with the metrics of local retention (%; a), self-recruitment (%; b), \settlement success (%; c) and dispersal distance (km; d).](chapters/lit-review/figs/bdm-models.png)
 
 PAGEBREAK
 
-### Figure A3.
+### Figure A2.
 
 ![Comparing choice of hydrodynamic models with the metrics of local retention (%; a), self-recruitment (%; b), settlement success (%; c) and dispersal distance (km; d).](chapters/lit-review/figs/physical-models.png)
 
@@ -22,7 +24,32 @@ PAGEBREAK
 
 ## Supplementary materials for Chapter 4
 
+### B1. Methods
+
+ZISSOU configuration files can be found https://doi.org/10.6084/m9.figshare.6230438.v1
+
+### B2. Results
+
+All connectivity matrices can be found https://doi.org/10.6084/m9.figshare.6230465
+
 ### Table B1.
+
+: Diel vertical migration (DVM) values used, providing more stratified depth positions during the day and more even distribution at night as seen in temperate fish off NSW [@gray1998].
+
+| Time of day | Depth range (m) | Probability |
+|:------------|:----------------|:-----------:|
+| Day         | 0-25            |     0.1     |
+|             | 26-50           |     0.3     |
+|             | 51-75           |     0.4     |
+|             | 76-100          |     0.2     |
+| Night       | 0-25            |     0.3     |
+|             | 26-50           |     0.3     |
+|             | 51-75           |     0.3     |
+|             | 76-100          |     0.1     |
+
+PAGEBREAK
+
+### Table B2.
 
 : Proportional depth stage abundance profiles for each of the seven fish families evaluated in Chapter 3. Values represent the proportional (within a stage) abundance of each stage within each of three depth ranges (surface: 0-5 m; mixed layer: 5-50 m; deep layer: 50-100 m) and are used to parameterise models run to address Aim 2 of this study.
 
@@ -52,23 +79,6 @@ PAGEBREAK
 
 PAGEBREAK
 
-### Table B2.
-
-: Diel vertical migration (DVM) values used, providing more stratified depth positions during the day and more even distribution at night as seen in temperate fish off NSW [@gray1998].
-
-| Time of day | Depth range (m) | Probability |
-|:------------|:----------------|:-----------:|
-| Day         | 0-25            |     0.1     |
-|             | 26-50           |     0.3     |
-|             | 51-75           |     0.4     |
-|             | 76-100          |     0.2     |
-| Night       | 0-25            |     0.3     |
-|             | 26-50           |     0.3     |
-|             | 51-75           |     0.3     |
-|             | 76-100          |     0.1     |
-
-PAGEBREAK
-
 ### Figure B1.
 
 ![NMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration strategies for reef fish (2D stress = 0.06)](chapters/theoretical/figs/phase2-nmds.png)
@@ -80,3 +90,15 @@ PAGEBREAK
 ![NMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration methods (2D stress = 0.08)](chapters/theoretical/figs/phase3-nmds.png)
 
 PAGEBREAK
+
+# Appendix C
+
+## Supplementary materials for Chapter 5
+
+### C1. Methods
+
+ZISSOU configuration files can be found https://doi.org/10.6084/m9.figshare.6230432.v1
+
+### C2. Results
+
+The connectivity matrix can be found https://doi.org/10.6084/m9.figshare.6230405.v1

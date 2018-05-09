@@ -44,7 +44,7 @@ Within the model domain, I identified 20 marine protected areas that were releva
 
 ### The biophysical model
 
-Connectivity patterns of *E. daemelii* were estimated using the ZISSOU biophysical dispersal model [BDM; v1.1.3; @hawes2018]; see the methods in Chapter 4 for a complete description. ZISSOU is an individual-based model, moving larvae within the system using a coupled biological-physical model. Larvae are advected within the model domain using the output from a hydrodynamic model and turbulent processes. The biological model applies traits (i.e. pelagic larval duration, developmental rates) and behaviours (i.e. ontogenetic vertical migration, orientated horizontal swimming) that influence the dispersal. If an individual larva reaches suitable habitat before the end of the pelagic larval duration it settles, and no post-settlement processes are considered.
+Connectivity patterns of *E. daemelii* were estimated using the ZISSOU biophysical dispersal model [BDM; v1.1.3; @hawes2018]; see the methods in Chapter 4 for a complete description (see Appendix C for configuration files). ZISSOU is an individual-based model, moving larvae within the system using a coupled biological-physical model. Larvae are advected within the model domain using the output from a hydrodynamic model and turbulent processes. The biological model applies traits (i.e. pelagic larval duration, developmental rates) and behaviours (i.e. ontogenetic vertical migration, orientated horizontal swimming) that influence the dispersal. If an individual larva reaches suitable habitat before the end of the pelagic larval duration it settles, and no post-settlement processes are considered.
 
 The physical model was forced with hydrodynamic flow data from BRAN3 [Bluelink reanalysis, version 3p5; @oke2013], a data-assimilating hindcast model which resolves mesoscale eddies with mean daily velocities. BRAN3 has a resolution of 0.1° latitude and longitude and resolves depth velocities at bins of 5-10 m. As with similar studies [@condie2016; @chiswell2011], an eddy diffusivity value (K) of 300 ms^-1^ was implemented in the model. Larvae positions in the BDM were updated based on a time step of two hours.
 
@@ -57,17 +57,17 @@ PAGEBREAK
 | Parameter                    | Value (± s.d.)   | Species                  | Reference                                        |
 |:-----------------------------|:-----------------|:-------------------------|--------------------------------------------------|
 | Spawning time                | April-May        | *Epinephelus daemelii*   | D. Harasti, personal communication, 9 March 2017 |
-| Pelagic larval duration      | 60 (± 10) days   | *E. daemelii*            | ^@francis2016                                    |
+| Pelagic larval duration      | 60 (± 10) days   | *E. daemelii*            | @francis2016                                    |
 | Settlement competency window | 40 days          | General                  | Values taken from the meta-analysis in Chapter 2 |
-| Hatching                     | 0-3 (± 1) days   | *Epinephelus marginatus* | ^@cunha2013                                      |
-| Preflexion                   | 4-12 (± 1) days  | *E. marginatus*          | ^@cunha2013                                      |
-| Flexion                      | 12-16 (± 1) days | *E. marginatus*          | ^@cunha2013                                      |
-| Postflexion                  | 16-60 (± 1) days | *E. marginatus*          | ^@cunha2013                                      |
+| Hatching                     | 0-3 (± 1) days   | *Epinephelus marginatus* | @cunha2013                                      |
+| Preflexion                   | 4-12 (± 1) days  | *E. marginatus*          | @cunha2013                                      |
+| Flexion                      | 12-16 (± 1) days | *E. marginatus*          | @cunha2013                                      |
+| Postflexion                  | 16-60 (± 1) days | *E. marginatus*          | @cunha2013                                      |
 | Settlement buffer            | 7 km             | General                  | Values taken from the meta-analysis in Chapter 2 |
 | Sensory zone                 | 10 km            | General                  | Values taken from the meta-analysis in Chapter 2 |
-| U~crit~                      | 0.3 ms^-1^       | *Epinephelus spp.*       | ^@leis2006a                                      |
-| *In situ* swim speed         | 0.16             | *Epinephelus spp.*       | ^@leis2006a                                      |
-| Endurance                    | 0.5              | *Epinephelus spp.*       | ^@leis2006a                                      |
+| U~crit~                      | 0.3 ms^-1^       | *Epinephelus spp.*       | @leis2006a                                      |
+| *In situ* swim speed         | 0.16             | *Epinephelus spp.*       | @leis2006a                                      |
+| Endurance                    | 0.5              | *Epinephelus spp.*       | @leis2006a                                      |
 | Mortality                    | 10% day^-1^      | General                  | Values taken from the meta-analysis in Chapter 2 |
 
 PAGEBREAKLANDSCAPE
@@ -138,7 +138,7 @@ Annual variation of settlement richness was found amongst the connectivity patte
 
 ### Identifying areas of strong connectivity
 
-The strongest connectivity for all source regions occurred with geographically close settlement regions, although each source region along the NSW coast showed long tails of connectivity to the south (@fig:heatmap-all). In general, the larvae settled in highest numbers to their natal region, the exceptions being the regions Tweed, Port Macquarie, and Jervis Bay, whereas strong connectivity occurred with the regions directly to the north or south of the source region. Below Newcastle (Sydney to Eden), source regions had a more northward settlement, Ulladulla and Merimbula have limited connectivity to Tweed or Queensland, but this connectivity was weak and variable. The offshore areas of Lord Howe Island, and Elizabeth and Middleton (EM) reefs also mostly recruited from the natal regions and from each other, but both also connected to all regions along the NSW coastline and to Queensland, with the strongest connectivity to regions above Jervis Bay. The connectivity between Lord Howe, EM Reefs, and the NSW coastline, while weak, was bi-directional (@fig:heatmap-all). No connectivity was seen to occur to either Norfolk Island or New Zealand from any of the chosen source regions.
+The strongest connectivity for all source regions occurred with geographically close settlement regions, although each source region along the NSW coast showed long tails of connectivity to the south (@fig:heatmap-all; for connectivity matrix see Appendix C). In general, the larvae settled in highest numbers to their natal region, the exceptions being the regions Tweed, Port Macquarie, and Jervis Bay, whereas strong connectivity occurred with the regions directly to the north or south of the source region. Below Newcastle (Sydney to Eden), source regions had a more northward settlement, Ulladulla and Merimbula have limited connectivity to Tweed or Queensland, but this connectivity was weak and variable. The offshore areas of Lord Howe Island, and Elizabeth and Middleton (EM) reefs also mostly recruited from the natal regions and from each other, but both also connected to all regions along the NSW coastline and to Queensland, with the strongest connectivity to regions above Jervis Bay. The connectivity between Lord Howe, EM Reefs, and the NSW coastline, while weak, was bi-directional (@fig:heatmap-all). No connectivity was seen to occur to either Norfolk Island or New Zealand from any of the chosen source regions.
 
 ![The connectivity matrix of the mean proportional settlement (4th root) between source regions and settlement regions over the years (2004-2011). Regions are organised latitudinal from north to south with the exception of Lord Howe Island and Elizabeth and Middleton Reefs (EM Reefs) which are listed last.](chapters/applied/figs//heatmap-all.png){#fig:heatmap-all}
 

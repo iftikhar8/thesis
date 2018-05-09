@@ -74,10 +74,10 @@ year.nmds.plot <- ggplot(MDS_xy, aes(MDS1, MDS2)) + geom_label_repel(size=3, lab
 years.data.mds$stress
 ggsave("../../figs/years-settle-nmds.png", year.nmds.plot)
 
-years.data.cca <- years.data.mean[,-1]
-cap <- capscale(years.data.cca ~ year, years.data.mean, distance="bray", metaMDSdist=TRUE, sqrt.dist=TRUE)
-plot <- autoplot(cap, legend.position = "none")
-ggsave("../../figs/cca-years.png", plot)
+# years.data.cca <- years.data.mean[,-1]
+# cap <- capscale(years.data.cca ~ year, years.data.mean, distance="bray", metaMDSdist=TRUE, sqrt.dist=TRUE)
+# plot <- autoplot(cap, legend.position = "none")
+# ggsave("../../figs/cca-years.png", plot)
 ```
 
 
@@ -95,10 +95,10 @@ regions.data.heatmap <- ungroup(regions.data.heatmap)
 regions.data.heatmap <- group_by(regions.data.heatmap, source.region, settle.region)
 regions.data.heatmap$source.region <- factor(regions.data.heatmap$source.region,levels=rev(c("NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","NSW18","NSW19")))
 regions.data.heatmap$settle.region <- factor(regions.data.heatmap$settle.region, levels=c("QLD","NSW01","NSW02","NSW03","NSW04","NSW05","NSW06","NSW07","NSW08","NSW09","NSW10","NSW11","NSW12","NSW13","NSW14","NSW15","NSW16","NSW17","VIC","NSW18","NSW19","NFI","NZ"))
-pal <- wes_palette("Zissou", 100, type = "continuous")
+wes <- wes_palette("Zissou1", 100, type = "continuous")
 #pal <- canva_pal("Fresh and energetic")(4)
 #pal <- canva_pal("Timeless and nautical")(100)
-heatmap.plot <- ggplot(regions.data.heatmap, aes(settle.region,source.region)) + geom_tile(aes(fill=sqrt(sqrt(settlers))), colour="white") + scale_fill_gradientn(colours=pal,name="Proportion settled\n(4th root)") + theme(legend.position = "right", axis.text.x = element_text(angle=330, hjust=0)) + scale_y_discrete(labels=rev(region.names)) + scale_x_discrete(labels=settle.names) +labs(y="Source region",x="Settlement region")
+heatmap.plot <- ggplot(regions.data.heatmap, aes(settle.region,source.region)) + geom_tile(aes(fill=sqrt(sqrt(settlers))), colour="white") + scale_fill_gradientn(colours=wes,name="Proportion settled\n(4th root)") + theme(legend.position = "right", axis.text.x = element_text(angle=330, hjust=0)) + scale_y_discrete(labels=rev(region.names)) + scale_x_discrete(labels=settle.names) +labs(y="Source region",x="Settlement region")
 ggsave("../../figs/heatmap-all.png",heatmap.plot, width=9.17, height=5.43, units=c("in"))
 
 regions.data.heatmap.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) %>% group_by(source.region, settle.region) %>% summarise(settlers = mean(value)/eggs)

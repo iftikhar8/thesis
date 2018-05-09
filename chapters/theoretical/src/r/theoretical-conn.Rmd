@@ -10,6 +10,7 @@ library(agricolae)
 library(nlme)
 library(multcomp)
 library(cowplot)
+library(ggthemes)
 ```
 
 ```{r}
