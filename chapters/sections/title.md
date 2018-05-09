@@ -1,5 +1,6 @@
 
 
+![](chapters/sections/figs/serranid.jpg)
 ![](chapters/sections/figs/scorpaenid.jpg)
 
 
