@@ -4,7 +4,8 @@
 
 ### A1. Methods
 
-List of references used in the meta-analysis can be found https://doi.org/10.6084/m9.figshare.6230513.v2
+List of references used in the meta-analysis can be found at doi: http://doi.org/10.4227/11/5af51a29f9e6a
+File: chapter-2-meta-analysis-refs.rtf
 
 PAGEBREAK
 
@@ -26,11 +27,13 @@ PAGEBREAK
 
 ### B1. Methods
 
-ZISSOU configuration files can be found https://doi.org/10.6084/m9.figshare.6230438.v1
+ZISSOU configuration files can be found at doi: http://doi.org/10.4227/11/5af51a29f9e6a
+File: chapter-4-zissou.zip
 
 ### B2. Results
 
-All connectivity matrices can be found https://doi.org/10.6084/m9.figshare.6230465
+All connectivity matrices can be found at doi: http://doi.org/10.4227/11/5af51a29f9e6a
+File: chapter-4-connectivity-matrices.zip
 
 ### Table B1.
 
@@ -97,8 +100,10 @@ PAGEBREAK
 
 ### C1. Methods
 
-ZISSOU configuration files can be found https://doi.org/10.6084/m9.figshare.6230432.v1
+ZISSOU configuration files can be found at doi: http://doi.org/10.4227/11/5af51a29f9e6a
+chapter-5-zissou.zip
 
 ### C2. Results
 
-The connectivity matrix can be found https://doi.org/10.6084/m9.figshare.6230405.v1
+The connectivity matrix can be found at doi: http://doi.org/10.4227/11/5af51a29f9e6a
+chapter-5-connectivity-matrix-all.csv
