@@ -6,9 +6,13 @@ Marine populations are structurally different to terrestrial populations as the 
 Connectivity, within the context of this thesis, is defined as the exchange of individuals between spatially discrete populations [@palumbi2003; @cowen2009]. A metapopulation is defined as the collection of connected populations [@hanski1998]. In the marine context, the primary mechanism of connectivity for metapopulations is via the processes of dispersal and recruitment of larvae [@sale2006a]. Connectivity within a metapopulation can be highly volatile due to events that are intrinsic [e.g. low exchange of individuals; @castorani2017] or extrinsic [e.g. natural variation in currents; @watson2012]. The connectivity between populations is fundamental to community dynamics (local and metapopulation levels), genetic diversity and population persistence [@burgess2014; @lowe2010; @lett2015]. However, the influence of biological processes that contribute to this connectivity, the importance of variable connectivity on population dynamics, and the general dispersal patterns for many ichthyoplankton are not fully understood [@cowen2007; @giangrande2017; @snyder2015]
 
 The central aim of this thesis is to contribute to the understanding of the processes that influence the dispersal and connectivity patterns of ichthyoplankton. The thesis has four parts:
+
 * a meta-analysis comparing studies to assess the trends and influence of biophysical dispersal modelling (BDM) structure and parameters on resulting connectivity patterns.
+
 * an empirical evaluation of ontogenetic vertical migration (OVM) patterns of ichthyoplankton, a key biological process known to influence connectivity.
+
 * an investigation of the influences of different behaviours, strategies and modelling choices on connectivity patterns using a BDM.
+
 * an application of a BDM, incorporating outcomes from previous chapters, to predict connectivity patterns and appropriateness of current marine protected area strategy for the threatened black cod (*Epinephelus daemelii*) of the temperate region of south-eastern Australia.
 
 Ichthyoplankton connectivity
