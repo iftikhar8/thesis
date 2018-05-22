@@ -16,6 +16,8 @@ blackcod.2011.conn.reefs <- get_connectivity_matrix_reefs(blackcod.2011.data.con
 blackcod.2011.conn.regions <- get_connectivity_matrix_regions(blackcod.2011.data.conn, reefs.id)
 blackcod.2011.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/applied/data/model-output/2011"))
 blackcod.2011.dk.regions <- get_dispersal_distance_regions(blackcod.2011.data.dk, reefs.id)
+blackcod.2011.dk.plot <- ggplot(blackcod.2011.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="2011")
 rm(blackcod.2011.data.conn)
 rm(blackcod.2011.data.dk)
 
@@ -28,6 +30,8 @@ blackcod.2010.conn.reefs <- get_connectivity_matrix_reefs(blackcod.2010.data.con
 blackcod.2010.conn.regions <- get_connectivity_matrix_regions(blackcod.2010.data.conn, reefs.id)
 blackcod.2010.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/applied/data/model-output/2010"))
 blackcod.2010.dk.regions <- get_dispersal_distance_regions(blackcod.2010.data.dk, reefs.id)
+blackcod.2010.dk.plot <- ggplot(blackcod.2010.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="2010")
 rm(blackcod.2010.data.conn)
 rm(blackcod.2010.data.dk)
 
@@ -40,6 +44,8 @@ blackcod.2009.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/appli
 blackcod.2009.dk.regions <- get_dispersal_distance_regions(blackcod.2009.data.dk, reefs.id)
 blackcod.2009.reefs <- rename(blackcod.2009.reefs, blackcod.2009=count)
 blackcod.2009.regions <- rename(blackcod.2009.regions, blackcod.2009=count)
+blackcod.2009.dk.plot <- ggplot(blackcod.2009.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="2009")
 rm(blackcod.2009.data.conn)
 rm(blackcod.2009.data.dk)
 
@@ -52,6 +58,8 @@ blackcod.2008.conn.reefs <- get_connectivity_matrix_reefs(blackcod.2008.data.con
 blackcod.2008.conn.regions <- get_connectivity_matrix_regions(blackcod.2008.data.conn, reefs.id)
 blackcod.2008.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/applied/data/model-output/2008"))
 blackcod.2008.dk.regions <- get_dispersal_distance_regions(blackcod.2008.data.dk, reefs.id)
+blackcod.2008.dk.plot <- ggplot(blackcod.2008.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="2008")
 rm(blackcod.2008.data.conn)
 rm(blackcod.2008.data.dk)
 
@@ -64,6 +72,8 @@ blackcod.2007.conn.reefs <- get_connectivity_matrix_reefs(blackcod.2007.data.con
 blackcod.2007.conn.regions <- get_connectivity_matrix_regions(blackcod.2007.data.conn, reefs.id)
 blackcod.2007.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/applied/data/model-output/2007"))
 blackcod.2007.dk.regions <- get_dispersal_distance_regions(blackcod.2007.data.dk, reefs.id)
+blackcod.2007.dk.plot <- ggplot(blackcod.2007.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="2007")
 rm(blackcod.2007.data.conn)
 rm(blackcod.2007.data.dk)
 
@@ -76,6 +86,8 @@ blackcod.2006.conn.reefs <- get_connectivity_matrix_reefs(blackcod.2006.data.con
 blackcod.2006.conn.regions <- get_connectivity_matrix_regions(blackcod.2006.data.conn, reefs.id)
 blackcod.2006.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/applied/data/model-output/2006"))
 blackcod.2006.dk.regions <- get_dispersal_distance_regions(blackcod.2006.data.dk, reefs.id)
+blackcod.2006.dk.plot <- ggplot(blackcod.2006.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="2006")
 rm(blackcod.2006.data.conn)
 rm(blackcod.2006.data.dk)
 
@@ -88,6 +100,8 @@ blackcod.2005.conn.reefs <- get_connectivity_matrix_reefs(blackcod.2005.data.con
 blackcod.2005.conn.regions <- get_connectivity_matrix_regions(blackcod.2005.data.conn, reefs.id)
 blackcod.2005.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/applied/data/model-output/2005"))
 blackcod.2005.dk.regions <- get_dispersal_distance_regions(blackcod.2005.data.dk, reefs.id)
+blackcod.2005.dk.plot <- ggplot(blackcod.2005.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="2005")
 rm(blackcod.2005.data.conn)
 rm(blackcod.2005.data.dk)
 
@@ -100,9 +114,21 @@ blackcod.2004.conn.reefs <- get_connectivity_matrix_reefs(blackcod.2004.data.con
 blackcod.2004.conn.regions <- get_connectivity_matrix_regions(blackcod.2004.data.conn, reefs.id)
 blackcod.2004.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/applied/data/model-output/2004"))
 blackcod.2004.dk.regions <- get_dispersal_distance_regions(blackcod.2004.data.dk, reefs.id)
+blackcod.2004.dk.plot <- ggplot(blackcod.2004.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="2004")
 rm(blackcod.2004.data.conn)
 rm(blackcod.2004.data.dk)
 
+blackcod.plot <- plot_grid(blackcod.2004.dk.plot,
+                         blackcod.2005.dk.plot,
+                         blackcod.2006.dk.plot,
+                         blackcod.2007.dk.plot,
+                         blackcod.2008.dk.plot,
+                         blackcod.2009.dk.plot,
+                         blackcod.2010.dk.plot,
+                         blackcod.2011.dk.plot,
+                         align='vh',ncol=2,nrow=4)
+save_plot("../../figs/blackcod-dk.png",blackcod.plot,ncol=1,nrow=2)
 
 save(blackcod.2011.reefs,blackcod.2011.regions, blackcod.2011.conn.reefs,blackcod.2011.conn.regions, blackcod.2011.regions,blackcod.2011.dk.regions,
      blackcod.2010.reefs,blackcod.2010.regions, blackcod.2010.conn.reefs,blackcod.2010.conn.regions, blackcod.2010.regions,blackcod.2010.dk.regions,

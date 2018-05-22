@@ -1,4 +1,6 @@
 library(tidyverse)
+library(ggthemes)
+library(cowplot)
 source("theoretical-functions.R")
 
 prefix_old <- "/Users/steve/Documents/PhD/Thesis"
@@ -16,6 +18,8 @@ passive.conn.reefs <- get_connectivity_matrix_reefs(passive.data.conn)
 passive.conn.regions <- get_connectivity_matrix_regions(passive.data.conn, reefs.id)
 passive.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/passive"))
 passive.dk.regions <- get_dispersal_distance_regions(passive.data.dk, reefs.id)
+passive.dk.plot <- ggplot(passive.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="Passive+VA")
 rm(passive.data.conn)
 rm(passive.data.dk)
 
@@ -28,6 +32,8 @@ passive.surface.conn.reefs <- get_connectivity_matrix_reefs(passive.surface.data
 passive.surface.conn.regions <- get_connectivity_matrix_regions(passive.surface.data.conn, reefs.id)
 passive.surface.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/passive-surface"))
 passive.surface.dk.regions <- get_dispersal_distance_regions(passive.surface.data.dk, reefs.id)
+passive.surface.dk.plot <- ggplot(passive.surface.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+    labs(x="Distance (km)", y="Density", title="Passive") 
 rm(passive.surface.data.conn)
 rm(passive.surface.data.dk)
 
@@ -40,6 +46,8 @@ diel.conn.reefs <- get_connectivity_matrix_reefs(diel.data.conn)
 diel.conn.regions <- get_connectivity_matrix_regions(diel.data.conn, reefs.id)
 diel.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/diel"))
 diel.dk.regions <- get_dispersal_distance_regions(diel.data.dk, reefs.id)
+diel.dk.plot <- ggplot(diel.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="DVM") 
 rm(diel.data.conn)
 rm(diel.data.dk)
 
@@ -52,6 +60,8 @@ ovm.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/dat
 ovm.dk.regions <- get_dispersal_distance_regions(ovm.data.dk, reefs.id)
 ovm.reefs <- rename(ovm.reefs, ovm=count)
 ovm.regions <- rename(ovm.regions, ovm=count)
+ovm.dk.plot <- ggplot(ovm.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="OVM")
 rm(ovm.data.conn)
 rm(ovm.data.dk)
 
@@ -64,6 +74,8 @@ orientate.conn.reefs <- get_connectivity_matrix_reefs(orientate.data.conn)
 orientate.conn.regions <- get_connectivity_matrix_regions(orientate.data.conn, reefs.id)
 orientate.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/orientate"))
 orientate.dk.regions <- get_dispersal_distance_regions(orientate.data.dk, reefs.id)
+orientate.dk.plot <- ggplot(orientate.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="OHS+VA") 
 rm(orientate.data.conn)
 rm(orientate.data.dk)
 
@@ -76,6 +88,8 @@ orientate.surface.conn.reefs <- get_connectivity_matrix_reefs(orientate.surface.
 orientate.surface.conn.regions <- get_connectivity_matrix_regions(orientate.surface.data.conn, reefs.id)
 orientate.surface.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/orientate-surface"))
 orientate.surface.dk.regions <- get_dispersal_distance_regions(orientate.surface.data.dk, reefs.id)
+orientate.surface.dk.plot <- ggplot(orientate.surface.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="OHS") 
 rm(orientate.surface.data.conn)
 rm(orientate.surface.data.dk)
 
@@ -88,6 +102,8 @@ ovm.orientate.conn.reefs <- get_connectivity_matrix_reefs(ovm.orientate.data.con
 ovm.orientate.conn.regions <- get_connectivity_matrix_regions(ovm.orientate.data.conn, reefs.id)
 ovm.orientate.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/ovm-orientate"))
 ovm.orientate.dk.regions <- get_dispersal_distance_regions(ovm.orientate.data.dk, reefs.id)
+ovm.orientate.dk.plot <- ggplot(ovm.orientate.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="OHS+OVM")
 rm(ovm.orientate.data.conn)
 rm(ovm.orientate.data.dk)
 
@@ -100,6 +116,8 @@ diel.orientate.conn.reefs <- get_connectivity_matrix_reefs(diel.orientate.data.c
 diel.orientate.conn.regions <- get_connectivity_matrix_regions(diel.orientate.data.conn, reefs.id)
 diel.orientate.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/diel-orientate"))
 diel.orientate.dk.regions <- get_dispersal_distance_regions(diel.orientate.data.dk, reefs.id)
+diel.orientate.dk.plot <- ggplot(diel.orientate.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="DVM+OHS")
 rm(diel.orientate.data.conn)
 rm(diel.orientate.data.dk)
 
@@ -112,6 +130,8 @@ diel.ovm.orientate.conn.reefs <- get_connectivity_matrix_reefs(diel.ovm.orientat
 diel.ovm.orientate.conn.regions <- get_connectivity_matrix_regions(diel.ovm.orientate.data.conn, reefs.id)
 diel.ovm.orientate.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/diel-ovm-orientate"))
 diel.ovm.orientate.dk.regions <- get_dispersal_distance_regions(diel.ovm.orientate.data.dk, reefs.id)
+diel.ovm.orientate.dk.plot <- ggplot(diel.ovm.orientate.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="DVM+OHS+OVM")
 rm(diel.ovm.orientate.data.conn)
 rm(diel.ovm.orientate.data.dk)
 
@@ -124,6 +144,8 @@ diel.ovm.conn.reefs <- get_connectivity_matrix_reefs(diel.ovm.data.conn)
 diel.ovm.conn.regions <- get_connectivity_matrix_regions(diel.ovm.data.conn, reefs.id)
 diel.ovm.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/diel-ovm"))
 diel.ovm.dk.regions <- get_dispersal_distance_regions(diel.ovm.data.dk, reefs.id)
+diel.ovm.dk.plot <- ggplot(diel.ovm.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="DVM+OVM") 
 rm(diel.ovm.data.conn)
 rm(diel.ovm.data.dk)
 
@@ -139,6 +161,12 @@ save(passive.reefs,passive.regions, passive.conn.reefs, passive.conn.regions,pas
      diel.orientate.reefs,diel.orientate.regions, diel.orientate.conn.reefs, diel.orientate.conn.regions,diel.orientate.dk.regions,
      file="phase1.rda")
 
+phase1.plot <- plot_grid(passive.dk.plot,passive.surface.dk.plot, diel.dk.plot, ovm.dk.plot,
+          orientate.dk.plot,orientate.surface.dk.plot,ovm.orientate.dk.plot,
+          diel.ovm.dk.plot,diel.ovm.orientate.dk.plot,diel.orientate.dk.plot,
+          align='vh',ncol=2,nrow=5)
+save_plot("../../figs/phase1-dk.png",phase1.plot,ncol=2,nrow=2)
+
 ###
 # Phase 2 data cleaning
 #
@@ -152,6 +180,8 @@ ovm.labrid.conn.reefs <- get_connectivity_matrix_reefs(ovm.labrid.data.conn)
 ovm.labrid.conn.regions <- get_connectivity_matrix_regions(ovm.labrid.data.conn, reefs.id)
 ovm.labrid.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/ovm-labrid"))
 ovm.labrid.dk.regions <- get_dispersal_distance_regions(ovm.labrid.data.dk, reefs.id)
+ovm.labrid.dk.plot <- ggplot(ovm.labrid.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="Labridae")
 rm(ovm.labrid.data.conn)
 rm(ovm.labrid.data.dk)
 
@@ -164,12 +194,15 @@ ovm.mullid.conn.reefs <- get_connectivity_matrix_reefs(ovm.mullid.data.conn)
 ovm.mullid.conn.regions <- get_connectivity_matrix_regions(ovm.mullid.data.conn, reefs.id)
 ovm.mullid.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/ovm-mullid"))
 ovm.mullid.dk.regions <- get_dispersal_distance_regions(ovm.mullid.data.dk, reefs.id)
+ovm.mullid.dk.plot <- ggplot(ovm.mullid.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="Mullidae")
 rm(ovm.mullid.data.conn)
 rm(ovm.mullid.data.dk)
 
 #ovm-pomacentrid
 ovm.pomacentrid.reefs <- rename(ovm.reefs, pomacentridae=ovm)
 ovm.pomacentrid.regions <- rename(ovm.regions, pomacentridae=ovm)
+ovm.pomacentrid.dk.plot <- ovm.dk.plot + labs(title="Pomacentridae")
 
 ovm.scarid.data.conn <- read_in_connectivity(paste0(prefix,"/chapters/theoretical/data/model-output/ovm-scarid"))
 ovm.scarid.reefs <- summarize(group_by(ovm.scarid.data.conn, settle), count = n())
@@ -180,6 +213,8 @@ ovm.scarid.conn.reefs <- get_connectivity_matrix_reefs(ovm.scarid.data.conn)
 ovm.scarid.conn.regions <- get_connectivity_matrix_regions(ovm.scarid.data.conn, reefs.id)
 ovm.scarid.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/ovm-scarid"))
 ovm.scarid.dk.regions <- get_dispersal_distance_regions(ovm.scarid.data.dk, reefs.id)
+ovm.scarid.dk.plot <- ggplot(ovm.scarid.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="Scaridae")
 rm(ovm.scarid.data.conn)
 rm(ovm.scarid.data.dk)
 
@@ -192,6 +227,8 @@ ovm.scorpaenid.conn.reefs <- get_connectivity_matrix_reefs(ovm.scorpaenid.data.c
 ovm.scorpaenid.conn.regions <- get_connectivity_matrix_regions(ovm.scorpaenid.data.conn, reefs.id)
 ovm.scorpaenid.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/ovm-scorp"))
 ovm.scorpaenid.dk.regions <- get_dispersal_distance_regions(ovm.scorpaenid.data.dk, reefs.id)
+ovm.scorpaenid.dk.plot <- ggplot(ovm.scorpaenid.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="Scorpaenidae")
 rm(ovm.scorpaenid.data.conn)
 rm(ovm.scorpaenid.data.dk)
 
@@ -204,6 +241,8 @@ ovm.serranid.conn.reefs <- get_connectivity_matrix_reefs(ovm.serranid.data.conn)
 ovm.serranid.conn.regions <- get_connectivity_matrix_regions(ovm.serranid.data.conn, reefs.id)
 ovm.serranid.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/ovm-serranid"))
 ovm.serranid.dk.regions <- get_dispersal_distance_regions(ovm.serranid.data.dk, reefs.id)
+ovm.serranid.dk.plot <- ggplot(ovm.serranid.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="Serranidae")
 rm(ovm.serranid.data.conn)
 rm(ovm.serranid.data.dk)
 
@@ -216,6 +255,8 @@ ovm.synodontid.conn.reefs <- get_connectivity_matrix_reefs(ovm.synodontid.data.c
 ovm.synodontid.conn.regions <- get_connectivity_matrix_regions(ovm.synodontid.data.conn, reefs.id)
 ovm.synodontid.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretical/data/model-output/ovm-synod"))
 ovm.synodontid.dk.regions <- get_dispersal_distance_regions(ovm.synodontid.data.dk, reefs.id)
+ovm.synodontid.dk.plot <- ggplot(ovm.synodontid.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="Synodontidae")
 rm(ovm.synodontid.data.conn)
 rm(ovm.synodontid.data.dk)
 
@@ -228,6 +269,10 @@ save(ovm.labrid.reefs, ovm.labrid.regions, ovm.labrid.conn.reefs, ovm.labrid.con
      ovm.scarid.reefs, ovm.scarid.regions, ovm.scarid.conn.reefs, ovm.scarid.conn.regions, ovm.scarid.dk.regions,
      file="phase2.rda")
 
+phase2.plot <- plot_grid(ovm.labrid.dk.plot,ovm.mullid.dk.plot,ovm.pomacentrid.dk.plot,
+                         ovm.scarid.dk.plot,ovm.scorpaenid.dk.plot,ovm.serranid.dk.plot,ovm.synodontid.dk.plot,
+                         align='vh',ncol=2,nrow=4)
+save_plot("../../figs/phase2-dk.png",phase2.plot,ncol=2,nrow=2)
 
 ovm.daily.data.conn <- read_in_connectivity(paste0(prefix,"/chapters/theoretical/data/model-output/ovm-daily"))
 ovm.daily.reefs <- summarize(group_by(ovm.daily.data.conn, settle), count = n())
@@ -238,6 +283,8 @@ ovm.daily.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theoretic
 ovm.daily.dk.regions <- get_dispersal_distance_regions(ovm.daily.data.dk, reefs.id)
 ovm.daily.reefs <- rename(ovm.daily.reefs, daily=count)
 ovm.daily.regions <- rename(ovm.daily.regions, daily=count)
+ovm.daily.dk.plot <- ggplot(ovm.daily.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="Daily")
 rm(ovm.daily.data.conn)
 rm(ovm.daily.data.dk)
 
@@ -250,18 +297,24 @@ ovm.timestep.data.dk <- read_in_dispersal_kernel(paste0(prefix,"/chapters/theore
 ovm.timestep.dk.regions <- get_dispersal_distance_regions(ovm.timestep.data.dk, reefs.id)
 ovm.timestep.reefs <- rename(ovm.timestep.reefs, timestep=count)
 ovm.timestep.regions <- rename(ovm.timestep.regions, timestep=count)
+ovm.timestep.dk.plot <- ggplot(ovm.timestep.data.dk, aes(distance.km)) + geom_density() + theme_classic() + 
+  labs(x="Distance (km)", y="Density", title="Time step")
 rm(ovm.timestep.data.conn)
 rm(ovm.timestep.data.dk)
 
 #ovm-impl1
 ovm.stage.reefs <- rename(ovm.reefs, stage=ovm)
 ovm.stage.regions <- rename(ovm.regions, stage=ovm)
-
+ovm.stage.dk.plot <- ovm.dk.plot + labs(title="Stage")
 
 save(ovm.timestep.reefs, ovm.timestep.regions, ovm.timestep.conn.reefs, ovm.timestep.conn.regions, ovm.timestep.dk.regions,
      ovm.daily.reefs,ovm.daily.regions, ovm.daily.conn.reefs, ovm.daily.conn.regions, ovm.daily.dk.regions,
      ovm.stage.reefs, ovm.stage.regions,
      file="phase3.rda")
+
+phase3.plot <- plot_grid(ovm.daily.dk.plot,ovm.stage.dk.plot,ovm.timestep.dk.plot,
+                         align='vh',ncol=2,nrow=2)
+save_plot("../../figs/phase3-dk.png",phase3.plot,ncol=2,nrow=2)
 
 phase1.reefs.data <- passive.reefs %>% full_join(passive.surface.reefs) %>% full_join(diel.reefs) %>% full_join(ovm.reefs) %>% full_join(orientate.reefs) %>% 
   full_join(orientate.surface.reefs) %>% full_join(diel.ovm.orientate.reefs) %>% full_join(ovm.orientate.reefs) %>% full_join(diel.ovm.reefs) %>% full_join(diel.orientate.reefs) 

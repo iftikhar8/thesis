@@ -11,7 +11,7 @@ PAGEBREAK
 
 ### Figure A1.
 
-![Comparing choice of particle tracking models with the metrics of local retention (%; a), self-recruitment (%; b), \settlement success (%; c) and dispersal distance (km; d).](chapters/lit-review/figs/bdm-models.png)
+![Comparing choice of particle tracking models with the metrics of local retention (%; a), self-recruitment (%; b), settlement success (%; c) and dispersal distance (km; d).](chapters/lit-review/figs/bdm-models.png)
 
 PAGEBREAK
 
@@ -84,13 +84,31 @@ PAGEBREAK
 
 ### Figure B1.
 
-![NMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration strategies for reef fish (2D stress = 0.06)](chapters/theoretical/figs/phase2-nmds.png)
+![Dispersal kernels of distance (km) for the settled larvae for model runs considering different behaviours (VA = vertical advection, DVM = diel vertical migration, OHS = orientated horizontal swimming, and OVM = ontogenetic vertical migration).](chapters/theoretical/figs/phase1-dk.png)
 
 PAGEBREAK
 
 ### Figure B2.
 
+![NMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration strategies for reef fish (2D stress = 0.06)](chapters/theoretical/figs/phase2-nmds.png)
+
+PAGEBREAK
+
+### Figure B3.
+
+![Dispersal kernels of distance (km) for the settled larvae for model runs considering different vertical migration strategies for seven reef fish families.](chapters/theoretical/figs/phase2-dk.png)
+
+PAGEBREAK
+
+### Figure B4.
+
 ![NMDS ordination plot using Bray-Curtis dissimilarities between the different source-settlement patterns of each NSW region for each model within the different ontogenetic vertical migration methods (2D stress = 0.08)](chapters/theoretical/figs/phase3-nmds.png)
+
+PAGEBREAK
+
+### Figure B5.
+
+![Dispersal kernels of distance (km) for the settled larvae for model runs considering different implementations of ontogenetic vertical migration. The larvae fish changed position: daily, at each time step (2 hours), or when reaching the next ontogenetic stage.](chapters/theoretical/figs/phase3-dk.png)
 
 PAGEBREAK
 
@@ -107,3 +125,11 @@ chapter-5-zissou.zip
 
 The connectivity matrix can be found at doi: http://doi.org/10.4227/11/5af51a29f9e6a
 chapter-5-connectivity-matrix-all.csv
+
+PAGEBREAK
+
+### Figure C1.
+
+![Dispersal kernels of distance (km) for the settled *Epinephelus daemelii* larvae over the years 2004-2011 along their known distribution.](chapters/applied/figs/blackcod-dk.png)
+
+PAGEBREAK
