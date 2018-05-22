@@ -15,6 +15,7 @@ require(magick)
 library(RColorBrewer)
 library(tidyverse)
 library(ggthemes)
+library(OpenStreetMap)
 ```
 
 
@@ -40,7 +41,7 @@ ovm <- tribble(
 ovm$stage <- factor(ovm$stage, levels=c("preflexion","flexion","postflexion"), labels=c("Preflexion","Flexion","Postflexion"))
 #ovm$depth <- factor(ovm$depth, levels=c("75","50","25","0"))
 pal <- canva_pal("Fresh and energetic")(4)
-p <- ggplot(ovm, aes(x=stage, y=depth, weight=probability, fill=stage)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_few()  + labs(y="Depth (m)", x="Ontogenetic stage") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_manual(values = pal)
+p <- ggplot(ovm, aes(x=stage, y=depth, weight=probability, fill=stage)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_cowplot(font_size=12,font_family = "sans")  + labs(y="Depth (m)", x="Ontogenetic stage") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_manual(values = pal)
 ggplot2::ggsave("../../figs/ovm-example.png",p, width=400, height=300, units="mm", dpi=300, scale=0.3)
 ```
 
@@ -65,7 +66,7 @@ diel$time <- factor(diel$time, levels=c("day","night"), labels=c("Day","Night"))
 #pal <- canva_pal("Timeless and nautical")(4)
 #pal <- canva_pal("Grecian holiday")(4)
 pal <- canva_pal("Fresh and energetic")(4)
-p <- ggplot(diel, aes(x=time, y=depth, weight=probability, fill=time)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_few()  + labs(y="Depth (m)", x="Time of day") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_manual(values = pal)
+p <- ggplot(diel, aes(x=time, y=depth, weight=probability, fill=time)) +  geom_violin(adjust = .85, trim=FALSE)  + theme_cowplot(font_size=12,font_family = "sans")  + labs(y="Depth (m)", x="Time of day") + theme(legend.position = "none") + scale_y_reverse(limits=c(100,0)) + scale_fill_manual(values = pal)
 ggplot2::ggsave("../../figs/diel-example.png",p, width=300, height=300, units="mm", dpi=300, scale=0.3)
 ```
 
@@ -105,13 +106,8 @@ ovm.data <- read_csv("../../data/ovm.csv")
 ovm.data <- ovm.data %>% gather(key= stage, value=proportion, 4:6)
 ovm.data$stage <- factor(ovm.data$stage, levels=c("preflexion","flexion","postflexion"),labels=c("Preflexion","Flexion","Postflexion"))
 ovm.data$fish.label <- factor(ovm.data$fish, labels=c("Labridae","Mullidae","Pomacentridae","Scaridae","Scorpaenidae","Serranidae","Synodontidae"))
-ovm.plot <- ggplot(data= ovm.data, aes(x=stage, y=depth, weight=proportion, fill=stage)) + labs(y="Depth (m)", x="Ontogenetic stage") + facet_wrap(~fish.label, ncol=2, shrink = TRUE) + theme_few() + scale_fill_manual(values=pal, name="Ontogenetic stage") + theme(legend.position = c(0.90, 0.05), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) +scale_y_reverse(limits=c(100,0)) + geom_violin(adjust = .95, trim=FALSE)
+ovm.plot <- ggplot(data= ovm.data, aes(x=stage, y=depth, weight=proportion, fill=stage)) + labs(y="Depth (m)", x="Ontogenetic stage") + facet_wrap(~fish.label, ncol=2, shrink = TRUE) + theme_cowplot(font_size=12,font_family = "sans") + scale_fill_manual(values=pal, name="Ontogenetic stage") + theme(legend.position = c(0.90, 0.05), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) +scale_y_reverse(limits=c(100,0)) + geom_violin(adjust = .95, trim=FALSE)
 ggsave("../../figs/ovm-strategies.png", ovm.plot, width=5, height=8)
-
-
-data.ontogeny$stage.r <- factor(data.ontogeny$stage, levels=c("PRE","FLE","POS"))
-data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
-ggplot(data=data.ontogeny, aes(y=conc.m, x=depth.r, group=stage.r, color=stage.r)) + facet_wrap(~family, scales="free", ncol=4, shrink = TRUE) + stat_summary_bin(fun.y="mean", geom="line", position=position_dodge(width=0.5), show.legend=FALSE) + stat_summary_bin(fun.y="mean", geom="point", position=position_dodge(width=0.5),size=2) + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",position=position_dodge(width=0.5),show.legend = FALSE) + labs(x="Depth (m)", y=expression("Concentration per 1000 "~m^{3})) + theme_few() + coord_flip() + scale_color_discrete(name="", labels=c("Preflexion","Flexion","Postflexion")) + theme(legend.position = c(0.85,0.15), legend.justification = c(0.3,0)) 
 ```
 
 
