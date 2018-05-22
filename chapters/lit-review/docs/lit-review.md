@@ -13,8 +13,6 @@ This previous work has made it clear that the biological components of BDMs can 
 
 In this study, I review the recent literature using BDMs to evaluate the ability of this collective body of work to provide insight into the ramifications of the choices made when attempting to include complexity and realism in our models. We achieve this aim by firstly evaluating if the field is progressing in its inclusion of biological parameters. We look at the collection of parameters included in BDMs, how this is changing over time, and if there are trends in how parameters are included (or excluded) based on the context of models. We define a model as a distinct collection of parameters for a BDM, and a study as a published collection of one or more models. Secondly, and most importantly, I investigate the consequences of including different parameters on model results. Here I assess if there are observable differences in key metrics of connectivity as a result of the inclusion of specific biological parameters. We also assess the degree to which the physical context of the models regulate any observed effect of biological parameters. This information will serve to guide the application of BDMs into the future and by highlighting the ramifications of the inclusion/exclusion of key biological parameters. It will also identify gaps in our implementation of these parameters which should serve to identify necessary empirical work needed to address these shortcomings.
 
-PAGEBREAK
-
 Methods
 -------
 
@@ -41,8 +39,6 @@ Each model was characterised by their traits, broadly grouped into three themes.
 ### Data analysis
 
 To address our aim of evaluating the application of biology in BDMs, I summarised model characteristics from our three themes and evaluated their relative occurrence and how this has changed over time. To address our aim of identifying the importance of including biological parameters on different metrics of connectivity as well as the context dependence of any such relationships, I compared each of the most commonly reported connectivity metrics (self-recruitment, local retention, settlement success and dispersal distance) amongst models including certain parameters. Due to differences in the metrics reported or obtained from studies, there is considerable variation in the samples sizes for each metric. We required there be at least five studies for a given metric within a parameter group to conduct a comparison. Linear regressions were used to compare the relationships of metrics and continuous model parameters and Student or Welch's t-tests (checking for equal variance using Bartlett's test) were used for comparisons between the metrics and categorical model parameters when there were only two levels. To compare the influence of behaviours with the reported metrics, which was proportion data with heteroscedastic variation (using Barlett's test), I used beta regressions and used least squares means to conducted post-hoc pairwise analysis using Tukey's procedure. We conducted all data analysis using the R programming language version 3.4.2 [@rcoreteam2017].
-
-PAGEBREAK
 
 Current trends in biophysical connectivity modelling
 ----------------------------------------------------
