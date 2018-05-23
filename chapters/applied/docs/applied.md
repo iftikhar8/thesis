@@ -25,8 +25,6 @@ The prominent threat to the *E. daemelii* population is from hook and line fishi
 
 The first aim of this chapter is to investigate the potential connectivity patterns of *E. daemelii* using a biophysical dispersal modelling approach. To observe the effects of spatial and temporal variation on the potential connectivity patterns and increase the predictive power [@wiens1989], the biophysical dispersal model utilised eight years (2004-2011) of hydrodynamic data, releasing larvae across its known distribution. Strongly and consistently connected regions (across years) and potential sub-populations within the known distribution were identified. Comparisons were made between the potential dispersal patterns when releasing across the entire known distribution and from only known areas of aggregation. The second aim is to understand how the current network of marine protected areas, both Commonwealth and NSW, align with areas of high settlement, local retention and spawning success from the derived connectivity patterns. These connectivity patterns, derived from both known aggregations as well as the entire known distribution, can inform management decisions about possible areas of protection to aid the recovery of the *E. daemelii* population.
 
-PAGEBREAK
-
 Methods
 -------
 
@@ -101,8 +99,6 @@ The final analysis for the first aim was to compare the known areas of aggregati
 To investigate the second aim, assessing the effectiveness of the MPAs for *E. daemelii* using the modelled connectivity patterns, I compared both strong stable regions of settlement (using the CV of settlement described above) and important spawning regions (high settlement success and local retention) to regions with MPAs. Gaps in protection for protection of important potential spawning or settlement regions were identified using the connectivity matrices from the known regions of aggregation and the entire distribution.
 
 All data analysis was performed using R version 3.4.3 (Kite-Eating Tree) and the specified packages above.
-
-PAGEBREAK
 
 Results
 -------
@@ -210,8 +206,6 @@ Yamba is the region with the highest successful settlement for *E. daemelii* lar
 Of source regions with the highest self-recruitment (>75%), only 37.5% contained MPAs: Solitary Islands, Pt Stephens, and Batemans Bay (@fig:region-metrics A). The MPAs within these three regions have sanctuary zone coverage greater than 80 km^2^ (@tbl:mpas). For regions with MPAs, several had significantly lower local retention (Lord Howe Island, EM Reefs, Tweed, Pt Macquarie, Byron, and Jervis Bay), and for the highest local retention five of the ten regions have MPAs (Solitary Islands, Batemans Bay, Port Stephens, Sydney, and Wollongong; @fig:region-metrics B).
 
 Habitat protection was available in 40% of the strongest settlement regions for the dispersal patterns of the known aggregations (@fig:mpas-connectivity, @tbl:mpas). Pt Macquarie and Nambucca were particularly strong regions that did not have protection (@fig:mpas-connectivity). Across the known distribution, Crowdy Bay, Ulladulla, and Yamba were regions of high settlement that contained no habitat protection. Sydney was a region of high settlement and includes habitat protection, but the total protected area of 19.3 km^2^ is minuscule compared to regions containing marine parks (@tbl:mpas).
-
-PAGEBREAK
 
 Discussion
 ----------
