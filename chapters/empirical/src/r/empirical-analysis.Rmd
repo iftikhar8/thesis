@@ -21,6 +21,7 @@ library(AER)
 library(multcomp)
 library(multcompView)
 library(stargazer)
+library(cowplot)
 ```
 
 ```{r Load data, include=FALSE}
@@ -94,16 +95,17 @@ Environmental data
 pd <- position_dodge(0.1)
 
 temp.data <- data.ontogeny %>% filter(temperature != "NA") %>% group_by(feature,depth) %>% summarise(temp.mean = mean(temperature), temp.sd = sd(temperature))
-temp.plot <- ggplot(data=temp.data, aes(y=temp.mean, x=rev(depth), group = feature, colour=feature)) + labs(x="Depth", y="Temperature (°C)") + geom_errorbar(aes(ymin=temp.mean-temp.sd, ymax=temp.mean+temp.sd),width=.1,position=pd,size=1) + geom_line(position=pd, size=1)  + coord_flip() + scale_x_discrete(labels=c("Deep","Middle","Surface"))+scale_colour_manual(values=pal)+ theme_few()
+temp.plot <- ggplot(data=temp.data, aes(y=temp.mean, x=rev(depth), group = feature, colour=feature)) + labs(x="Depth", y="Temperature (°C)") + geom_errorbar(aes(ymin=temp.mean-temp.sd, ymax=temp.mean+temp.sd),width=.1,position=pd,size=1) + geom_line(position=pd, size=1)  + coord_flip() + scale_x_discrete(labels=c("Deep","Middle","Surface"))+scale_colour_manual(values=pal) + theme_cowplot(font_size=12,font_family="sans")
 
 salt.data <- data.ontogeny %>% filter(salinity != "NA") %>% group_by(feature, depth) %>% summarise(salt.mean = mean(salinity), salt.sd = sd(salinity))
-salt.plot <- ggplot(data=salt.data, aes(y=salt.mean, x=rev(depth), group = feature, colour=feature)) + labs(x="", y="Salinity (PSU)") +  geom_errorbar(aes(ymin=salt.mean-salt.sd, ymax=salt.mean+salt.sd),width=.1,position=pd, size=1) + geom_line(position=pd,size=1)  + coord_flip() + scale_x_discrete(labels=element_blank()) + scale_colour_manual(values=pal)+ theme_few()
+salt.plot <- ggplot(data=salt.data, aes(y=salt.mean, x=rev(depth), group = feature, colour=feature)) + labs(x="", y="Salinity (PSU)") +  geom_errorbar(aes(ymin=salt.mean-salt.sd, ymax=salt.mean+salt.sd),width=.1,position=pd, size=1) + geom_line(position=pd,size=1)  + coord_flip() + scale_x_discrete(labels=element_blank()) + scale_colour_manual(values=pal)+ theme_cowplot(font_size=12,font_family = "sans") 
+
 
 do.data <- data.ontogeny %>% filter(dissolved_oxygen != "NA") %>% group_by(feature, depth) %>% summarise(do.mean = mean(dissolved_oxygen), do.sd = sd(dissolved_oxygen))
-do.plot <- ggplot(data=do.data, aes(y=do.mean, x=rev(depth), group = feature, colour=feature)) + labs(x="", y="Dissolved oxygen (mg/L)")  + geom_errorbar(aes(ymin=do.mean-do.sd, ymax=do.mean+do.sd),width=.1,position=pd, size=1) + geom_line(position=pd, size=1) + coord_flip()+ scale_x_discrete(labels=c("Deep","Middle","Surface")) +scale_colour_manual(values=pal)+ theme_few()
+do.plot <- ggplot(data=do.data, aes(y=do.mean, x=rev(depth), group = feature, colour=feature)) + labs(x="", y="Dissolved oxygen (mg/L)")  + geom_errorbar(aes(ymin=do.mean-do.sd, ymax=do.mean+do.sd),width=.1,position=pd, size=1) + geom_line(position=pd, size=1) + coord_flip()+ scale_x_discrete(labels=c("Deep","Middle","Surface")) +scale_colour_manual(values=pal)+ theme_cowplot(font_size=12,font_family = "sans")
 
 chloro.data <- data.ontogeny %>% filter(chlorophyll_fluorescence != "NA") %>% group_by(feature, depth) %>% summarise(chloro.mean = mean(chlorophyll_fluorescence), chloro.sd = sd(chlorophyll_fluorescence))
-chloro.plot <- ggplot(data=chloro.data, aes(y=chloro.mean, x=rev(depth), colour=feature, group = feature)) + labs(x="", y="Fluorescence (RFU)") + geom_errorbar(aes(ymin=chloro.mean-chloro.sd, ymax=chloro.mean+chloro.sd),width=.1,position=pd, size=1) + geom_line(position=pd, size=1)  + coord_flip() + scale_x_discrete(labels=element_blank()) + scale_colour_manual(values=pal,name="Feature")+ theme_few() +theme(legend.position="right") 
+chloro.plot <- ggplot(data=chloro.data, aes(y=chloro.mean, x=rev(depth), colour=feature, group = feature)) + labs(x="", y="Fluorescence (RFU)") + geom_errorbar(aes(ymin=chloro.mean-chloro.sd, ymax=chloro.mean+chloro.sd),width=.1,position=pd, size=1) + geom_line(position=pd, size=1)  + coord_flip() + scale_x_discrete(labels=element_blank()) + scale_colour_manual(values=pal,name="Feature")+ theme_cowplot(font_size=12,font_family = "sans") +theme(legend.position="right") 
   
 legend <- get_legend(chloro.plot)
 
@@ -167,14 +169,14 @@ dat_text <- data.frame(
 
 # p <- ggplot(aes(y=standard_length, x=depth.r, group=1), data=data.length)+stat_summary_bin(fun.y="mean", geom="point") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) +stat_summary(fun.y="mean", geom="line")+ facet_wrap(~family.label,ncol=4, scales = "free") + coord_flip() +labs(x="Depth (m)", y=expression("Length (mm)"))
 
-p <- ggplot(aes(y=standard_length, x=depth.r), data=filter(data.length, standard_length < 30)) + geom_boxplot()+ facet_wrap(~family.label,ncol=4, scales = "free") + coord_flip() +labs(x="Depth (m)", y=expression("Length (mm)")) + theme_few()
+p <- ggplot(aes(y=standard_length, x=depth.r), data=filter(data.length, standard_length < 30)) + geom_boxplot()+ facet_wrap(~family.label,ncol=4, scales = "free") + coord_flip() +labs(x="Depth (m)", y=expression("Length (mm)")) + theme_cowplot(font_size=12,font_family = "sans")
 
 # p <- p + geom_text(
 #   data    = dat_text,
 #   mapping = aes(x = x, y = y, label = "*"),
 #   size = 8
 # )
-cowplot::ggsave("../../figs/length-depth-family.png", plot=p, width=7.29, height=4.51, units=c("in"))
+ggsave("../../figs/length-depth-family.png", plot=p, width=7.29, height=4.51, units=c("in"))
 ```
 
 ```{r}
@@ -187,7 +189,7 @@ dat_text <- data.frame(
   x = c(2.15, 2.15, 2.15, 2.15, 2.15, 2.15),
   y = c(12,12,12,12,12,12)
 )
-p<- ggplot(aes(y=standard_length, x=feature, fill=feature), data=data.length) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family.label, ncol=4) + labs(x="", y=expression("Length (mm)")) + scale_fill_manual(values=pal,name="Feature") + theme_few() + theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
+p<- ggplot(aes(y=standard_length, x=feature, fill=feature), data=data.length) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family.label, ncol=4) + labs(x="", y=expression("Length (mm)")) + scale_fill_manual(values=pal,name="Feature") + theme_cowplot(font_size=12,font_family = "sans") + theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 # p <- p + geom_text(
 #   data    = dat_text,
 #   mapping = aes(x = x, y = y, label = "*"),
@@ -218,7 +220,7 @@ dat_text <- data.frame(
   y = c(0.0105,0.0105,0.0105,0.0105,0.0105,0.0105,0.0105)
 )
 
-p<- ggplot(aes(y=conc.t, x=feature, fill=feature), data=data.ontogeny) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family.label, ncol=4, scales = "free") + labs(x="", y=expression("Concentration per 1000"~m^{3})) + scale_fill_manual(values=pal,name="Feature")  + theme_few() +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
+p<- ggplot(aes(y=conc.t, x=feature, fill=feature), data=data.ontogeny) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family.label, ncol=4, scales = "free") + labs(x="", y=expression("Concentration per 1000"~m^{3})) + scale_fill_manual(values=pal,name="Feature")  + theme_cowplot(font_size=12,font_family = "sans") +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
 cowplot::ggsave("../../figs/feature-abundance.png", plot=p, width=7, height=4, units=c("in"))
 ```
 
@@ -236,9 +238,9 @@ data.ontogeny.weighted.totalcount <- data.ontogeny %>% mutate(depth.w = if_else(
 
 data.ontogeny.weighted.prop <- data.ontogeny %>% mutate(depth.w = if_else(depth==0,5,if_else(depth==25,28,75.5))) %>% group_by(family.label, stage.label, depth.w) %>% summarise(total= sum(count)) %>% mutate(prop = total / (sum(total)+0.000001))
 
-plot <- ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=family.label),data=data.ontogeny.weighted.total)  + scale_y_reverse() + geom_line(size=1.5, alpha=0.75) + scale_colour_brewer(name="Family", palette = "Set2") + labs(x="Stage",y="Depth (m)")  + theme_few()
+plot <- ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=family.label),data=data.ontogeny.weighted.total)  + scale_y_reverse() + geom_line(size=1.5, alpha=0.75) + scale_colour_brewer(name="Family", palette = "Set2") + labs(x="Stage",y="Depth (m)")  + theme_cowplot(font_size=12,font_family = "sans")
 
-plot2 <- ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=family.label),data=data.ontogeny.weighted.totalcount)  + scale_y_reverse() + geom_line(size=1.5, alpha=0.75) + scale_colour_brewer(name="Family", palette = "Set2") + labs(x="Stage",y="Depth (m)") + theme_few()
+plot2 <- ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=family.label),data=data.ontogeny.weighted.totalcount)  + scale_y_reverse() + geom_line(size=1.5, alpha=0.75) + scale_colour_brewer(name="Family", palette = "Set2") + labs(x="Stage",y="Depth (m)") + theme_cowplot(font_size=12,font_family = "sans")
 
 both <- plot_grid(plot,plot2)
 #+ geom_ribbon(aes(ymin=depth.weighted-depth.sd, ymax=depth.weighted+depth.sd, fill=family.label), alpha=0.05)
@@ -255,7 +257,7 @@ data.ontogeny.prop <- data.ontogeny.prop %>% mutate(depth.scale = if_else(depth.
 
 data.ontogeny.weighted.total$depth.scale <- data.ontogeny.weighted.total$depth.weighted
 
-violinplot <- ggplot(aes(x=stage.label,y=depth.scale, weight=prop, fill=stage.label), data=data.ontogeny.prop)  + scale_y_reverse(limits=c(100,0)) + geom_violin(adjust = .85, trim=FALSE) + facet_wrap(~ family.label, ncol=4)+theme_few() +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) + labs(y="Depth (m)", x=element_blank())  + scale_fill_manual(values=pal,name="Stage") + geom_line(data=data.ontogeny.weighted.total, inherit.aes = FALSE, aes(x=stage.label,y=depth.scale, group=family.label)) + geom_point(data=data.ontogeny.weighted.total, inherit.aes = FALSE, aes(x=stage.label,y=depth.scale)) #ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=family.label),data=data.ontogeny.weighted.total)  
+violinplot <- ggplot(aes(x=stage.label,y=depth.scale, weight=prop, fill=stage.label), data=data.ontogeny.prop)  + scale_y_reverse(limits=c(100,0)) + geom_violin(adjust = .85, trim=FALSE) + facet_wrap(~ family.label, ncol=4)+theme_cowplot(font_size=12,font_family = "sans") +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) + labs(y="Depth (m)", x=element_blank())  + scale_fill_manual(values=pal,name="Stage") + geom_line(data=data.ontogeny.weighted.total, inherit.aes = FALSE, aes(x=stage.label,y=depth.scale, group=family.label)) + geom_point(data=data.ontogeny.weighted.total, inherit.aes = FALSE, aes(x=stage.label,y=depth.scale)) #ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=family.label),data=data.ontogeny.weighted.total)  
 
 # + stat_summary(fun.y=mean, geom="point", size=2, color="red", data=data.ontogeny.weighted.station, inherit.aes = FALSE,aes(x=stage.label,y=depth.scale))
 
