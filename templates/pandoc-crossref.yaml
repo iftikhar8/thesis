@@ -6,3 +6,4 @@ tblPrefix: "Table"
 chapters: True
 chaptersDepth: 1
 figureTemplate: '**$$figureTitle$$ $$i$$**$$titleDelim$$ $$t$$'
+tableTemplate: '**_$$tableTitle$$ $$i$$_**$$titleDelim$$ $$t$$'
