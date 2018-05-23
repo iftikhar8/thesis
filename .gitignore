@@ -7,6 +7,7 @@ chapters/*/data/model-output-old/
 */resources/*
 *.html
 out/*.csv
+*.rtf
 
 # Created by https://www.gitignore.io/api/r,sbt,java,macos,scala
 
