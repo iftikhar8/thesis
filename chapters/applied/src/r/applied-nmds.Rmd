@@ -174,6 +174,8 @@ regions.data.cv.known <- regions.data %>% ungroup() %>% gather(year,value,3:10) 
 regions.data.cv.known.plot <- ggplot(regions.data.cv.known, aes(mean,cv)) + geom_point() + geom_text_repel(size=4, label=cv.names[-21]) + theme(legend.position = "none") + labs(x="Mean annual larval settlement (Pr)", y="Coefficient of variation (%)") + xlim(0, 0.016)
 #ggsave("../../figs/settlement-cv.png", regions.data.cv.known.plot, width=8.17, height=7.43, unit=c("in"))
 
+save_plot("../../figs/settlement-cv-all.png", regions.data.cv.plot, base_aspect_ratio = 1.1, scale=1.5)
+save_plot("../../figs/settlement-cv-known.png", regions.data.cv.known.plot, base_aspect_ratio = 1.1, scale=1.5)
 p <- plot_grid(regions.data.cv.plot,regions.data.cv.known.plot, labels="AUTO", align="v", nrow=2)
 save_plot("../../figs/settlement-cv.png", p, base_aspect_ratio = 1.1, scale=2)
 
@@ -299,7 +301,7 @@ cca.sites$sites <- c("1 Tweed","2 Byron","3 Ballina","4 Yamba","5 Solitary Is","
 cca.plot.year <- ggplot(cca.years, aes(CAP1, CAP2))  + theme_classic() + geom_text_repel(aes(label=year)) + geom_point()
 cca.plot.sites <- ggplot(cca.sites, aes(CAP1, CAP2))  + theme_classic() + geom_text_repel(aes(label=sites)) + geom_point()
 
-ggsave("../../figs/cap-years.png", cca.plot.year)
+save_plot("../../figs/cap-years.png", cca.plot.year,base_aspect_ratio = 1.1, scale=1.2)
 ggsave("../../figs/cap-sites.png", cca.plot.sites)
 
 p <- plot_grid(cca.plot.sites,cca.plot.year, labels="AUTO", align="v", nrow=2)

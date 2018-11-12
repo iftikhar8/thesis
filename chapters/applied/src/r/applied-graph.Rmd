@@ -80,6 +80,8 @@ p1 <- ggdraw() + draw_image("../../figs/dendo-all-regions.png")
 p2 <- ggdraw()+ draw_image("../../figs/network-all-regions.png")
 grid <- plot_grid(p1,p2, labels="AUTO", align="v", nrow=2, ncol=1)
 save_plot("../../figs/graph-all.png", grid, nrow=2, ncol=1, base_aspect_ratio = 1.1)
+grid <- plot_grid(p1,p2, labels="AUTO", align="h", nrow=1, ncol=2)
+save_plot("../../figs/graph-all-talk.png", grid, nrow=1, ncol=2, base_aspect_ratio = 1.1)
 ```
 
 ```{r}
@@ -108,6 +110,8 @@ p1 <- ggdraw() + draw_image("../../figs/dendo-known-regions.png")
 p2 <- ggdraw()+ draw_image("../../figs/network-known-regions.png")
 grid <- plot_grid(p1,p2, labels="AUTO", align="v", nrow=2, ncol=1)
 save_plot("../../figs/graph-known.png", grid, nrow=2, ncol=1, base_aspect_ratio = 1.1)
+grid <- plot_grid(p1,p2, labels="AUTO", align="h", nrow=1, ncol=2)
+save_plot("../../figs/graph-known-talk.png", grid, nrow=1, ncol=2, base_aspect_ratio = 1.1)
 
 ```
 
