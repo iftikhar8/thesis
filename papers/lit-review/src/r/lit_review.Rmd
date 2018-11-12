@@ -12,12 +12,14 @@ library("grid")
 library("gridExtra")
 library("tidyverse")
 library("ggthemes")
+library("ggpubr")
 library("lsmeans")
 library("multcompView")
 library("car")
 library("psych")
 library("betareg")
 library("lmtest")
+library("cowplot")
 
 
 # Load external functions
@@ -29,7 +31,7 @@ source("multiplot.R")
 Load the data from the .csv file
 ```{r include=FALSE}
 #check the columns loaded
-data.all <- read_csv("../../data/lit_review.csv")
+data.all <- read_csv("../../data/lit_review.csv",)
 spec(data.all)
 # Make column headers lowercase
 colnames(data.all) <- tolower(colnames(data.all))
@@ -67,7 +69,8 @@ Figure 1: Publication years
 ```{r}
 data.all$published <- as.factor(data.all$published)
 years.data <- data.all  %>% distinct(paper_id, published)
-years.plot <- ggplot(years.data,aes(published)) + geom_bar() + labs(x="Year published", y="Number of studies") + theme_few() + scale_colour_few()
+years.plot <- ggplot(years.data,aes(published)) + geom_bar() + labs(x="Year published", y="Number of studies")+
+  theme_cowplot(font_size=12,font_family = "sans")
 years.plot
 ggsave("../../figs/years.png", plot=years.plot, width=81, height=70, units="mm", dpi=300)
 ```
@@ -76,8 +79,8 @@ Figure 2: The taxa modelled
 ```{r}
 data.all$species_type <- as.factor(data.all$species_type)
 taxa.plot <- ggplot(data=data.all,aes(sort_factor(species_type))) + 
-  geom_bar() + coord_flip() + ylab("Number of models") + xlab("Modelled taxa") + scale_x_discrete(labels = c("Cnidarian","Gastropod","Macroalgae","Echinoderm","Polychaete","Coral","Crustacean","Mollusc","Bivalvia","Fish","Generic")) +
-  theme_few() + scale_colour_few()
+  geom_bar() + coord_flip() + ylab("Number of models") + xlab("Modelled taxa") + scale_x_discrete(labels = c("Cnidarian","Macroalgae","Plankton","Echinoderm","Bryozoa","Gastropod","Polychaete","Crustacean","Mollusc","Coral","Bivalvia","Fish","Generic")) +
+  theme_cowplot(font_size=12,font_family = "sans")
 ggsave("../../figs/taxa.png", plot=taxa.plot, width=81, height=60, units="mm", dpi=300)
 taxa.plot
 ```
@@ -85,14 +88,21 @@ taxa.plot
 ## Model context
 ```{r}
 get_factor_proportion(data.all$species_type)
-data.models <- distinct(data.all,title, model_reuse, model_name, motivation, geographical_zone)
+data.models <- distinct(data.all,title, run_mode, model_reuse, model_name, motivation, geographical_zone, oceanic_region, species_scientific_name)
 data.models$model_name <- addNA(data.models$model_name)
 data.models$model_reuse <- addNA(data.models$model_reuse)
+print("Forecast or hindcast")
+get_factor_proportion(data.models$run_mode)
 get_factor_proportion(data.models$model_reuse)
 get_factor_proportion(data.models$model_name)
 get_factor_proportion(data.models$motivation)
+print("Temperate or tropical")
 get_factor_proportion(data.models$geographical_zone)
+print("Oceanic region")
+get_factor_proportion(data.models$oceanic_region)
 get_factor_proportion(data.all$years_total)
+print("Species name")
+get_factor_proportion(data.all$species_scientific_name)
 summary(data.all$years_total)
 summary(data.all$date_start)
 summary(data.all$date_end)
@@ -199,6 +209,7 @@ summary(data.all$pld_fixed)
 get_factor_proportion(addNA(data.all$spawning_depth_type))
 #get_factor_proportion(addNA(data.all$spawning_initiation))
 data.all <- mutate(data.all, spawning_diff = (spawning_settlement_sites - spawning_release_sites) == 0)
+print("Different release and settlement sites")
 get_factor_proportion(addNA(data.all$spawning_diff))
 summary(data.all$particles_spawned_at_individual_site)
 summary(data.all$particles_spawned_total)
@@ -222,7 +233,8 @@ papers.comparisons <- data.all %>% gather(behaviours, implemented,passive_moveme
 papers.comparisons <- papers.comparisons %>% distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
   mutate(taxa = if_else(is_fish == TRUE & is_invert == FALSE, 'Fish', if_else(is_invert == TRUE, 'Invertebrate', 'NA'))) %>% filter( taxa == 'Fish' | taxa == 'Invertebrate')
 
-comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of models") +theme_few()+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
+comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of models") +
+  theme_cowplot(font_size=12,font_family = "sans")+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 1, y = 20, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
 
 
 papers.comparisons.prop <- papers.comparisons %>%
@@ -230,7 +242,8 @@ papers.comparisons.prop <- papers.comparisons %>%
   summarise (n = n()) %>%
   mutate(freq = n / sum(n))
 
-prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_few() + theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_grey(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("c","d"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
+prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "", y = "Proportion")+ geom_line() + geom_point(size=2)+
+  theme_cowplot(font_size=12,font_family = "sans")+ theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_grey(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("c","d"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
 
 p <- grid.arrange(comparisons.plot,prop.plot,ncol=2, bottom="Publication year")
 ggsave("../../figs/comparisons.png",plot=p,width = 169, height=120, units="mm",dpi=300)
@@ -252,51 +265,82 @@ passive.percentage
 
 ```{r}
 data.movement <- filter(data.all,movement)
+print("DVM")
 get_factor_proportion(data.movement$diel_vertical_migration)
+print("OVM")
 get_factor_proportion(data.movement$ontogentic_vertical_migration)
+print("HS")
 get_factor_proportion(data.movement$horizontal_swimming_ability)
+print("VS")
 get_factor_proportion(data.movement$vertical_swimming_ability)
+print("Tidal")
 get_factor_proportion(data.movement$circatidal_migration)
+print("Pyno")
 get_factor_proportion(data.movement$pynocline_migration)
+print("Halo")
 get_factor_proportion(data.movement$halocline_migration)
+print("Sink")
 get_factor_proportion(data.movement$sinking_velocity)
+print("Egg")
 get_factor_proportion(data.movement$egg_buoyancy)
 ```
 
 ```{r}
 length(senses$passive_movement) / length(data.all$passive_movement) * 100
 get_factor_proportion(addNA(senses$buffer_size))
+print("Buffer size")
 summary(senses$buffer_size)
+print("Mean")
+mean(senses$buffer_size,na.rm=T)
+print("SD")
+sd(senses$buffer_size,na.rm=T)
+print("Sensory zone")
 summary(senses$sensory_zone)
+print("Mean")
+mean(senses$sensory_zone,na.rm=T)
+print("SD")
+sd(senses$sensory_zone,na.rm=T)
+#zone.size <- senses$buffer_size + senses$sensory_zone
 ```
 
 ### Metrics used to describe connectivity
 
 ```{r}
+print("DK")
 get_factor_proportion(data.all$dispersal_kernel)
 
 data.dk <- filter(data.all, dispersal_kernel)
+print("mean dist")
 get_factor_proportion(addNA(data.dk$mean_distance))
 get_factor_proportion(addNA(data.dk$median_distance))
 get_factor_proportion(addNA(data.dk$distance_travelled_max))
 get_factor_proportion(addNA(data.dk$distance_travelled_upper_quantile))
 
+print("CM")
 data.all <- mutate(data.all, connectivity_metrics = connectivity_metrics_realised | connectivity_metrics_potential)
 get_factor_proportion(data.all$connectivity_metrics)
 data.cm <- filter(data.all, connectivity_metrics)
+print("SR")
 get_factor_proportion(addNA(data.cm$self_recruitment))
+print("LR")
 get_factor_proportion(addNA(data.cm$local_retention))
+print("SS")
 get_factor_proportion(addNA(data.cm$settlement_success))
 
+print("Graph")
 get_factor_proportion(data.all$graph_theory)
 get_factor_proportion(addNA(data.all$centre_of_mass))
 get_factor_proportion(addNA(data.all$isotropy))
 get_factor_proportion(addNA(data.all$positive_area))
 get_factor_proportion(addNA(data.all$proportion_sites_settled))
 
+print("Get proportion of values when CM is given")
 data.cm <- data.cm %>% mutate(sr_values = self_recruitment_mean > 0 | self_recruitment_max > 0) %>% mutate(lr_values = local_retention_mean > 0 | local_retention_max > 0) %>% mutate(ss_values = settlement_success_mean > 0 | settlement_success_min > 0)
+print("LR")
 get_factor_proportion(addNA(data.cm$lr_values))
+print("SR")
 get_factor_proportion(addNA(data.cm$sr_values))
+print("SS")
 get_factor_proportion(addNA(data.cm$ss_values))
 
 summary(data.cm$self_recruitment_mean)
@@ -311,19 +355,27 @@ summary(data.cm$distance_travelled_mean)
 ### System
 ```{r}
 data.all$system <- as.factor(data.all$system)
-system1 <- ggplot(data.all, aes(system, self_recruitment_mean)) + geom_boxplot() + #geom_jitter(width = 0.1)+ 
-  labs(x="", y="Self-recruitment")+ theme_few() + scale_fill_grey() +
-  scale_y_continuous(limits = c(0, 1.0))  #scale_x_discrete(labels=c("None","Included"))
-system2 <- ggplot(data.all, aes(system, local_retention_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
-  labs(x="", y="Local retention")+ theme_few() + scale_fill_few() +
-  scale_y_continuous(limits = c(0, 1.0)) #scale_x_discrete(labels=c("None","Included"))
-system3 <- ggplot(data.all, aes(system, settlement_success_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
-  labs(x="Mortality", y="Settlement success")+ theme_few() + scale_fill_few() +
-  scale_y_continuous(limits = c(0, 1.0)) #scale_x_discrete(labels=c("None","Included"))
-system4 <- ggplot(data.all, aes(system, distance_travelled_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
-  labs(x="Mortality", y="Dispersal distance (km)")+ theme_few() + scale_fill_few() #scale_x_discrete(labels=c("None","Included"))
-grid.arrange(system1,system2,system3,system4)
-##ggsave("../../figs/mortality.png",plot=p,width = 169, height=120, units="mm",dpi=96)
+data.all$size <- factor(data.all$size, levels=c("Small","Medium","Large"))
+system1 <- ggplot(data.all, aes(size, self_recruitment_mean, fill=system)) + geom_boxplot() + #geom_jitter(width = 0.1)+ 
+  labs(x="", y="Self-recruitment")+ theme_cowplot(font_size=12,font_family = "sans")+ scale_fill_grey(start = 0.4, end = 0.8,"System") + scale_y_continuous(limits = c(0, 1.0))  #scale_x_discrete(labels=c("None","Included"))
+system2 <- ggplot(data.all, aes(size, local_retention_mean, fill=system)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
+  labs(x="", y="Local retention")+ theme_cowplot(font_size=12,font_family = "sans") + scale_fill_grey(start = 0.4, end = 0.8, name="System") + scale_y_continuous(limits = c(0, 1.0)) #scale_x_discrete(labels=c("None","Included"))
+system3 <- ggplot(data.all, aes(size, settlement_success_mean,fill=system)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
+  labs(x="Scale of system", y="Settlement success")+ theme_cowplot(font_size=12,font_family = "sans") + scale_fill_grey(start = 0.4, end = 0.8, name="System") + scale_y_continuous(limits = c(0, 1.0)) #scale_x_discrete(labels=c("None","Included"))
+system4 <- ggplot(data.all, aes(size, distance_travelled_mean,fill=system)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
+  labs(x="Scale of system", y="Dispersal distance (km)")+ theme_cowplot(font_size=12,font_family = "sans") + scale_fill_grey(start = 0.4, end = 0.8,name="System") #scale_x_discrete(labels=c("None","Included"))
+p <- grid.arrange(system1,system2,system3,system4)
+ggsave("../../figs/system-metrics.png",plot=p,width = 169, height=150, units="mm",dpi=300)
+
+
+sr.fit <- aov(self_recruitment_mean ~ system + size, data=data.all)
+summary(sr.fit)
+lr.fit <- aov(local_retention_mean ~ system + size, data=data.all)
+summary(lr.fit)
+ss.fit <- aov(settlement_success_mean ~ system + size, data=data.all)
+summary(ss.fit)
+dd.fit <- aov(distance_travelled_mean ~ system + size, data=data.all)
+summary(dd.fit)
 
 
 bartlett.test(self_recruitment_mean ~ system, data=data.all)
@@ -334,35 +386,49 @@ bartlett.test(settlement_success_mean ~ system, data=data.all)
 t.test(settlement_success_mean ~ system, data=data.all, var.equal=TRUE)
 bartlett.test(distance_travelled_mean ~ system, data=data.all)
 t.test(distance_travelled_mean ~ system, data=data.all, var.equal=FALSE)
+
+```
+
+### Nested models
+```{r}
+nested <- data.all %>% filter(self_recruitment_mean > 0) %>% filter(nested_submodels == FALSE)
+bartlett.test(self_recruitment_mean ~ nested_submodels, data=data.all)
+t.test(self_recruitment_mean ~ nested_submodels, data=data.all, var.equal=FALSE)
 ```
 
 
 ### Models
 ```{r}
-data.all$model_name <- as.factor(data.all$model_name)
-data.all$physical_model <- as.factor(data.all$physical_model)
+data.all$model_name <- factor(data.all$model_name, exclude=NA)
+data.all$physical_model <- factor(data.all$physical_model,exclude=NA)
 
-data.models.ss <- filter(data.all, settlement_success_mean  > 0)
-data.models.sr <- filter(data.all, self_recruitment_mean  > 0)
-data.models.lr <- filter(data.all, local_retention_mean  > 0)
-data.models.dd <- filter(data.all, distance_travelled_mean  > 0)
-
-
-plot1 <- ggplot(data.models.lr,aes(model_name,local_retention_mean))+ labs(y="Local retention (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() +annotate(geom = "text", x = 7, y = 0.95, label = c("a")) + theme_few() + scale_fill_few()
-plot2 <- ggplot(data.models.sr,aes(model_name,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() +annotate(geom = "text", x = 16.5, y = 0.95, label = c("b")) + theme_few() + scale_fill_few()
-plot3 <- ggplot(data.models.ss,aes(model_name,settlement_success_mean))+ labs(y="Settlement success (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + annotate(geom = "text", x = 12.5, y = 0.95, label = c("c")) + theme_few() + scale_fill_few()
-plot4 <- ggplot(data.models.dd,aes(model_name,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="") + geom_boxplot() + coord_flip() + annotate(geom = "text", x = 11.5, y = 900, label = c("d")) + theme_few() + scale_fill_few()
-p <- grid.arrange(plot1,plot2,plot3,plot4, left="Biophysical dispersal model")
-ggsave("../../figs/bdm-models.png",plot=p,width = 169, height=150, units="mm",dpi=300)
+data.models.ss <- data.all %>% filter(settlement_success_mean  > 0) %>% group_by(model_name) %>% filter(n() > 2) %>% filter(model_name != 'NA')
+data.models.sr <- data.all %>% filter(self_recruitment_mean  > 0) %>% group_by(model_name) %>% filter(n() > 2) %>% filter(model_name != 'NA')
+data.models.lr <- data.all %>% filter(local_retention_mean  > 0) %>% group_by(model_name) %>% filter(n() > 2)%>% filter(model_name != 'NA')
+data.models.dd <- data.all %>% filter(distance_travelled_mean  > 0) %>% group_by(model_name) %>% filter(n() > 2) %>% filter(model_name != 'NA')
 
 
+model.plot1 <- ggplot(data.models.lr,aes(model_name,local_retention_mean))+ labs(y="Local retention (%)", x=
+"Biophysical dispersal model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+model.plot2 <- ggplot(data.models.sr,aes(model_name,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="Biophysical dispersal model") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+model.plot3 <- ggplot(data.models.ss,aes(model_name,settlement_success_mean))+ labs(y="Settlement success (%)", x="Biophysical dispersal model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+model.plot4 <- ggplot(data.models.dd,aes(model_name,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="Biophysical dispersal model") + geom_boxplot() + coord_flip() + theme_cowplot(font_size=10,font_family = "sans") + scale_y_continuous(limits = c(0, 1000))
+#model.p <- grid.arrange(model.plot1,model.plot2,model.plot3,model.plot4, left="Biophysical dispersal model")
+model.p <- plot_grid(model.plot1,model.plot2,model.plot3,model.plot4, nrow=2, labels = "auto", align="hv")
+save_plot("../../figs/bdm-models.png",plot=model.p, nrow=2,ncol=2)
 
-plot1 <- ggplot(data.models.lr,aes(physical_model,local_retention_mean)) + labs(y="Local retention (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) + coord_flip() + annotate(geom = "text", x = 7, y = 0.95, label = c("a")) + theme_few() + scale_fill_few()
-plot2 <- ggplot(data.models.sr,aes(physical_model,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + annotate(geom = "text", x = 13.5, y = 0.95, label = c("b")) + theme_few() + scale_fill_few()
-plot3 <- ggplot(data.models.ss,aes(physical_model,settlement_success_mean))+ labs(y="Settlement success (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip()+ annotate(geom = "text", x = 9.5, y = 0.95, label = c("c")) + theme_few() + scale_fill_few()
-plot4 <- ggplot(data.models.dd,aes(physical_model,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="") + geom_boxplot() + coord_flip()+ annotate(geom = "text", x = 10.5, y = 900, label = c("d")) + theme_few() + scale_fill_few()
-p <- grid.arrange(plot1,plot2,plot3,plot4, left="Hydrodynamic model")
-ggsave("../../figs/physical-models.png",plot=p,width = 169, height=150, units="mm",dpi=300)
+
+data.physical.ss <- data.all %>% filter(settlement_success_mean  > 0) %>% group_by(physical_model) %>% filter(n() > 2)
+data.physical.sr <- data.all %>% filter(self_recruitment_mean  > 0) %>% group_by(physical_model) %>% filter(n() > 2)
+data.physical.lr <- data.all %>% filter(local_retention_mean  > 0) %>% group_by(physical_model) %>% filter(n() > 2)
+data.physical.dd <- data.all %>% filter(distance_travelled_mean  > 0) %>% group_by(physical_model) %>% filter(n() > 2)
+
+physical.plot1 <- ggplot(data.physical.lr,aes(physical_model,local_retention_mean)) + labs(y="Local retention (%)", x="Hydrodynamic model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) + coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+physical.plot2 <- ggplot(data.physical.sr,aes(physical_model,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="Hydrodynamic model") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+physical.plot3 <- ggplot(data.physical.ss,aes(physical_model,settlement_success_mean))+ labs(y="Settlement success (%)", x="Hydrodynamic model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+physical.plot4 <- ggplot(data.physical.dd,aes(physical_model,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="Hydrodynamic model") + geom_boxplot() + coord_flip()+ theme_cowplot(font_size=10,font_family = "sans")
+physical.p <- plot_grid(physical.plot1,physical.plot2,physical.plot3,physical.plot4, nrow=2, labels = "auto", align="hv")
+save_plot("../../figs/physical-physical.png",plot=model.p, nrow=2,ncol=2)
 #png("../figs/oceanic_metrics.png",width = 750, height = 750)
 #multiplot(plot1,plot2,plot3,plot4, cols=2)
 #dev.off()
@@ -385,34 +451,30 @@ summary(resolution.dd_lm)
 resolution1 <- ggplot(resolution.data,aes(model_resolution_min,local_retention_mean)) + 
   geom_point(size=1) + 
   labs(x="", y="Local retention (%)") +
-  geom_smooth(method = lm,colour='black') + 
-  theme_few() + 
-  scale_colour_few()+ 
+  #geom_smooth(method = lm,colour='black') + 
+theme_cowplot(font_size=12,font_family = "sans")+ 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 12.5, y = 0.95, label = c("a")) +
+  #annotate(geom = "text", x = 12.5, y = 0.95, label = c("a")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution2 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_mean)) +   
   geom_point(size=1) + 
   labs(x="", y="Self-recruitment (%)")+
-  theme_few() + 
-  scale_colour_few() + 
+  theme_cowplot(font_size=12,font_family = "sans") + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 12.5, y = 0.95, label = c("b")) +
+  #annotate(geom = "text", x = 12.5, y = 0.95, label = c("b")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution3 <- ggplot(resolution.data,aes(model_resolution_min,settlement_success_mean)) + 
   geom_point(size=1)+ 
   labs(x="", y="Settlement success (%)") +
-  theme_few() + 
-  scale_colour_few() + 
+  theme_cowplot(font_size=12,font_family = "sans") + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 12.5, y = 0.95, label = c("c")) +
+  #annotate(geom = "text", x = 12.5, y = 0.95, label = c("c")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution4 <- ggplot(resolution.data,aes(model_resolution_min,distance_travelled_mean)) + 
   geom_point(size=1) + 
   labs(x="Model resolution (km^2)", y="Dispersal distance (km)") +
-  theme_few() + 
-  scale_colour_few() + 
-  annotate(geom = "text", x = 12.5, y = 900, label = c("d")) +
+  theme_cowplot(font_size=12,font_family = "sans")+ 
+  #annotate(geom = "text", x = 12.5, y = 900, label = c("d")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 grid.arrange(resolution1,resolution2,resolution3,resolution4)
 ```
@@ -437,34 +499,30 @@ summary(pld.dd_lm)
 pld1 <- ggplot(data.pld, aes(pld_fixed, local_retention_mean)) + 
   geom_point(size=1) + 
   labs(x ="", y = "") +
-  geom_smooth(method = lm,colour='black') + 
-  theme_few() + 
-  scale_colour_few() + 
+  #geom_smooth(method = lm,colour='black') + 
+theme_cowplot(font_size=12,font_family = "sans")+ 
   scale_y_continuous(limits = c(0, 1.0)) +
   annotate(geom = "text", x = 120, y = 0.95, label = c("e")) +
   theme(axis.text=element_text(size=8))
 pld2 <- ggplot(data.pld, aes(pld_fixed, self_recruitment_mean)) +
   geom_point(size=1)  + 
   labs(x = "", y = "") +
-  theme_few() + 
-  scale_colour_few() + 
+theme_cowplot(font_size=12,font_family = "sans")+ 
   scale_y_continuous(limits = c(0, 1.0)) +
   annotate(geom = "text", x = 120, y = 0.95, label = c("f")) +
   theme(axis.text=element_text(size=8))
 pld3 <- ggplot(data.pld, aes(pld_fixed, settlement_success_mean)) + 
   geom_point(size=1) + 
   labs(x ="", y = "") +
-  theme_few() + 
-  scale_colour_few() + 
+theme_cowplot(font_size=12,font_family = "sans")+ 
   scale_y_continuous(limits = c(0, 1.0)) +
   annotate(geom = "text", x = 120, y = 0.95, label = c("g")) +
   theme(axis.text=element_text(size=8))
 pld4 <- ggplot(data.pld, aes(pld_fixed, distance_travelled_mean)) + 
   geom_point(size=1)  + 
   labs(x ="PLD (days)", y = "") +
-  geom_smooth(method = lm,colour='black') + 
-  theme_few() + 
-  scale_colour_few() +
+  #geom_smooth(method = lm,colour='black') + 
+theme_cowplot(font_size=12,font_family = "sans")+ 
   annotate(geom = "text", x = 120, y = 625, label = c("h")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 grid.arrange(pld1, pld2, pld3, pld4)
@@ -495,8 +553,7 @@ summary(window.dd_lm)
 window1 <- ggplot(data.sr,aes(window,local_retention_mean)) + 
   geom_point(size=1)  + 
   labs(x="", y="")+
-  theme_few() + 
-  scale_colour_few() + 
+theme_cowplot(font_size=12,font_family = "sans")+ 
   scale_y_continuous(limits = c(0, 1.0)) +
   annotate(geom = "text", x = 40, y = 0.95, label = c("i")) +
   theme(axis.text=element_text(size=8))
@@ -505,8 +562,7 @@ window2 <- ggplot(data.sr,aes(window,self_recruitment_mean)) +
   geom_point(size=1)  + 
   geom_smooth(method=lm,colour='black') + 
   labs(x="", y="")+
-  theme_few() + 
-  scale_colour_few() + 
+theme_cowplot(font_size=12,font_family = "sans")+ 
   scale_y_continuous(limits = c(0, 1.0))+
   annotate(geom = "text", x = 40, y = 0.95, label = c("j")) +
   theme(axis.text=element_text(size=8))
@@ -514,8 +570,7 @@ window2 <- ggplot(data.sr,aes(window,self_recruitment_mean)) +
 window3 <- ggplot(data.sr,aes(window,settlement_success_mean)) + 
   geom_point(size=1)  + 
   labs(x="", y="")+ 
-  theme_few()+
-  scale_colour_few() + 
+theme_cowplot(font_size=12,font_family = "sans")+ 
   scale_y_continuous(limits = c(0, 1.0)) +
   annotate(geom = "text", x = 40, y = 0.95, label = c("k")) +
   theme(axis.text=element_text(size=8))
@@ -523,8 +578,7 @@ window3 <- ggplot(data.sr,aes(window,settlement_success_mean)) +
 window4 <- ggplot(data.sr,aes(window,distance_travelled_mean)) + 
   geom_point(size=1) + 
   labs(x="Settlement window (days)", y="")+
-  theme_few() + 
-  scale_colour_few() + 
+theme_cowplot(font_size=12,font_family = "sans")+ 
   annotate(geom = "text", x = 40, y = 900, label = c("l")) +
   theme(axis.title=element_text(size=9),axis.text=element_text(size=8))
 
@@ -543,20 +597,20 @@ Figure for mortality comparisons with metrics
 ```{r}
 mortality.prop <- data.all %>% filter(mortality == TRUE) %>% group_by(mortality_function) %>% summarise (n = n()) %>% mutate(freq = n / sum(n))
 mort2 <- ggplot(data.all, aes(mortality, self_recruitment_mean)) + geom_boxplot() + #geom_jitter(width = 0.1)+ 
-  labs(x="", y="Self-recruitment (%)")+ theme_few() + scale_fill_grey() +
+  labs(x="", y="Self-recruitment (%)")+theme_cowplot(font_size=12,font_family = "sans")+ 
    annotate(geom = "text", x=2.5, y = 0.95, label = c("b")) +
   scale_y_continuous(limits = c(0, 1.0)) + scale_x_discrete(labels=c("No mortality","Mortality"))
 mort1 <- ggplot(data.all, aes(mortality, local_retention_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
-  labs(x="", y="Local retention (%)")+ theme_few() + scale_fill_few() +
+  labs(x="", y="Local retention (%)")+ theme_cowplot(font_size=12,font_family = "sans")+ 
   annotate(geom = "text", x = 2.5, y = 0.95, label = c("a")) +
   scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("No mortality","Mortality")) + stat_compare_means(method = "t.test",aes(label = ..p.signif..),label.y = 0.9)
 mort3 <- ggplot(data.all, aes(mortality, settlement_success_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
-  labs(x="", y="Settlement success (%)")+ theme_few() + scale_fill_few() +
+  labs(x="", y="Settlement success (%)")+ theme_cowplot(font_size=12,font_family = "sans")+ 
   annotate(geom = "text", x = 2.5, y = 0.95, label = c("c")) +
   scale_y_continuous(limits = c(0, 1.0))+ scale_x_discrete(labels=c("No mortality","Mortality"))
 mort4 <- ggplot(data.all, aes(mortality, distance_travelled_mean)) + geom_boxplot()+ #geom_jitter(width = 0.1) +
   annotate(geom = "text", x = 2.5, y = 900, label = c("d")) +
-  labs(x="", y="Dispersal distance (km)")+ theme_few() + scale_fill_few()+ scale_x_discrete(labels=c("No mortality","Mortality"))
+  labs(x="", y="Dispersal distance (km)")+ theme_cowplot(font_size=12,font_family = "sans")+  scale_x_discrete(labels=c("No mortality","Mortality"))
 p <- grid.arrange(mort1,mort2,mort3,mort4, heights=unit(c(45,45), c("mm","mm")))
 ggsave("../../figs/mortality.png",plot=p, width = 169, height=120, units="mm",dpi=300)
 
@@ -593,8 +647,7 @@ behaviour2 <- ggplot(behaviour.data,aes(behaviours,self_recruitment_mean)) +
   geom_boxplot(na.rm = TRUE) + 
   #geom_jitter(width=0.1) + 
   scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien'), labels=c("P","M","S","MS","O")) + 
-  theme_few() + 
-  scale_fill_few() +
+  theme_cowplot(font_size=10,font_family = "sans") +
   labs(x="", y="Self-recruitment (%)") +
   annotate(geom = "text", x=5.25, y = 0.95, label = c("b")) +
   scale_y_continuous(limits = c(0, 1.0))
@@ -603,8 +656,7 @@ behaviour1 <- ggplot(behaviour.data,aes(behaviours,local_retention_mean)) +
   geom_boxplot(na.rm = TRUE) + 
   #geom_jitter(width=0.1) +
   scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien'),labels=c("P","M","S","MS","O")) + 
-  theme_few() + 
-  scale_fill_few() +
+  theme_cowplot(font_size=10,font_family = "sans") +
   labs(x="", y="Local retention (%)") +
   annotate(geom = "text", x=5.25, y = 0.95, label = c("a")) +
   scale_y_continuous(limits = c(0, 1.0))
@@ -613,8 +665,7 @@ behaviour3 <- ggplot(behaviour.data,aes(behaviours,settlement_success_mean)) +
   geom_boxplot(na.rm = TRUE) + 
   #geom_jitter(width=0.1) +
   scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien'), labels=c("P","M","S","MS","O")) + 
-  theme_few() + 
-  scale_fill_few()+
+  theme_cowplot(font_size=10,font_family = "sans") +
   labs(x= "", y="Settlement success (%)") +
   annotate(geom = "text", x=5.25, y = 0.95, label = c("c")) +
   scale_y_continuous(limits = c(0, 1.0))
@@ -623,8 +674,7 @@ behaviour4 <- ggplot(behaviour.data,aes(behaviours,distance_travelled_mean)) +
   geom_boxplot(na.rm = TRUE) + 
   #geom_jitter(width=0.1) +
   scale_x_discrete(limits=c('no_behav','move','settlement','move_settle','orien'), labels=c("P","M","S","MS","O")) + 
-  theme_few() + 
-  scale_fill_few() +
+  theme_cowplot(font_size=10,font_family = "sans") +
   labs(x= "",y="Dispersal distance (km)") +
   annotate(geom = "text", x=5.25, y = 900, label = c("d"))
 
@@ -647,10 +697,13 @@ cld(lsmeans.sr, alpha=0.05, Letters=letters, adjust="tukey")
 
 Local retention
 ```{r}
-lr.data <- behaviour.data %>% filter(local_retention_mean > 0)
+lr.data <- behaviour.data %>% filter(local_retention_mean > 0) %>% filter(behaviours != 'move_settle' & behaviours != 'settlement')
 bartlett.test(local_retention_mean ~ behaviours, data=lr.data)
 beta.lr <- betareg(local_retention_mean ~ behaviours, data=lr.data)
 Anova(beta.lr,type="II")
+lsmeans.lr <- lsmeans(beta.lr, pairwise ~ behaviours, adjust="Tukey")
+summary(lsmeans.lr)
+cld(lsmeans.lr, alpha=0.05, Letters=letters, adjust="tukey")
 ```
 
 Settlement success
