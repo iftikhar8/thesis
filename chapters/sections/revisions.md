@@ -52,7 +52,7 @@
 *Response:* TODO
 
 **Comment 11:** Don't think this contributes much as it's all rehashed in more detail in the following paragraphs in this section.
-*Response:*
+*Response:* TODO
 
 
 
@@ -61,5 +61,16 @@
 ### Abstract
 
 **Comment 1:** For fishes, not really sessile, which implies no movement post-settlement, but rather of limited post-settlement movement (site-attached in many cases), particularly compared to the pelagic stage
+*Response:* Clarified in comment R3AC11
 
-*Response:* Clarified in comment R3AC1
+**Comment 2:** This ref deals only with the morphology.You need refs for habitat and behaviour
+*Response:* Added reference from edited book on reef fish ecology relating to habitat and behaviour. See comment R3AC12
+
+**Comment 3:** (Fecundity) Life-time? Annual? Spawning episode?
+*Response:* Clarified in comment R3AC13.
+
+**Comment 4:** Even the smallest larvae have some swimming ability, but it is generally only postflexion stages that have meaningful swimming abilities in the context of dispersal
+*Response:* Clarified in comment R4AC14.
+
+**Comment 5:** And how do you define the start of the juvenile stage?
+*Response:* Clarified in comment R5AC15.
