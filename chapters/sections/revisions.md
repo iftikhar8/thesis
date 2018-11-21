@@ -28,7 +28,7 @@
 *Response:* Clarified by mentioning the range in estimated larval survivorship in comment R1AC102.
 
 **Comment 3:** (Settlement competency) Worth describing this in more detail, particularly in relation to settlement competency, given that it is a larval trait that has been shown to influence connectivity predictions from BDMs.
-*Response:* TODO
+*Response:* Clarified in comment R1AC103.
 
 **Comment 4:** (Spawning on dispersal) I agree that it's important but I don't think there is sufficient evidence to suggest it's more important that other traits such as PLD and mortality rate.
 *Response:*: Clarified the statement to make it clear it is one of several processes in comment R1AC104.
@@ -40,16 +40,16 @@
 *Response:*: Clarified that is allows the larvae more time to choose where to settle in comment R1AC106
 
 **Comment 7:** (Recruiting with siblings) This could be a physical process (although I agree that it's more likely to be behavioural)...
-*Response:* Clarified that it is more of a potential source of evidence.??
+*Response:* Clarified that it is more of a potential source of evidence in comment R1AC107.
 
 **Comment 8:** This paragraph is a bit of a list of traits without much connectivity (excuse the pun!). It could use with a bit of a rewrite to improve flow.
-*Response:* TODO
+*Response:* I refocused the paragraph to be on dispersal, more so than connectivity. And then I fleshed out the next paragraph on the benefits of connectivity, see comment R1AC108.
 
 **Comment 9:** This section is pretty underdeveloped. There is a rich literature on the value of connectivity in assessing MPA network performance and recent modeling and empirical data to support this. This section should be fleshed out more to help bolster the value of this sort of information to inform MPA planning.
-*Response:* TODO
+*Response:* Expanded the section (and added more references) to contain more information on the design and planning on MPAs using connectivity, see comment R1AC109.
 
 **Comment 10:** There have been quite a few reviews of these methods, none of which have been referenced, which is surprising. There is quite a lot of discussion of the strength and weaknesses of different approaches and over what spatial and temporal scales they are most suited to. A more critical analysis of this literature and a stronger argument made for why a BDM approach was most appropriate in the context of this thesis would make for a more compelling introduction to the thesis.
-*Response:* TODO
+*Response:* Addressed this be restructuring the paragraph to make the argument in the final paragraph. Also included more information on the benefits of using BDMs, see comment R1AC110.
 
 **Comment 11:** Don't think this contributes much as it's all rehashed in more detail in the following paragraphs in this section.
 *Response:* TODO
