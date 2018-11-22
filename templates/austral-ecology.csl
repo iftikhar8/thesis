@@ -204,7 +204,7 @@
             <text macro="editor" prefix=" "/>
           </group>
           <group prefix=". " suffix=".">
-            <text variable="container-title" form="short" font-style="italic"/>
+            <text variable="container-title" font-style="italic"/>
             <choose>
               <if variable="issue">
                 <group prefix=". ">
