@@ -52,8 +52,7 @@
 *Response:* Addressed this be restructuring the paragraph to make the argument in the final paragraph. Also included more information on the benefits of using BDMs, see comment R1AC110.
 
 **Comment 11:** Don't think this contributes much as it's all rehashed in more detail in the following paragraphs in this section.
-*Response:* TODO
-
+*Response:* Deleted and restructured the text, see comment R1AC111.
 
 
 ## Reviewer 3
