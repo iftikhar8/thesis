@@ -208,18 +208,18 @@
             <choose>
               <if variable="issue">
                 <group prefix=". ">
-                  <text variable="volume" font-weight="bold"/>
+                  <text variable="volume"/>
                 </group>
-                <!-- <group prefix="(" suffix=")">
-                  <text variable="issue"/>
-                </group> -->
+                <group prefix="(">
+                  <text variable="issue" suffix=")"/>
+                </group>
                 <group prefix=", ">
                   <text variable="page"/>
                 </group>
               </if>
               <else>
                 <group prefix=". ">
-                  <text variable="volume" font-weight="bold"/>
+                  <text variable="volume"/>
                 </group>
                 <group prefix=", ">
                   <text variable="page"/>
@@ -236,7 +236,7 @@
           <group prefix=". " suffix=".">
             <text variable="container-title" form="short" font-style="italic"/>
             <group prefix=". ">
-              <text variable="volume" font-weight="bold"/>
+              <text variable="volume"/>
             </group>
             <group prefix=", ">
               <text variable="page"/>
