@@ -428,7 +428,7 @@ physical.plot2 <- ggplot(data.physical.sr,aes(physical_model,self_recruitment_me
 physical.plot3 <- ggplot(data.physical.ss,aes(physical_model,settlement_success_mean))+ labs(y="Settlement success (%)", x="Hydrodynamic model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
 physical.plot4 <- ggplot(data.physical.dd,aes(physical_model,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="Hydrodynamic model") + geom_boxplot() + coord_flip()+ theme_cowplot(font_size=10,font_family = "sans")
 physical.p <- plot_grid(physical.plot1,physical.plot2,physical.plot3,physical.plot4, nrow=2, labels = "auto", align="hv")
-save_plot("../../figs/physical-physical.png",plot=model.p, nrow=2,ncol=2)
+save_plot("../../figs/physical-physical.png",plot=physical.p, nrow=2,ncol=2)
 #png("../figs/oceanic_metrics.png",width = 750, height = 750)
 #multiplot(plot1,plot2,plot3,plot4, cols=2)
 #dev.off()
