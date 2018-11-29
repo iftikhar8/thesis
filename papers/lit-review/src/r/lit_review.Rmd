@@ -233,7 +233,7 @@ papers.comparisons <- data.all %>% gather(behaviours, implemented,passive_moveme
 papers.comparisons <- papers.comparisons %>% distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
   mutate(taxa = if_else(is_fish == TRUE & is_invert == FALSE, 'Fish', if_else(is_invert == TRUE, 'Invertebrate', 'NA'))) %>% filter( taxa == 'Fish' | taxa == 'Invertebrate')
 
-comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of models") +
+comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of studies") +
   theme_cowplot(font_size=12,font_family = "sans")+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_grey(start = 0.3, end = 0.8, na.value="red",breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 1, y = 20, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE))
 
 
@@ -451,29 +451,30 @@ summary(resolution.dd_lm)
 resolution1 <- ggplot(resolution.data,aes(model_resolution_min,local_retention_mean)) + 
   geom_point(size=1) + 
   labs(x="", y="Local retention (%)") +
-  #geom_smooth(method = lm,colour='black') + 
-theme_cowplot(font_size=12,font_family = "sans")+ 
+  geom_smooth(method = lm,colour='black') + 
+theme_cowplot(font_size=14,font_family = "sans")+ 
   scale_y_continuous(limits = c(0, 1.0)) +
   #annotate(geom = "text", x = 12.5, y = 0.95, label = c("a")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution2 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_mean)) +   
   geom_point(size=1) + 
   labs(x="", y="Self-recruitment (%)")+
-  theme_cowplot(font_size=12,font_family = "sans") + 
+  theme_cowplot(font_size=14,font_family = "sans") + 
   scale_y_continuous(limits = c(0, 1.0)) +
   #annotate(geom = "text", x = 12.5, y = 0.95, label = c("b")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution3 <- ggplot(resolution.data,aes(model_resolution_min,settlement_success_mean)) + 
   geom_point(size=1)+ 
   labs(x="", y="Settlement success (%)") +
-  theme_cowplot(font_size=12,font_family = "sans") + 
+  theme_cowplot(font_size=14,font_family = "sans") + 
   scale_y_continuous(limits = c(0, 1.0)) +
   #annotate(geom = "text", x = 12.5, y = 0.95, label = c("c")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
+#units <- paste("Model resolution (km^2)")
 resolution4 <- ggplot(resolution.data,aes(model_resolution_min,distance_travelled_mean)) + 
   geom_point(size=1) + 
-  labs(x="Model resolution (km^2)", y="Dispersal distance (km)") +
-  theme_cowplot(font_size=12,font_family = "sans")+ 
+  labs(x=expression("Model resolution ("*"km"^{2}*")"), y="Dispersal distance (km)") +
+  theme_cowplot(font_size=14,font_family = "sans")+ 
   #annotate(geom = "text", x = 12.5, y = 900, label = c("d")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 grid.arrange(resolution1,resolution2,resolution3,resolution4)
@@ -499,7 +500,7 @@ summary(pld.dd_lm)
 pld1 <- ggplot(data.pld, aes(pld_fixed, local_retention_mean)) + 
   geom_point(size=1) + 
   labs(x ="", y = "") +
-  #geom_smooth(method = lm,colour='black') + 
+  geom_smooth(method = lm,colour='black') + 
 theme_cowplot(font_size=12,font_family = "sans")+ 
   scale_y_continuous(limits = c(0, 1.0)) +
   annotate(geom = "text", x = 120, y = 0.95, label = c("e")) +

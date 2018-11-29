@@ -125,7 +125,9 @@ PLD
 ```{r}
 data.all$pld_type <- as.factor(data.all$pld_type)
 pld_percentage <- length(which(!is.na(data.all$pld_type))) / length(data.all$pld_type) * 100
+print("Total PLD usage")
 pld_percentage
+get_factor_proportion(data.all$pld_type)
 ```
 
 Settlement competency
@@ -140,6 +142,7 @@ Spawning strategy
 data.all$run_mode <- as.factor(data.all$run_mode)
 spawning.percentage <- length(which(data.all$run_mode == 'Forecast')) / length(data.all$run_mode) * 100
 spawning.percentage
+get_factor_proportion(data.all$run_mode)
 ```
 
 Mortality
@@ -227,15 +230,14 @@ papers.comparisons <- data.all %>% gather(behaviours, implemented,passive_moveme
 papers.comparisons <- papers.comparisons %>% distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
   mutate(taxa = if_else(is_fish == TRUE & is_invert == FALSE, 'Fish', if_else(is_invert == TRUE, 'Invertebrate', 'NA'))) %>% filter( taxa == 'Fish' | taxa == 'Invertebrate')
 
-comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of models") +theme_cowplot(font_size=12,font_family = "sans")+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_manual(values=pal,breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 7, y = 14, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE)) 
-
+comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of studies") +theme_cowplot(font_size=12,font_family = "sans")+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_manual(values=pal,breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 1, y = 21, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE)) 
 
 papers.comparisons.prop <- papers.comparisons %>%
   group_by(taxa, published, behaviours, taxa) %>%
   summarise (n = n()) %>%
   mutate(freq = n / sum(n))
 
-prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_cowplot(font_size=12,font_family = "sans") + theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_manual(values = pal,breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 0.9, label = c("c","d"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
+prop.plot <- ggplot(papers.comparisons.prop, aes(x=published,y=freq, group=behaviours, colour=behaviours, shape=behaviours)) +labs( x = "", y = "Proportion")+ geom_line() + geom_point(size=2) + theme_cowplot(font_size=12,font_family = "sans") + theme(legend.title = element_blank(), legend.position = "top",axis.text.x=element_text(angle=90)) +  scale_colour_manual(values = pal,breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ scale_shape(breaks=c("passive_movement","movement","sensory_ability","directed_swimming"),labels = c("Passive", "Movement", "Settlement", "Orientation"))+ annotate(geom = "text", x = 7, y = 1.0, label = c("c","d"))+ guides(colour=guide_legend(nrow=2,byrow=TRUE))
 
 p <- grid.arrange(comparisons.plot,prop.plot,ncol=2, bottom="Publication year")
 ggsave("../../figs/comparisons.png",plot=p,width = 169, height=120, units="mm",dpi=300)
@@ -398,7 +400,7 @@ resolution1 <- ggplot(resolution.data,aes(model_resolution_min,local_retention_m
   theme_cowplot(font_size=12,font_family = "sans") + 
   scale_colour_few()+ 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 12.5, y = 0.95, label = c("a")) +
+  annotate(geom = "text", x = 15, y = 0.95, label = c("a")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution2 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_mean)) +   
   geom_point(size=1) + 
@@ -406,7 +408,7 @@ resolution2 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_
   theme_cowplot(font_size=12,font_family = "sans") + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 12.5, y = 0.95, label = c("b")) +
+  annotate(geom = "text", x = 15, y = 0.95, label = c("b")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution3 <- ggplot(resolution.data,aes(model_resolution_min,settlement_success_mean)) + 
   geom_point(size=1)+ 
@@ -414,14 +416,14 @@ resolution3 <- ggplot(resolution.data,aes(model_resolution_min,settlement_succes
   theme_cowplot(font_size=12,font_family = "sans") + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 12.5, y = 0.95, label = c("c")) +
+  annotate(geom = "text", x = 15, y = 0.95, label = c("c")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution4 <- ggplot(resolution.data,aes(model_resolution_min,distance_travelled_mean)) + 
   geom_point(size=1) + 
-  labs(x="Model resolution (km^2)", y="Dispersal distance (km)") +
+  labs(x=expression("Model resolution ("*"km"^{2}*")"), y="Dispersal distance (km)") +
   theme_cowplot(font_size=12,font_family = "sans") + 
   scale_colour_few() + 
-  annotate(geom = "text", x = 12.5, y = 900, label = c("d")) +
+  annotate(geom = "text", x = 15, y = 900, label = c("d")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 grid.arrange(resolution1,resolution2,resolution3,resolution4)
 ```
@@ -471,7 +473,7 @@ pld3 <- ggplot(data.pld, aes(pld_fixed, settlement_success_mean)) +
 pld4 <- ggplot(data.pld, aes(pld_fixed, distance_travelled_mean)) + 
   geom_point(size=1)  + 
   labs(x ="PLD (days)", y = "") +
-  geom_smooth(method = lm,colour='black') + 
+  #geom_smooth(method = lm,colour='black') + 
   theme_cowplot(font_size=12,font_family = "sans") + 
   scale_colour_few() +
   annotate(geom = "text", x = 120, y = 625, label = c("h")) +
