@@ -344,30 +344,34 @@ t.test(distance_travelled_mean ~ system, data=data.all, var.equal=FALSE)
 
 ### Models
 ```{r}
-data.all$model_name <- as.factor(data.all$model_name)
-data.all$physical_model <- as.factor(data.all$physical_model)
+data.all$model_name <- factor(data.all$model_name, exclude=NA)
+data.all$physical_model <- factor(data.all$physical_model,exclude=NA)
 
-data.models.ss <- filter(data.all, settlement_success_mean  > 0)
-data.models.sr <- filter(data.all, self_recruitment_mean  > 0)
-data.models.lr <- filter(data.all, local_retention_mean  > 0)
-data.models.dd <- filter(data.all, distance_travelled_mean  > 0)
-
-
-plot1 <- ggplot(data.models.lr,aes(model_name,local_retention_mean))+ labs(y="Local retention (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() +annotate(geom = "text", x = 7, y = 0.95, label = c("a")) + theme_cowplot(font_size=12,font_family = "sans") + scale_fill_few()
-plot2 <- ggplot(data.models.sr,aes(model_name,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() +annotate(geom = "text", x = 16.5, y = 0.95, label = c("b")) + theme_cowplot(font_size=12,font_family = "sans") + scale_fill_few()
-plot3 <- ggplot(data.models.ss,aes(model_name,settlement_success_mean))+ labs(y="Settlement success (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + annotate(geom = "text", x = 12.5, y = 0.95, label = c("c")) + theme_cowplot(font_size=12,font_family = "sans") + scale_fill_few()
-plot4 <- ggplot(data.models.dd,aes(model_name,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="") + geom_boxplot() + coord_flip() + annotate(geom = "text", x = 11.5, y = 900, label = c("d")) + theme_cowplot(font_size=12,font_family = "sans") + scale_fill_few()
-p <- grid.arrange(plot1,plot2,plot3,plot4, left="Biophysical dispersal model")
-ggsave("../../figs/bdm-models.png",plot=p,width = 169, height=150, units="mm",dpi=300)
+data.models.ss <- data.all %>% filter(settlement_success_mean  > 0) %>% group_by(model_name) %>% filter(n() > 1) %>% filter(model_name != 'NA')
+data.models.sr <- data.all %>% filter(self_recruitment_mean  > 0) %>% group_by(model_name) %>% filter(n() > 1) %>% filter(model_name != 'NA')
+data.models.lr <- data.all %>% filter(local_retention_mean  > 0) %>% group_by(model_name) %>% filter(n() > 1)%>% filter(model_name != 'NA')
+data.models.dd <- data.all %>% filter(distance_travelled_mean  > 0) %>% group_by(model_name) %>% filter(n() > 1) %>% filter(model_name != 'NA')
 
 
+model.plot1 <- ggplot(data.models.lr,aes(model_name,local_retention_mean))+ labs(y="Local retention (%)", x=
+"BDM") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+model.plot2 <- ggplot(data.models.sr,aes(model_name,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="BDM") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+model.plot3 <- ggplot(data.models.ss,aes(model_name,settlement_success_mean))+ labs(y="Settlement success (%)", x="BDM") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+model.plot4 <- ggplot(data.models.dd,aes(model_name,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="BDM") + geom_boxplot() + coord_flip() + theme_cowplot(font_size=10,font_family = "sans") + scale_y_continuous(limits = c(0, 1000))
+#model.p <- grid.arrange(model.plot1,model.plot2,model.plot3,model.plot4, left="Biophysical dispersal model")
+model.p <- plot_grid(model.plot1,model.plot2,model.plot3,model.plot4, ncol=2, labels = "auto")
+model.p
+save_plot("../../figs/bdm-models.png",plot=model.p, nrow=2,ncol=2)
 
-plot1 <- ggplot(data.models.lr,aes(physical_model,local_retention_mean)) + labs(y="Local retention (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) + coord_flip() + annotate(geom = "text", x = 7, y = 0.95, label = c("a")) + theme_cowplot(font_size=12,font_family = "sans") + scale_fill_few()
-plot2 <- ggplot(data.models.sr,aes(physical_model,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + annotate(geom = "text", x = 13.5, y = 0.95, label = c("b")) + theme_cowplot(font_size=12,font_family = "sans") + scale_fill_few()
-plot3 <- ggplot(data.models.ss,aes(physical_model,settlement_success_mean))+ labs(y="Settlement success (%)", x="") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip()+ annotate(geom = "text", x = 9.5, y = 0.95, label = c("c")) + theme_cowplot(font_size=12,font_family = "sans") + scale_fill_few()
-plot4 <- ggplot(data.models.dd,aes(physical_model,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="") + geom_boxplot() + coord_flip()+ annotate(geom = "text", x = 10.5, y = 900, label = c("d")) + theme_cowplot(font_size=12,font_family = "sans") + scale_fill_few()
-p <- grid.arrange(plot1,plot2,plot3,plot4, left="Hydrodynamic model")
-ggsave("../../figs/physical-models.png",plot=p,width = 169, height=150, units="mm",dpi=300)
+
+
+physical.plot1 <- ggplot(data.physical.lr,aes(physical_model,local_retention_mean)) + labs(y="Local retention (%)", x="Hydrodynamic model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) + coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+physical.plot2 <- ggplot(data.physical.sr,aes(physical_model,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="Hydrodynamic model") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+physical.plot3 <- ggplot(data.physical.ss,aes(physical_model,settlement_success_mean))+ labs(y="Settlement success (%)", x="Hydrodynamic model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+physical.plot4 <- ggplot(data.physical.dd,aes(physical_model,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="Hydrodynamic model") + geom_boxplot() + coord_flip()+ theme_cowplot(font_size=10,font_family = "sans")
+physical.p <- plot_grid(physical.plot1,physical.plot2,physical.plot3,physical.plot4, ncol=2, labels = "auto")
+physical.p
+save_plot("../../figs/physical-physical.png",plot=physical.p, nrow=2,ncol=2)
 #png("../figs/oceanic_metrics.png",width = 750, height = 750)
 #multiplot(plot1,plot2,plot3,plot4, cols=2)
 #dev.off()
@@ -652,10 +656,13 @@ cld(lsmeans.sr, alpha=0.05, Letters=letters, adjust="tukey")
 
 Local retention
 ```{r}
-lr.data <- behaviour.data %>% filter(local_retention_mean > 0)
+lr.data <- behaviour.data %>% filter(local_retention_mean > 0) %>% filter(behaviours != 'move_settle' & behaviours != 'settlement')
 bartlett.test(local_retention_mean ~ behaviours, data=lr.data)
 beta.lr <- betareg(local_retention_mean ~ behaviours, data=lr.data)
 Anova(beta.lr,type="II")
+lsmeans.lr <- lsmeans(beta.lr, pairwise ~ behaviours, adjust="Tukey")
+summary(lsmeans.lr)
+cld(lsmeans.lr, alpha=0.05, Letters=letters, adjust="tukey")
 ```
 
 Settlement success
