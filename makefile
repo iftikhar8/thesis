@@ -1,5 +1,3 @@
-
-
 word-template=templates/thesis-template.docx
 word-template-other=templates/thesis-other-template.docx
 pdf-template=templates/format.sty
@@ -9,12 +7,14 @@ csl=templates/austral-ecology.csl
 csl-meps=templates/inter-research-science-center.csl
 csl-elsevier=templates/elsevier-harvard.csl
 
-
 abstract:
 	pandoc --reference-doc=$(word-template) chapters/sections/abstract.md -o out/abstract.docx
 
 intro:
-		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc --filter pandoc-docx-pagebreak --bibliography=$(bibliography) --csl=$(csl) chapters/introduction/docs/introduction.md -o out/introduction.docx
+	pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-docx-pagebreak --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) chapters/introduction/docs/introduction.md -o out/introduction.docx
+
+test-comment:
+		pandoc out/test-comment.md -o out/test-comment.docx
 
 discussion:
 		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc --filter pandoc-docx-pagebreak --bibliography=$(bibliography) --csl=$(csl) chapters/discussion/docs/discussion.md -o out/discussion.docx
@@ -56,6 +56,12 @@ thesis-body:
 
 amsa-award-2018:
 	pandoc  --reference-doc=$(word-template) -M $(yaml) --filter pandoc-docx-pagebreak --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) conferences/amsa2018/amsa-award.md -o out/amsa-award-2018.docx
+
+refs-meta-pdf:
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) chapters/lit-review/docs/references.md -o out/chapter-2-meta-analysis-refs.pdf
+
+refs-meta-doc:
+	pandoc --reference-doc=$(word-template-other) --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl-meps) chapters/lit-review/docs/references.md -o out/chapter-2-meta-analysis-refs.docx
 
 clean:
 	rm out/*.docx
