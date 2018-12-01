@@ -334,13 +334,22 @@ grid.arrange(system1,system2,system3,system4)
 
 
 bartlett.test(self_recruitment_mean ~ system, data=data.all)
-t.test(self_recruitment_mean ~ system, data=data.all, var.equal=FALSE)
+sr.test <- t.test(self_recruitment_mean ~ system, data=data.all, var.equal=TRUE)
 bartlett.test(local_retention_mean ~ system, data=data.all)
-t.test(local_retention_mean ~ system, data=data.all, var.equal=TRUE)
+lr.test <- t.test(local_retention_mean ~ system, data=data.all, var.equal=TRUE)
 bartlett.test(settlement_success_mean ~ system, data=data.all)
-t.test(settlement_success_mean ~ system, data=data.all, var.equal=TRUE)
+ss.test <- t.test(settlement_success_mean ~ system, data=data.all, var.equal=TRUE)
 bartlett.test(distance_travelled_mean ~ system, data=data.all)
-t.test(distance_travelled_mean ~ system, data=data.all, var.equal=FALSE)
+dd.test <- t.test(distance_travelled_mean ~ system, data=data.all, var.equal=FALSE)
+p.values <- c(sr.test$p.value,lr.test$p.value,ss.test$p.value,dd.test$p.value)
+print("sr lr ss dd")
+p.values
+print("adjusted")
+p.adjust(p.values, method="fdr")
+data.open<- filter(data.all, system == "Open")
+data.closed<- filter(data.all, system == "Closed")
+mean(data.open$local_retention_mean, na.rm = TRUE)
+mean(data.closed$local_retention_mean, na.rm = TRUE)
 ```
 
 
@@ -389,10 +398,16 @@ resolution.sr_lm <- lm(model_resolution_min ~ self_recruitment_mean, data = reso
 resolution.ss_lm <- lm(model_resolution_min ~ settlement_success_mean, data = resolution.data)
 resolution.lr_lm <- lm(model_resolution_min ~ local_retention_mean, data = resolution.data)
 resolution.dd_lm <- lm(model_resolution_min ~ distance_travelled_mean, data = resolution.data)
-summary(resolution.sr_lm)
-summary(resolution.ss_lm)
-summary(resolution.lr_lm)
-summary(resolution.dd_lm)
+sr.test <- summary(resolution.sr_lm)
+ss.test <- summary(resolution.ss_lm)
+lr.test <- summary(resolution.lr_lm)
+dd.test<- summary(resolution.dd_lm)
+p.values <- c(sr.test$coefficients[2,4],lr.test$coefficients[2,4],ss.test$coefficients[2,4],dd.test$coefficients[2,4])
+print("sr lr ss dd")
+p.values
+print("adjusted")
+p.adjust(p.values, method="fdr")
+
 resolution1 <- ggplot(resolution.data,aes(model_resolution_min,local_retention_mean)) + 
   geom_point(size=1) + 
   labs(x="", y="Local retention (%)") +
@@ -400,7 +415,7 @@ resolution1 <- ggplot(resolution.data,aes(model_resolution_min,local_retention_m
   theme_cowplot(font_size=12,font_family = "sans") + 
   scale_colour_few()+ 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 15, y = 0.95, label = c("a")) +
+  annotate(geom = "text", x = 14, y = 0.95, label = c("a")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution2 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_mean)) +   
   geom_point(size=1) + 
@@ -408,7 +423,7 @@ resolution2 <- ggplot(resolution.data,aes(model_resolution_min,self_recruitment_
   theme_cowplot(font_size=12,font_family = "sans") + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 15, y = 0.95, label = c("b")) +
+  annotate(geom = "text", x = 14, y = 0.95, label = c("b")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution3 <- ggplot(resolution.data,aes(model_resolution_min,settlement_success_mean)) + 
   geom_point(size=1)+ 
@@ -416,14 +431,14 @@ resolution3 <- ggplot(resolution.data,aes(model_resolution_min,settlement_succes
   theme_cowplot(font_size=12,font_family = "sans") + 
   scale_colour_few() + 
   scale_y_continuous(limits = c(0, 1.0)) +
-  annotate(geom = "text", x = 15, y = 0.95, label = c("c")) +
+  annotate(geom = "text", x = 14, y = 0.95, label = c("c")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 resolution4 <- ggplot(resolution.data,aes(model_resolution_min,distance_travelled_mean)) + 
   geom_point(size=1) + 
   labs(x=expression("Model resolution ("*"km"^{2}*")"), y="Dispersal distance (km)") +
   theme_cowplot(font_size=12,font_family = "sans") + 
   scale_colour_few() + 
-  annotate(geom = "text", x = 15, y = 900, label = c("d")) +
+  annotate(geom = "text", x = 14, y = 900, label = c("d")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 grid.arrange(resolution1,resolution2,resolution3,resolution4)
 ```
@@ -436,15 +451,19 @@ PLD
 ```{r}
 data.pld <- filter(data.all, pld_fixed < 150)
 pld.sr_lm <- lm(self_recruitment_mean ~ pld_fixed, data = data.pld)
-pld.ss_lm <-
-lm(settlement_success_mean ~ pld_fixed, data = data.pld)
+pld.ss_lm <-lm(settlement_success_mean ~ pld_fixed, data = data.pld)
 pld.lr_lm <- lm(local_retention_mean ~ pld_fixed, data = data.pld)
-pld.dd_lm <-
-lm(distance_travelled_mean ~ pld_fixed, data = data.pld)
-summary(pld.sr_lm)
-summary(pld.lr_lm)
-summary(pld.ss_lm)
-summary(pld.dd_lm)
+pld.dd_lm <-lm(distance_travelled_mean ~ pld_fixed, data = data.pld)
+sr.test <- summary(pld.sr_lm)
+ss.test <- summary(pld.ss_lm)
+lr.test <- summary(pld.lr_lm)
+dd.test<- summary(pld.dd_lm)
+p.values <- c(sr.test$coefficients[2,4],lr.test$coefficients[2,4],ss.test$coefficients[2,4],dd.test$coefficients[2,4])
+print("sr lr ss dd")
+p.values
+print("adjusted")
+p.adjust(p.values, method="fdr")
+
 pld1 <- ggplot(data.pld, aes(pld_fixed, local_retention_mean)) + 
   geom_point(size=1) + 
   labs(x ="", y = "") +
@@ -479,15 +498,6 @@ pld4 <- ggplot(data.pld, aes(pld_fixed, distance_travelled_mean)) +
   annotate(geom = "text", x = 120, y = 625, label = c("h")) +
   theme(axis.title = element_text(size = 9), axis.text = element_text(size = 8))
 grid.arrange(pld1, pld2, pld3, pld4)
-
-pld.sr_lm <- lm(self_recruitment_mean ~ pld_fixed, data = data.all)
-pld.ss_lm <- lm(settlement_success_mean ~ pld_fixed, data = data.all)
-pld.lr_lm <- lm(local_retention_mean ~ pld_fixed, data = data.all)
-pld.dd_lm <- lm(distance_travelled_mean ~ pld_fixed, data = data.all)
-summary(pld.sr_lm)
-summary(pld.lr_lm)
-summary(pld.ss_lm)
-summary(pld.dd_lm)
 ```
 
 
@@ -498,10 +508,15 @@ window.sr_lm <- lm(window ~ self_recruitment_mean, data = data.sr)
 window.ss_lm <- lm(window ~ settlement_success_mean, data = data.sr)
 window.lr_lm <- lm(window ~ local_retention_mean, data = data.sr)
 window.dd_lm <- lm(window ~ distance_travelled_mean, data = data.sr)
-summary(window.sr_lm)
-summary(window.ss_lm)
-summary(window.lr_lm)
-summary(window.dd_lm)
+sr.test <- summary(window.sr_lm)
+ss.test <- summary(window.ss_lm)
+lr.test <- summary(window.lr_lm)
+dd.test<- summary(window.dd_lm)
+p.values <- c(sr.test$coefficients[2,4],lr.test$coefficients[2,4],ss.test$coefficients[2,4],dd.test$coefficients[2,4])
+print("sr lr ss dd")
+p.values
+print("adjusted")
+p.adjust(p.values, method="fdr")
 
 window1 <- ggplot(data.sr,aes(window,local_retention_mean)) + 
   geom_point(size=1)  + 
@@ -514,7 +529,7 @@ window1 <- ggplot(data.sr,aes(window,local_retention_mean)) +
 
 window2 <- ggplot(data.sr,aes(window,self_recruitment_mean)) + 
   geom_point(size=1)  + 
-  geom_smooth(method=lm,colour='black') + 
+  #geom_smooth(method=lm,colour='black') + 
   labs(x="", y="")+
   theme_cowplot(font_size=12,font_family = "sans") + 
   scale_colour_few() + 
@@ -576,10 +591,15 @@ bartlett.test(self_recruitment_mean ~ mortality, data=data.all)
 bartlett.test(local_retention_mean ~ mortality, data=data.all)
 bartlett.test(settlement_success_mean ~ mortality, data=data.all)
 bartlett.test(distance_travelled_mean ~ mortality, data=data.all)
-t.test(self_recruitment_mean ~ mortality, data=data.all, var.equal=TRUE)
-t.test(local_retention_mean ~ mortality, data=data.all, var.equal=FALSE)
-t.test(settlement_success_mean ~ mortality, data=data.all, var.equal=TRUE)
-t.test(distance_travelled_mean ~ mortality, data=data.all, var.equal=FALSE)
+sr.test <- t.test(self_recruitment_mean ~ mortality, data=data.all, var.equal=TRUE)
+lr.test <- t.test(local_retention_mean ~ mortality, data=data.all, var.equal=FALSE)
+ss.test <- t.test(settlement_success_mean ~ mortality, data=data.all, var.equal=TRUE)
+dd.test <- t.test(distance_travelled_mean ~ mortality, data=data.all, var.equal=FALSE)
+p.values <- c(sr.test$p.value,lr.test$p.value,ss.test$p.value,dd.test$p.value)
+print("sr lr ss dd")
+p.values
+print("adjusted")
+p.adjust(p.values, method="fdr")
 ```
 
 #### Movement behaviours
@@ -651,9 +671,9 @@ Self-recruitment
 sr.data <- behaviour.data %>% filter(self_recruitment_mean > 0)
 bartlett.test(self_recruitment_mean ~ behaviours, data=sr.data)
 beta.sr <- betareg(self_recruitment_mean ~ behaviours, data=sr.data)
-lsmeans.sr <- lsmeans(beta.sr, pairwise ~ behaviours, adjust="Tukey")
+lsmeans.sr <- lsmeans(beta.sr, pairwise ~ behaviours, adjust="fdr")
 summary(lsmeans.sr)
-cld(lsmeans.sr, alpha=0.05, Letters=letters, adjust="tukey")
+cld(lsmeans.sr, alpha=0.05, Letters=letters, adjust="fdr")
 ```
 
 Local retention
@@ -662,9 +682,9 @@ lr.data <- behaviour.data %>% filter(local_retention_mean > 0) %>% filter(behavi
 bartlett.test(local_retention_mean ~ behaviours, data=lr.data)
 beta.lr <- betareg(local_retention_mean ~ behaviours, data=lr.data)
 Anova(beta.lr,type="II")
-lsmeans.lr <- lsmeans(beta.lr, pairwise ~ behaviours, adjust="Tukey")
+lsmeans.lr <- lsmeans(beta.lr, pairwise ~ behaviours, adjust="fdr")
 summary(lsmeans.lr)
-cld(lsmeans.lr, alpha=0.05, Letters=letters, adjust="tukey")
+cld(lsmeans.lr, alpha=0.05, Letters=letters, adjust="fdr")
 ```
 
 Settlement success
@@ -674,9 +694,9 @@ ss.data <- behaviour.data %>% filter(settlement_success_mean > 0)
 bartlett.test(settlement_success_mean ~ behaviours, data=ss.data)
 beta.ss <- betareg(settlement_success_mean ~ behaviours, data=ss.data)
 Anova(beta.ss,type="II")
-lsmeans.ss <- lsmeans(beta.ss, pairwise ~ behaviours, adjust="Tukey")
+lsmeans.ss <- lsmeans(beta.ss, pairwise ~ behaviours, adjust="fdr")
 summary(lsmeans.ss)
-cld(lsmeans.ss, alpha=0.05, Letters=letters, adjust="tukey")
+cld(lsmeans.ss, alpha=0.05, Letters=letters, adjust="fdr")
 ```
 
 
@@ -688,9 +708,9 @@ qqp(behaviour.data$distance_travelled_mean,"norm")
 dd.data <- behaviour.data %>% filter(distance_travelled_mean > 0)
 bartlett.test(distance_travelled_mean ~ behaviours, data=dd.data)
 glm.dist <- glm(distance_travelled_mean ~ behaviours, family=gaussian(link="log"), data=dd.data)
-lsmeans.dist <- lsmeans(glm.dist, ~ behaviours)
+lsmeans.dist <- lsmeans(glm.dist, ~ behaviours, adjust="fdr")
 summary(pairs(lsmeans(glm.dist, ~ behaviours)), type = "response")
-cld(lsmeans.dist,alpha = 0.05, Letters = letters, adjust="tukey")
+cld(lsmeans.dist,alpha = 0.05, Letters = letters, adjust="fdr")
 ```
 
 
