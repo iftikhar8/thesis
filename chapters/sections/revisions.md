@@ -60,9 +60,11 @@ Reviewer 1
 #### Major comments
 
 **Comment 1:** You limited the review to studies published since 2007 but this limits your analysis of the impacts of model parameter values on dispersal outcomes. A particular issue was your search string; restricting your search to only pick up studies that used ‘connectivity’ instead of the more general term ‘dispersal’ means you likely missed a reasonable number of relevant studies. Given your interest specifically in investigating the metrics of local retention, self-recruitment, dispersal distance and settlement success, these would have been more useful search terms than just connectivity. I would also have searched using multiple databases, particularly Google Scholar so you would have picked up papers that used these terms in the text.
+
 *Response:* The scope of the search terms were broadened slightly to use "connectivity, model\*, larva\*", and google scholar was included as a searched database. This results in an increase to 132 published studies (previously 75), with 589 models (previously 367). However, increasing this number had a negligible change on the overall trends found in the review. Perhaps using dispersal instead of connectivity would have produced a greater number, however many dispersal studies often do not have settlement (primarily focusing on the drift of the larvae), which would not have added to our metrics. Dispersal studies that include settlement should use the word connectivity within the text, which would be expected to be picked up in the search. This number of studies should be sufficient to find the general trends we are after considering the aims behind this review.
 
 **Comment 2:** I was concerned over the choice of statistic tests. Models are not independent of publication. This is a fundamental issue in meta-analyses and you need to account for the nested nature of your data. The fact that ~25% of your models were from one study (Treml et al. 2015) and for one particular model platform and for one particular region of the world is a significant issue. Furthermore, how a particular model parameter influences a particular dispersal outcome is not independent of all of the other aspects of the particular studies and the models used, yet you performed separate tests. The fact that many of these relationships were weak or NS, is not surprising given the complexity and variability in how models were configured. There are a variety of ways that you can account for this in meta- analyses, such as using linear mixed effects models, which allow for testing of more complex models, evaluating the particular effects of particular parameters more independently and accounting for the nested structure of the data, and funnel plots to test for publication bias. Many reviewers will also require documenting how studies were screened, such as a PRISMA flow diagram.
+
 *Response:* Yes I understand the nested nature of the data, however I felt as the aim of the paper is not to draw strong conclusions and hard interpretations, instead to look for general patterns, then this analysis was suitable.
 
 The single Treml *et al.* 2015 paper was reduced to 16% when considering the new amount of models, and also it was not used for any metrics analysis and not data for the common metrics was obtained from that paper. The number of papers with common metrics was 67 (200 models). Of these, there was a mean of 3 (± 3.5) models per paper. The mean is skewed by a few papers having over 10 models with extracted data, and 32 papers that only had one model.
@@ -99,10 +101,10 @@ This is the first time I have heard of the PRISMA flow, and I agree that is a us
 *Response:* Clarified in comment: Minor 1209. TODO create a table?
 
 **Comment 10:** (Biological traits) There is a whole range of ways in which this functionality could be implemented, some of which will be biologically meaningful and others not. This seems to be an important distinction which you haven't made. What implications do you think this has for what conclusions you can draw from this analysis?
-*Response:* TODO
+*Response:* Yes this is true, and the effect of this is unknown. I have included this as a caveat in the discussion. Clarified in comment: Minor 1210.
 
 **Comment 11:** (Number of particles) So what does this mean? What are the implications? There isn't much synthesis here and the reader doesn't know if any of this is important or not.
-*Response:* TODO Clarified in comment: Minor 1211
+*Response:* TODO Clarified in comment: Minor 1211.
 
 **Comment 12:** I'm struggling with your sample sizes for different analyses. I thought there were 367 unique models. If so then the total for this panel is quite off.
 *Response:* Yes, that should read "studies" and not "models". Clarified in comment: Minor 1212
@@ -286,8 +288,7 @@ Reviewer 3
 #### Major comments
 
 **Comment 1:** I would like to see the author’s view on the following questions. Did the author see any trend in his review toward multiple use of what is essentially the same model in different publications? Or, does each investigator reinvent the wheel and develop his/her own model? Regardless of the answer, what does this say about the state of the art of dispersal modelling?
-*Response:* (short answer). No. (unless it just included passive movement).
-(long answer).
+*Response:* The short answer to the first question is no, I did not see many trends amongst models. There does not seem to be much communication between groups of researchers on say reusing models and applying them to different questions (something I am guilty of as well). Authors tended to either create their own models for that specific application or use models they were familiar with. I can imagine it comes down to what skills are available and the professional networks researchers are in as to what BDM they choose and whether they re-invent the wheel or not. Some models, such as CMS, are appearing in more studies over time, which while this reuse is good thing - we do need to start coming up with a process for validating these models to ensure the best models are being reused. In regard to the second part of the question, what does this say about the art of dispersal modelling, is that currently it is still an art and will remain so until concrete validation of models and their parameters is achieved. My personal opinion is that the first BDMs that manage to provide objective evidence of validation (perhaps across multiple scenarios), combined with an ability to be flexible to many different applications, will become the de-facto standard for connectivity modelling studies in the future. Which, I believe is a good scenario - fewer well validated models is much better than many unvalidated models, especially given all the different modelling choice when constructing such models - it is hard to understand how all these choices influence the predicted dispersal. These decisions range from how the data is interpolated and integrated over time to get a velocity at time step to move the larvae, to how different behaviours, as simple as vertical migration or as complicated as orientation and predator avoidance, are implemented.
 
 **Comment 2:** In this chapter, there are many instances of repetitive testing, and no apparent correction for this. I would not expect an overall correction for all the tests within the chapter, but within the several tests for each element, this needs consideration. Some argue that the standard ‘correction’ for repetitive testing is inappropriate, and there is some justification for this view. The alternative is to provide the actual p value for each test (rather than just < 0.05 or >0.05), to allow the reader to assess things for themselves. The author has done neither. This issue must be addressed by the author in some manner in this chapter.
 *Response:* I was correcting for the behaviour comparisons (using a Tukey correction), but yes I agree it should be used for all the multiple comparisons. I have also put in the exact p-values for the reader to assess. For each metric I have now used an adjusted p-value (labelled p~adjusted~) using the technique described in @pike2011. This has been explained better in the methods under the clarified comment: Major 3202.
@@ -297,20 +298,20 @@ Reviewer 3
 **Comment 1:** Why?  Surely, the importance of different parameters depends on the species and the locality.
 *Response:* Clarified in comment: Minor 3201.
 
-**Comment 2:** prevoiusly, it was in the first person singular.  Why now in the first person plural??
+**Comment 2:** Prevoiusly, it was in the first person singular.  Why now in the first person plural??
 *Response:* Yes, there were some inconsistencies between the paper and the thesis chapter. I have rectified these.
 
 **Comment 3:** (Model reuse) upon what basis was this confidence based?  Any tests of model predictions based on some independent empirical data set?  Or, just go with the herd?
-*Response:* TODO
+*Response:* It is hard to determine this motivation of reuse (I suspect it mainly stems from researchers on the project having familiarity with the tool than evidence based decisions). Clarified in comment: Minor 3203.
 
 **Comment 4:** surely, it cannot be true that ELH of temperate spp is not commonly researched.  Perhaps you are referring to particular aspects of ELH.  If so, then what?
-*Response:* TODO
+*Response:* Yes, I meant the behavioural aspects. Clarified in comment: Minor 3204.
 
 **Comment 5:** Few models can be truly predictive in the sense of trying to say what will happen in the future, as they require input of the physical drivers, such as wind patterns that are not known in advance.  This is worth saying explicitly
-*Response:* TODO
+*Response:* Yes agreed. Clarified in comment: Minor 3205.
 
 **Comment 6:** (decreasing movement in models) Rather retrograde situation
-*Response:* TODO
+*Response:* I'll take this as a comment.
 
 **Comment 7:** (Ichthyoplankton) if they have extensive swimming ability, they can't be considered plankton
 *Response:* Changed to larval fish.
@@ -412,9 +413,10 @@ Reviewer 3
 *Response:* Agreed. Clarified in comment: Minor 3239.
 
 **Comment 40:** What is needed is a means of testing model predictions in an objective way!
-*Response:* TODO
+*Response:* Agreed. Clarified in comment: Minor 3240.
 
-
+**Comment 41:** Why two different formats for citing papers?
+*Response:* There was an issue with the CSL generating the citations, this has been fixed now.
 
 
 #### Minor comments
