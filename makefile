@@ -8,10 +8,10 @@ csl-meps=templates/inter-research-science-center.csl
 csl-elsevier=templates/elsevier-harvard.csl
 
 abstract:
-	pandoc --reference-doc=$(word-template) chapters/sections/abstract.md -o out/abstract.docx
+	pandoc-2.3 --reference-doc=$(word-template) --filter pandoc-docx-pagebreak chapters/sections/abstract.md -o out/abstract.docx
 
 intro:
-	pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-docx-pagebreak --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) chapters/introduction/docs/introduction.md -o out/introduction.docx
+	pandoc-2.3 --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-docx-pagebreak --filter pandoc-citeproc --bibliography=$(bibliography) --csl=$(csl) chapters/introduction/docs/introduction.md -o out/introduction.docx
 
 test-comment:
 		pandoc out/test-comment.md -o out/test-comment.docx
@@ -20,10 +20,10 @@ discussion:
 		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc --filter pandoc-docx-pagebreak --bibliography=$(bibliography) --csl=$(csl) chapters/discussion/docs/discussion.md -o out/discussion.docx
 
 lit-review:
-	pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc  --bibliography=$(bibliography) --csl=$(csl) chapters/lit_review/docs/lit-review.md -o out/lit-review.docx
+	pandoc-2.3 --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-docx-pagebreak --filter pandoc-citeproc  --bibliography=$(bibliography) --csl=$(csl) chapters/lit-review/docs/lit-review.md -o out/lit-review.docx
 
 lit-review-pdf:
-	pandoc --filter pandoc-crossref --filter pandoc-citeproc -H $(pdf-template) -V fontsize=12pt --bibliography=$(bibliography) --csl=$(csl) chapters/lit_review/docs/lit-review.md -o out/lit-review.pdf
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc -H $(pdf-template) -V fontsize=12pt --bibliography=$(bibliography) --csl=$(csl) chapters/lit-review/docs/lit-review.md -o out/lit-review.pdf
 
 empirical:
 		pandoc --reference-doc=$(word-template) --filter pandoc-crossref -M $(yaml) --filter pandoc-citeproc --filter pandoc-docx-pagebreak --bibliography=$(bibliography) --csl=$(csl) chapters/empirical/docs/empirical.md -o out/empirical.docx
