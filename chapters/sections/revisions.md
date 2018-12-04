@@ -572,10 +572,10 @@ I have revisited all of the photos of the larval fish use in my analyses and dou
 The chapter uses empirical data from Chapter 3 to parameterise a biophysical dispersal model of larval reef fishes along the NSW coast. This model then provides a context for exploring how different larval behaviours influence a range of dispersal metrics. I struggled a bit with this chapter as it wasn’t clear how this research advances our understanding of behavioural influences on larval dispersal, what the key behaviours are to include and how sensitive they are to parameterisation. Again, I’ve added comments to the MS and raise several more substantive points to consider in your revision here:
 
 **Comment 1:** Your predictions aren't well set up by the introduction. How did you arrive at these? You haven't led the reader to these conclusions. One of the results you present is related to the timing of spawning but this isn't introduced. There are several studies that have investigated the impacts of particular modelling parameters and their values (i.e. Treml et al. 2015 in Movement Ecology is one example). I think it's important that you also introduce these model sensitivity studies and how your approach contributes something new to our understanding of how we construct and parameterise BDMs.
-*Response:* TODO
+*Response:* In the introduction I have tried to setup the rationale in a more coherent manner. Including comparisons of other sensitivity studies (for different regions) and more synthesis on what we know from these studies. See Major 1401.
 
 **Comment 2:** The model description, given it's a bespoke model, should be compared to other Lagrangian particle tracking models. How is it different or better? Why did you write your own code versus the open source codes that are available (e.g. North's or Paris's?).
-*Response:* TODO
+*Response:* Addressed in Major 1402. The main reason was to allow for easy customisation of the behavours involved. Several of the popular models (e.g. CMS) are coded in Fortran, a language I am not familiar with and run only on Unix - an option not available in the lab when the thesis started. I have coded multiple implementations of the same biological traits for user-driven configuration. It also takes advantage of the latest libraries for mathematical and parallel processing. A future study would be to run several models using the same parameters and ensure that they all produce the similar output.
 
 **Comment 3:** The oceanographic model used has a pretty coarse model resolution, particularly for nearshore oceanography. Some would argue that spending effort investigating the influence of behaviour when the oceanography is 'wrong' is a waste of time. Having a validated physical model can help circumvent this criticism. But, it needs to be validated at the spatio-temporal scales which are relevant to your research question. This is an important issue that warrants some discussion.
 *Response:* TODO
@@ -611,7 +611,7 @@ plots, and text descriptions and the key messages get lost in the overall covera
 *Response:* TODO
 
 **Comment 7:** The measurements of U_crit had a lot of significant figures – is that accurate?
-*Response:* TODO
+*Response:* Yes I could have reduce the significance level - that was an oversight. I took the mean of means for swimming speeds measured in cm s~-1~ (e.g. 46.3 cm s~-1~), and left it at the same significance level.
 
 **Comment 8:** I’m not certain that the settlement buffers are equivalent to “sticky water”. As I understand it, sticky water is a physical, not a biological phenomenon. Sticky water would apply to pelagic eggs, but presumably you’re not applying settlement buffers to eggs, or to precompetent larva for that matter. Many of the factors that drive sticky water would already be implicit in the physical forcings of the model - if you were using SLIM at high resolution, for example
 *Response:* TODO
@@ -619,7 +619,7 @@ plots, and text descriptions and the key messages get lost in the overall covera
 #### Reviewer 3
 
 **Comment 1:** As far as I can work out, there was only one horizontal swimming option, with swimming being applied when the larvae become competent to settle. If this is correct, the author should explain why he did not include ontogeny of swimming, as it is clear that larvae do have significant swimming abilities before settlement stage, and the work of Fisher on Ucrit demonstrates this for at least two species of pomacentrids – a pomacentrid being one of the exemplar species. There are similar data available for sparids, sciaenids (Clarke et al ), serranids, etc (Leis et al), both for Ucrit and in situ swimming.
-*Response:* TODO
+*Response:* This was not explained very well by me in the Chapter. Actually, the larvae have the ability to swim once they reach the flexion ontogenetic stage. The larvae swim in a random direction until they have the ability to orientate towards a reef (they are within the sensory zone limits). Clarified in comment: Major 3401.
 
 **Comment 2:** The approach in this chapter is not an uncommon one used to look beyond the unsurprising result that using different behavioural inputs in a model produces different predicted outcomes. It is typically used when there is no obvious way to test the different modelled predictions with ‘real’ data. It can be helpful in designing model inputs, but it is of limited use in determining if the model produces realistic results. The latter cannot be done without testing using independent empirical data. Also, nearly any model is highly likely to be location specific. All these things should be emphasized in the this chapter.
 *Response:* TODO
@@ -629,6 +629,90 @@ plots, and text descriptions and the key messages get lost in the overall covera
 
 **Comment 4:** There must also be a clear, upfront acknowledgement that the conclusions drawn from the modelling – even if correct (and this remains to be shown, in general) – are valid only for the system which was modelled. That is, the temperate east coast of Australia, or at a stretch maybe other similar systems of western poleward boundary currents. This is not to diminish the results of the modelling effort, but to put them into proper perspective.
 *Response:* TODO
+
+### Minor recommendations
+
+#### Reviewer 1
+
+**Comment 1:** This paragraph is somewhat repetitive of what you've said previously.
+*Response:* In addressing comment Major 1401, I have edited the introduction to remove the repetition.
+
+**Comment 2:** It's unclear how you parameterised the settlement window? Was there a change in likelihood once competency is reached assuming near habitat or just all settle if near and competent?
+*Response:* Thre are actually two options; a settlement window defining a period when they can settle, or attempt to settle only upon reaching the PLD. Clarified in comment: Minor 1402.
+
+**Comment 3:** Something to consider. Larvae would presumably swim faster if the current vector is in the opposing direction to the direction of movement. In other words it should be compensatory swimming instead of random between min and max swimming. This presumably would make swimming more efficient and increase the effect of horizontal swimming
+*Response:* This is a good point - I have added it to the enchancements task list of ZISSOU.
+
+**Comment 4:** OVM is also a mechanism, potentially for crosshore transport, offshore when young, onshore when older.
+*Response:*  Yes this is true, and perhaps it is more important than horizontal swimming.
+
+**Comment 5:** (Modelled dates) Why this period?
+*Response:* No specific reason, randomly chosen from the available data set.
+
+**Comment 6:** This is a really coarse model resolution, particularly for nearshore oceanography. Some would argue that spending effort investigating the influence of behaviour when the oceanography is 'wrong' is a waste of time. Having a validated physical model can help circumvent this criticism. But, it needs to be validated and the spatio-temporal scales which are relevant to your research question.
+*Response:* Yes I agree the model is coarse, however at the time it was undertaken it was the best available model at the time with offline data. Yes, the lack of nearshore reoslution is a limitation of this hydrodynamic model. Hopefully in the near future finer resolution models of the oceanography off eastern Australia will be made available [@roughan2018]. Clarified in comment: Minor 1406.
+
+**Comment 7:** What is the blanking distance from the coast of this model? In other words how far offshore is the coastal boundary cell?
+*Response:* The changing nature of the coastline down eastern Australia means it tended to change from 200m to 5km (although, how those currents are at 200m is unclear).
+
+**Comment 8:** There is no point having all families represented here as you only used Pomacentrids in this chapter. It would be more helpful to show how you integrated DVM into the OVM pattern here.
+*Response:* Good point. Clarified in comment: Minor 1405. TODO
+
+**Comment 9:** I found the methods descriptions somewhat confusing because of the inconsistency in species used for each aim. I think it would be a cleaner study if you, ideally did all aims for all families, or if you can't get realistic family estimates for DVM or OHS, you simplify and only look at pomacentrids.
+*Response:* Yes, I tried to clarify I only used pomacentrids, but with OVM patterns seen for other species. Clarified in comment: Minor
+
+**Comment 10:** So over the whole year or did you look at temporal changes in the connectivity matrix?
+*Response:* The entire year - temporal variabilty was ignored. Clarified in comment: Minor 1410.
+
+**Comment 11:** This is a good strategy but a bit hard to follow your description. In essence this is the null prediction for what should happen in the absence of any behaviour and you were interested in how behaviour might cause deviations away from this null prediction.
+*Response:* Clarified in comment: Minor 1411.
+
+**Comment 12:** This method for comparing connectivity patterns seems, at face value, to be suitable but it's certainly not a standard way of doing this. Is it possible to generate a schematice or flow chart to walk the reader through this process? Certainly something to consider as a ESM for when you try to publish this work.
+*Response:* Yes I understand it can be hard to follow. I have also tried to clarify the data analysis and why certain test were attempted, see comment Major 2404.
+
+**Comment 13:** Proximate is better than similar
+*Response:* Clarified in comment: Minor 1413.
+
+**Comment 14:** Not sure this plot is worth including. Clearly the physics is really important in this system and generates considerable spatial heterogeneity but ultimately it's the behavioural comparisons that are the most relevant.
+*Response:* True, but I also think it does show how behavioural effects differ per region which is interesting. It also gives an idea what effect normalising it to the no behaviour model does.
+
+**Comment 15:** These 3 figures are definitely overkill for a publication.
+*Response:* TODO
+
+**Comment 16:** The results section is pretty challenging to wade through. There are lots of tests, plots, and text descriptions and the key messages get lost in the overall coverage. There is nothing wrong with what you've done, it's just not that engaging and the key messages get lost. I would suggest you rethink your aims so you have more targeted questions that you can aske instead of going through all outcomes from all of these tests.
+*Response:* TODO
+
+
+#### Reviewer 2
+
+#### Reviewer 3
+
+**Comment 1:** Or at different stages in ontogeny - see various publications you have cited
+*Response:* Clarified in comment: Minor 3401.
+
+**Comment 2:** This will depend entirely when during the PLD these two behaviour types are considered to begin
+*Response:* Yes this is correct, they can vertically migrate before they can horizontally swim. Clarified in comment: Minor 3402.
+
+**Comment 3:** can egg bouyancy be included?
+*Response:* Yes it can. Clarified in comment: Minor 3403.
+
+**Comment 4:** In effect, this assumes the larvae swim in a straight line at the calculated swim speed.  Howver, even the 'best' swimmers in situ, have r values less than 1, even though there is a significant bearing.  This means that the straight-line speed along the mean bearing is less - often by a considerable margin - than the speed along the swim path.  The result is this method over-estimates the speed along the mean bearing
+*Response:*  Yes. The aim was to use a random number to offest this straight-line speed (i.e. they only swim in a straightline for a proportion of the time), although they are not actively swimming in other directions. I have added it to the enchancements task list of ZISSOU.
+
+**Comment 5:** (Effect of OHS) Hardly a surprise, as your choice of a sticky detection zone and its very high radius, in effect, vastly increased the size of the suitable habitat.  It would be of interest to calculate the % increase of effective settlement habitat size to see how it compares with the 30% increase of settlement
+*Response:* TODO
+
+**Comment 6:** (Connectance) Is this a word?  What about Connectivity?
+*Response:* Yes, it is a common measure in graph analysis
+
+**Comment 7:** Yhey can only indirectly influence dispersal outcomes.
+*Response:* Clarified in comment: Minor 3407.
+
+**Comment 8:** Actually, it would be the proportion of time that the larva spends at different depths rather than the frequency of migration
+*Response:* Clarified in comment: Minor 3408.
+
+**Comment 9:** Although you just said that migrating upward increased dispersal distance, whereas migrating downward decreased it.  That doesn't seem a small effect
+*Response:* Clarified in comment: Minor 3409.
 
 ## Chapter 5
 
