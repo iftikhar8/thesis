@@ -51,6 +51,17 @@ summary(model.orle.ontogeny.depth)
 is_overdispersed(model.orle.ontogeny.depth)
 ```
 
+## The model of station and concentration
+
+As expected, it suggests that the depth25 is where the higher concentrations occur and it is significantly different to the surface and the 75 depth. 
+```{r}
+ggplot(data=data.ontogeny, aes(y=conc, x=site, fill="red")) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.25)) + labs(x="Depth", y="Concentration", title="Labridae") + theme_classic() + guides(fill="none")
+model.nb.ontogeny.depth <- glm.nb(count ~ offset(log(volume)) + site, data=data.ontogeny)
+model.orle.ontogeny.depth <- glmer(count ~ offset(log(volume)) + site + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10)
+summary(model.orle.ontogeny.depth)
+is_overdispersed(model.orle.ontogeny.depth)
+```
+
 ## The model of stage and concentration
 
 The model suggests that the concentration is different for all three stages (even thoiugh the difference between pre-flexion and flexion doesn't look huge?)
@@ -164,7 +175,7 @@ So the only predictor was the interaction between depth 75 and stage POS. No sig
 ggplot(data=data.ontogeny, aes(y=conc, x=depth, group=stage, fill=stage)) +facet_grid(~feature) + stat_summary_bin(fun.y="mean", geom="bar", position=position_dodge(width=0.90)) + stat_summary(fun.data = mean_se, geom = "errorbar", aes(width=0.15),position=position_dodge(width=0.90)) + labs(x="Depth", y="Concentration", title="Labridae") + theme_classic() +coord_flip() +  scale_x_discrete(limits = rev(levels(data.ontogeny$depth)))
 model.ontogeny.featuredepthstage.olre <- glmer(count ~ offset(log(volume)) + feature*depth*stage + (1|obs), family=poisson(link="log"), data=data.ontogeny, nAGQ=10, glmerControl(optimizer="bobyqa"))
 summary(model.ontogeny.featuredepthstage.olre)
-is_overdispersed(model.ontogeny.featuredepthstage.nb)
+is_overdispersed(model.ontogeny.featuredepthstage.olre)
 plot(model.ontogeny.featuredepthstage.olre)
 #lmer.posthoc <- glht(model.ontogeny.featuredepthstage.olre, linfct=mcp(model.ontogeny.featuredepthstage.olre="Tukey"))
 ```

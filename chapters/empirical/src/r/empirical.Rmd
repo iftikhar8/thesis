@@ -30,7 +30,7 @@ data.measure <- read_csv("../../data/ichthyoplankton-measurements.csv")
 data.tow <- read_csv("../../data/ichthyoplankton-tow.csv")
 
 # Select relevant columns
-data.measure <- filter(data.measure, family != "bothid" & family != "triglid")
+data.measure <- filter(data.measure, family != "bothid" & family != "triglid" & family != "unknown" & family != "pseudochromidae")
 data.measure <- filter(data.measure, is.na(not_calibrated), is.na(damaged))
 data.measure <- dplyr::select(data.measure, -subgroup, -photo_id, -damaged, -not_calibrated)
 
@@ -61,7 +61,7 @@ Study site and station locations
 # centre <- geocode("Sydney, AU")
 # coast <- get_map(c(lon=154.25, lat=-30), zoom = 7, maptype=c("hybrid"))
 
-map <- openmap(c(lat= -26.5, lon= 151.5), c(lat= -33.5, lon= 155.5), type="osm")
+map <- openmap(c(lat= -26.5, lon= 151.5), c(lat= -33.5, lon= 155.5), type="esri-topo",minNumTiles=12L)
 mapLatLon <- openproj(map)
 g <- autoplot(mapLatLon)
 pal <- canva_pal("Fresh and energetic")(4)
@@ -70,7 +70,7 @@ sites <- dplyr::select(data.tow, site, feature, latitude, longitude) %>% distinc
 map <- g + geom_point(aes(x=longitude, y=latitude, group=site, colour=feature, shape=feature), size=2, data=sites) + theme(legend.position = "top", legend.text = element_text(size=12)) + labs(x="Longitude", y="Latitude") + scale_color_manual(values = pal, labels=c("Coastal","Eddy"),name="Oceanic feature") + scale_shape_manual(values = c(17,19), labels=c("Coastal","Eddy"),name="Oceanic feature")
   
 eddies <- ggdraw() + draw_image("../../figs/nsw-eddies.gif", scale=0.9)
-plot_grid(map,eddies, labels="AUTO")
+cowplot::plot_grid(map,eddies, labels="AUTO")
 ggsave("../../figs/stations.png")
 ```
 
@@ -78,7 +78,7 @@ Ontogenetic stage specimens
 ```{r}
 
 flexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid-x-fle.png", scale=0.9)
-preflexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid-z-pre.png", scale=0.9)
+preflexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid-pre.png", scale=0.9)
 postflexion <- ggdraw() + draw_image("../../figs/type_specimens/labrid-y-pos.png", scale=0.9)
 plot_grid(preflexion,flexion, postflexion, labels="AUTO", align="h", ncol=1, label_colour="white") + theme(panel.background = element_rect(fill="black", colour="black"))
 ggsave("../../figs/stages-ontogeny.png")
@@ -92,6 +92,7 @@ summarize(group_by(data.measure,family), count=n())
 summarize(group_by(data.measure,family), avg_length=mean(total_length), sd_length=sd(total_length))
 summarize(group_by(data.measure), count=n())
 summarize(group_by(data.measure,family,feature), count=n())
+summarize(group_by(data.measure,family,stage), avg_length=mean(total_length), sd_length=sd(total_length))
 summary(data.measure$stage) 
 summary(data.measure$feature) 
 ```

@@ -22,6 +22,8 @@ library(multcomp)
 library(multcompView)
 library(stargazer)
 library(cowplot)
+library(Hmisc)
+library(ggthemes)
 ```
 
 ```{r Load data, include=FALSE}
@@ -31,6 +33,7 @@ load(file="tow.RData")
 source("empirical-functions.R")
 
 data.ontogeny$stage <- factor(data.ontogeny$stage, levels=c("PRE","FLE","POS"))
+pal <- canva_pal("Fresh and energetic")(4)
 ```
 
 
@@ -64,12 +67,12 @@ ggplot(data=data.ontogeny, aes(conc)) + geom_histogram() + facet_wrap(~ family, 
 
 ```{r Explore ontogeny data}
 #data.ontogeny.summary <- na.omit(data.ontogeny)
-data.ontogeny.interaction_ds <-  summarize(group_by(na.omit(data.ontogeny), family, depth,stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
-data.ontogeny.interaction_ds.abund <-  summarize(group_by(na.omit(data.ontogeny), family, depth,stage), conc.mean = mean(count), conc.se = sd(count)/n())
-data.ontogeny.interaction_fds <-  summarize(group_by(na.omit(data.ontogeny), feature, family, depth,stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
-data.ontogeny.depth <-  summarize(group_by(na.omit(data.ontogeny), family, depth), conc.mean = mean(conc), conc.se = sd(conc)/n())
-data.ontogeny.stage <-  summarize(group_by(na.omit(data.ontogeny), family, stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
-data.ontogeny.feature <-  summarize(group_by(na.omit(data.ontogeny), family, feature), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.interaction_ds <-  dplyr::summarize(group_by(na.omit(data.ontogeny), family, depth,stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.interaction_ds.abund <-  dplyr::summarize(group_by(na.omit(data.ontogeny), family, depth,stage), conc.mean = mean(count), conc.se = sd(count)/n())
+data.ontogeny.interaction_fds <-  dplyr::summarize(group_by(na.omit(data.ontogeny), feature, family, depth,stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.depth <-  dplyr::summarize(group_by(na.omit(data.ontogeny), family, depth), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.stage <-  dplyr::summarize(group_by(na.omit(data.ontogeny), family, stage), conc.mean = mean(conc), conc.se = sd(conc)/n())
+data.ontogeny.feature <-  dplyr::summarize(group_by(na.omit(data.ontogeny), family, feature), conc.mean = mean(conc), conc.se = sd(conc)/n())
 
 ggplot(aes(y=conc.mean, x=depth, group=stage, colour=stage), data=data.ontogeny.interaction_ds) + geom_point() + geom_line() + geom_errorbar(aes(ymin=conc.mean-conc.se,ymax=conc.mean+conc.se),width=.1) + facet_wrap(~family, scales = "free")
 
@@ -203,7 +206,7 @@ cowplot::ggsave("../../figs/length-family-feature.png", plot=p, width=6.46, heig
 ```{r}
 data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
 data.ontogeny <- mutate(data.ontogeny, conc.t = conc*1000)
-ggplot(aes(y=conc, x=depth.r), data=data.ontogeny) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family, ncol=4) + theme_bw() + labs(x="Feature", y=expression("Length (mm)")) + coord_flip()
+ggplot(aes(y=conc, x=depth.r), data=data.ontogeny) + stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family, ncol=4) + theme_bw() + labs(x="Feature", y=expression("Length (mm)")) + coord_flip()
 ggsave("../../figs/depth-abundance.png")
 ```
 
@@ -213,14 +216,15 @@ pal <- canva_pal("Fresh and energetic")(4)
 
 #data.ontogeny$depth.r <- factor(data.ontogeny$depth, levels=c("75","25","0"))
 data.ontogeny <- mutate(data.ontogeny, conc.t = conc*1000)
-data.ontogeny$family.label <- factor(data.ontogeny$family,labels=c("Labridae*","Mullidae*","Pomacentridae","Scaridae*","Scorpaenidae","Serranidae","Synodontidae"))
+data.ontogeny$family.label.feature <- factor(data.ontogeny$family,labels=c("Labridae*","Mullidae*","Pomacentridae","Scaridae*","Scorpaenidae","Serranidae","Synodontidae"))
 dat_text <- data.frame(
   family = c("labridae","mullidae","pomacentridae","scaridae","scorpaenidae","serranidae","synodontidae"),
   x = c(2.25, 2.25, 2.25, 2.25, 2.25, 2.25,2.25),
   y = c(0.0105,0.0105,0.0105,0.0105,0.0105,0.0105,0.0105)
 )
 
-p<- ggplot(aes(y=conc.t, x=feature, fill=feature), data=data.ontogeny) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family.label, ncol=4, scales = "free") + labs(x="", y=expression("Concentration per 1000"~m^{3})) + scale_fill_manual(values=pal,name="Feature")  + theme_cowplot(font_size=12,font_family = "sans") +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank())
+abundance.feature.plot <- ggplot(aes(y=conc.t, x=feature, fill=feature), data=data.ontogeny) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family.label.feature, ncol=4, scales = "free") + labs(x="", y=expression("Concentration per 1000"~m^{3})) + scale_fill_manual(values=pal,name="Feature")  + theme_cowplot(font_size=12,font_family = "sans") +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) + scale_y_continuous(
+  labels = scales::number_format(accuracy = 0.1))
 cowplot::ggsave("../../figs/feature-abundance.png", plot=p, width=7, height=4, units=c("in"))
 ```
 
@@ -232,11 +236,11 @@ data.ontogeny$family.label <- factor(data.ontogeny$family, labels=c("Labridae*",
 
 data.ontogeny$stage.label <- factor(data.ontogeny$stage, labels=c("Preflexion","Flexion","Postflexion"))
 
-data.ontogeny.weighted.total <- data.ontogeny %>% filter(conc != 'NA') %>% mutate(depth.w = if_else(depth==0,5,if_else(depth==25,28,75.5))) %>% group_by(family.label, stage.label, depth.w) %>% summarise(total= sum(count),conc.sum = sum(conc)) %>% mutate(prop = conc.sum / (sum(conc.sum)+0.000001)) %>% mutate(depth.z = depth.w*prop) %>% group_by(family.label, stage.label) %>% summarise(depth.weighted = sum(depth.z))
+data.ontogeny.weighted.total <- data.ontogeny %>% filter(conc != 'NA') %>% mutate(depth.w = if_else(depth==0,0,if_else(depth==25,28,75.5))) %>% group_by(family.label, stage.label, depth.w) %>% summarise(total= sum(count),conc.sum = sum(conc)) %>% mutate(prop = conc.sum / (sum(conc.sum)+0.000001)) %>% mutate(depth.z = depth.w*prop) %>% group_by(family.label, stage.label) %>% summarise(depth.weighted = sum(depth.z))
 
-data.ontogeny.weighted.totalcount <- data.ontogeny %>% mutate(depth.w = if_else(depth==0,5,if_else(depth==25,28,75.5))) %>% group_by(family.label, stage.label, depth.w) %>% summarise(total= sum(count)) %>% mutate(prop = total / (sum(total)+0.000001)) %>% mutate(depth.z = depth.w*prop) %>% group_by(family.label, stage.label) %>% summarise(depth.weighted = sum(depth.z))
+data.ontogeny.weighted.totalcount <- data.ontogeny %>% mutate(depth.w = if_else(depth==0,0,if_else(depth==25,28,75.5))) %>% group_by(family.label, stage.label, depth.w) %>% summarise(total= sum(count)) %>% mutate(prop = total / (sum(total)+0.000001)) %>% mutate(depth.z = depth.w*prop) %>% group_by(family.label, stage.label) %>% summarise(depth.weighted = sum(depth.z))
 
-data.ontogeny.weighted.prop <- data.ontogeny %>% mutate(depth.w = if_else(depth==0,5,if_else(depth==25,28,75.5))) %>% group_by(family.label, stage.label, depth.w) %>% summarise(total= sum(count)) %>% mutate(prop = total / (sum(total)+0.000001))
+data.ontogeny.weighted.prop <- data.ontogeny %>% mutate(depth.w = if_else(depth==0,0,if_else(depth==25,28,75.5))) %>% group_by(family.label, stage.label, depth.w) %>% summarise(total= sum(count)) %>% mutate(prop = total / (sum(total)+0.000001))
 
 plot <- ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=family.label),data=data.ontogeny.weighted.total)  + scale_y_reverse() + geom_line(size=1.5, alpha=0.75) + scale_colour_brewer(name="Family", palette = "Set2") + labs(x="Stage",y="Depth (m)")  + theme_cowplot(font_size=12,font_family = "sans")
 
@@ -246,7 +250,7 @@ both <- plot_grid(plot,plot2)
 #+ geom_ribbon(aes(ymin=depth.weighted-depth.sd, ymax=depth.weighted+depth.sd, fill=family.label), alpha=0.05)
 ggsave("../../figs/weighted-depth.png", plot, width=8, height=5, scale=2.5, units="cm")
 
-data.ontogeny.weighted.station <- data.ontogeny %>% filter(conc != 'NA') %>% mutate(depth.w = if_else(depth==0,5,if_else(depth==25,28,75.5))) %>% group_by(site, family.label, stage.label, depth.w) %>% summarise(count= sum(count),conc.sum = sum(conc)) %>% mutate(prop = conc.sum / (sum(conc.sum)+0.000001)) %>% mutate(depth.z = depth.w*prop) %>% group_by(site, family.label, stage.label) %>% summarise(depth.weighted = sum(depth.z))
+data.ontogeny.weighted.station <- data.ontogeny %>% filter(conc != 'NA') %>% mutate(depth.w = if_else(depth==0,0,if_else(depth==25,28,75.5))) %>% group_by(site, family.label, stage.label, depth.w) %>% summarise(count= sum(count),conc.sum = sum(conc)) %>% mutate(prop = conc.sum / (sum(conc.sum)+0.000001)) %>% mutate(depth.z = depth.w*prop) %>% group_by(site, family.label, stage.label) %>% summarise(depth.weighted = sum(depth.z))
 data.ontogeny.weighted.station$depth.scale <- data.ontogeny.weighted.station$depth.weighted
 
 
@@ -309,8 +313,7 @@ data.labrid.length <- filter(data.length, family=="labridae")
 ```{r}
 summary(model.ontogeny.labrid.nb <- glm.nb(count ~ feature + feature:depth + 
     feature:stage + depth*stage+ scale(temperature) + offset(log(volume)),data=data.labrid.ontogeny))
-
-
+ 
 #p.resids <- simulateResiduals(model.ontogeny.labrid.p)
 #dispersiontest(model.ontogeny.labrid.p)
 #testZeroInflation(p.resids)

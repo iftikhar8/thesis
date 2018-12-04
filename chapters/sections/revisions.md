@@ -1,7 +1,12 @@
-Reviewer 1
-----------
+# Written response to examiners report
 
-### Abstract
+Insert preamble about what it all means
+
+## Abstract
+
+### Minor recommendations
+
+#### Reviewer 1
 
 **Comment 1:** This sentence is a bit awkward. Combining two models by itself isn't really why they are complex.
 *Response:* Clarified in comment: Minor 1001.
@@ -18,9 +23,13 @@ Reviewer 1
 **Comment 5:** Grammar error
 *Response:* Fixed in comment: Minor 1005.
 
-### Introduction
+PAGEBREAK
 
-#### Minor comments
+## Introduction
+
+### Minor recommendations
+
+#### Reviewer 1
 
 **Comment 1:** Very minor point by ichthyoplankton disperse and when this results in settlement into another population results in the populations being connected (i.e. larvae are not connected, populations are!).
 *Response:* Clarified in comment Minor1101.
@@ -55,9 +64,116 @@ Reviewer 1
 **Comment 11:** Don't think this contributes much as it's all rehashed in more detail in the following paragraphs in this section.
 *Response:* Deleted and restructured the text, see comment Minor1111.
 
-### Chapter 2
+#### Reviewer 2
 
-#### Major comments
+**Comment 1:** Page 3: Perhaps change “Evidence of active dispersal” to “The influence of active dispersal is suggested by”. High self-recruitment and sibling recruitment to the same location are not necessarily evidence of active dispersal ability, since either could be explained by alternative, passive dispersal mechanisms.
+*Response:* Addressed in reviewer comment Minor 1107.
+
+**Comment 2:** Page 4: Dynamic marine protected areas are also proposed as fisheries management tools to maximise catches. E.g., Game et al. (2009; Ecology Letters; Hobday & Hartmann 2006, Fish Man & Ecol). Moreover, traditional fisheries management in places like Fiji have been using dynamic marine reserves for centuries.
+*Response:* Included a sentence on the other functions of marine protected areas, see comment Minor 2103
+
+**Comment 3:** Generally speaking, I found the in-line ordering of citations confusing – neither chronological nor alphabetical in many cases.
+*Response:* Yes, there was an issue with the XML I was using to generate the in-line citations. I have fixed the error now and they use the Harvard reference notation.
+
+**Comment 4:** Page 6: “and therefore constant monitoring must (occur to???) confidently predict dispersal using otoliths”
+*Response:* Clarified in comment Minor 2105.
+
+#### Reviewer 3
+
+**Comment 1:** For fishes, not really sessile, which implies no movement post-settlement, but rather of limited post-settlement movement (site-attached in many cases), particularly compared to the pelagic stage
+*Response:* Clarified in comment Minor3101
+
+**Comment 2:** This ref deals only with the morphology.You need refs for habitat and behaviour
+*Response:* Added reference from edited book on reef fish ecology relating to habitat and behaviour. See comment Minor312.
+
+**Comment 3:** (Fecundity) Life-time? Annual? Spawning episode?
+*Response:* Clarified in comment Minor3103.
+
+**Comment 4:** Even the smallest larvae have some swimming ability, but it is generally only postflexion stages that have meaningful swimming abilities in the context of dispersal
+*Response:* Clarified in comment Minor3104.
+
+**Comment 5:** And how do you define the start of the juvenile stage?
+*Response:* Clarified in comment Minor3105.
+
+**Comment 6:** (PLD) You have a contradiction here - if the larvae turn into juveniles before they settle - all depends on how you define juvenile. You are mixing morphological and ecological definitions, which always confuses people. Best to define end of PLD as when settlement occurs (not when the larvae settle)
+*Response:* Clarified in comment Minor3106.
+
+**Comment 7:** (PLD) the PLD or the settlement stage?
+*Response:* Clarified in comment Minor3107.
+
+**Comment 8:** (PLD) but not at higher taxonomic levels!
+*Response:* Clarified in comment Minor3108.
+
+**Comment 9:** (PLD) also, things like food supply and temperature have an effect, which is perhaps what you mean by physiological limitations. There are also likely to be genetic factors that differ among individuals involved
+*Response:* Clarified in comment Minor3109.
+
+**Comment 10:** (Processes) some may disagree - what about behaviour, mortality, etc? Unless, of course, one assumes passive dispersal
+*Response:* Addressed in comment Minor1104.
+
+**Comment 11:** What is a contributing process?
+*Response:* Clarified in comment Minor3111.
+
+**Comment 12:** or, put differently, PLD has not proved to be a robust predictor of dispersal distance
+*Response:* Clarified in comment Minor3112
+
+**Comment 13:** (Ichthyoplankton) use of the word plankton, even in combination bears the inherent implication of passivity wrt swimming. Suggest you avoid use of the term in the context of this thesis and dispersal
+*Response:* Point taken that planktonic = passive, removed the references to ichthyoplankton. Clarified in comment Minor3113, but also across the entire thesis.
+
+**Comment 14:** Pelagic environment is a better term rather than 'plankton'. Some may argue that pelagic=oceanic, but it does not. It simply means in the water column with no implication of where or what the swimming abilities of the animal are
+*Response:* Clarified in comment: Minor 3114.
+
+**Comment 15:** influence is a better term, as this may also increase dispersal distance in some cases
+*Response:* Clarified in comment: Minor 3115.
+
+**Comment 16:** enables
+*Response:* Fixed in comment: Minor 3116.
+
+**Comment 17:** (Settlement) maybe, but no one really knows. maybe they irreversibly start to metamorphose at a certain stage, and it is obviously mal-adaptive to have a demersal type morphology in the pelagic environment.
+*Response:* Clarified in comment: Minor 3117.
+
+**Comment 18:** per generation
+*Response:* Clarified in comment: Minor 3118.
+
+**Comment 19:** possibly 'current' is not the best term to use here, as it could be confused with water movement, as in techniques for measuring currents
+*Response:* Clarified in comment: Minor 3119.
+
+**Comment 20:** by definition, it also will only tell you about genetic connectivity, which you told us your thesis is not about
+*Response:* Clarified in comment: Minor 3120.
+
+**Comment 21:** of course an estimate can be made with even smaller numbers, but how reliable, precise or accurate is it?
+*Response:* Clarified in comment: Minor 3121.
+
+**Comment 22:** labour-intensive
+*Response:* Clarified in comment: Minor 3122.
+
+**Comment 23:** and inherently more complex and variable
+*Response:* Clarified in comment: Minor 3123.
+
+**Comment 24:** ichthyoplankton is the early life-history stage of fishes, it has no early life-history stage of its own
+*Response:* Clarified in comment: Minor 3124.
+
+**Comment 25:** indirectly influence - vertical distribution and changes therein can only indirectly influence dispersal outcomes, as opposed to swimming (and orientation) which can directly influence it.
+*Response:* Clarified in comment: Minor 3125.
+
+**Comment 26:** at best include only hypothetical OVM behaviour in the absence of empirical information.
+*Response:* Clarified in comment: Minor 3126.
+
+**Comment 27:** dispersal, not connectivity. It is populations or metapopulations that are connected [by dispersal], not the fish larvae. 
+*Response:* Clarified in comment: Minor 3127.
+
+**Comment 28:** if you consider sparids and sciaenids to be reef fishes, then this ref is relevant Leis JM, Hay AC, Trnski T (2006) In situ behavioural ontogeny in larvae of three temperate, marine fishes. Mar Biol
+*Response:* Clarified in comment: Minor 3128.
+
+**Comment 29:** (Vertical advection) do you mean upwelling?
+*Response:* Clarified in comment: Minor 3129.
+
+PAGEBREAK
+
+## Chapter 2: Making the right choices: understanding the impact of biophysical dispersal modelling on connectivity patterns
+
+### Major recommendations
+
+#### Reviewer 1
 
 **Comment 1:** You limited the review to studies published since 2007 but this limits your analysis of the impacts of model parameter values on dispersal outcomes. A particular issue was your search string; restricting your search to only pick up studies that used ‘connectivity’ instead of the more general term ‘dispersal’ means you likely missed a reasonable number of relevant studies. Given your interest specifically in investigating the metrics of local retention, self-recruitment, dispersal distance and settlement success, these would have been more useful search terms than just connectivity. I would also have searched using multiple databases, particularly Google Scholar so you would have picked up papers that used these terms in the text.
 
@@ -71,7 +187,25 @@ The single Treml *et al.* 2015 paper was reduced to 16% when considering the new
 
 This is the first time I have heard of the PRISMA flow, and I agree that is a useful procedure for documenting the workflow of screening studies in a review. It is hard to implement this now, but I agree it should be done and I will use this workflow for future reviews.
 
-#### Minor comments
+#### Reviewer 2
+
+**Comment 1:** I liked the way this chapter thought strategically about the parameters we use in BDMs, and about the metrics we use to summarise complex connectivity patterns. Framing the paper as a reflection on the progress we’ve made as a field of BDM modellers is also useful, as well as timely. On a micro-scale, I thought that the arguments made about each of the particular associations were to-the-point and rational, and the analyses were cautious and careful. The analyses weren’t complex – most were simple regressions and distribution comparisons – but that’s probably appropriate given the limitations of the data available. On a macro-scale, my main concern is that I didn’t see enough careful explanation about the ideas behind the analyses in the chapter. By this I mean the following. Connectivity patterns are dependent on oceanographic context. Metrics such as “dispersal distance” will vary between systems. As an extreme example, if a system has only a single habitat patch, it’s impossible to have a dispersal distance greater than zero. So it’s not clear what you get when you compare 50 models that measure dispersal-distance in very different systems where you would expect those factors to vary. So when you regress dispersal distance against PLD, or model resolution, how strong do you expect that signal to be? What does it mean not to see a relationship? I don’t think these issues preclude the analyses described in this chapter, but I do think that they demand much closer attention, much stronger overall justification, and a long and thoughtful limitations section in the discussion. This chapter did not undertake this sort of serious reflection. I realise that there was a lot of caveats scattered throughout the text, and I appreciated those. However, I’m talking about are more philosophical and concentrated reflection (generally in the discussion or introduction) on what you might expect to see from this style of analysis.
+*Response:* TODO: Add limitations section in the discussion.
+
+**Comment 2:** As a general point, I think that the traits you use to characterise the models fall into two bins. Factors that need to be controlled for (i.e., is the oceanography open or closed), and factors that can be selected for inclusion by the modeller, and which therefore need to be understood better. I found that to be a useful filter through which to view your results.
+*Response:* Yes, this can be true for some facets of the oceanography. Even with the hydrodynamic model there is often no choice for the modeller, only what is available.
+
+#### Reviewer 3
+
+**Comment 1:** I would like to see the author’s view on the following questions. Did the author see any trend in his review toward multiple use of what is essentially the same model in different publications? Or, does each investigator reinvent the wheel and develop his/her own model? Regardless of the answer, what does this say about the state of the art of dispersal modelling?
+*Response:* The short answer to the first question is no, I did not see many trends amongst models. There does not seem to be much communication between groups of researchers on say reusing models and applying them to different questions (something I am guilty of as well). Authors tended to either create their own models for that specific application or use models they were familiar with. I can imagine it comes down to what skills are available and the professional networks researchers are in as to what BDM they choose and whether they re-invent the wheel or not. Some models, such as CMS, are appearing in more studies over time, which while this reuse is good thing - we do need to start coming up with a process for validating these models to ensure the best models are being reused. In regard to the second part of the question, what does this say about the art of dispersal modelling, is that currently it is still an art and will remain so until concrete validation of models and their parameters is achieved. My personal opinion is that the first BDMs that manage to provide objective evidence of validation (perhaps across multiple scenarios), combined with an ability to be flexible to many different applications, will become the de-facto standard for connectivity modelling studies in the future. Which, I believe is a good scenario - fewer well validated models is much better than many unvalidated models, especially given all the different modelling choice when constructing such models - it is hard to understand how all these choices influence the predicted dispersal. These decisions range from how the data is interpolated and integrated over time to get a velocity at time step to move the larvae, to how different behaviours, as simple as vertical migration or as complicated as orientation and predator avoidance, are implemented.
+
+**Comment 2:** In this chapter, there are many instances of repetitive testing, and no apparent correction for this. I would not expect an overall correction for all the tests within the chapter, but within the several tests for each element, this needs consideration. Some argue that the standard ‘correction’ for repetitive testing is inappropriate, and there is some justification for this view. The alternative is to provide the actual p value for each test (rather than just < 0.05 or >0.05), to allow the reader to assess things for themselves. The author has done neither. This issue must be addressed by the author in some manner in this chapter.
+*Response:* I was correcting for the behaviour comparisons (using a Tukey correction), but yes I agree it should be used for all the multiple comparisons. I have also put in the exact p-values for the reader to assess. For each metric I have now used an adjusted p-value (labelled p~adjusted~) using the technique described in @pike2011. This has been explained better in the methods under the clarified comment: Major 3202.
+
+### Minor recommendations
+
+#### Reviewer 1
 
 **Comment 1:** Poor grammar.
 *Response:* Fixed in comment: Minor 1201.
@@ -130,81 +264,7 @@ This is the first time I have heard of the PRISMA flow, and I agree that is a us
 **Comment 19:** Hmm. This is not a very defensible argument. Given the limited data set and the numerous factors that are different between studies in additional to model resolution, I don't think you can actually say much about whether coarsely resolved models provide realistic estimates of dispersal patterns. Hydrodynamic models have to be validated first to see if they are capturing the physics well enough to properly characterize the advection and diffusion of larvae.
 *Response:* Yes I agree, and I have hedged my bets more on the argument. Clarified in Minor 1219.
 
-### Discussion
-
-#### Minor comments
-
-**Comment 1:** Given this justification, it would have been interesting for you to evaluate this literature as to whether they actually followed the guidelines! My guess is that most haven't.
-*Response:*: TODO
-
-**Comment 2:** What's important is to include complexity that is biological realistic and then to test how sensitive model outcomes are to parameter values. Building a fully complex model to investigate which aspects of biology or behaviour are important can then help drive where the key research needs are in terms of getting realistic parameter values. This is what we need more of.*Response:* Clarified in comment: Minor 1602.
-
-**Comment 3:** Some discussion of interactions among behaviours is worth having. OVM, DVM, and OHS are all likely to interact and change with development.
-*Response:* Added a line for the possible explanation of interactions, see comment Minor1603.
-
-**Comment 4:** It's also worth talking about how what you observed off the NSW coast at the time of year you sampled could have influenced your findings. How structured was the water column and how does this compare to other studies of vertical larval distributions? 
-*Response:* Addressed the temporal variation in comment: Minor 1604. Comparisons of water column were added to the data chapter in TODO
-
-**Comment 5:** This conclusion is going to be very sensitive to the speeds used, how they change with ontogeny, and what decision rules are used for their implementation. Given this, it would be good to review your scheme versus others (not just the two studies you cite) and compare the implementations and outcomes of those decisions. One of the worst papers I ever read was one with Wolanski, where the OHS implemenation was so strong that all larvae could go wherever they wanted so the decision rule implemented completely dominated the model outcome!
-*Response:* Added a paragraph about other implementations and the differences in swimming implementations, see comment Minor1605.
-
-**Comment 6:** Yes, but swimming is used for many things and probably more related to predator-prey interactions than dispersal. We are far from being able to implement directional swimming behaviour in models with a level of realism!
-*Response:* Clarified in comment: Minor 1606.
-
-**Comment 7:** This is not necessarily an issue with off-line models. It's just an issue with what time step was used in the original model. Some can have time steps that capture dynamic processes that are relevant to dispersal.
-*Response:* Clarified in comment: Minor 1607.
-
-**Comment 8:** That's not really true. The problem is that most disperal modelling has used physical models developed by oceanographers but there are lots of models developed by coastal engineers that are at the scale relevant to larval dispersal (although the domains of many of these models tend to be too small for the research question).
-*Response:* Clarified in comment: Minor 10708.
-
-**Comment 9:** Again, need to be careful about how a physical model has been validated. The empirical data used is often at a scale much larger than the question and rarely involves verification of dispersion via advection and diffusion, but comparisions to current velocities in a few locations or proxies for circulation using remotely sensed data (temp, ocean colour, sea-surface height anomalies, etc).
-*Response:* Clarified in comment: Minor 10709.
-
-**Comment 10:** There is another really good paper for this: Domingues et al. 2012 Plos One 7 (4), e35794
-*Response:* Included the paper in the manuscript, see comment Minor10710.
-
-**Comment 11:** The above sections are good and important. Others have argued for having standard reporting. The ICES guidelines that you reference as the basis for the starting date for your meta-analysis is a good one. It would be worthwhile comparing. Are your points the same as this guideline? If not, what's different and why is this important?
-*Response:* Included a brief summary of how the ICES manual's recommended practices are reflected with the reviewed models. The ICES manual is more a publication focusing on guidelines of how to implement models more than specific recommendations on what should and should not be included, see comment Minor10711.
-
-Reviewer 2
-----------
-
-### General
-
-#### Minor comment
-
-**Comment 1:** I’m not sure if you’re aware, but von Braun was responsible for war crimes during the second world war. If not for Operation Paperclip, he would have been tried at Nurenberg. Seeing him quoted was a little jarring.
-*Response:* Addressed, I cannot say I was aware of his history, and I have chosen a more appropriate quotation.
-
-### Introduction
-
-#### Major comment
-
-#### Minor comment
-
-**Comment 1:** Page 3: Perhaps change “Evidence of active dispersal” to “The influence of active dispersal is suggested by”. High self-recruitment and sibling recruitment to the same location are not necessarily evidence of active dispersal ability, since either could be explained by alternative, passive dispersal mechanisms.
-*Response:* Addressed in reviewer comment Minor1107.
-
-**Comment 2:** Page 4: Dynamic marine protected areas are also proposed as fisheries management tools to maximise catches. E.g., Game et al. (2009; Ecology Letters; Hobday & Hartmann 2006, Fish Man & Ecol). Moreover, traditional fisheries management in places like Fiji have been using dynamic marine reserves for centuries.
-*Response:* Included a sentence on the other functions of marine protected areas, see comment Minor2103
-
-**Comment 3:** Generally speaking, I found the in-line ordering of citations confusing – neither chronological nor alphabetical in many cases.
-*Response:* Yes, there was an issue with the XML I was using to generate the in-line citations. I have fixed the error now and they use the Harvard reference notation.
-
-**Comment 4:** Page 6: “and therefore constant monitoring must (occur to???) confidently predict dispersal using otoliths”
-*Response:* Clarified in comment Minor2105.
-
-### Chapter 2
-
-#### Major comments
-
-**Comment 1:** I liked the way this chapter thought strategically about the parameters we use in BDMs, and about the metrics we use to summarise complex connectivity patterns. Framing the paper as a reflection on the progress we’ve made as a field of BDM modellers is also useful, as well as timely. On a micro-scale, I thought that the arguments made about each of the particular associations were to-the-point and rational, and the analyses were cautious and careful. The analyses weren’t complex – most were simple regressions and distribution comparisons – but that’s probably appropriate given the limitations of the data available. On a macro-scale, my main concern is that I didn’t see enough careful explanation about the ideas behind the analyses in the chapter. By this I mean the following. Connectivity patterns are dependent on oceanographic context. Metrics such as “dispersal distance” will vary between systems. As an extreme example, if a system has only a single habitat patch, it’s impossible to have a dispersal distance greater than zero. So it’s not clear what you get when you compare 50 models that measure dispersal-distance in very different systems where you would expect those factors to vary. So when you regress dispersal distance against PLD, or model resolution, how strong do you expect that signal to be? What does it mean not to see a relationship? I don’t think these issues preclude the analyses described in this chapter, but I do think that they demand much closer attention, much stronger overall justification, and a long and thoughtful limitations section in the discussion. This chapter did not undertake this sort of serious reflection. I realise that there was a lot of caveats scattered throughout the text, and I appreciated those. However, I’m talking about are more philosophical and concentrated reflection (generally in the discussion or introduction) on what you might expect to see from this style of analysis.
-*Response:* TODO: Add limitations section in the discussion.
-
-**Comment 2:** As a general point, I think that the traits you use to characterise the models fall into two bins. Factors that need to be controlled for (i.e., is the oceanography open or closed), and factors that can be selected for inclusion by the modeller, and which therefore need to be understood better. I found that to be a useful filter through which to view your results.
-*Response:* Yes, this can be true for some facets of the oceanography. Even with the hydrodynamic model there is often no choice for the modeller, only what is available.
-
-#### Minor comments
+#### Reviewer 2
 
 **Comment 1:** Page 14: I was surprised that you omitted papers published before North’s ICES paper. I would have been interested to see how the inclusion of parameters changed before and after their recommendations. Although I guess your goal was not to test the impact of that single paper. Although on the other hand, if it wasn’t centred around the impact of that specific paper, why not extend the review further back along the timeline of BDMs?
 *Response:* The goal was to see if, with the provision of guidelines, models have been getting more complex since the paper was introduced. With the advent of technology as well, going back too far also can mean you start comparing apples with oranges. I wanted to limit the effect of using more sophisticated hydrodynamic models (e.g. better eddy resolving reanalyses), along with the benefits of computing power that allow for more parameters to be included in the BDM without hindering the time to run the model. Ten years can be a long time in computing power, and modelling choices in earlier studies could have had to make choices based on memory and CPU demands that are not so much an issue today (especially with most universities having HPC access).
@@ -218,82 +278,7 @@ Reviewer 2
 **Comment 4:** Page 27: “This suggests that the you can get accurate overall settlement and dispersal distance with coarser models”. I think it suggests that accuracy will not decrease with coarser models, but not that either resolution provides “accurate” predictions, necessarily.
 *Response:* Clarified in comment: Minor 2204
 
-Reviewer 3
-----------
-
-### Introduction
-
-#### Minor comments
-
-**Comment 1:** For fishes, not really sessile, which implies no movement post-settlement, but rather of limited post-settlement movement (site-attached in many cases), particularly compared to the pelagic stage*Response:* Clarified in comment Minor3101
-
-**Comment 2:** This ref deals only with the morphology.You need refs for habitat and behaviour*Response:* Added reference from edited book on reef fish ecology relating to habitat and behaviour. See comment Minor312.
-
-**Comment 3:** (Fecundity) Life-time? Annual? Spawning episode?*Response:* Clarified in comment Minor3103.
-
-**Comment 4:** Even the smallest larvae have some swimming ability, but it is generally only postflexion stages that have meaningful swimming abilities in the context of dispersal*Response:* Clarified in comment Minor3104.
-
-**Comment 5:** And how do you define the start of the juvenile stage?*Response:* Clarified in comment Minor3105.
-
-**Comment 6:** (PLD) You have a contradiction here - if the larvae turn into juveniles before they settle - all depends on how you define juvenile. You are mixing morphological and ecological definitions, which always confuses people. Best to define end of PLD as when settlement occurs (not when the larvae settle)*Response:* Clarified in comment Minor3106.
-
-**Comment 7:** (PLD) the PLD or the settlement stage?*Response:* Clarified in comment Minor3107.
-
-**Comment 8:** (PLD) but not at higher taxonomic levels!*Response:* Clarified in comment Minor3108.
-
-**Comment 9:** (PLD) also, things like food supply and temperature have an effect, which is perhaps what you mean by physiological limitations. There are also likely to be genetic factors that differ among individuals involved*Response:* Clarified in comment Minor3109.
-
-**Comment 10:** (Processes) some may disagree - what about behaviour, mortality, etc? Unless, of course, one assumes passive dispersal*Response:* Addressed in comment Minor1104.
-
-**Comment 11:** What is a contributing process?*Response:* Clarified in comment Minor3111.
-
-**Comment 12:** or, put differently, PLD has not proved to be a robust predictor of dispersal distance*Response:* Clarified in comment Minor3112
-
-**Comment 13:** (Ichthyoplankton) use of the word plankton, even in combination bears the inherent implication of passivity wrt swimming. Suggest you avoid use of the term in the context of this thesis and dispersal*Response:* Point taken that planktonic = passive, removed the references to ichthyoplankton. Clarified in comment Minor3113, but also across the entire thesis.
-
-**Comment 14:** Pelagic environment is a better term rather than 'plankton'. Some may argue that pelagic=oceanic, but it does not. It simply means in the water column with no implication of where or what the swimming abilities of the animal are*Response:* Clarified in comment: Minor 3114.
-
-**Comment 15:** influence is a better term, as this may also increase dispersal distance in some cases*Response:* Clarified in comment: Minor 3115.
-
-**Comment 16:** enables*Response:* Fixed in comment: Minor 3116.
-
-**Comment 17:** (Settlement) maybe, but no one really knows. maybe they irreversibly start to metamorphose at a certain stage, and it is obviously mal-adaptive to have a demersal type morphology in the pelagic environment.*Response:* Clarified in comment: Minor 3117.
-
-**Comment 18:** per generation*Response:* Clarified in comment: Minor 3118.
-
-**Comment 19:** possibly 'current' is not the best term to use here, as it could be confused with water movement, as in techniques for measuring currents*Response:* Clarified in comment: Minor 3119.
-
-**Comment 20:** by definition, it also will only tell you about genetic connectivity, which you told us your thesis is not about*Response:* Clarified in comment: Minor 3120.
-
-**Comment 21:** of course an estimate can be made with even smaller numbers, but how reliable, precise or accurate is it?*Response:* Clarified in comment: Minor 3121.
-
-**Comment 22:** labour-intensive*Response:* Clarified in comment: Minor 3122.
-
-**Comment 23:** and inherently more complex and variable*Response:* Clarified in comment: Minor 3123.
-
-**Comment 24:** ichthyoplankton is the early life-history stage of fishes, it has no early life-history stage of its own*Response:* Clarified in comment: Minor 3124.
-
-**Comment 25:** indirectly influence - vertical distribution and changes therein can only indirectly influence dispersal outcomes, as opposed to swimming (and orientation) which can directly influence it.*Response:* Clarified in comment: Minor 3125.
-
-**Comment 26:** at best include only hypothetical OVM behaviour in the absence of empirical information.*Response:* Clarified in comment: Minor 3126.
-
-**Comment 27:** dispersal, not connectivity. It is populations or metapopulations that are connected [by dispersal], not the fish larvae. *Response:* Clarified in comment: Minor 3127.
-
-**Comment 28:** if you consider sparids and sciaenids to be reef fishes, then this ref is relevant Leis JM, Hay AC, Trnski T (2006) In situ behavioural ontogeny in larvae of three temperate, marine fishes. Mar Biol*Response:* Clarified in comment: Minor 3128.
-
-**Comment 29:** (Vertical advection) do you mean upwelling?*Response:* Clarified in comment: Minor 3129.
-
-### Introduction
-
-#### Major comments
-
-**Comment 1:** I would like to see the author’s view on the following questions. Did the author see any trend in his review toward multiple use of what is essentially the same model in different publications? Or, does each investigator reinvent the wheel and develop his/her own model? Regardless of the answer, what does this say about the state of the art of dispersal modelling?
-*Response:* The short answer to the first question is no, I did not see many trends amongst models. There does not seem to be much communication between groups of researchers on say reusing models and applying them to different questions (something I am guilty of as well). Authors tended to either create their own models for that specific application or use models they were familiar with. I can imagine it comes down to what skills are available and the professional networks researchers are in as to what BDM they choose and whether they re-invent the wheel or not. Some models, such as CMS, are appearing in more studies over time, which while this reuse is good thing - we do need to start coming up with a process for validating these models to ensure the best models are being reused. In regard to the second part of the question, what does this say about the art of dispersal modelling, is that currently it is still an art and will remain so until concrete validation of models and their parameters is achieved. My personal opinion is that the first BDMs that manage to provide objective evidence of validation (perhaps across multiple scenarios), combined with an ability to be flexible to many different applications, will become the de-facto standard for connectivity modelling studies in the future. Which, I believe is a good scenario - fewer well validated models is much better than many unvalidated models, especially given all the different modelling choice when constructing such models - it is hard to understand how all these choices influence the predicted dispersal. These decisions range from how the data is interpolated and integrated over time to get a velocity at time step to move the larvae, to how different behaviours, as simple as vertical migration or as complicated as orientation and predator avoidance, are implemented.
-
-**Comment 2:** In this chapter, there are many instances of repetitive testing, and no apparent correction for this. I would not expect an overall correction for all the tests within the chapter, but within the several tests for each element, this needs consideration. Some argue that the standard ‘correction’ for repetitive testing is inappropriate, and there is some justification for this view. The alternative is to provide the actual p value for each test (rather than just < 0.05 or >0.05), to allow the reader to assess things for themselves. The author has done neither. This issue must be addressed by the author in some manner in this chapter.
-*Response:* I was correcting for the behaviour comparisons (using a Tukey correction), but yes I agree it should be used for all the multiple comparisons. I have also put in the exact p-values for the reader to assess. For each metric I have now used an adjusted p-value (labelled p~adjusted~) using the technique described in @pike2011. This has been explained better in the methods under the clarified comment: Major 3202.
-
-#### Minor comments
+#### Reviewer 3
 
 **Comment 1:** Why?  Surely, the importance of different parameters depends on the species and the locality.
 *Response:* Clarified in comment: Minor 3201.
@@ -418,10 +403,294 @@ Reviewer 3
 **Comment 41:** Why two different formats for citing papers?
 *Response:* There was an issue with the CSL generating the citations, this has been fixed now.
 
+## Chapter 3
 
-#### Minor comments
+### Major recommendations
 
-### Discussion
+#### Reviewer 1
+
+This chapter presents the results of a ~2-week ichthyoplankton sampling cruise off the coast of NSW to investigate whether there is evidence for ontogenetic vertical migration in the larvae of 7 reef-associated families of fishes. Although this is not a new research question, there hasn’t been much investigation of this question in temperate waters and knowing at what depths larvae of particular species are found at and whether this changes with ontogeny are important questions for parameterising the biological components of biophysical dispersal models. This chapter was clearly laid out and the methods largely sound given the sampling design. I’ve added comments to the MS and just flag a couple of more substantive points to consider in your revision here:
+
+**Comment 1:** 16 stations were sampled, presumably one station per day. Some stations were in coastal waters and some in eddies. Two tows were performed at each of three depths at each station. Overall I felt the statistical approach used in this chapter was much better supported that in chapter 2 but I did wonder why neither tow or sampling date/station were at least initially included in the models as random factors (and appropriately nested)? One could easily imagine differences in depth distributions varying across locations simply due to differences in local conditions (sea roughness, lunar illumination, etc).
+
+*Response:* The tows only had a replication of two at each station (each tow was performed directly after the previous tow was complete). The idea is multiple tows will provide a more comprehensive sampling effort of the assemblage and vertical distribution at that station (given the patchy nature of larval fish). There was also no replication of sampling date or station, which makes it difficult to put it into the nested design of the model. But yes, there are other factors to consider. I tried to capture differences at stations by using environmental variables measured with each tow, but it obviously does not capture the local conditions you have mentioned.
+
+date (which is really station as well) as a random factor or as a random factor nested within eddy or coastal? What stages and sizes you collect and at what depth could just be because of where you sampled on a particular date and the conditions on that day.
+You also had replicate tows at each depth at each station, which isn't accounted for in your model. 
+
+KEY METRIC WAS DEPTH.
+
+TODO: Flesh this out a bit.
+
+**Comment 2:** You do acknowledge the limitations imposed by having to pool within families, which could easily obscure inter-specific differences. While bar coding is often necessary to get to actual species, one can often get to finer parataxonomic resolution. Was this investigated? Could particular groups be more finely resolved, where there were sufficient larvae for analysis? This seems like a missed opportunity to get better resolved data.
+
+*Response:* Yes, I think this would be a great idea. It was out of scope for this particular analysis for the main reason that the larval fish I sampled were part of another project undertaken by UNSW aboard the RV Investigator and their chosen protocol involved fixing the majority of the plankton samples in formalin, which subsequently makes DNA extraction difficult. Due to the nature of piggy backing of another project, there was also not additional funding to perform this DNA barcoding. The identification did involve one of Australia's pre-eminent larval fish taxonomists, Dr. Tony Miskiewicz.
+
+**Comment 3:** How well the tows sampled the full range of larval ages (and thus developmental stages and sizes) will influence your ability to detect OVM. To what extent do the larval sizes, for example, cover the range in potential sizes for each family? This would be a useful comparison to make and a discussion point relevant to interpreting differences among families in the presence/absence or strength in OVM patterns.
+*Response:* TODO: Use the e-guides I have to get a rough estimate (cannot be perfect because of all the species).
+
+difficult due to the large range of species within a family. and net avoidance of over post-flexion larvae.
+
+
+Synodontidae 3-8 preflexion, 8-11 flexion, 11-37 postflexion
+8, 11, 17
+Mullid 3.0 preflexion 4.9. flexion. 8.7 postflexion
+
+2.4-4.2 4.2-4.6
+
+[4.1, 5.8,16.1]
+Scaridae 3.7 preflexion 4.2 flexion 7.8 postflexion
+3.6, 5.3, 7.0
+
+#### Reviewer 2
+
+**Comment 1:** It’s not clear to me why one would expect to see different OVM patterns in eddies, and I wasn’t convinced by the setup in this chapter’s introduction. The author argues that because eddies entrain nutrient rich waters, and because they therefore have higher zooplankton abundances late in their eddy-life, we might expect to see different OVM patterns. But if larvae are responding to relative prey availability, or different target prey species, the relative abundance doesn’t matter (eddy vs. non-eddy), what matters is whether the mean prey depth changes. Nothing in the setup of this chapter indicates that we would expect this. Perhaps I’m missing something, but I read the intro a couple of times, and couldn’t see a strongly motivated reason for expecting a significant difference.
+*Response:* Yes this is a good point - I wasn't very clear that I didn't really expect to see any difference, I was just interested to see if there was, as we know it can change depth distribution patterns and does change assemblages. Clarified in comment: Major 2301.
+
+
+**Comment 2:** The key significant result pertaining to the chapter’s purpose (do oceanographic features affect OVM and larval distributions) was that eddies contain larger larvae (with the exception of Scaridae). The author explains this using survivorship. This would presumably only be observed for older eddies, a fact the author repeats a couple of times. It therefore seems necessary to measure the age of the eddy that was sampled, to see if it was indeed “old” enough to explain the observed difference.
+*Response:* The age of the eddies were mentioned within the methods section, perhaps it was not clear enough. I have tried to clarify this in the discussion.
+
+See comment Major 2302.
+
+TODO: Tidy up the language.
+
+**Comment 3:** I found the annotation in Figure 3.1b impossible to read.
+*Response:* TODO: Fix up the figure - perhaps split into two figures for ease of reading?
+
+
+#### Reviewer 3
+
+**Comment 1:** Fig 3.2 – the smallest illustrated larva seems to be a myctophid, not a labrid. See comments on the ms. As myctophids are likely to be very abundant in the samples – perhaps the most abundant family - this has potentially serious complications for any results involving putative labrid larvae. I am not sure just what remedy to suggest – I hope the author has one.
+
+Labrids were the most abundant of the reef-associated families in these samples, constituting 44.3 % over 1200 larvae. This seems exceptionally high, in my experience, and combined with the seeming identification problems apparent in Fig 3.2, raises questions addressed in the next paragraph.
+The apparent misidentification in figure 3.2 of a myctophid as a labrid - a misidentification that is easy to make in small larvae - brings into question the results for this family. It is most likely such misidentifications would take place in smaller (preflexion) larvae, thus bringing into particular question, the ontogenetic results for labrids. ( see my comments on section 3.3 of pdf). There are about 1200 larvae identified as labrids, but the labrid catch was dominated by ‘larger postflexion larvae’ (about half were postflexion) which are easier to identify. However, this still leaves over 600 preflexion and flexion stage, so it seems impractical to ask the student to go back through samples and re-identify the smaller larvae identified as labrids. I am not sure just what to suggest.
+
+Unfortunately, small scarids are also easily confused with small myctophids, but unlike with the labrids, there is no evidence within this thesis that this is problem here (i.e., no figure showing images of putative scarid larvae).
+
+*Response:* Yes that was a misidentification in that photo on my part (it came from a sample not used in the analysis). The final identifications used in the analysis were performd by Tony Miskiewicz and another PhD student Val (all of Val's identification were doubled checked by Miskiewicz). There were  a high number of Labrids sampled in this voyage - to quote Tony from email correspondence "Labrids were abundant in the samples and I check all of Val's IDs so I am happy to state this in your reply to Jeffs comments".
+
+I have revisited all of the photos of the larval fish use in my analyses and double-checked the identifications. Where I have had some doubt I got Tony Miskiewicz to double-check the identification in the photographs. I found four of them turned out to be psuedochromids upon closer inspection (dorsal series of melanophores), one myctophid, and two unknowns (slightly damaged fish that were not labrids as identified by Tony). Therefore I re-ran the analyses with this reduced dataset, which did not change the overall patterns seen for OVM.
+
+**Comment 2:** Comparison of the results of this study to other studies of vertical distribution is patchy. Although there is coverage of some studies off NSW, and some tropical studies in the Pacific and Atlantic, a number of relevant studies of vertical distribution are not discussed – for example ontogenetic changes in vertical distribution are addressed by Boehlert et al 1992, Boehlert & Mundy 1996, Leis 1986, 1991, and many others. These publications concern the families of interest in this thesis. So, why is the author so selective in those publications included?
+
+*Response:* I seem to have missed these in my search of the literature - I have included them and found more citations through papers that cited them.
+
+### Minor recommendations
+
+#### Reviewer 1
+
+**Comment 1:** Might be better to say, "Size and stage-dependent vertical migration patterns in temperate reef-associated ichthyoplankton and the effects of entrainment in cold-core eddies off the coast of New South Wales, Australia
+*Response:* Clarified in comment: Minor 1301.
+
+**Comment 2:** (Vertical distribution and metabolism) Already raised this point
+*Response:* Yes, deleted the redundant sentence and merged it with the first mention of prey.
+
+**Comment 3:** (Figure 3.1) Would help if these were scaled the same to make comparison easier.
+*Response:* TODO
+
+**Comment 4:** (Figure 3.2) This does not look like a Labrid larva!
+*Response:* No, it is a Mychtophid and the figure has been clarified. See Major 3301.
+
+**Comment 5:** (AIC criteria) You should present all the models in rank order by AIC, including delta AIC and weights in a supplementary table. Most people like to see all of the models are how different the support is for each.
+*Response:* TODO
+
+**Comment 6:** There has been some pretty extensive ichthyoplankton sampling of these families by the likes of Jeff Leis, looking at depth distributions of larvae of reef fishes, albeit mostly in the tropics. They don't necessary look at OVM but at least there are average depth data that could be reviewed/referenced here.
+*Response:*  Yes, I have included more references now. Refer to Major 3302.
+
+**Comment 7:** Or 24-hr sampling (not just at night), which in theory could have been done on these cruises but perhaps you were steaming during the day between stations!
+*Response:* Clarified in comment: Minor 1307.
+
+**Comment 8:** You haven't discussed what range of sizes you captured relative to expected ranges for each family. OVM patterns, when the exist, will be easier to detect when sampling the full range of ages, stages, sizes. Another point to consider is that a lot of species have a target depth during the day but end up diffusing across a broader depth range at night, presumably because they are less active and it's harder to maintain a particular depth based solely on thigmotaxis. However, there could have been effects of nocturnal illumination. Do you have data on this or cloud cover along with lunar phase to get an estimate of this?
+*Response:* TODO:
+
+**Comment 9:** What a priori predictions did you have for this? Why would OVM differ between locations? Given you found no isopycnal doming, why are you calling it an eddy in the first place?
+*Response:* The a priori prediction is that there is no effect (see comment Major 2301). The "eddies" sampled have been described by roughan2017, which is why I have called them eddies.
+
+**Comment 10:** (Effect of eddies) There's been some good work by Su Sponaugle and Bob Cowen and their students on this very topic.
+*Response:* Yes, I have included more references within this section of the discussion now. See comment: Minor 1310.
+
+#### Reviewer 2
+
+#### Reviewer 3
+
+**Comment 1:** (Title) the ichthyoplankton is not reef-associated.  I think you mean the larval stages of fishes that are reef-associated as adults.
+*Response:* Clarified in comment: Minor 3301.
+
+**Comment 2:** A neuston net would sample the upper 0.5 m or so, which does not seem to be incorporated in the three ranges given.
+*Response:* Yes this is a very good point actually, it was more accurately the 0-1 m as it bounced around across the surface. Clarified in comment: Minor 3302.
+
+**Comment 3:** Day time only, or at night, too?
+*Response:* Only at night time. Clarified in comment: Minor 3303.
+
+**Comment 4:** Hardly a surprise that eggs have a limited set of behavioural capabilities
+*Response:* Clarified in comment: Minor 3304.
+
+**Comment 5:** If this were true, then how do they select a depth?  Don't they need some means of detecting depth, or at least change in it, whether it be pressure or light levels, or something else?
+*Response:* Yes, it should read "dependent". Clarified in comment: Minor 3305.
+
+**Comment 6:** This phrase doesn't match with first phrase
+*Response:* Restructured the text. Clarified in comment: Minor 3306.
+
+**Comment 7:** Not actually IN the state, or even in the waters of the state, unless they are within 3 miles of the coast
+*Response:* Yes this is true, Clarified in comment: Minor 3307.
+
+**Comment 8:** 3 to 1 is hardly a 'slight bias'
+*Response:* Clarified in comment: Minor 3308.
+
+**Comment 9:** Given the way the sampling was done, figures of this sort are misleading.  There should be stepped blocks, one 'block' for each of the three depth intervals sampled.  You really have no idea about that the transitions between your sample depth blocks were like, and the assumptions that go into producing a 'violin plot' are questionable at best
+*Response:* TODO
+
+**Comment 10:** (Eddies) With so many exceptions, it really isn't general.  Suggest saying something like - in X families eddies had higher abundances and/or longer larvae, but...
+*Response:* Clarified in comment: Minor 3310.
+
+**Comment 11:** Why are concentration axes different wrt the number of decimal places used?  eg, to .00 for scorpaenids? whereas serranids show only whole numbers?  These should be standardized.  Suggest only one digit to the right of the decimal
+*Response:* TODO
+
+**Comment 12:** Thermoclines seldom occur at a single depth.  Perhaps you mean that the depth of the mixed layer was at 50 m. From Fig 3.8 A, it seems that even your greatest sampled depth was still within the thermocline, and not below it, as the temperature difference between surface and greatest depth was only 2 degrees.
+*Response:* Point taken. Clarified in comment: Minor 3312.
+
+**Comment 13:** Larvae cannot be mature, unless they are paedomorphic
+*Response:* Clarified in comment: Minor 3313.
+
+**Comment 14:** Scarids were more abundant within eddies than in coastal water - would be better phrasing and more accurate 
+*Response:* Clarified in comment: Minor 3314.
+
+**Comment 15:** Alternatively, since the eddies were no longer over the continental shelf, but offshore, they were not receiving new input of recently spawned larvae, and the resident larvae were, on average, older , larger and of a later developmental stage
+*Response:* Clarified in comment: Minor 3315.
+
+**Comment 16:** Why did you cite this publication?  What are its results?
+*Response:* Clarified in comment: Minor 3316.
+
+
+## Chapter 4
+
+### Major recommendations
+
+#### Reviewer 1
+
+The chapter uses empirical data from Chapter 3 to parameterise a biophysical dispersal model of larval reef fishes along the NSW coast. This model then provides a context for exploring how different larval behaviours influence a range of dispersal metrics. I struggled a bit with this chapter as it wasn’t clear how this research advances our understanding of behavioural influences on larval dispersal, what the key behaviours are to include and how sensitive they are to parameterisation. Again, I’ve added comments to the MS and raise several more substantive points to consider in your revision here:
+
+**Comment 1:** Your predictions aren't well set up by the introduction. How did you arrive at these? You haven't led the reader to these conclusions. One of the results you present is related to the timing of spawning but this isn't introduced. There are several studies that have investigated the impacts of particular modelling parameters and their values (i.e. Treml et al. 2015 in Movement Ecology is one example). I think it's important that you also introduce these model sensitivity studies and how your approach contributes something new to our understanding of how we construct and parameterise BDMs.
+*Response:* TODO
+
+**Comment 2:** The model description, given it's a bespoke model, should be compared to other Lagrangian particle tracking models. How is it different or better? Why did you write your own code versus the open source codes that are available (e.g. North's or Paris's?).
+*Response:* TODO
+
+**Comment 3:** The oceanographic model used has a pretty coarse model resolution, particularly for nearshore oceanography. Some would argue that spending effort investigating the influence of behaviour when the oceanography is 'wrong' is a waste of time. Having a validated physical model can help circumvent this criticism. But, it needs to be validated at the spatio-temporal scales which are relevant to your research question. This is an important issue that warrants some discussion.
+*Response:* TODO
+
+**Comment 4:** I found the methods descriptions somewhat confusing because of the inconsistency in species used for each aim. I think it would be a cleaner study if you, ideally, did all aims for all families, or if you can't get realistic family estimates for DVM or OHS, you simplify and only look at pomacentrids. Alternatively, I’m not understanding what you did correctly (i.e., you applied a DVM for pomacentrids to all species). Regardless, I can’t follow what you did.
+*Response:* TODO
+
+**Comment 5:** The statistical methods used for comparing connectivity patterns seems, at face value, to be OK but it's certainly not a standard way of doing this. Is it possible to generate a schematic or flow chart to walk the reader through this process? Certainly something to consider as an ESM for when you try to publish this work.
+*Response:* TODO
+
+**Comment 6:** The results section is pretty challenging to wade through. There are lots of tests,
+plots, and text descriptions and the key messages get lost in the overall coverage. There is nothing wrong with what you've done; it's just not that engaging and the key messages get lost. I would suggest you rethink your aims so you have more targeted questions that you can ask instead of going through all outcomes from all of these tests.
+*Response:* TODO
+
+**Comment 7:** You find evidence for differences in the impact of different behaviours and mention that there are effects of how some behaviours were implemented/parameterised. Presumably this is true for all behaviours. Why didn’t you explore this more fully? Others have undertaken model sensitivity studies to investigate this as well. You should put your results in context of this work as well.
+*Response:* TODO
+
+#### Reviewer 2
+
+**Comment 1:** The overall message of this chapter is both interesting and useful. Choosing the right behavioural assumptions is critical, but choosing the correct parameterisation may be less important. That’s fascinating and novel, and the goal will be to avoid that message getting lost in the multitude of analyses you do. After the fifth or sixth, they’re confusing rather than helping convince your reader. You need to cut many of these out, to clarify your central message. What I’m trying to say is that I understand why you did them, and I appreciate the fact that you did them, I just don’t want to see them all in gruesome detail.
+*Response:* TODO
+
+**Comment 2:** This chapter felt a lot less polished than those preceding it. The text contained both a lot of repetition (e.g., the sensory distance on page 80, and arguments about parameterisation in the introduction), and more confusing sentences than I found elsewhere (where the writing was generally easy to follow). It’s also not clear in your methods section what order all your transformations and metric calculations are going in. Does the distance calculation come before the passive-normalisation step? In contrast, the discussion was very easy to follow, and included some very nice turns of phrase.
+*Response:* TODO
+
+**Comment 3:** Some of the chapter felt like it was both an introduction to the ZISSOU modelling system, rather than a set of analyses about the importance of dispersal for particular species and locations. This made it relatively hard to follow in the methods section, because the ZISSOU elements broke up the flow of the biological analyses. I would have included these methods as a separate chapter, and if you write this up as a paper (which I recommend, of course), perhaps publish the methods separately, or move them to supporting information. This is particularly true for relatively accepted computational steps like interpolation, or random number generation.
+*Response:* TODO
+
+**Comment 4:** The chapter makes a series of arguments for method steps that aren’t well-justified. For example, you say that the passive-normalisation step is taken because the differences in dispersal patterns can “swamp the more relevant comparisons between the models”, but you don’t indicate what those are, so it’s not clear that this decision is justified. I think you’re right to do it, I just wanted the logic spelled out more clearly. The rest of the methods comes across as a shotgun approach, where you’re calculating dozens of metrics looking for differences – it might help to make it very clear what question you’re trying to answer, and then offer a better motivation for why these statistics are the right ones. In the same vein, why would you use a square root transform to down weight the influence of highly abundant areas? I’m open to an argument for this, but you don’t offer any. I mean this in terms of both the use of a transform, and the use of that specific transform – would a log transform would be more appropriate? The high density might be the result of several independent and multiplicatively interacting factors, and it might therefore be log normally distributed. Square root indicates you’re saying something about the settlement area.
+*Response:* TODO
+
+**Comment 6:** It might be useful to say whether the hydrodynamic model is barotropic or baroclinic. Is this why the vertical advection scenarios were included?
+*Response:* TODO
+
+**Comment 7:** The measurements of U_crit had a lot of significant figures – is that accurate?
+*Response:* TODO
+
+**Comment 8:** I’m not certain that the settlement buffers are equivalent to “sticky water”. As I understand it, sticky water is a physical, not a biological phenomenon. Sticky water would apply to pelagic eggs, but presumably you’re not applying settlement buffers to eggs, or to precompetent larva for that matter. Many of the factors that drive sticky water would already be implicit in the physical forcings of the model - if you were using SLIM at high resolution, for example
+*Response:* TODO
+
+#### Reviewer 3
+
+**Comment 1:** As far as I can work out, there was only one horizontal swimming option, with swimming being applied when the larvae become competent to settle. If this is correct, the author should explain why he did not include ontogeny of swimming, as it is clear that larvae do have significant swimming abilities before settlement stage, and the work of Fisher on Ucrit demonstrates this for at least two species of pomacentrids – a pomacentrid being one of the exemplar species. There are similar data available for sparids, sciaenids (Clarke et al ), serranids, etc (Leis et al), both for Ucrit and in situ swimming.
+*Response:* TODO
+
+**Comment 2:** The approach in this chapter is not an uncommon one used to look beyond the unsurprising result that using different behavioural inputs in a model produces different predicted outcomes. It is typically used when there is no obvious way to test the different modelled predictions with ‘real’ data. It can be helpful in designing model inputs, but it is of limited use in determining if the model produces realistic results. The latter cannot be done without testing using independent empirical data. Also, nearly any model is highly likely to be location specific. All these things should be emphasized in the this chapter.
+*Response:* TODO
+
+**Comment 3:** The two chapters on modelling need to refer to predicted this or that because that is all models can do – predict. The present text is written as if there is some real measure of dispersal (or whatever), when, in fact, what is being examined is a set of predictions from various tweaks of the models.
+*Response:* TODO
+
+**Comment 4:** There must also be a clear, upfront acknowledgement that the conclusions drawn from the modelling – even if correct (and this remains to be shown, in general) – are valid only for the system which was modelled. That is, the temperate east coast of Australia, or at a stretch maybe other similar systems of western poleward boundary currents. This is not to diminish the results of the modelling effort, but to put them into proper perspective.
+*Response:* TODO
+
+## Chapter 5
+
+### Major recommendations
+
+#### Reviewer 1
+
+#### Reviewer 2
+
+#### Reviewer 3
+
+### Minor recommendations
+
+#### Reviewer 1
+
+#### Reviewer 2
+
+#### Reviewer 3
+
+## Discussion
+
+### Minor comments
+
+#### Reviewer 1
+
+**Comment 1:** Given this justification, it would have been interesting for you to evaluate this literature as to whether they actually followed the guidelines! My guess is that most haven't.
+*Response:*: TODO
+
+**Comment 2:** What's important is to include complexity that is biological realistic and then to test how sensitive model outcomes are to parameter values. Building a fully complex model to investigate which aspects of biology or behaviour are important can then help drive where the key research needs are in terms of getting realistic parameter values. This is what we need more of.*Response:* Clarified in comment: Minor 1602.
+
+**Comment 3:** Some discussion of interactions among behaviours is worth having. OVM, DVM, and OHS are all likely to interact and change with development.
+*Response:* Added a line for the possible explanation of interactions, see the comment: Minor 1603.
+
+**Comment 4:** It's also worth talking about how what you observed off the NSW coast at the time of year you sampled could have influenced your findings. How structured was the water column and how does this compare to other studies of vertical larval distributions? 
+*Response:* Addressed the temporal variation in comment: Minor 1604. Comparisons of water column were added to the data chapter in TODO
+
+**Comment 5:** This conclusion is going to be very sensitive to the speeds used, how they change with ontogeny, and what decision rules are used for their implementation. Given this, it would be good to review your scheme versus others (not just the two studies you cite) and compare the implementations and outcomes of those decisions. One of the worst papers I ever read was one with Wolanski, where the OHS implemenation was so strong that all larvae could go wherever they wanted so the decision rule implemented completely dominated the model outcome!
+*Response:* Added a paragraph about other implementations and the differences in swimming implementations, see comment Minor 1605.
+
+**Comment 6:** Yes, but swimming is used for many things and probably more related to predator-prey interactions than dispersal. We are far from being able to implement directional swimming behaviour in models with a level of realism!
+*Response:* Clarified in comment: Minor 1606.
+
+**Comment 7:** This is not necessarily an issue with off-line models. It's just an issue with what time step was used in the original model. Some can have time steps that capture dynamic processes that are relevant to dispersal.
+*Response:* Clarified in comment: Minor 1607.
+
+**Comment 8:** That's not really true. The problem is that most disperal modelling has used physical models developed by oceanographers but there are lots of models developed by coastal engineers that are at the scale relevant to larval dispersal (although the domains of many of these models tend to be too small for the research question).
+*Response:* Clarified in comment: Minor 1608.
+
+**Comment 9:** Again, need to be careful about how a physical model has been validated. The empirical data used is often at a scale much larger than the question and rarely involves verification of dispersion via advection and diffusion, but comparisions to current velocities in a few locations or proxies for circulation using remotely sensed data (temp, ocean colour, sea-surface height anomalies, etc).
+*Response:* Clarified in comment: Minor 1609.
+
+**Comment 10:** There is another really good paper for this: Domingues et al. 2012 Plos One 7 (4), e35794
+*Response:* Included the paper in the manuscript, see comment Minor 1610.
+
+**Comment 11:** The above sections are good and important. Others have argued for having standard reporting. The ICES guidelines that you reference as the basis for the starting date for your meta-analysis is a good one. It would be worthwhile comparing. Are your points the same as this guideline? If not, what's different and why is this important?
+*Response:* Included a brief summary of how the ICES manual's recommended practices are reflected with the reviewed models. The ICES manual is more a publication focusing on guidelines of how to implement models more than specific recommendations on what should and should not be included, see comment Minor 1611.
+
+#### Reviewer 2
+
+
+
+#### Reviewer 3
 
 **Comment 1:** a model cannot measure - it can only predict
 *Response:* Clarified in comment: Minor 3601.
@@ -461,3 +730,10 @@ Reviewer 3
 
 **Comment 13:** assumptions will always be required, but we can hope that as time passes, they will become fewer, and more soundly based.
 *Response:* Clarified in comment: Minor 3613.
+
+## General comments
+
+### Reviewer 2
+
+**Comment 1:** I’m not sure if you’re aware, but von Braun was responsible for war crimes during the second world war. If not for Operation Paperclip, he would have been tried at Nurenberg. Seeing him quoted was a little jarring.
+*Response:* Addressed, I cannot say I was aware of his history, and I have chosen a more appropriate quotation.
