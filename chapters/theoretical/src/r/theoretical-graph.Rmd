@@ -193,7 +193,7 @@ plot(graph.ovm.labrid, vertex.size = as*30, main="Authorities")
 graph.ovm.labrid.adj <- get.adjacency(graph.ovm.labrid, sparse = FALSE)
 graph.ovm.labrid.ind <- GenInd(graph.ovm.labrid.adj)
 graph.ovm.labrid.ind$C
-connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "labridae", connectance = graph.ovm.labrid.ind$C)
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "strategy-1", connectance = graph.ovm.labrid.ind$C)
 ```
 
 ovm.mullid graph analysis
@@ -209,8 +209,8 @@ plot(graph.ovm.mullid, vertex.size = as*30, main="Authorities")
 graph.ovm.mullid.adj <- get.adjacency(graph.ovm.mullid, sparse = FALSE)
 graph.ovm.mullid.ind <- GenInd(graph.ovm.mullid.adj)
 graph.ovm.mullid.ind$C
-connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "mullidae", connectance = graph.ovm.mullid.ind$C)
-connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "pomacentridae", connectance = graph.ovm.ind$C)
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "strategy-2", connectance = graph.ovm.mullid.ind$C)
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "strategy-3", connectance = graph.ovm.ind$C)
 ```
 
 
@@ -227,7 +227,7 @@ plot(graph.ovm.scarid, vertex.size = as*30, main="Authorities")
 graph.ovm.scarid.adj <- get.adjacency(graph.ovm.scarid, sparse = FALSE)
 graph.ovm.scarid.ind <- GenInd(graph.ovm.scarid.adj)
 graph.ovm.scarid.ind$C
-connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "scaridae", connectance = graph.ovm.scarid.ind$C)
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "strategy-4", connectance = graph.ovm.scarid.ind$C)
 ```
 
 ovm.serranid graph analysis
@@ -243,7 +243,7 @@ plot(graph.ovm.serranid, vertex.size = as*30, main="Authorities")
 graph.ovm.serranid.adj <- get.adjacency(graph.ovm.serranid, sparse = FALSE)
 graph.ovm.serranid.ind <- GenInd(graph.ovm.serranid.adj)
 graph.ovm.serranid.ind$C
-connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "serranidae", connectance = graph.ovm.serranid.ind$C)
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "strategy-5", connectance = graph.ovm.serranid.ind$C)
 ```
 
 ovm.scorpaenid graph analysis
@@ -259,7 +259,7 @@ plot(graph.ovm.scorpaenid, vertex.size = as*30, main="Authorities")
 graph.ovm.scorpaenid.adj <- get.adjacency(graph.ovm.scorpaenid, sparse = FALSE)
 graph.ovm.scorpaenid.ind <- GenInd(graph.ovm.scorpaenid.adj)
 graph.ovm.scorpaenid.ind$C
-connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "scorpaenidae", connectance = graph.ovm.scorpaenid.ind$C)
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "strategy-6", connectance = graph.ovm.scorpaenid.ind$C)
 ```
 
 ovm.synodontid graph analysis
@@ -275,7 +275,7 @@ plot(graph.ovm.synodontid, vertex.size = as*30, main="Authorities")
 graph.ovm.synodontid.adj <- get.adjacency(graph.ovm.synodontid, sparse = FALSE)
 graph.ovm.synodontid.ind <- GenInd(graph.ovm.synodontid.adj)
 graph.ovm.synodontid.ind$C
-connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "synodontidae", connectance = graph.ovm.synodontid.ind$C)
+connectance.data <- add_row(connectance.data, scenario = "ovm-strategy", model = "strategy-7", connectance = graph.ovm.synodontid.ind$C)
 ```
 
 ovm.timestep graph analysis

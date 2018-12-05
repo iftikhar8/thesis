@@ -403,6 +403,8 @@ This is the first time I have heard of the PRISMA flow, and I agree that is a us
 **Comment 41:** Why two different formats for citing papers?
 *Response:* There was an issue with the CSL generating the citations, this has been fixed now.
 
+PAGEBREAK
+
 ## Chapter 3
 
 ### Major recommendations
@@ -562,6 +564,7 @@ I have revisited all of the photos of the larval fish use in my analyses and dou
 **Comment 16:** Why did you cite this publication?  What are its results?
 *Response:* Clarified in comment: Minor 3316.
 
+PAGEBREAK
 
 ## Chapter 4
 
@@ -572,49 +575,52 @@ I have revisited all of the photos of the larval fish use in my analyses and dou
 The chapter uses empirical data from Chapter 3 to parameterise a biophysical dispersal model of larval reef fishes along the NSW coast. This model then provides a context for exploring how different larval behaviours influence a range of dispersal metrics. I struggled a bit with this chapter as it wasn’t clear how this research advances our understanding of behavioural influences on larval dispersal, what the key behaviours are to include and how sensitive they are to parameterisation. Again, I’ve added comments to the MS and raise several more substantive points to consider in your revision here:
 
 **Comment 1:** Your predictions aren't well set up by the introduction. How did you arrive at these? You haven't led the reader to these conclusions. One of the results you present is related to the timing of spawning but this isn't introduced. There are several studies that have investigated the impacts of particular modelling parameters and their values (i.e. Treml et al. 2015 in Movement Ecology is one example). I think it's important that you also introduce these model sensitivity studies and how your approach contributes something new to our understanding of how we construct and parameterise BDMs.
-*Response:* In the introduction I have tried to setup the rationale in a more coherent manner. Including comparisons of other sensitivity studies (for different regions) and more synthesis on what we know from these studies. See Major 1401.
+
+*Response:* In the introduction I have setup the rationale in a more coherent manner. This includes comparisons with other sensitivity studies of different regions, and how this study differs and contributes to the literature. See Major 1401.
 
 **Comment 2:** The model description, given it's a bespoke model, should be compared to other Lagrangian particle tracking models. How is it different or better? Why did you write your own code versus the open source codes that are available (e.g. North's or Paris's?).
-*Response:* Addressed in Major 1402. The main reason was to allow for easy customisation of the behavours involved. Several of the popular models (e.g. CMS) are coded in Fortran, a language I am not familiar with and run only on Unix - an option not available in the lab when the thesis started. I have coded multiple implementations of the same biological traits for user-driven configuration. It also takes advantage of the latest libraries for mathematical and parallel processing. A future study would be to run several models using the same parameters and ensure that they all produce the similar output.
+
+*Response:* Addressed in Major 1402. The main reason was to allow for easy customisation and implementation of the behaviours involved (as well as a good learning technique in individual based modelling). Most popular models (e.g. CMS, LTRANS) are coded in Fortran, a language I am not familiar with and run only on Unix - an option not available in the lab when the thesis started. I have coded multiple implementations of the same biological traits for user-driven configuration. It also takes advantage of the latest libraries for mathematical and parallel processing. A future study would be to run several models using the same parameters and ensure that they all produce the similar output.
 
 **Comment 3:** The oceanographic model used has a pretty coarse model resolution, particularly for nearshore oceanography. Some would argue that spending effort investigating the influence of behaviour when the oceanography is 'wrong' is a waste of time. Having a validated physical model can help circumvent this criticism. But, it needs to be validated at the spatio-temporal scales which are relevant to your research question. This is an important issue that warrants some discussion.
-*Response:* TODO
+
+*Response:* I used the best available model at the time that covered the spatial extent I was interested in. BRAN is well validated for off-shore processes, better than HYCOM for the spatial region, and I have tried to reflect that in the text. Yes, unfortunately near-shore oceanography is not well resolved in this model - and was abstracted over using a settlement buffer. The proximate continental shelf hopefully reduces the amount of near shore processes that are not captued, however, I have no evidence for this. BRAN also is reanalysed to capture smaller scale eddy behaviour of ocean models, which I was interested in due the effects on entrainment. Future steps would be to incorporate smaller-finer resolution models that are available using a nested hydrodynamic design.
 
 **Comment 4:** I found the methods descriptions somewhat confusing because of the inconsistency in species used for each aim. I think it would be a cleaner study if you, ideally, did all aims for all families, or if you can't get realistic family estimates for DVM or OHS, you simplify and only look at pomacentrids. Alternatively, I’m not understanding what you did correctly (i.e., you applied a DVM for pomacentrids to all species). Regardless, I can’t follow what you did.
-*Response:* TODO
+*Response:* The use of family names is indeed confusing, essentially it is just always parameterised with Pomacntrids, but using OVM values seen in other families in Chapter 3. I have removed these references. Updated the main figure (Clarified in comment: Major 1404) and removed references throughout the text.
 
 **Comment 5:** The statistical methods used for comparing connectivity patterns seems, at face value, to be OK but it's certainly not a standard way of doing this. Is it possible to generate a schematic or flow chart to walk the reader through this process? Certainly something to consider as an ESM for when you try to publish this work.
-*Response:* TODO
+*Response:* I have tried to explain in much simpler terms the underlying statistics and data analysis in the method section to make it much clearer, see comment Major 1405. However, for publications I am happy to consider a flow chart to make it more understandable if clarity is still an issue.
 
 **Comment 6:** The results section is pretty challenging to wade through. There are lots of tests,
 plots, and text descriptions and the key messages get lost in the overall coverage. There is nothing wrong with what you've done; it's just not that engaging and the key messages get lost. I would suggest you rethink your aims so you have more targeted questions that you can ask instead of going through all outcomes from all of these tests.
-*Response:* TODO
+*Response:* Yes I agree it was data heavy. I have decided to cut the aims down to measuring the differences in connectivity patterns and connectivity metrics. Therefore I have removed the settlement metrics, along with the cluster analysis and the CCA analysis. These have been moved to the appendix instead. I believe the results section is a lot less challenging read now. Clarified in comment: Major 1406.
 
 **Comment 7:** You find evidence for differences in the impact of different behaviours and mention that there are effects of how some behaviours were implemented/parameterised. Presumably this is true for all behaviours. Why didn’t you explore this more fully? Others have undertaken model sensitivity studies to investigate this as well. You should put your results in context of this work as well.
-*Response:* TODO
+*Response:* Yes I would like to investigate the influences of underlying implementations of other behaviours, this was a start to see what the influence of one specific behaviour known to influence dispersal and that I collected data specifically on (with seemingly innoculous implementations of these behaviours). Future directions would be to compare settlement strategies, PLD strategies, and of course swimming strategies. I have added the other references in for context within the discussion, clarified in comment: Major 1407.
 
 #### Reviewer 2
 
 **Comment 1:** The overall message of this chapter is both interesting and useful. Choosing the right behavioural assumptions is critical, but choosing the correct parameterisation may be less important. That’s fascinating and novel, and the goal will be to avoid that message getting lost in the multitude of analyses you do. After the fifth or sixth, they’re confusing rather than helping convince your reader. You need to cut many of these out, to clarify your central message. What I’m trying to say is that I understand why you did them, and I appreciate the fact that you did them, I just don’t want to see them all in gruesome detail.
-*Response:* TODO
+*Response:* Yes, I agree. As per comment Major 1406, I have trimmed down the results section and placed many of the extraneous figures into the appendix.
 
 **Comment 2:** This chapter felt a lot less polished than those preceding it. The text contained both a lot of repetition (e.g., the sensory distance on page 80, and arguments about parameterisation in the introduction), and more confusing sentences than I found elsewhere (where the writing was generally easy to follow). It’s also not clear in your methods section what order all your transformations and metric calculations are going in. Does the distance calculation come before the passive-normalisation step? In contrast, the discussion was very easy to follow, and included some very nice turns of phrase.
-*Response:* TODO
+*Response:*  Yes I agree, and I have given the chapter another edit to polish off the writing. Especially the data analysis section, see comment: Major 2402.
 
 **Comment 3:** Some of the chapter felt like it was both an introduction to the ZISSOU modelling system, rather than a set of analyses about the importance of dispersal for particular species and locations. This made it relatively hard to follow in the methods section, because the ZISSOU elements broke up the flow of the biological analyses. I would have included these methods as a separate chapter, and if you write this up as a paper (which I recommend, of course), perhaps publish the methods separately, or move them to supporting information. This is particularly true for relatively accepted computational steps like interpolation, or random number generation.
-*Response:* TODO
+*Response:* Yes I agree, but I did not think it warranted an entirely seperate chapter. It does break the flow of the chapter I agree, but it is also crucial to explain the modelling choices so the reader can understand what might occur behind the behaviour. In the future I will aim to publish the methods separately (there are open-srouce publications for models), which can then be referenced seperately from the paper.
 
 **Comment 4:** The chapter makes a series of arguments for method steps that aren’t well-justified. For example, you say that the passive-normalisation step is taken because the differences in dispersal patterns can “swamp the more relevant comparisons between the models”, but you don’t indicate what those are, so it’s not clear that this decision is justified. I think you’re right to do it, I just wanted the logic spelled out more clearly. The rest of the methods comes across as a shotgun approach, where you’re calculating dozens of metrics looking for differences – it might help to make it very clear what question you’re trying to answer, and then offer a better motivation for why these statistics are the right ones. In the same vein, why would you use a square root transform to down weight the influence of highly abundant areas? I’m open to an argument for this, but you don’t offer any. I mean this in terms of both the use of a transform, and the use of that specific transform – would a log transform would be more appropriate? The high density might be the result of several independent and multiplicatively interacting factors, and it might therefore be log normally distributed. Square root indicates you’re saying something about the settlement area.
-*Response:* TODO
+*Response:* I have re-written the data analysis section for clarity, see comment: Major 2402.
 
 **Comment 6:** It might be useful to say whether the hydrodynamic model is barotropic or baroclinic. Is this why the vertical advection scenarios were included?
-*Response:* TODO
+*Response:* The model tends to be barotropic with baroclinic eddys resolved within. The aim behind including vertical advection was to capture vertical advection seen in plankton through local mixing via vertical sheer that can arise from wind stress, bottom friction drag, or stratification  [@largier2003].
 
 **Comment 7:** The measurements of U_crit had a lot of significant figures – is that accurate?
 *Response:* Yes I could have reduce the significance level - that was an oversight. I took the mean of means for swimming speeds measured in cm s~-1~ (e.g. 46.3 cm s~-1~), and left it at the same significance level.
 
 **Comment 8:** I’m not certain that the settlement buffers are equivalent to “sticky water”. As I understand it, sticky water is a physical, not a biological phenomenon. Sticky water would apply to pelagic eggs, but presumably you’re not applying settlement buffers to eggs, or to precompetent larva for that matter. Many of the factors that drive sticky water would already be implicit in the physical forcings of the model - if you were using SLIM at high resolution, for example
-*Response:* TODO
+*Response:* Yes I agree, clarified in comment: Major 2408.
 
 #### Reviewer 3
 
@@ -622,13 +628,13 @@ plots, and text descriptions and the key messages get lost in the overall covera
 *Response:* This was not explained very well by me in the Chapter. Actually, the larvae have the ability to swim once they reach the flexion ontogenetic stage. The larvae swim in a random direction until they have the ability to orientate towards a reef (they are within the sensory zone limits). Clarified in comment: Major 3401.
 
 **Comment 2:** The approach in this chapter is not an uncommon one used to look beyond the unsurprising result that using different behavioural inputs in a model produces different predicted outcomes. It is typically used when there is no obvious way to test the different modelled predictions with ‘real’ data. It can be helpful in designing model inputs, but it is of limited use in determining if the model produces realistic results. The latter cannot be done without testing using independent empirical data. Also, nearly any model is highly likely to be location specific. All these things should be emphasized in the this chapter.
-*Response:* TODO
+*Response:* I have added a limitation paragraph to the chapter covering the issue described. Clarified in comment: Major 3402.
 
 **Comment 3:** The two chapters on modelling need to refer to predicted this or that because that is all models can do – predict. The present text is written as if there is some real measure of dispersal (or whatever), when, in fact, what is being examined is a set of predictions from various tweaks of the models.
-*Response:* TODO
+*Response:* Yes, this is an oversight. I included the words predict and estimate throughout the test to more accurately refer to the modelled output.
 
 **Comment 4:** There must also be a clear, upfront acknowledgement that the conclusions drawn from the modelling – even if correct (and this remains to be shown, in general) – are valid only for the system which was modelled. That is, the temperate east coast of Australia, or at a stretch maybe other similar systems of western poleward boundary currents. This is not to diminish the results of the modelling effort, but to put them into proper perspective.
-*Response:* TODO
+*Response:* Clarified in several places throught the text, see comment: Major 3404.
 
 ### Minor recommendations
 
@@ -656,10 +662,10 @@ plots, and text descriptions and the key messages get lost in the overall covera
 *Response:* The changing nature of the coastline down eastern Australia means it tended to change from 200m to 5km (although, how those currents are at 200m is unclear).
 
 **Comment 8:** There is no point having all families represented here as you only used Pomacentrids in this chapter. It would be more helpful to show how you integrated DVM into the OVM pattern here.
-*Response:* Good point. Clarified in comment: Minor 1405. TODO
+*Response:* Good point, I have changed the figures and text to refer to strategies instead. Clarified in comment: Minor 1405.
 
 **Comment 9:** I found the methods descriptions somewhat confusing because of the inconsistency in species used for each aim. I think it would be a cleaner study if you, ideally did all aims for all families, or if you can't get realistic family estimates for DVM or OHS, you simplify and only look at pomacentrids.
-*Response:* Yes, I tried to clarify I only used pomacentrids, but with OVM patterns seen for other species. Clarified in comment: Minor
+*Response:* Yes, I tried to clarify I only used pomacentrids, but with OVM patterns seen for other species - see Minor 1405.
 
 **Comment 10:** So over the whole year or did you look at temporal changes in the connectivity matrix?
 *Response:* The entire year - temporal variabilty was ignored. Clarified in comment: Minor 1410.
@@ -677,10 +683,10 @@ plots, and text descriptions and the key messages get lost in the overall covera
 *Response:* True, but I also think it does show how behavioural effects differ per region which is interesting. It also gives an idea what effect normalising it to the no behaviour model does.
 
 **Comment 15:** These 3 figures are definitely overkill for a publication.
-*Response:* TODO
+*Response:* Clarified in comment: Major 1401
 
-**Comment 16:** The results section is pretty challenging to wade through. There are lots of tests, plots, and text descriptions and the key messages get lost in the overall coverage. There is nothing wrong with what you've done, it's just not that engaging and the key messages get lost. I would suggest you rethink your aims so you have more targeted questions that you can aske instead of going through all outcomes from all of these tests.
-*Response:* TODO
+**Comment 16:** The results section is pretty challenging to wade through. There are lots of tests, plots, and text descriptions and the key messages get lost in the overall coverage. There is nothing wrong with what you've done, it's just not that engaging and the key messages get lost. I would suggest you rethink your aims so you have more targeted questions that you can ask instead of going through all outcomes from all of these tests.
+*Response:* Clarified in comment: Major 1401.
 
 
 #### Reviewer 2
@@ -700,10 +706,10 @@ plots, and text descriptions and the key messages get lost in the overall covera
 *Response:*  Yes. The aim was to use a random number to offest this straight-line speed (i.e. they only swim in a straightline for a proportion of the time), although they are not actively swimming in other directions. I have added it to the enchancements task list of ZISSOU.
 
 **Comment 5:** (Effect of OHS) Hardly a surprise, as your choice of a sticky detection zone and its very high radius, in effect, vastly increased the size of the suitable habitat.  It would be of interest to calculate the % increase of effective settlement habitat size to see how it compares with the 30% increase of settlement
-*Response:* TODO
+*Response:* Yes this would have been a good approach. To do this I would need to approach the settlement sites and the overlap with BRAN model in a more calculated approach, perhaps accompanied by a senesitivity analysis to determine what reefs can and cannot be settlement due to the coarseness of the model and the structure of the NSW coastline. It is a future consideration when choosing the settlement reefs and hydrodyanmic model.
 
 **Comment 6:** (Connectance) Is this a word?  What about Connectivity?
-*Response:* Yes, it is a common measure in graph analysis
+*Response:* Yes, it is a common measure in graph analysis.
 
 **Comment 7:** Yhey can only indirectly influence dispersal outcomes.
 *Response:* Clarified in comment: Minor 3407.

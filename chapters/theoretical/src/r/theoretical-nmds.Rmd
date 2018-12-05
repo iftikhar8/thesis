@@ -47,10 +47,11 @@ regions.community_matrix <- get_community_matrix(regions.data,FALSE)[,-18]
 
 Labels for the data
 ```{r}
-model <- c("passive","passive+va","dvm","ovm","ohs","ohs+va","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
+model <- c("passive","passive+va","dvm","ovm","ohs","ohs+va","dvm+ovm+ohs","ovm+ohs","dvm+ovm","dvm+ohs","strategy-1","strategy-2","strategy-3","strategy-4","strategy-5","strategy-6","strategy-7","stage","timestep","daily")
 scenarios <- c("behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","behaviour","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-strategy","ovm-method","ovm-method","ovm-method")
 regions <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden")
 theoretical <- data.frame(model,scenarios)
+
 ```
 
 ## Phase 1 NMDS
@@ -260,25 +261,25 @@ Phase 2: NNDS using all reefs (or regions) for fish
 reefs <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bay","Ulladulla","Batemans","Merimbula","Eden")
 data.labrid <- as_tibble(ovm.labrid.conn.regions)
 data.labrid$sites <- reefs
-data.labrid$fish <- rep(c("labridae"))
+data.labrid$fish <- rep(c("strategy-1"))
 data.mullid <- as_tibble(ovm.mullid.conn.regions[,-18])
 data.mullid$sites <- reefs
-data.mullid$fish <- rep(c("mullidae"))
+data.mullid$fish <- rep(c("strategy-2"))
 data.pomacentrid <- as_tibble(ovm.conn.regions)
 data.pomacentrid$sites <- reefs
-data.pomacentrid$fish <- rep(c("pomacentridae"))
+data.pomacentrid$fish <- rep(c("strategy-3"))
 data.scarid <- as_tibble(ovm.scarid.conn.regions)
 data.scarid$sites <- reefs
-data.scarid$fish <- rep(c("scaridae"))
+data.scarid$fish <- rep(c("strategy-4"))
 data.synodontid <- as_tibble(ovm.synodontid.conn.regions)
 data.synodontid$sites <- reefs
-data.synodontid$fish <- rep(c("synodontidae"))
+data.synodontid$fish <- rep(c("strategy-5"))
 data.scorpaenid <- as_tibble(ovm.scorpaenid.conn.regions)
 data.scorpaenid$sites <- reefs
-data.scorpaenid$fish <- rep(c("scorpaenidae"))
+data.scorpaenid$fish <- rep(c("strategy-6"))
 data.serranid <- as_tibble(ovm.serranid.conn.regions)
 data.serranid$sites <- reefs
-data.serranid$fish <- rep(c("serranidae"))
+data.serranid$fish <- rep(c("strategy-7"))
 
 phase2.community <- data.labrid %>% full_join(data.serranid) %>% full_join(data.pomacentrid) %>% full_join(data.synodontid) %>% full_join(data.mullid) %>% full_join(data.scorpaenid) %>% full_join(data.scarid)
 phase2.community$fish <- factor(phase2.community$fish)
@@ -328,25 +329,25 @@ anova(phase2.lme.richness)
 reefs <- c("Tweed","Byron","Ballina","Yamba","Solitary Is","Nambucca","Pt Macquarie","Crowdy Bay","Pt Stephens","Newcastle","Sydney","Wollongong","Jervis Bat","Ulladulla","Batemans","Merimbula","Eden")
 data.norm.labrid <- as_tibble(ovm.labrid.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.norm.labrid$sites <- reefs
-data.norm.labrid$fish <- rep(c("labridae"))
+data.norm.labrid$fish <- rep(c("strategy-1"))
 data.norm.mullid <- as_tibble(ovm.mullid.conn.regions[,-18]/(passive.surface.conn.regions[,-18]+1))
 data.norm.mullid$sites <- reefs
-data.norm.mullid$fish <- rep(c("mullidae"))
+data.norm.mullid$fish <- rep(c("strategy-2"))
 data.norm.pomacentrid <- as_tibble(ovm.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.norm.pomacentrid$sites <- reefs
-data.norm.pomacentrid$fish <- rep(c("pomacentridae"))
+data.norm.pomacentrid$fish <- rep(c("strategy-3"))
 data.norm.scarid <- as_tibble(ovm.scarid.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.norm.scarid$sites <- reefs
-data.norm.scarid$fish <- rep(c("scaridae"))
+data.norm.scarid$fish <- rep(c("strategy-4"))
 data.norm.synodontid <- as_tibble(ovm.synodontid.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.norm.synodontid$sites <- reefs
-data.norm.synodontid$fish <- rep(c("synodontidae"))
+data.norm.synodontid$fish <- rep(c("strategy-5"))
 data.norm.scorpaenid <- as_tibble(ovm.scorpaenid.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.norm.scorpaenid$sites <- reefs
-data.norm.scorpaenid$fish <- rep(c("scorpaenidae"))
+data.norm.scorpaenid$fish <- rep(c("strategy-6"))
 data.norm.serranid <- as_tibble(ovm.serranid.conn.regions/(passive.surface.conn.regions[,-18]+1))
 data.norm.serranid$sites <- reefs
-data.norm.serranid$fish <- rep(c("serranidae"))
+data.norm.serranid$fish <- rep(c("strategy-7"))
 
 phase2.community.norm <- data.norm.labrid %>% full_join(data.norm.serranid) %>% full_join(data.norm.pomacentrid) %>% full_join(data.norm.synodontid) %>% full_join(data.norm.mullid) %>% full_join(data.norm.scorpaenid) %>% full_join(data.norm.scarid)
 phase2.community.norm$fish <- factor(phase2.community.norm$fish)
@@ -375,7 +376,7 @@ phase2.adonis.norm
 
 CAP Phase2
 ```{r}
-fish <- c("labridae","mullidae","pomacentridae","scaridae","scorpaenidae","serranidae","synodontidae")
+fish <- c("strategy-1","strategy-2","strategy-3","strategy-4","strategy-5","strategy-6","strategy-7")
 phase2.data.cca <- as.data.frame(phase2.community_matrix)
 #phase1.data.cca[is.na(phase1.data.cca)] <- 0
 #phase1.dist <- vegdist(phase1.data.cca,"bray")
@@ -564,13 +565,14 @@ save_plot("../../figs/phase1-cluster.png", grid, nrow=2,ncol=2,          base_as
 
 Biodiversity index for Phase 2
 ```{r}
-
+values.dendro <- c("strategy-3","strategy-1","strategy-2","strategy-4","strategy-5","strategy-6","strategy-7")
+row.names(phase2.regions.community_matrix) <- values.dendro
 phase2.reefs.bray = vegdist(phase2.regions.community_matrix, "bray")
 hist(phase2.reefs.bray)
 phase2.reefs.cluster <- hclust(phase2.reefs.bray, method="average")
 phase2.reefs.dendrogram <- as.dendrogram(phase2.reefs.cluster) 
 plot(phase2.reefs.cluster, xlab ="Behaviours" , ylab = "Bray-Curtis dissimilarity", hang=-1, cex = 1)
-phase2.plot <- ggdendrogram(phase2.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_cowplot(font_size=12,font_family = "sans") + labs(x="OVM Strategies", y="Bray-Curtis dissimilarity")
+phase2.plot <- ggdendrogram(phase2.reefs.cluster, theme_dendro = FALSE, rotate=TRUE) + theme_cowplot(font_size=12,font_family = "sans") + labs(x="OVM Strategies", y="Bray-Curtis dissimilarity") 
 phase2.plot
 grid <- plot_grid(phase2.plot,phase2.biplot, labels="AUTO", align="v",nrow=2,ncol=1)
 save_plot("../../figs/phase2-cluster.png", grid, nrow=2,ncol=2)
@@ -632,7 +634,7 @@ rowSums(phase3.reefs.data.t > 0)
 Metrics graphs
 ```{r}
 pal <- canva_pal("Fresh and energetic")(4)
-model.levels <- c("passive","passive+va","dvm","ovm","ohs","ohs+va","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ovm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
+model.levels <- c("passive","passive+va","dvm","ovm","ohs","ohs+va","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ovm+ohs","strategy-1","strategy-2","strategy-3","strategy-4","strategy-5","strategy-6","strategy-7","stage","timestep","daily")
 
 metrics1 <- dplyr::select(phase1.community, diversity, richness, behaviour) %>% mutate(scenario = "behaviour")
 metrics2 <- dplyr::select(phase2.community, diversity, richness, fish) %>% mutate(scenario = "ovm-strategy")
@@ -698,7 +700,7 @@ all.community_matrix[is.na(all.community_matrix)] <- 0
 all.data.cca <- as.data.frame(all.community_matrix)
 #phase1.data.cca[is.na(phase1.data.cca)] <- 0
 #phase1.dist <- vegdist(phase1.data.cca,"bray")
-all.cap <- capscale(all.data.cca ~ sites + model, all.community, dist="bray", metaMDS=TRUE, sqrt.dist = TRUE)
+all.cap <- capscale(all.data.cca ~ sites + model, all.community, dist="bray", metaMDSdist=FALSE, sqrt.dist = TRUE)
 anova(all.cap)
 #anova(all.cap, by ="terms")
 #anova(all.cap, by ="margin")

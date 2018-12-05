@@ -250,7 +250,7 @@ phase1.dk.summary
 ```
 
 ```{r}
-names.phase2 <- c("labridae","mullidae","pomacentridae","scaridae","scorpaenidae","serranidae","synodontidae")
+names.phase2 <- c("scenario-1","scenario-2","scenario-3","scenario-4","scenario-5","scenario-6","scenario-7")
 phase2.sr <- as.tibble(t(rbind(ovm.labrid.sr,ovm.mullid.sr,ovm.sr,ovm.scarid.sr,ovm.scorpaenid.sr,ovm.serranid.sr,ovm.synodontid.sr)))
 colnames(phase2.sr) <- names.phase2
 phase2.sr <- gather(phase2.sr)
@@ -467,7 +467,7 @@ cld(phase3.dk.posthoc)
 Graphs
 ```{r}
 
-model.levels <- c("passive","passive+va","dvm","ovm","ohs","ohs+va","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ovm+ohs","pomacentridae","labridae","mullidae","scaridae","scorpaenidae","serranidae","synodontidae","stage","timestep","daily")
+model.levels <- c("passive","passive+va","dvm","ovm","ohs","ohs+va","dvm+ohs","dvm+ovm","dvm+ovm+ohs","ovm+ohs","scenario-1","scenario-2","scenario-3","scenario-4","scenario-5","scenario-6","scenario-7","stage","timestep","daily")
 
 phase1.sr <- mutate(phase1.sr, scenario = "behaviour")
 phase2.sr <- mutate(phase2.sr, scenario = "ovm-strategy")
