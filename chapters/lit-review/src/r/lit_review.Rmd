@@ -69,7 +69,7 @@ length(unique(data.all$journal))
 Figure 1: Publication years
 ```{r}
 data.all$published <- as.factor(data.all$published)
-years.data <- data.all %>% distinct(paper_id, published)
+years.data <- data.all %>% dplyr::distinct(paper_id, published)
 years.plot <- ggplot(years.data,aes(published)) + geom_bar(fill=pal[1]) + labs(x="Year published", y="Number of studies") + theme_cowplot(font_size=12,font_family = "sans")
 
 years.plot
@@ -90,7 +90,7 @@ taxa.plot
 ## Model context
 ```{r}
 get_factor_proportion(data.all$species_type)
-data.models <- distinct(data.all,title, model_reuse, model_name, motivation, geographical_zone)
+data.models <- dplyr::distinct(data.all,title, model_reuse, model_name, motivation, geographical_zone)
 data.models$model_name <- addNA(data.models$model_name)
 data.models$model_reuse <- addNA(data.models$model_reuse)
 get_factor_proportion(data.models$model_reuse)
@@ -105,7 +105,7 @@ summary(data.all$date_end)
 
 ## How connectivity studies are parametising the physical model
 ```{r}
-data.models <- distinct(data.all,title, physical_model, nested_submodels,model_resolution_min, model_integration, model_time_step)
+data.models <- dplyr::distinct(data.all,title, physical_model, nested_submodels,model_resolution_min, model_integration, model_time_step)
 data.models$physical_model <- addNA(data.models$physical_model)
 data.models$nested_submodels <- addNA(data.models$nested_submodels)
 data.models$model_integration <- addNA(data.models$model_integration)
@@ -227,7 +227,7 @@ Figure 3: Percentage of models over time (fish and inverts)
 ```{r}
 data.all$published <- as.factor(data.all$published)
 papers.comparisons <- data.all %>% gather(behaviours, implemented,passive_movement,movement,directed_swimming, sensory_ability)
-papers.comparisons <- papers.comparisons %>% distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
+papers.comparisons <- papers.comparisons %>% dplyr::distinct(paper_id,published,behaviours,implemented,species_type) %>% filter(implemented == TRUE) %>% mutate(is_fish = species_type == 'Fish') %>% mutate(is_invert = species_type != 'Fish' & species_type != 'Generic' & species_type != 'Macroalgae') %>%
   mutate(taxa = if_else(is_fish == TRUE & is_invert == FALSE, 'Fish', if_else(is_invert == TRUE, 'Invertebrate', 'NA'))) %>% filter( taxa == 'Fish' | taxa == 'Invertebrate')
 
 comparisons.plot <- ggplot(papers.comparisons, aes(published)) + geom_bar(aes(fill = behaviours)) +labs( x = "", y = "Number of studies") +theme_cowplot(font_size=12,font_family = "sans")+ theme(legend.title = element_blank(), legend.position = "top",legend.key.size = unit(5,'mm'),axis.text.x=element_text(angle=90)) +  scale_fill_manual(values=pal,breaks=c("passive_movement","movement","sensory_ability","directed_swimming"), labels = c("Passive", "Movement", "Settlement", "Orientation")) + facet_grid(taxa ~ .)+ annotate(geom = "text", x = 1, y = 21, label = c("a","b")) + guides(fill=guide_legend(nrow=2,byrow=TRUE)) 
@@ -363,6 +363,12 @@ data.models.sr <- data.all %>% filter(self_recruitment_mean  > 0) %>% group_by(m
 data.models.lr <- data.all %>% filter(local_retention_mean  > 0) %>% group_by(model_name) %>% filter(n() > 1)%>% filter(model_name != 'NA')
 data.models.dd <- data.all %>% filter(distance_travelled_mean  > 0) %>% group_by(model_name) %>% filter(n() > 1) %>% filter(model_name != 'NA')
 
+data.physical.models.ss <- data.all %>% filter(settlement_success_mean  > 0) %>% group_by(physical_model) %>% filter(n() > 1) %>% filter(physical_model != 'NA')
+data.physical.models.sr <- data.all %>% filter(self_recruitment_mean  > 0) %>% group_by(physical_model) %>% filter(n() > 1) %>% filter(physical_model != 'NA')
+data.physical.models.lr <- data.all %>% filter(local_retention_mean  > 0) %>% group_by(physical_model) %>% filter(n() > 1)%>% filter(physical_model != 'NA')
+data.physical.models.dd <- data.all %>% filter(distance_travelled_mean  > 0) %>% group_by(physical_model) %>% filter(n() > 1) %>% filter(physical_model != 'NA')
+
+
 
 model.plot1 <- ggplot(data.models.lr,aes(model_name,local_retention_mean))+ labs(y="Local retention (%)", x=
 "BDM") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
@@ -376,10 +382,10 @@ save_plot("../../figs/bdm-models.png",plot=model.p, nrow=2,ncol=2)
 
 
 
-physical.plot1 <- ggplot(data.physical.lr,aes(physical_model,local_retention_mean)) + labs(y="Local retention (%)", x="Hydrodynamic model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) + coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
-physical.plot2 <- ggplot(data.physical.sr,aes(physical_model,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="Hydrodynamic model") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
-physical.plot3 <- ggplot(data.physical.ss,aes(physical_model,settlement_success_mean))+ labs(y="Settlement success (%)", x="Hydrodynamic model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
-physical.plot4 <- ggplot(data.physical.dd,aes(physical_model,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="Hydrodynamic model") + geom_boxplot() + coord_flip()+ theme_cowplot(font_size=10,font_family = "sans")
+physical.plot1 <- ggplot(data.physical.models.lr,aes(physical_model,local_retention_mean)) + labs(y="Local retention (%)", x="Hydrodynamic model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) + coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+physical.plot2 <- ggplot(data.physical.models.sr,aes(physical_model,self_recruitment_mean)) + labs(y="Self-recruitment (%)", x="Hydrodynamic model") +geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+physical.plot3 <- ggplot(data.physical.models,aes(physical_model,settlement_success_mean))+ labs(y="Settlement success (%)", x="Hydrodynamic model") + geom_boxplot() + scale_y_continuous(limits = c(0, 1.0)) +coord_flip() + theme_cowplot(font_size=10,font_family = "sans")
+physical.plot4 <- ggplot(data.physical.models,aes(physical_model,distance_travelled_mean))+ labs(y="Dispersal distance (km)", x="Hydrodynamic model") + geom_boxplot() + coord_flip()+ theme_cowplot(font_size=10,font_family = "sans")
 physical.p <- plot_grid(physical.plot1,physical.plot2,physical.plot3,physical.plot4, ncol=2, labels = "auto")
 physical.p
 save_plot("../../figs/physical-physical.png",plot=physical.p, nrow=2,ncol=2)
