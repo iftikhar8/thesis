@@ -63,10 +63,10 @@ The seven reef-associated families comprised 2827 fish in total (a subset of 413
 
 | Family        | Preflexion | Flexion | Postflexion | Total | Coastal | Eddy | Standard length (mm) |
 |:--------------|:----------:|:-------:|:-----------:|:-----:|:-------:|:----:|:--------------------:|
-| Labridae      |    273     |   383   |     596     | 1252  |   416   | 836  |    5.91 (± 2.79)     |
+| Labridae      |    268     |   379   |     595     | 1242  |   412   | 830  |    5.93 (± 2.80)     |
 | Mullidae      |    123     |   61    |     60      |  244  |   81    | 163  |    7.44 (± 6.31)     |
 | Pomacentridae |    102     |   84    |      8      |  194  |   107   |  87  |    3.88 (± 1.50)     |
-| Scaridae      |     9      |   126   |     93      |  228  |   58    | 170  |    5.90 (± 1.75)     |
+| Scaridae      |     9      |   126   |     94      |  229  |   58    | 170  |    5.90 (± 1.74)     |
 | Scorpaenidae  |     50     |   56    |     70      |  176  |   48    | 128  |    5.15 (± 2.16)     |
 | Serranidae    |    469     |   107   |     17      |  593  |   321   | 272  |    3.32 (± 1.47)     |
 | Synodontidae  |     63     |   39    |     38      |  140  |   64    |  76  |    10.35 (± 6.53)    |
