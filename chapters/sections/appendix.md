@@ -5,7 +5,7 @@
 ### A1. Methods
 
 List of references used in the meta-analysis can be found at doi: http://doi.org/10.4227/11/5af51a29f9e6a
-File: chapter-2-meta-analysis-refs.rtf
+File: chapter-2-meta-analysis-refs.pdf
 
 PAGEBREAK
 
