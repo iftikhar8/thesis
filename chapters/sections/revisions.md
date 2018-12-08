@@ -470,6 +470,19 @@ The apparent misidentification in figure 3.2 of a myctophid as a labrid - a misi
 
 Unfortunately, small scarids are also easily confused with small myctophids, but unlike with the labrids, there is no evidence within this thesis that this is problem here (i.e., no figure showing images of putative scarid larvae).
 
+TONY's final figures:
+
+Labridae: 1324
+Mullidae: 247
+Scaridae: 239
+Scorpaendae. 247
+Pomacentrids: 207
+Serranidae 700
+Synodontidae 146
+
+After going through the data photos, I showed tony 53 photos of larval fish that I deemed that I was not 100% confident about and he identifed 4 mychtophids, 1 cirrilidae, 2 pseudochromids and 1 unknown amongst the photos.
+
+
 *Response:* Yes that was a misidentification in that photo on my part (it came from a sample not used in the analysis). The final identifications used in the analysis were performd by Tony Miskiewicz and another PhD student Val (all of Val's identification were doubled checked by Miskiewicz). There were  a high number of Labrids sampled in this voyage - to quote Tony from email correspondence "Labrids were abundant in the samples and I check all of Val's IDs so I am happy to state this in your reply to Jeffs comments".
 
 I have revisited all of the photos of the larval fish use in my analyses and double-checked the identifications. Where I have had some doubt I got Tony Miskiewicz to double-check the identification in the photographs. I found four of them turned out to be psuedochromids upon closer inspection (dorsal series of melanophores), one myctophid, and two unknowns (slightly damaged fish that were not labrids as identified by Tony). Therefore I re-ran the analyses with this reduced dataset, which did not change the overall patterns seen for OVM.
@@ -726,17 +739,81 @@ plots, and text descriptions and the key messages get lost in the overall covera
 
 #### Reviewer 1
 
+This chapter utilises the model from Chapter 4 and relevant empirical data from Chapter 3 to develop and implement a BDM for black cod, an endangered reef fish in the SW Pacific Ocean. The purpose of the study was to investigate patterns of connectivity across the species known range in Australia and to assess the extent to which current MPAs are likely to offer sufficient protection for this species’ populations to recover. It also aimed to determine where there may be key areas where protect would be beneficial from a connectivity perspective. I liked this chapter and while there are some minor issues to fix up, which I have annotated on the PDF, there are just a few points for consideration in the context of submission for publication.
+
+**Comment 1:** Similar to Chapter 4, the results are pretty challenging to wade through. I would encourage you to come up with specific questions that you want the model runs to be used to answer, instead of feeling obligated to go through everything.
+*Response:* TODO
+
+**Comment 2:** Evaluation MPA efficacy from a connectivity perspective alone is somewhat limiting. Getting more of a landscape or metapopulation perspective would be helpful, such as identifying key nodes in the network, or generating estimates of metapopulation growth or capacity. This would also provide a context for stronger arguments for identifying other key areas in need of protection (i.e., would recovery be enhanced if the following areas were added into a MPA network)?
+*Response:* TODO
+
+**Comment 3:** My main concern with this paper relates to impacts of model resolution of connectivity outcomes. The fact that the offshore locations were much more dispersive than the coastal locations is likely due to differences in the ability of the model to capture hydrodynamics that influence larval transport. For example, the scales over which retention might be possible around Lord Howe or E&M are largely subgrid phenomenon (given the 10km model resolution) whereas coastal boundary currents are likely to be captured reasonably well at this scale. However, there are still likely coastal circulations (counter-currents) that this model may still be missing (and so you’re missing some of the capacity for northward connections along the NSW coast). Without any verification/validation of the physics and the relevant scale, or empirical data to support whether connectivity predictions are at least qualitatively similar to empirical estimates, then these are still just predictions. Given the focus of this chapter is on the conservation issues related to a threatened
+species, it’s important that the appropriate caveats are placed on the model outcomes.
+*Response:* TODO
+
 #### Reviewer 2
 
+The overall idea and questions behind this chapter is both interesting and useful. However, the analyses associated with the first aim had a scatter-gun approach to them that stood in contrast to these clear questions. There were ordinations and modularity calculations that weren’t really coupled to any specific question, and it felt like you were just exploring (this feeling was strengthened by your stated aim to “[evaluate] the connectivity patterns over spatial and temporal variation” For what? Why?). The problem with exploring connectivity matrices is that they’re too multidimensional for it ever to give conclusive insights into structure and dynamics. Most analyses could be interpreted in a number of ways, and the few that give really strong signals may just be the result of random chance (applying enough analyses to enough dimensions of the data).
+
+The second aim was more clear, and more easily evaluated. Does your BPM predict that marine reserves are self-connected, and/or inter-connected. I actually think that this is only half the question – I would be more interested in knowing what the current MPA network can achieve. Is it big enough to support recovery? How much bigger should it be to deliver recovery under particular assumptions? Nevertheless, this is a more direct, specific and comprehensible question. It think the chapter answers it well. I think the chapter (and the paper it creates) will been better spent digging into this particular questiuon, with less time spent analysing the patterns themselves.
+
+Overall, I thought the chapter didn’t have enough caveats and self-criticisms. I wanted a little more skepticism about whether an unvalidated model can be trusted at the spatiotemporal scales being considered. It also might have been worth mentioning that the conclusions of the BMP modelling exercise don’t look very different from what you’d expect from first principles (e.g., at the broad spatial scales of the regions, most dispersal is back to the local population, and then to the two adjacent populations). This is half reassuring (the model isn’t returning unbelievable results), but also faintly questions why one would go to the extensive effort of parameterised BPM modelling. Some discussion of this point would have been welcome.
+
+Finally, this wasn’t the best edited chapter in the thesis. Below is a sample of the problems. None are really problems, but they did make it a little hard to follow in small areas.
+
+“While each community contained marine protected areas (and no-take areas), areas, where additional protection might be beneficial, were identified in the northern and central communities with strong settlement success, high local retention and strong stable settlement.” This statement appears to be missing key words.
+
+“Listed as a threatened species since 1983, due to population declines from fishing pressure throughout the 20th century.” This sentence is incomplete.
+
+“Connected spatially structured populations are called metapopulations.” This is not precisely correct.
+
+“For marine species, this connectivity often occurs primarily during a pelagic larval stage and is true of many reef fish.” This sentence is phrased poorly.
+
+“For MPAs to be effective for a species, there must be connectivity between the protected areas and strong local retention within the protected areas.” This should read “and/or”.
+
+“adequate protection of high-quality habitat, i.e. carrying capacity.” This is an ambiguous sentence. You’re stating that something in the preceding sentence means “carrying capacity”, but nothing really does.
+
 #### Reviewer 3
+
+Chapter 4 was all about seeing what different inputs would produce with a given model, and did not really require that the model provide realistic – or even testable – results. However, when used in the way the model is used in chapter 5, realism is of the essence. Can the author provide any sound argument as to why the results should be taken at face value, and management based upon them?
 
 ### Minor recommendations
 
 #### Reviewer 1
 
+**Comment 1:** References should be chronological. There are several instances throughout the thesis where this isn't the case.
+*Response:* Yes there was an issue with the CSL generating the citations, which has now been fixed.
+
+**Comment 2:** Said this already.
+*Response:* Clarified in comment: Minor 1502.
+
 #### Reviewer 2
 
 #### Reviewer 3
+
+**Comment 1:** Or at least swim in an orientated manner, even if it is not toward a settlement site throughout ontogeny
+*Response:* Clarified in comment: Minor 3501.
+
+**Comment 2:** This was taken from reared larvae, and in general, reared larvae have longer PLDs and therefore developmental stages than do larvae of the same species in the field.  This should be acknowledged.  How might this influence your conclusions, if, for example, the PLD was 30 or 40 days rather than 60?
+*Response:* Clarified in comment: Minor 3502.
+
+**Comment 3:** Is there really sound evidence that BRC spawn this far south?
+*Response:* No, but the idea was to evalutate the predicted dispersal across its known distribution. Not enough is known about where it does spawn and therefore it was better not to rule places out it is known to be found.
+
+**Comment 4:** or any number of other speculative factors.  You are trying to compare larval dispersal to connectivity, and the two are not the same
+*Response:* TODO
+
+**Comment 5:** did you really have any expectation that it could be 'accurate'?  Note that you had no information on the behaviour of BRC as opposed to other serranids, and you did not even use some of the information on other species of Epinephelus that does exist.
+*Response:* TODO
+
+**Comment 6:** ounds like this was written by Donald Rumsfeld
+*Response:* TODO
+
+**Comment 7:** although there is no indication that BRC populations are recovering since protection was instituted in NSW. - in the 1980s, I believe
+*Response:* TODO
+
+**Comment 8:** of course, if the problem is post-settlement survival for any number of possible reasons, then this will do no good.  The point is, there are many other factors that can influence population recovery
+*Response:* TODO
 
 ## Discussion
 
@@ -755,7 +832,7 @@ plots, and text descriptions and the key messages get lost in the overall covera
 **Comment 4:** It's also worth talking about how what you observed off the NSW coast at the time of year you sampled could have influenced your findings. How structured was the water column and how does this compare to other studies of vertical larval distributions? 
 *Response:* Addressed the temporal variation in comment: Minor 1604. Comparisons of water column were added to the data chapter in TODO
 
-**Comment 5:** This conclusion is going to be very sensitive to the speeds used, how they change with ontogeny, and what decision rules are used for their implementation. Given this, it would be good to review your scheme versus others (not just the two studies you cite) and compare the implementations and outcomes of those decisions. One of the worst papers I ever read was one with Wolanski, where the OHS implemenation was so strong that all larvae could go wherever they wanted so the decision rule implemented completely dominated the model outcome!
+**Comment 5:** This conclusion is going to be very sensitive to the speeds used, how they change with ontogeny, and what decision rules are used for their implementation. Given this, it would be good to review your scheme versus others (not just the two studies you cite) and compare the implementations and outcomes of those decisions. One of the worst papers I ever read was one with Wolanski, where the OHS implementation was so strong that all larvae could go wherever they wanted so the decision rule implemented completely dominated the model outcome!
 *Response:* Added a paragraph about other implementations and the differences in swimming implementations, see comment Minor 1605.
 
 **Comment 6:** Yes, but swimming is used for many things and probably more related to predator-prey interactions than dispersal. We are far from being able to implement directional swimming behaviour in models with a level of realism!
