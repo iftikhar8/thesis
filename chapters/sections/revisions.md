@@ -32,37 +32,37 @@ PAGEBREAK
 #### Reviewer 1
 
 **Comment 1:** Very minor point by ichthyoplankton disperse and when this results in settlement into another population results in the populations being connected (i.e. larvae are not connected, populations are!).
-*Response:* Clarified in comment Minor1101.
+*Response:* Clarified in comment Minor 1101.
 
 **Comment 2:** (Mortality) Some recent studies by Will White and Darren Johnson suggest this estimate might be a bit high....
-*Response:* Clarified by mentioning the range in estimated larval survivorship in comment Minor1102.
+*Response:* Clarified by mentioning the range in estimated larval survivorship in comment Minor 1102.
 
 **Comment 3:** (Settlement competency) Worth describing this in more detail, particularly in relation to settlement competency, given that it is a larval trait that has been shown to influence connectivity predictions from BDMs.
-*Response:* Clarified in comment Minor1103.
+*Response:* Clarified in comment Minor 1103.
 
 **Comment 4:** (Spawning on dispersal) I agree that it's important but I don't think there is sufficient evidence to suggest it's more important that other traits such as PLD and mortality rate.
-*Response:*: Clarified the statement to make it clear it is one of several processes in comment Minor1104.
+*Response:*: Clarified the statement to make it clear it is one of several processes in comment Minor 1104.
 
 **Comment 5:** (Ocean processes) Seems contradictory to what you've just said. Need to clarify.
-*Response:*: Clarified to ensure it relates to only the physical processes in comment Minor1105.
+*Response:*: Clarified to ensure it relates to only the physical processes in comment Minor 1105.
 
 **Comment 6:** (Length of PLD) Need to explain how.
-*Response:*: Clarified that is allows the larvae more time to choose where to settle in comment Minor1106
+*Response:*: Clarified that is allows the larvae more time to choose where to settle in comment Minor 1106
 
 **Comment 7:** (Recruiting with siblings) This could be a physical process (although I agree that it's more likely to be behavioural)...
-*Response:* Clarified that it is more of a potential source of evidence in comment Minor1107.
+*Response:* Clarified that it is more of a potential source of evidence in comment Minor 1107.
 
 **Comment 8:** This paragraph is a bit of a list of traits without much connectivity (excuse the pun!). It could use with a bit of a rewrite to improve flow.
-*Response:* I refocused the paragraph to be on dispersal, more so than connectivity. And then I fleshed out the next paragraph on the benefits of connectivity, see comment Minor1108.
+*Response:* I refocused the paragraph to be on dispersal, more so than connectivity. And then I fleshed out the next paragraph on the benefits of connectivity, see comment Minor 1108.
 
 **Comment 9:** This section is pretty underdeveloped. There is a rich literature on the value of connectivity in assessing MPA network performance and recent modeling and empirical data to support this. This section should be fleshed out more to help bolster the value of this sort of information to inform MPA planning.
-*Response:* Expanded the section (and added more references) to contain more information on the design and planning on MPAs using connectivity, see comment Minor1109.
+*Response:* Expanded the section (and added more references) to contain more information on the design and planning on MPAs using connectivity, see comment Minor 1109.
 
 **Comment 10:** There have been quite a few reviews of these methods, none of which have been referenced, which is surprising. There is quite a lot of discussion of the strength and weaknesses of different approaches and over what spatial and temporal scales they are most suited to. A more critical analysis of this literature and a stronger argument made for why a BDM approach was most appropriate in the context of this thesis would make for a more compelling introduction to the thesis.
-*Response:* Addressed this be restructuring the paragraph to make the argument in the final paragraph. Also included more information on the benefits of using BDMs, see comment Minor1110.
+*Response:* Addressed this be restructuring the paragraph to make the argument in the final paragraph. Also included more information on the benefits of using BDMs, see comment Minor 1110.
 
 **Comment 11:** Don't think this contributes much as it's all rehashed in more detail in the following paragraphs in this section.
-*Response:* Deleted and restructured the text, see comment Minor1111.
+*Response:* Deleted and restructured the text, see comment Minor 1111.
 
 #### Reviewer 2
 
@@ -81,43 +81,43 @@ PAGEBREAK
 #### Reviewer 3
 
 **Comment 1:** For fishes, not really sessile, which implies no movement post-settlement, but rather of limited post-settlement movement (site-attached in many cases), particularly compared to the pelagic stage
-*Response:* Clarified in comment Minor3101
+*Response:* Clarified in comment Minor 3101
 
 **Comment 2:** This ref deals only with the morphology.You need refs for habitat and behaviour
-*Response:* Added reference from edited book on reef fish ecology relating to habitat and behaviour. See comment Minor312.
+*Response:* Added reference from edited book on reef fish ecology relating to habitat and behaviour. See comment Minor 312.
 
 **Comment 3:** (Fecundity) Life-time? Annual? Spawning episode?
-*Response:* Clarified in comment Minor3103.
+*Response:* Clarified in comment Minor 3103.
 
 **Comment 4:** Even the smallest larvae have some swimming ability, but it is generally only postflexion stages that have meaningful swimming abilities in the context of dispersal
-*Response:* Clarified in comment Minor3104.
+*Response:* Clarified in comment Minor 3104.
 
 **Comment 5:** And how do you define the start of the juvenile stage?
-*Response:* Clarified in comment Minor3105.
+*Response:* Clarified in comment Minor 3105.
 
 **Comment 6:** (PLD) You have a contradiction here - if the larvae turn into juveniles before they settle - all depends on how you define juvenile. You are mixing morphological and ecological definitions, which always confuses people. Best to define end of PLD as when settlement occurs (not when the larvae settle)
-*Response:* Clarified in comment Minor3106.
+*Response:* Clarified in comment Minor 3106.
 
 **Comment 7:** (PLD) the PLD or the settlement stage?
-*Response:* Clarified in comment Minor3107.
+*Response:* Clarified in comment Minor 3107.
 
 **Comment 8:** (PLD) but not at higher taxonomic levels!
-*Response:* Clarified in comment Minor3108.
+*Response:* Clarified in comment Minor 3108.
 
 **Comment 9:** (PLD) also, things like food supply and temperature have an effect, which is perhaps what you mean by physiological limitations. There are also likely to be genetic factors that differ among individuals involved
-*Response:* Clarified in comment Minor3109.
+*Response:* Clarified in comment Minor 3109.
 
 **Comment 10:** (Processes) some may disagree - what about behaviour, mortality, etc? Unless, of course, one assumes passive dispersal
-*Response:* Addressed in comment Minor1104.
+*Response:* Addressed in comment Minor 1104.
 
 **Comment 11:** What is a contributing process?
-*Response:* Clarified in comment Minor3111.
+*Response:* Clarified in comment Minor 3111.
 
 **Comment 12:** or, put differently, PLD has not proved to be a robust predictor of dispersal distance
-*Response:* Clarified in comment Minor3112
+*Response:* Clarified in comment Minor 3112
 
 **Comment 13:** (Ichthyoplankton) use of the word plankton, even in combination bears the inherent implication of passivity wrt swimming. Suggest you avoid use of the term in the context of this thesis and dispersal
-*Response:* Point taken that planktonic = passive, removed the references to ichthyoplankton. Clarified in comment Minor3113, but also across the entire thesis.
+*Response:* Point taken that planktonic = passive, removed the references to ichthyoplankton. Clarified in comment Minor 3113, but also across the entire thesis.
 
 **Comment 14:** Pelagic environment is a better term rather than 'plankton'. Some may argue that pelagic=oceanic, but it does not. It simply means in the water column with no implication of where or what the swimming abilities of the animal are
 *Response:* Clarified in comment: Minor 3114.
@@ -841,7 +841,7 @@ species, it’s important that the appropriate caveats are placed on the model o
 #### Reviewer 1
 
 **Comment 1:** Given this justification, it would have been interesting for you to evaluate this literature as to whether they actually followed the guidelines! My guess is that most haven't.
-*Response:*: TODO
+*Response:*: Clarified in comment: Minor 1601.
 
 **Comment 2:** What's important is to include complexity that is biological realistic and then to test how sensitive model outcomes are to parameter values. Building a fully complex model to investigate which aspects of biology or behaviour are important can then help drive where the key research needs are in terms of getting realistic parameter values. This is what we need more of.*Response:* Clarified in comment: Minor 1602.
 
@@ -849,7 +849,7 @@ species, it’s important that the appropriate caveats are placed on the model o
 *Response:* Added a line for the possible explanation of interactions, see the comment: Minor 1603.
 
 **Comment 4:** It's also worth talking about how what you observed off the NSW coast at the time of year you sampled could have influenced your findings. How structured was the water column and how does this compare to other studies of vertical larval distributions? 
-*Response:* Addressed the temporal variation in comment: Minor 1604. Comparisons of water column were added to the data chapter in TODO
+*Response:* Addressed the temporal variation in comments: Minor 1604. Comparisons of water column were added to the data chapter in Chapter 3 (Minor 1604.)
 
 **Comment 5:** This conclusion is going to be very sensitive to the speeds used, how they change with ontogeny, and what decision rules are used for their implementation. Given this, it would be good to review your scheme versus others (not just the two studies you cite) and compare the implementations and outcomes of those decisions. One of the worst papers I ever read was one with Wolanski, where the OHS implementation was so strong that all larvae could go wherever they wanted so the decision rule implemented completely dominated the model outcome!
 *Response:* Added a paragraph about other implementations and the differences in swimming implementations, see comment Minor 1605.
@@ -882,7 +882,7 @@ species, it’s important that the appropriate caveats are placed on the model o
 *Response:* Clarified in comment: Minor 3601.
 
 **Comment 2:** conspecifics are members of the same species. What better value could one want than that?
-*Response:* Yes, clarified to mean at the genus and family level, see comment Minor3602.
+*Response:* Yes, clarified to mean at the genus and family level, see comment Minor 3602.
 
 **Comment 3:** this doesn't limit uncertainty - it ignores reality!
 *Response:* Yes I wholeheartedly agree with this sentiment. Clarified in comment: Minor 3603.
@@ -897,22 +897,22 @@ species, it’s important that the appropriate caveats are placed on the model o
 *Response:* Clarified in comment: Minor 3606.
 
 **Comment 7:** I think you mean to say that eddies contain older larvae of coastal fishes than do waters over the continental shelf for the simple reason that, once off the shelf, the eddies receive no further input of young larvae.
-*Response:* Yes, I added the entrainment explanation, see comment Minor3607.
+*Response:* Yes, I added the entrainment explanation, see comment Minor 3607.
 
 **Comment 8:** location and timing of spawning are also behaviours
-*Response:* Clarified that I was talking about movement behaviours, see comment Minor3608.
+*Response:* Clarified that I was talking about movement behaviours, see comment Minor 3608.
 
 **Comment 9:** on the other hand, your incorporation of swimming ability included quite a few assumptions
-*Response:* True, removing some assumptions can inevitably create more, you hope the assumptions have less effect on the modelled outcome, see comment Minor3609.
+*Response:* True, removing some assumptions can inevitably create more, you hope the assumptions have less effect on the modelled outcome, see comment Minor 3609.
 
 **Comment 10:** somewhere in this section you need to clearly state that your conclusions can only be considered to apply to the region for which the model was built, or at best, for other similar locations (western boundary currents)
-*Response:* Clarified in comment Minor3610.
+*Response:* Clarified in comment Minor 3610.
 
-**Comment 11:** major limitation that should have been highlighted previously
-*Response:* TODO: Put in the other chapter.
+**Comment 11:** Major limitation that should have been highlighted previously
+*Response:* Limitations about the model resolution and lack of nearshore processes captured were added to Chapter 5.
 
 **Comment 12:** I think you also used information from reared larvae, which is going to be different (ie, much longer for each developmental stage and for PLD) that for what happens in the wild
-*Response:* Clarified in the statement Minor3612 (and in Chapter TODO)
+*Response:* Clarified in the statement Minor 3612 (and in Chapter 5)
 
 **Comment 13:** assumptions will always be required, but we can hope that as time passes, they will become fewer, and more soundly based.
 *Response:* Clarified in comment: Minor 3613.
