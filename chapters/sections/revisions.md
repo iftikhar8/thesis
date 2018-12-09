@@ -798,22 +798,25 @@ Chapter 4 was all about seeing what different inputs would produce with a given 
 *Response:* Clarified in comment: Minor 3502.
 
 **Comment 3:** Is there really sound evidence that BRC spawn this far south?
-*Response:* No, but the idea was to evalutate the predicted dispersal across its known distribution. Not enough is known about where it does spawn and therefore it was better not to rule places out it is known to be found.
+*Response:* No, but the idea was to evaluate the predicted dispersal across its known distribution. Not enough is known about where it does spawn and therefore it was better not to rule places out it is known to be found.
 
-**Comment 4:** or any number of other speculative factors.  You are trying to compare larval dispersal to connectivity, and the two are not the same
-*Response:* TODO
+**Comment 4:** Or any number of other speculative factors.  You are trying to compare larval dispersal to connectivity, and the two are not the same
+*Response:* Clarified in comment: Minor 3504.
 
-**Comment 5:** did you really have any expectation that it could be 'accurate'?  Note that you had no information on the behaviour of BRC as opposed to other serranids, and you did not even use some of the information on other species of Epinephelus that does exist.
-*Response:* TODO
+**Comment 5:** Did you really have any expectation that it could be 'accurate'?  Note that you had no information on the behaviour of BRC as opposed to other serranids, and you did not even use some of the information on other species of Epinephelus that does exist.
+*Response:* Yes this language was a bit strong. Clarified in comment: Minor 3505.
 
-**Comment 6:** ounds like this was written by Donald Rumsfeld
-*Response:* TODO
+**Comment 6:** Sounds like this was written by Donald Rumsfeld
+*Response:* Ha. I have tried to make it clearer, with less referreals to known and unknowns. Clarified in comment: Minor 3506.
 
 **Comment 7:** although there is no indication that BRC populations are recovering since protection was instituted in NSW. - in the 1980s, I believe
-*Response:* TODO
+*Response:* Clarified in comment: Minor 3507.
 
 **Comment 8:** of course, if the problem is post-settlement survival for any number of possible reasons, then this will do no good.  The point is, there are many other factors that can influence population recovery
-*Response:* TODO
+*Response:* Clarified in comment: Minor 3508.
+
+**Comment 9:** Predicted used as an adjective is needed throughout this secion whenever dispersal, settlement or recruitment are being discussed
+*Response:* I have gone through the text and clarified this in across all sections, particulary the discussion section.
 
 ## Discussion
 

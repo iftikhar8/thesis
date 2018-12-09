@@ -167,3 +167,19 @@ PAGEBREAK
 ![Dispersal kernels of distance (km) for the settled *Epinephelus daemelii* larvae over the years 2004-2011 along their known distribution.](chapters/applied/figs/blackcod-dk.png)
 
 PAGEBREAK
+
+### Figure C2.
+
+![Average (vertical bar) values for all modelled years for settlement richness (A) and settlement diversity (B) for each of the 19 source regions from which *Epinephelus daemelii* larvae were released in the dispersal model. Boxes enclose ± 1 S.D., and whiskers indicate min/max values of the distribution.](chapters/applied/figs/diversity-regions.png)
+
+Settlement richness differed between regions, showing similar patterns to the other connectivity metrics (F~(18,126)~ = 7.12, p < 0.05; Figure C2 A). The mean number of regions settled each year over the time series ranged from 6.75 at Newcastle, up to 15.25 for EM Reefs. The central source regions of NSW had the lowest richness values. Port Macquarie had the highest richness of the source regions along the coast. Annual variation of settlement richness occurred in all regions but was larger for the southern and offshore source regions. The diversity also differed between regions; however, it showed a different pattern than richness (F~(18,126)~ = 24.85, p < 0.05; Figure C2 B), declining from regions Tweed to Nambucca, and a more random pattern from Port Macquarie to Eden. Diversity was highest at Lord Howe Island, with the next group identified by post-hoc tests being EM Reefs, Tweed, and Byron. The offshore reefs had the largest variation of diversity, suggesting a strong effect of year in these regions, and Port Macquarie had the highest variation amongst the coastal regions. The diversity of settlement patterns from Sydney and Crowdy Bay exhibited the least annual variation.
+
+PAGEBREAK
+
+### Figure C3
+
+![Average (vertical bar) values for all modelled years for settlement richness (A) and settlement diversity (B) for each year (2004-2011) from which *Epinephelus daemelii* larvae were released in the dispersal model. Boxes enclose ± 1 S.D. and whiskers indicate  min/max values of the distribution.](chapters/applied/figs/diversity-years.png)
+
+Annual variation of settlement richness was found amongst the connectivity patterns (F~(7,126)~ = 5.79, p < 0.05; Figure C3 A). Settlement richness was lowest in the years 2008, 2011, and 2006, and peaked in 2007; however, the variation between years was minimal. The settlement diversity was also different between years, but with less variation than the richness (F~(7,126)~ = 3.81, p < 0.05; Figure C3 B). The years of highest diversity were 2010 and 2004, and the lowest was 2005, 2011, 2008 and 2006.
+
+PAGEBREAK
