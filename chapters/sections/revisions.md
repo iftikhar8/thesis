@@ -745,37 +745,33 @@ This chapter utilises the model from Chapter 4 and relevant empirical data from 
 *Response:* TODO
 
 **Comment 2:** Evaluation MPA efficacy from a connectivity perspective alone is somewhat limiting. Getting more of a landscape or metapopulation perspective would be helpful, such as identifying key nodes in the network, or generating estimates of metapopulation growth or capacity. This would also provide a context for stronger arguments for identifying other key areas in need of protection (i.e., would recovery be enhanced if the following areas were added into a MPA network)?
-*Response:* TODO
+*Response:* This is definitely a valid point and this is out of scope for this study, but is definitely the next step of the model - moving it from a dispersal model to a metapopulation model.
 
 **Comment 3:** My main concern with this paper relates to impacts of model resolution of connectivity outcomes. The fact that the offshore locations were much more dispersive than the coastal locations is likely due to differences in the ability of the model to capture hydrodynamics that influence larval transport. For example, the scales over which retention might be possible around Lord Howe or E&M are largely subgrid phenomenon (given the 10km model resolution) whereas coastal boundary currents are likely to be captured reasonably well at this scale. However, there are still likely coastal circulations (counter-currents) that this model may still be missing (and so you’re missing some of the capacity for northward connections along the NSW coast). Without any verification/validation of the physics and the relevant scale, or empirical data to support whether connectivity predictions are at least qualitatively similar to empirical estimates, then these are still just predictions. Given the focus of this chapter is on the conservation issues related to a threatened
 species, it’s important that the appropriate caveats are placed on the model outcomes.
-*Response:* TODO
+
+*Response:* Yes, I agree with this statement, there are several caveats to the model, from model resolution to nt caputring post-settlement processes. I have added a limitations section to the discussion to caveat the predictions of this model and place them in a better context. Clarified in comment: Major 1503.
 
 #### Reviewer 2
 
-The overall idea and questions behind this chapter is both interesting and useful. However, the analyses associated with the first aim had a scatter-gun approach to them that stood in contrast to these clear questions. There were ordinations and modularity calculations that weren’t really coupled to any specific question, and it felt like you were just exploring (this feeling was strengthened by your stated aim to “[evaluate] the connectivity patterns over spatial and temporal variation” For what? Why?). The problem with exploring connectivity matrices is that they’re too multidimensional for it ever to give conclusive insights into structure and dynamics. Most analyses could be interpreted in a number of ways, and the few that give really strong signals may just be the result of random chance (applying enough analyses to enough dimensions of the data).
+**Comment 1:** The overall idea and questions behind this chapter is both interesting and useful. However, the analyses associated with the first aim had a scatter-gun approach to them that stood in contrast to these clear questions. There were ordinations and modularity calculations that weren’t really coupled to any specific question, and it felt like you were just exploring (this feeling was strengthened by your stated aim to “[evaluate] the connectivity patterns over spatial and temporal variation” For what? Why?). The problem with exploring connectivity matrices is that they’re too multidimensional for it ever to give conclusive insights into structure and dynamics. Most analyses could be interpreted in a number of ways, and the few that give really strong signals may just be the result of random chance (applying enough analyses to enough dimensions of the data).
 
-The second aim was more clear, and more easily evaluated. Does your BPM predict that marine reserves are self-connected, and/or inter-connected. I actually think that this is only half the question – I would be more interested in knowing what the current MPA network can achieve. Is it big enough to support recovery? How much bigger should it be to deliver recovery under particular assumptions? Nevertheless, this is a more direct, specific and comprehensible question. It think the chapter answers it well. I think the chapter (and the paper it creates) will been better spent digging into this particular questiuon, with less time spent analysing the patterns themselves.
+*Response:* I have tried to clarify the aims and caveat the results. Also I attemped to organise the results and discussion in a more logical structure. Of course the results are still mostly qualitative over quantitative due to the nature of the modelling, so much data inevitably will give you some statistical significance. Clarified in comment: Major 2501.
 
-Overall, I thought the chapter didn’t have enough caveats and self-criticisms. I wanted a little more skepticism about whether an unvalidated model can be trusted at the spatiotemporal scales being considered. It also might have been worth mentioning that the conclusions of the BMP modelling exercise don’t look very different from what you’d expect from first principles (e.g., at the broad spatial scales of the regions, most dispersal is back to the local population, and then to the two adjacent populations). This is half reassuring (the model isn’t returning unbelievable results), but also faintly questions why one would go to the extensive effort of parameterised BPM modelling. Some discussion of this point would have been welcome.
+**Comment 2:** The second aim was more clear, and more easily evaluated. Does your BPM predict that marine reserves are self-connected, and/or inter-connected. I actually think that this is only half the question – I would be more interested in knowing what the current MPA network can achieve. Is it big enough to support recovery? How much bigger should it be to deliver recovery under particular assumptions? Nevertheless, this is a more direct, specific and comprehensible question. It think the chapter answers it well. I think the chapter (and the paper it creates) will been better spent digging into this particular questiuon, with less time spent analysing the patterns themselves.
 
-Finally, this wasn’t the best edited chapter in the thesis. Below is a sample of the problems. None are really problems, but they did make it a little hard to follow in small areas.
+*Response:* I agree - for a paper I would make it much more focused on the specific aims of marine protected areas. While understanding what the current MPA network can achieve is out of scope for this analysis - as it involves a metapopulation study, it is an interesting idea for a future direction and logical progession of this chapter.
 
-“While each community contained marine protected areas (and no-take areas), areas, where additional protection might be beneficial, were identified in the northern and central communities with strong settlement success, high local retention and strong stable settlement.” This statement appears to be missing key words.
+**Comment 3:** Overall, I thought the chapter didn’t have enough caveats and self-criticisms. I wanted a little more skepticism about whether an unvalidated model can be trusted at the spatiotemporal scales being considered. It also might have been worth mentioning that the conclusions of the BMP modelling exercise don’t look very different from what you’d expect from first principles (e.g., at the broad spatial scales of the regions, most dispersal is back to the local population, and then to the two adjacent populations). This is half reassuring (the model isn’t returning unbelievable results), but also faintly questions why one would go to the extensive effort of parameterised BPM modelling. Some discussion of this point would have been welcome.
 
-“Listed as a threatened species since 1983, due to population declines from fishing pressure throughout the 20th century.” This sentence is incomplete.
+*Response:* I added a limitations section and rewrote language to ensure that it was clear these dispersal patterns were indeed predictions and not accurate dispersal patterns. Clarified in comment: Major 2503.
 
-“Connected spatially structured populations are called metapopulations.” This is not precisely correct.
-
-“For marine species, this connectivity often occurs primarily during a pelagic larval stage and is true of many reef fish.” This sentence is phrased poorly.
-
-“For MPAs to be effective for a species, there must be connectivity between the protected areas and strong local retention within the protected areas.” This should read “and/or”.
-
-“adequate protection of high-quality habitat, i.e. carrying capacity.” This is an ambiguous sentence. You’re stating that something in the preceding sentence means “carrying capacity”, but nothing really does.
 
 #### Reviewer 3
 
-Chapter 4 was all about seeing what different inputs would produce with a given model, and did not really require that the model provide realistic – or even testable – results. However, when used in the way the model is used in chapter 5, realism is of the essence. Can the author provide any sound argument as to why the results should be taken at face value, and management based upon them?
+**Comment  1:** Chapter 4 was all about seeing what different inputs would produce with a given model, and did not really require that the model provide realistic – or even testable – results. However, when used in the way the model is used in chapter 5, realism is of the essence. Can the author provide any sound argument as to why the results should be taken at face value, and management based upon them?
+
+*Response:*  I have caveated that these results are mere predictions and not accurate patterns of dispersal. However, while they are only predictions, they still provide important estimations of dispersal that managers previously did not access to. A limitations section has bene added (along with changing the language of the paper) to put the modelled dispersal patterns into a clearer context. Clarified in comment: Major 3501.
 
 ### Minor recommendations
 
@@ -788,6 +784,24 @@ Chapter 4 was all about seeing what different inputs would produce with a given 
 *Response:* Clarified in comment: Minor 1502.
 
 #### Reviewer 2
+
+**Comment 1:** “While each community contained marine protected areas (and no-take areas), areas, where additional protection might be beneficial, were identified in the northern and central communities with strong settlement success, high local retention and strong stable settlement.” This statement appears to be missing key words.
+*Response:* Clarified in comment: Minor 2501.
+
+**Comment 2:** “Listed as a threatened species since 1983, due to population declines from fishing pressure throughout the 20th century.” This sentence is incomplete.
+*Response:* Clarified in comment: Minor 2502.
+
+**Comment 3:** “Connected spatially structured populations are called metapopulations.” This is not precisely correct.
+*Response:* Clarified in comment: Minor 2503.
+
+**Comment 4:** “For marine species, this connectivity often occurs primarily during a pelagic larval stage and is true of many reef fish.” This sentence is phrased poorly.
+*Response:* Clarified in comment: Minor 2504.
+
+**Comment 5:** “For MPAs to be effective for a species, there must be connectivity between the protected areas and strong local retention within the protected areas.” This should read “and/or”.
+*Response:* Clarified in comment: Minor 2505.
+
+**Comment 6:** “adequate protection of high-quality habitat, i.e. carrying capacity.” This is an ambiguous sentence. You’re stating that something in the preceding sentence means “carrying capacity”, but nothing really does.
+*Response:* Clarified in comment: Minor 2506.
 
 #### Reviewer 3
 
