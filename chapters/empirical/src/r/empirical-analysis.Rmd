@@ -22,7 +22,6 @@ library(multcomp)
 library(multcompView)
 library(stargazer)
 library(cowplot)
-library(Hmisc)
 library(ggthemes)
 ```
 
@@ -225,7 +224,7 @@ dat_text <- data.frame(
 
 abundance.feature.plot <- ggplot(aes(y=conc.t, x=feature, fill=feature), data=data.ontogeny) +stat_summary_bin(fun.y="mean", geom="bar") + stat_summary(fun.data = "mean_cl_boot", geom = "linerange",show.legend = FALSE) + facet_wrap(~family.label.feature, ncol=4, scales = "free") + labs(x="", y=expression("Concentration per 1000"~m^{3})) + scale_fill_manual(values=pal,name="Feature")  + theme_cowplot(font_size=12,font_family = "sans") +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) + scale_y_continuous(
   labels = scales::number_format(accuracy = 0.1))
-cowplot::ggsave("../../figs/feature-abundance.png", plot=p, width=7, height=4, units=c("in"))
+cowplot::ggsave("../../figs/feature-abundance.png", plot=abundance.feature.plot, width=7, height=4, units=c("in"))
 ```
 
 ```{r}
@@ -257,16 +256,22 @@ data.ontogeny.weighted.station$depth.scale <- data.ontogeny.weighted.station$dep
 data.ontogeny.prop <- data.ontogeny %>% filter(conc != 'NA') %>% group_by(family.label, stage.label, depth) %>% summarise(count= sum(count),conc.sum = sum(conc)) %>% mutate(prop = count / (sum(count)+0.000001))
 
 data.ontogeny.prop$depth.scale <- as.numeric(data.ontogeny.prop$depth)
-data.ontogeny.prop <- data.ontogeny.prop %>% mutate(depth.scale = if_else(depth.scale==1,2.5,if_else(depth.scale==2,28,75.5)))
+data.ontogeny.prop <- data.ontogeny.prop %>% mutate(depth.scale = if_else(depth.scale==1,0.5,if_else(depth.scale==2,28,75.5)))
 
 data.ontogeny.weighted.total$depth.scale <- data.ontogeny.weighted.total$depth.weighted
 
-violinplot <- ggplot(aes(x=stage.label,y=depth.scale, weight=prop, fill=stage.label), data=data.ontogeny.prop)  + scale_y_reverse(limits=c(100,0)) + geom_violin(adjust = .85, trim=FALSE) + facet_wrap(~ family.label, ncol=4)+theme_cowplot(font_size=12,font_family = "sans") +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) + labs(y="Depth (m)", x=element_blank())  + scale_fill_manual(values=pal,name="Stage") + geom_line(data=data.ontogeny.weighted.total, inherit.aes = FALSE, aes(x=stage.label,y=depth.scale, group=family.label)) + geom_point(data=data.ontogeny.weighted.total, inherit.aes = FALSE, aes(x=stage.label,y=depth.scale)) #ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=family.label),data=data.ontogeny.weighted.total)  
+violinplot <- ggplot(aes(x=stage.label,y=depth.scale, weight=prop, fill=stage.label), data=data.ontogeny.prop)  + scale_y_reverse(limits=c(100,0), breaks = c(0.5, 28, 75.5), labels = c('0-1', '5-50', '51-100')) + geom_violin(adjust = .85, trim=FALSE) + facet_wrap(~ family.label, ncol=4)+theme_cowplot(font_size=12,font_family = "sans") +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) + labs(y="Depth (m)", x=element_blank())  + scale_fill_manual(values=pal,name="Stage") + geom_line(data=data.ontogeny.weighted.total, inherit.aes = FALSE, aes(x=stage.label,y=depth.scale, group=family.label)) + geom_point(data=data.ontogeny.weighted.total, inherit.aes = FALSE, aes(x=stage.label,y=depth.scale)) #ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=family.label),data=data.ontogeny.weighted.total)  
 
 # + stat_summary(fun.y=mean, geom="point", size=2, color="red", data=data.ontogeny.weighted.station, inherit.aes = FALSE,aes(x=stage.label,y=depth.scale))
 
 
+
 ggsave("../../figs/stages-by-family.png", violinplot, width=8, height=6)
+
+# count.graph <- ggplot(aes(x=stage.label,y=depth, weight=prop, fill=stage.label), data=data.ontogeny.prop) + geom_count() + facet_wrap(~ family.label, ncol=4) +theme_cowplot(font_size=12,font_family = "sans") +theme(legend.position = c(0.95, 0.15), legend.justification = c(1, 0), axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) + labs(y="Depth (m)", x=element_blank())  + scale_fill_manual(values=pal,name="Stage") 
+# 
+# + geom_line(data=data.ontogeny.weighted.total, inherit.aes = FALSE, aes(x=stage.label,y=depth.scale, group=family.label)) + geom_point(data=data.ontogeny.weighted.total, inherit.aes = FALSE, aes(x=stage.label,y=depth.scale)) #g
+# 
 
 
 ```
@@ -308,6 +313,17 @@ data.labrid.ontogeny <- filter(data.ontogeny, family=="labridae")
 data.labrid.length <- filter(data.length, family=="labridae")
 ```
 
+## Model selection
+```{r}
+model.ontogeny.labrid.nb.select <- glm.nb(count ~ feature*depth*stage + scale(temperature) + offset(log(volume)),data=data.labrid.ontogeny)
+
+model.length.labrid.gamma.select <- glm(standard_length ~ feature + depth + temperature + chlorophyll_fluorescence, family = Gamma, data=filter(data.length, family == "labridae"))
+
+stepAIC(model.ontogeny.labrid.nb.select)
+stepAIC(model.length.labrid.gamma.select)
+
+```
+
 
 ## Ontogeny
 ```{r}
@@ -328,7 +344,7 @@ Anova(model.ontogeny.labrid.nb, type="III", test="Wald")
 
 data.ontogeny.labrid.posthoc.ovm.stage <- lsmeans::lsmeans(model.ontogeny.labrid.nb, pairwise ~ depth|stage, adjust="Tukey", type="response")
 data.ontogeny.labrid.posthoc.ovm.stage
-cld(data.ontogeny.labrid.posthoc.ovm.stage, alpha=0.05, Letters=letters, type="response",adjust="Tukey")
+cld(glht(data.ontogeny.labrid.posthoc.ovm.stage, alpha=0.05, Letters=letters, type="response",adjust="Tukey"))
 
 data.ontogeny.labrid.posthoc.ovm.depth <- lsmeans::lsmeans(model.ontogeny.labrid.nb, pairwise ~ stage|depth, adjust="Tukey", type="response")
 data.ontogeny.labrid.posthoc.ovm.depth
@@ -380,6 +396,16 @@ lsmip(model.length.labrid.gamma, ~ depth, type="response")
 ```{r}
 data.mullid.ontogeny <- filter(data.ontogeny, family=="mullidae")
 data.mullid.length <- filter(data.length, family=="mullidae")
+```
+
+# Model selection
+```{r}
+model.ontogeny.mullid.nb.select <- glm.nb(count ~ offset(log(volume)) + feature*depth*stage + scale(chlorophyll_fluorescence), data=data.mullid.ontogeny)
+stepAIC(model.ontogeny.mullid.nb.select)
+
+model.length.mullid.gamma.select <- glm(standard_length ~ feature*depth + temperature + dissolved_oxygen, family = Gamma(link = "inverse"), data=data.mullid.length)
+stepAIC(model.length.mullid.gamma.select)
+
 ```
 
 
@@ -456,6 +482,18 @@ lsmip(model.length.mullid.gamma, ~ feature, type="response")
 ```{r}
 data.pomacentrid.ontogeny <- filter(data.ontogeny, family=="pomacentridae")
 data.pomacentrid.length <- filter(data.length, family=="pomacentridae")
+data.pomacentrid.ontogeny$stage.posfle <- data.pomacentrid.ontogeny$stage %>% fct_collapse(POSFLE = c("FLE","POS"))
+data.pomacentrid.ontogeny$stage.posfle <- factor(data.pomacentrid.ontogeny$stage.posfle, levels = c("PRE", "POSFLE"))
+```
+
+## Model selection
+
+```{r}
+model.ontogeny.pomacentrid.nb.select <- glm.nb(count ~ offset(log(volume)) + feature * depth * stage.posfle + scale(temperature) + scale(chlorophyll_fluorescence), data=data.pomacentrid.ontogeny)
+model.length.pomacentrid.gamma.select <- glm(standard_length ~ feature * depth + temperature + salinity + dissolved_oxygen, family = Gamma, data=data.pomacentrid.length)
+
+stepAIC(model.ontogeny.pomacentrid.nb.select)
+stepAIC(model.length.pomacentrid.gamma.select)
 ```
 
 ## Ontogeny
@@ -465,8 +503,6 @@ Seperation in the pomacentrid data, meant we combine the post-flexion and flexio
 
 ```{r}
 
-data.pomacentrid.ontogeny$stage.posfle <- data.pomacentrid.ontogeny$stage %>% fct_collapse(POSFLE = c("FLE","POS"))
-data.pomacentrid.ontogeny$stage.posfle <- factor(data.pomacentrid.ontogeny$stage.posfle, levels = c("PRE", "POSFLE"))
 
 summary(model.ontogeny.pomacentrid.nb <- glm.nb(count ~ offset(log(volume)) + feature * depth * stage.posfle + scale(temperature) + scale(chlorophyll_fluorescence), data=data.pomacentrid.ontogeny))
 
@@ -529,12 +565,24 @@ data.scarid.ontogeny <- filter(data.ontogeny, family=="scaridae")
 data.scarid.length <- filter(data.length, family=="scaridae")
 ```
 
+## Model selection
+
+```{r}
+model.ontogeny.scarid.nb.select <- glm.nb(count ~ offset(log(volume)) + feature + feature*depth + feature*stage +  depth*stage + scale(temperature) + scale(dissolved_oxygen) +scale(salinity), data=data.scarid.ontogeny)
+
+model.length.scarid.gamma.select <- glm(standard_length ~ feature*depth + temperature + salinity, family=Gamma, data=data.scarid.length)
+
+stepAIC(model.ontogeny.scarid.nb.select)
+stepAIC(model.length.scarid.gamma.select)
+```
+
+
 ## Ontogeny
 ```{r}
 data.scarid.ontogeny$stage.prefle <- data.scarid.ontogeny$stage %>% fct_collapse(POSFLE = c("PRE","FLE"))
 #data.scarid.ontogeny$stage.prefle <- factor(data.pomacentrid.ontogeny$stage.posfle, levels = c("PREFLE", "POS"))
 
-summary(model.ontogeny.scarid.nb <- glm.nb(count ~ offset(log(volume)) + feature + depth+ stage + scale(temperature) + scale(dissolved_oxygen) +scale(salinity), data=data.scarid.ontogeny))
+summary(model.ontogeny.scarid.nb <- glm.nb(count ~ offset(log(volume)) + feature + depth + feature*depth + stage + scale(temperature) + scale(dissolved_oxygen) +scale(salinity), data=data.scarid.ontogeny))
 
 model.ontogeny.scarid.resids <- simulateResiduals(model.ontogeny.scarid.nb)
 testOverdispersion(model.ontogeny.scarid.resids)
@@ -594,6 +642,17 @@ lsmip(model.length.scarid.gamma, ~ feature, type="response")
 data.scorpaenid.ontogeny <- filter(data.ontogeny, family=="scorpaenidae")
 data.scorpaenid.length <- filter(data.length, family=="scorpaenidae")
 ```
+
+## Model selection
+```{r}
+model.ontogeny.scorpaenid.nb.select <- glm.nb(count ~ offset(log(volume)) + feature*stage*depth + scale(temperature), data=data.scorpaenid.ontogeny)
+model.length.scorpaenid.gamma.select <- glm(standard_length ~ feature*depth + salinity, family = Gamma, data=data.scorpaenid.length)
+
+stepAIC(model.ontogeny.scorpaenid.nb.select)
+stepAIC(model.length.scorpaenid.gamma.select)
+
+```
+
 
 ## Ontogeny
 ```{r}
@@ -663,6 +722,19 @@ data.serranid.ontogeny <- filter(data.ontogeny, family=="serranidae")
 data.serranid.length <- filter(data.length, family=="serranidae")
 ```
 
+## Model seelction
+
+```{r}
+model.ontogeny.serranid.nb.select <- glm.nb(count ~ offset(log(volume)) + depth*stage*feature+ scale(dissolved_oxygen), data=data.serranid.ontogeny)
+
+model.length.serranid.gamma.select <- glm(standard_length ~ feature * depth + temperature, family = Gamma(link="log"), data=data.serranid.length)
+
+stepAIC(model.ontogeny.serranid.nb.select)
+stepAIC(model.length.serranid.gamma.select)
+
+```
+
+
 ## Ontogeny
 ```{r}
 
@@ -716,6 +788,18 @@ lsmip(model.length.serranid.gamma, ~ depth, type="response")
 data.synodontid.ontogeny <- filter(data.ontogeny, family=="synodontidae")
 data.synodontid.length <- filter(data.length, family=="synodontidae")
 ```
+
+## Model selection
+
+```{r}
+model.ontogeny.synodontid.nb.select <- glm.nb(count ~ offset(log(volume)) + feature*depth*stage +scale(temperature) + scale(dissolved_oxygen), data=data.synodontid.ontogeny)
+
+model.length.synodontid.gamma.select <- glm(standard_length ~ feature + depth + dissolved_oxygen, family = Gamma, data=data.synodontid.length)
+
+
+
+```
+
 
 ## Ontogeny
 ```{r}
