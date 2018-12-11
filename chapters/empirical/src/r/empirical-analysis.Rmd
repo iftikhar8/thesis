@@ -247,7 +247,7 @@ plot2 <- ggplot(aes(x=stage.label,y=depth.weighted, colour=family.label, group=f
 
 both <- plot_grid(plot,plot2)
 #+ geom_ribbon(aes(ymin=depth.weighted-depth.sd, ymax=depth.weighted+depth.sd, fill=family.label), alpha=0.05)
-ggsave("../../figs/weighted-depth.png", plot, width=8, height=5, scale=2.5, units="cm")
+ggsave("../../figs/weighted-depth.png", plot, width=8, height=5, scale=2, units="cm")
 
 data.ontogeny.weighted.station <- data.ontogeny %>% filter(conc != 'NA') %>% mutate(depth.w = if_else(depth==0,0,if_else(depth==25,28,75.5))) %>% group_by(site, family.label, stage.label, depth.w) %>% summarise(count= sum(count),conc.sum = sum(conc)) %>% mutate(prop = conc.sum / (sum(conc.sum)+0.000001)) %>% mutate(depth.z = depth.w*prop) %>% group_by(site, family.label, stage.label) %>% summarise(depth.weighted = sum(depth.z))
 data.ontogeny.weighted.station$depth.scale <- data.ontogeny.weighted.station$depth.weighted
@@ -794,10 +794,10 @@ data.synodontid.length <- filter(data.length, family=="synodontidae")
 ```{r}
 model.ontogeny.synodontid.nb.select <- glm.nb(count ~ offset(log(volume)) + feature*depth*stage +scale(temperature) + scale(dissolved_oxygen), data=data.synodontid.ontogeny)
 
-model.length.synodontid.gamma.select <- glm(standard_length ~ feature + depth + dissolved_oxygen, family = Gamma, data=data.synodontid.length)
+model.length.synodontid.gamma.select <- glm(standard_length ~ feature * depth + dissolved_oxygen, family = Gamma, data=data.synodontid.length)
 
-
-
+stepAIC(model.ontogeny.synodontid.nb.select)
+stepAIC(model.length.synodontid.gamma.select)
 ```
 
 
