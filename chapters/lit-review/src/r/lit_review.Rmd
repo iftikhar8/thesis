@@ -73,14 +73,14 @@ years.data <- data.all %>% dplyr::distinct(paper_id, published)
 years.plot <- ggplot(years.data,aes(published)) + geom_bar(fill=pal[1]) + labs(x="Year published", y="Number of studies") + theme_cowplot(font_size=12,font_family = "sans")
 
 years.plot
-ggsave("../../figs/years.png", plot=years.plot, width=7, height=4, units="cm", dpi=96, scale=2)
+ggsave("../../figs/years.png", plot=years.plot, width=4, height=3, units="in", dpi=300, scale =1.5)
 ```
 
 Figure 2: The taxa modelled
 ```{r}
 data.all$species_type <- as.factor(data.all$species_type)
 taxa.plot <- ggplot(data=data.all,aes(sort_factor(species_type))) + 
-  geom_bar(fill = pal[1]) + coord_flip() + ylab("Number of models") + xlab("Modelled taxa") + scale_x_discrete(labels = c("Cnidarian","Gastropod","Macroalgae","Echinoderm","Polychaete","Coral","Crustacean","Mollusc","Bivalvia","Fish","Generic")) + theme_cowplot(font_size=12,font_family = "sans")
+  geom_bar(fill = pal[1]) + coord_flip() + ylab("Number of models") + xlab("Modelled taxa") + scale_x_discrete(labels = c("Cnidarian","Macroalgae","Bryozoa","Echinoderm","Gastropod","Polychaete","Mollusc","Coral","Crustacean","Bivalvia","Fish","Generic")) + theme_cowplot(font_size=12,font_family = "sans")
 
   
 ggsave("../../figs/taxa.png", plot=taxa.plot, width=90, height=55, units="mm", dpi=96, scale=2)
