@@ -100,29 +100,29 @@ PAGEBREAK
 
 ### Table C2.
 
-: Proportional depth stage abundance profiles for each of the seven fish families evaluated in Chapter 3. Values represent the proportional (within a stage) abundance of each stage within each of three depth ranges (surface: 0-5 m; mixed layer: 5-50 m; deep layer: 50-100 m) and are used to parameterise models run to address Aim 2 of this study.
+: Proportional depth stage abundance profiles for each of the seven fish families evaluated in Chapter 3. Values represent the proportional (within a stage) abundance of each stage within each of three depth ranges (surface: 0-1 m; mixed layer: 5-50 m; deep layer: 50-100 m) and are used to parameterise models run to address Aim 2 of this study.
 
 | Model         | Depth (m) | Preflexion | Flexion | Postflexion |
 |:--------------|:----------|:-----------|:--------|:------------|
-| Labridae      | 0-5       | .275       | .250    | .350        |
+| Labridae      | 0-1       | .275       | .250    | .350        |
 |               | 5-50      | .650       | .550    | .400        |
 |               | 50-100    | .075       | .200    | .250        |
-| Mullidae      | 0-5       | .500       | .500    | .650        |
+| Mullidae      | 0-1       | .500       | .500    | .650        |
 |               | 5-50      | .475       | .375    | .225        |
 |               | 50-100    | .025       | .125    | .125        |
-| Pomacentridae | 0-5       | .400       | .350    | .050        |
+| Pomacentridae | 0-1       | .400       | .350    | .050        |
 |               | 5-50      | .500       | .500    | .850        |
 |               | 50-100    | .100       | .150    | .100        |
-| Scaridae      | 0-5       | .600       | .350    | .300        |
+| Scaridae      | 0-1       | .600       | .350    | .300        |
 |               | 5-50      | .300       | .425    | .500        |
 |               | 50-100    | .100       | .225    | .200        |
-| Scorpaenidae  | 0-5       | .425       | .100    | .100        |
+| Scorpaenidae  | 0-1       | .425       | .100    | .100        |
 |               | 5-50      | .525       | .650    | .500        |
 |               | 50-100    | .050       | .250    | .400        |
-| Serranidae    | 0-5       | .450       | .275    | .100        |
+| Serranidae    | 0-1       | .450       | .275    | .100        |
 |               | 5-50      | .450       | .350    | .300        |
 |               | 50-100    | .100       | .375    | .600        |
-| Synodontidae  | 0-5       | .150       | .250    | .150        |
+| Synodontidae  | 0-1       | .150       | .250    | .150        |
 |               | 5-50      | .550       | .550    | .650        |
 |               | 50-100    | .300       | .200    | .200        |
 
